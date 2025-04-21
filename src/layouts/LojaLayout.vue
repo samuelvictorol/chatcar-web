@@ -8,7 +8,8 @@
                 </q-toolbar-title>
                 <div class="row no-wrap items-center">
                     <q-btn label="sair" color="grey-4" flat class="full-width" to="/" />
-                    <q-btn color="white" glossy class="text-black q-ml-md" icon="menu" @click="rightDrawerOpen = !rightDrawerOpen" />
+                    <q-btn color="white" glossy class="text-black q-ml-md" icon="menu"
+                        @click="rightDrawerOpen = !rightDrawerOpen" />
                 </div>
             </q-toolbar>
         </q-header>
@@ -53,27 +54,23 @@ const menuOptions = ref([
     {
         label: 'Início',
         icon: 'store',
-        // to: '/loja'
-        to: '/'
+        to: '/loja'
     },
     {
         label: 'Leads Captados',
         icon: 'groups',
-        // to: '/loja/leads'
-        to: '/leads'
+        to: '/loja/leads'
     },
     {
         label: 'Estoque',
         icon: 'directions_car',
-        // to: '/loja/estoque'
-        to: '/estoque'
+        to: '/loja/estoque'
     },
-    
+
     {
         label: 'Ajuda',
         icon: 'contact_support',
-        // to: '/loja/ajuda'
-        to: '/ajuda'
+        to: '/loja/ajuda'
     },
 
 ])
