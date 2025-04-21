@@ -5,7 +5,14 @@
             <q-breadcrumbs-el icon="store" label="Início" exact />
         </q-breadcrumbs>
 
-        <div class="text-subtitle1 text-secondary w100 row justify-between no-wrap q-mb-md"><img :src="lojaInfo.imgem" alt="Imagem da Loja" class="rounded-borders q-mb-sm shadow-1" width="100" height="100" /><div><strong>{{ userRole }}</strong> </div></div>
+        <div class="text-subtitle1 text-secondary w100 row justify-between no-wrap q-mb-sm">
+            <img :src="lojaInfo.imgem" alt="Imagem da Loja" class="rounded-borders q-mb-sm shadow-1" width="100" height="100" />
+            <div><strong>{{ userRole }}</strong> 
+            </div>
+        </div>
+        <div class="w100">
+            <q-btn  color="blue" icon="sms" icon-right="link" glossy class="q-mb-sm" to="/loja/perfil/editar" label="Meu Chat" />
+        </div>
         
         <div class="w100 row rounded-borders justify-center align-start">
             <q-card id="perfil-card" class="w60  q-px-sm q-mb-md" flat bordered>

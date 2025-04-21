@@ -7,7 +7,7 @@
                     PRIMAVIA
                 </q-toolbar-title>
                 <div class="row no-wrap items-center">
-                    <q-btn label="sair" color="grey-4" flat class="full-width" @click="rightDrawerOpen = !rightDrawerOpen" />
+                    <q-btn label="sair" color="grey-4" flat class="full-width" to="/" />
                     <q-btn color="white" glossy class="text-black q-ml-md" icon="menu" @click="rightDrawerOpen = !rightDrawerOpen" />
                 </div>
             </q-toolbar>
