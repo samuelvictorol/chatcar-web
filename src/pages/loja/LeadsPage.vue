@@ -26,7 +26,9 @@
                             <!-- Coluna Ações -->
                             <template v-slot:body-cell-acoes="props">
                                 <q-td :props="props">
-                                    <q-btn flat label="Relatório" color="secondary"
+                                    <q-btn flat icon="sms" dense color="blue"
+                                        @click="gerarRelatorio(props.row)" />
+                                    <q-btn flat dense icon="assignment" color="secondary"
                                         @click="gerarRelatorio(props.row)" />
                                 </q-td>
                             </template>
@@ -62,17 +64,18 @@ import { ref } from "vue";
 import RelatorioIA from 'components/RelatorioIA.vue'; // Componente do relatório
 
 const leads = ref([
-    { id: 1, name: 'José Bueno', vendedor: 'não atribuído' },
-    { id: 2, name: 'Maria da Silva', vendedor: 'Dagoberto' },
-    { id: 3, name: 'João da Silva', vendedor: 'Dagoberto' },
-    { id: 4, name: 'Ana Maria', vendedor: 'Maria' },
-    { id: 5, name: 'Carlos Alberto', vendedor: 'Maria' },
+    { id: 1, name: '🟢 José Bueno', vendedor: '-', contato: '61 983314321' },
+    { id: 2, name: '🟠 Maria da Silva', vendedor: 'Dagoberto', contato: '61 983314321' },
+    { id: 3, name: '🟠 João da Silva', vendedor: 'Dagoberto', contato: '61 983314321' },
+    { id: 4, name: '🟠 Ana Maria', vendedor: 'Maria', contato: '61 983314321' },
+    { id: 5, name: '🟠 Carlos Alberto', vendedor: 'Maria', contato: '61 983314321' },
 ]);
 
 const columns = [
     { name: 'name', label: 'Nome', align: 'left', field: 'name' },
     { name: 'vendedor', label: 'Vendedor', align: 'center', field: 'vendedor' },
-    { name: 'acoes', label: 'Ações', align: 'right' }
+    { name: 'contato', label: 'Contato', align: 'center', field: 'contato' },
+    { name: 'acoes', label: 'Ações', align: 'right' },
 ];
 
 const showDialog = ref(false);
@@ -96,14 +99,4 @@ function gerarRelatorio(lead) {
         position: relative;
     }
 }
-
-tr {
-    transition: all 0.3s ease;
-    cursor: pointer!important;
-}
-
-tr:hover {
-    background-color: #c8c8c8;
-}
-
 </style>

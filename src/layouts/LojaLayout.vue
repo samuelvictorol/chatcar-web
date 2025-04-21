@@ -4,13 +4,12 @@
         <q-header class="bg-dark text-white">
             <q-toolbar>
                 <q-toolbar-title>
-                    <!-- <q-avatar>
-                        <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-                    </q-avatar> -->
                     PRIMAVIA
                 </q-toolbar-title>
-
-                <q-btn color="white" glossy class="text-black" icon="menu" @click="rightDrawerOpen = !rightDrawerOpen" />
+                <div class="row no-wrap items-center">
+                    <q-btn label="sair" color="grey-4" flat class="full-width" @click="rightDrawerOpen = !rightDrawerOpen" />
+                    <q-btn color="white" glossy class="text-black q-ml-md" icon="menu" @click="rightDrawerOpen = !rightDrawerOpen" />
+                </div>
             </q-toolbar>
         </q-header>
 
@@ -31,11 +30,8 @@
                 </q-item>
             </q-list>
             <q-separator />
-            <div class="q-px-sm q-pb-xl text-center absolute-bottom q-mb-xl">
-                <q-btn label="Ajuda"  class="full-width
-                text-black q-mt-sm" @click="rightDrawerOpen = !rightDrawerOpen" color="secondary" flat />
-                <q-btn label="Sair" color="red" flat class="full-width
-                q-mt-sm" @click="rightDrawerOpen = !rightDrawerOpen" />
+            <div class="w100 text-right q-px-sm q-py-md text-grey-7">
+                ChatCar IA®
             </div>
         </q-drawer>
 
@@ -72,6 +68,14 @@ const menuOptions = ref([
         // to: '/loja/estoque'
         to: '/estoque'
     },
+    
+    {
+        label: 'Ajuda',
+        icon: 'contact_support',
+        // to: '/loja/ajuda'
+        to: '/ajuda'
+    },
+
 ])
 
 </script>

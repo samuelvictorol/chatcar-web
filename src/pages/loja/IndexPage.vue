@@ -5,10 +5,10 @@
             <q-breadcrumbs-el icon="store" label="Início" exact />
         </q-breadcrumbs>
 
-        <div class="text-subtitle1 text-grey-14 w100 row justify-between no-wrap q-mb-md"><img :src="lojaInfo.imgem" alt="Imagem da Loja" class="rounded-borders q-mb-sm shadow-1" width="100" height="100" /><div><strong>{{ userRole }}</strong> </div></div>
+        <div class="text-subtitle1 text-secondary w100 row justify-between no-wrap q-mb-md"><img :src="lojaInfo.imgem" alt="Imagem da Loja" class="rounded-borders q-mb-sm shadow-1" width="100" height="100" /><div><strong>{{ userRole }}</strong> </div></div>
         
         <div class="w100 row rounded-borders justify-center align-start">
-            <q-card class="w100  q-px-sm q-mb-md" flat bordered>
+            <q-card id="perfil-card" class="w60  q-px-sm q-mb-md" flat bordered>
                 <q-card-section class="q-pa-sm">
                     <div class="text-h5 text-center text-bold text-white">Perfil</div>
                     <q-separator class="bg-grey q-my-sm" />
@@ -26,7 +26,7 @@
                     <q-card-section class="q-pa-sm">
                         <div class="w100 row no-wrap justify-between items-center">
                             <div class="text-h5 text-center text-bold text-white">Vendedores</div>
-                            <q-btn color="green" icon-right="person_add" label="Adicionar" glossy to="/loja/vendedores/adicionar" />
+                            <q-btn color="secondary" icon-right="person_add" glossy to="/loja/vendedores/adicionar" />
                         </div>
                         <q-separator class="q-my-sm bg-grey " />
                         <div v-for="vendedor in vendedores" :key="vendedor.id" class="text-h6 text-left q-mb-xs">
@@ -121,8 +121,18 @@ const leadsRecentes = ref([
     background-color: #141414dc;
     backdrop-filter: blur(4px);
     border-radius: 8px;
-    border-bottom: 3px solid #424242;
+    border-bottom: 3px solid #26A69A;
     cursor: pointer;
     color: #fff!important;
 }
+@media screen and (max-width: 600px) {
+    #perfil-card {
+        width: 100%;
+    }
+    .hoverable-card {
+        min-height: 120px;
+    }
+    
+}
+
 </style>

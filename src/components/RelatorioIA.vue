@@ -1,49 +1,58 @@
 <template>
-    <q-dialog v-model="show" persistent maximized transition-show="slide-up" transition-hide="slide-down">
-        <q-card class="bg-white text-dark">
-            <q-bar class="bg-dark text-white">
-                <div class="text-h6">Relatório Inteligente</div>
-                <q-space />
-                <q-btn dense flat icon="close" @click="show = false" />
-            </q-bar>
+    <div class="q-pa-md q-gutter-md">
+        <q-card flat bordered class="bg-white text-dark shadow-2">
+            <q-card-section class="bg-grey-2">
+                <div class="text-h6 text-primary">Relatório Inteligente do Cliente</div>
+                <div class="text-subtitle2 text-grey-7">Gerado por inteligência artificial</div>
+            </q-card-section>
 
-            <q-card-section class="q-pa-md q-gutter-md">
-                <div class="text-subtitle1 text-weight-bold">📞 Contato do Cliente:</div>
-                <div class="text-body1 q-mb-md">{{ relatorio.telefone }}</div>
+            <q-separator />
 
-                <div class="text-subtitle1 text-weight-bold">🎯 Principais Interesses:</div>
-                <q-banner rounded class="bg-grey-2 text-dark q-pa-md">
+            <q-card-section>
+                <div class="text-subtitle1 q-mb-sm text-bold">📌 Interesses do cliente:</div>
+                <div class="text-body1 text-grey-8" v-if="relatorio.interesses">
                     {{ relatorio.interesses }}
-                </q-banner>
+                </div>
+                <q-skeleton v-else type="text" width="100%" />
+            </q-card-section>
 
-                <div class="text-subtitle1 text-weight-bold q-mt-md">📢 Dicas de Abordagem por Telefone:</div>
-                <q-banner rounded class="bg-grey-2 text-dark q-pa-md">
+            <q-separator />
+
+            <q-card-section>
+                <div class="text-subtitle1 q-mb-sm text-bold">📞 Dicas de abordagem por telefone:</div>
+                <div class="text-body1 text-grey-8" v-if="relatorio.abordagem">
                     {{ relatorio.abordagem }}
-                </q-banner>
+                </div>
+                <q-skeleton v-else type="text" width="100%" />
             </q-card-section>
         </q-card>
-    </q-dialog>
+    </div>
 </template>
 
 <script setup>
-import { ref, defineExpose } from "vue";
+import { ref, onMounted } from 'vue'
 
-const show = ref(false);
+// Simulação de resposta da IA vinda do backend
 const relatorio = ref({
-    telefone: "",
-    interesses: "",
-    abordagem: "",
-});
+    interesses: '',
+    abordagem: ''
+})
 
-// Expor função para ser chamada externamente
-function abrir(dados) {
-    relatorio.value = {
-        telefone: dados.telefone || "(sem telefone)",
-        interesses: dados.interesses || "Não identificado.",
-        abordagem: dados.abordagem || "Nenhuma sugestão encontrada."
-    };
-    show.value = true;
-}
-
-defineExpose({ abrir });
+onMounted(() => {
+    // Simular chamada a API (pode ser substituído por axios)
+    setTimeout(() => {
+        relatorio.value = {
+            interesses:
+                'Cliente demonstrou forte interesse por SUVs automáticos com teto solar, até R$ 95.000, e buscou informações sobre consumo e espaço interno. Mostrou preferência por Jeep Renegade e VW T-Cross.',
+            abordagem:
+                'Inicie a conversa reforçando o conforto e segurança dos modelos SUV, especialmente para viagens em família. Mencione a disponibilidade imediata do Renegade com teto solar. Sugira agendar um test drive e ofereça simulação de financiamento. Evite insistência em modelos que ele não mencionou interesse.'
+        }
+    }, 1000)
+})
 </script>
+
+<style scoped>
+.text-bold {
+    font-weight: 600;
+}
+</style>

@@ -7,7 +7,7 @@
         </q-breadcrumbs>
         <div class="w100 row justify-between no-wrap">
             <div class="text-h5 text-left text-bold text-dark">Estoque</div>
-            <q-btn class="q-mb-sm" color="green" glossy label="Adicionar" icon-right="add_circle" @click="$router.push({ name: 'estoque-adicionar' })" />
+            <q-btn class="q-mb-sm" color="secondary" glossy label="Adicionar" icon-right="add_circle" @click="$router.push({ name: 'estoque-adicionar' })" />
         </div>
         <div class="w100">
             <q-input outlined v-model="buscar" label="Buscar" class="q-mb-md" placeholder="Digite o nome do produto" color="dark" debounce="300" :clearable="true" :dense="true" :hide-bottom-space="true">
@@ -21,7 +21,7 @@
                 <q-card-section class="q-pa-sm">
                     <div v-for="item in estoque" :key="item.id" class="text-h6 text-left estoque-line row items-center q-pa-md q-mb-xs">
                         <img :src="item.img" alt="" width="80" height="80" class="rounded-borders q-mr-md" /> {{ item.nome }}<br>R$ {{ item.preco | currency }},00
-                        <q-btn class="q-ml-auto" color="secondary" label="Detalhes" icon-right="visibility" glossy @click="$router.push({ name: 'estoque-detalhes', params: { id: item.id } })" />
+                        <q-btn class="q-ml-auto" color="blue" label="Detalhes" icon-right="visibility" glossy @click="$router.push({ name: 'estoque-detalhes', params: { id: item.id } })" />
                         <div class="w100 q-pt-xs q-mt-md bg-dark rounded-borders"></div>
                     </div>
                 </q-card-section>
