@@ -5,14 +5,14 @@
         <q-toolbar-title class="text-h6"><q-icon class="q-pb-xs" name="directions_car" size="md"></q-icon>
           ChatCar</q-toolbar-title>
         <!-- <q-btn label="experimente" icon-right="rocket_launch" color="green-14" class="q-mr-sm " glossy to="/loja" /> -->
-        <q-btn color="white" class="text-black" label="iniciar sessão" icon-right="login" glossy to="/loja" />
+        <q-btn color="white" class="text-black" label="entrar" icon-right="login" glossy to="/loja" />
       </q-toolbar>
       <q-tabs inline-label
         v-model="tab" 
-        class="text-secondary"
+        class="text-grey-2"
       >
-        <q-tab class="row"  icon="rocket_launch" label="experimente já" />
-        <q-tab class="row" label="Planos" icon="view_week" />
+        <q-route-tab class="row"  icon="rocket_launch" label="experimente já" to="/free-trial" />
+        <q-route-tab class="row" label="Planos" icon="view_week" />
       </q-tabs>
     </q-header>
 
@@ -27,7 +27,7 @@
       <!-- HERO Section -->
       <section class="q-pb-xl q-pt-lg  bg-dark text-white text-center">
         <div class="container q-pb-xl">
-          <h1 class="text-h3 text-bold "><q-icon name="sms" color="white" class="" size="xl"></q-icon><br>Transforme
+          <h1 class="text-h3 text-bold "><q-icon name="sms" color="secondary" style="filter: drop-shadow(0px 0px 5px white)" size="xl"></q-icon><br>Transforme
             Conversas em Vendas com o ChatCar</h1>
           <p class="text-subtitle1  q-px-lg q-mt-md">
             Uma plataforma inteligente para lojistas e concessionárias automatizarem o atendimento e captarem leads
@@ -103,6 +103,66 @@
 
           <q-btn label="Aproveitar agora" color="green-14" glossy class="shadow-1 q-mt-lg" to="/cadastro" size="lg"
             unelevated />
+        </div>
+      </section>
+      <section id="planos" style="border-bottom: 8px solid grey;" class="q-py-xl bg-grey-2 text-center">
+        <div class="container">
+          <h2 class="text-h4 text-bold q-mb-xl">Escolha seu Plano</h2>
+          <div class="row q-col-gutter-md justify-center">
+            <div class="col-12 col-sm-6 col-md-4">
+              <q-card class="q-pa-md shadow-2">
+                <q-card-section>
+                  <div class="text-h5 text-bold">Gratuito</div>
+                  <div class="text-subtitle2 q-mt-sm">Ideal para testes</div>
+                  <div class="text-h6 q-my-md">R$ 0/mês</div>
+                  <ul class="text-left">
+                    <li>1 loja cadastrada</li>
+                    <li>Chat IA limitado</li>
+                    <li>Leads limitados</li>
+                  </ul>
+                </q-card-section>
+                <q-card-actions align="center">
+                  <q-btn label="Começar" color="primary" to="/cadastro" />
+                </q-card-actions>
+              </q-card>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4">
+              <q-card class="q-pa-md shadow-4 bg-blue-1">
+                <q-card-section>
+                  <div class="text-h5 text-bold">Profissional</div>
+                  <div class="text-subtitle2 q-mt-sm">Para crescer com IA</div>
+                  <div class="text-h6 q-my-md">R$ 59,90/mês</div>
+                  <ul class="text-left">
+                    <li>Até 5 lojas</li>
+                    <li>Chat IA ilimitado</li>
+                    <li>Geração de leads qualificados</li>
+                    <li>Relatórios inteligentes</li>
+                  </ul>
+                </q-card-section>
+                <q-card-actions align="center">
+                  <q-btn label="Assinar agora" color="green-14" glossy to="/cadastro" />
+                </q-card-actions>
+              </q-card>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4">
+              <q-card class="q-pa-md shadow-2">
+                <q-card-section>
+                  <div class="text-h5 text-bold">Enterprise</div>
+                  <div class="text-subtitle2 q-mt-sm">Soluções personalizadas</div>
+                  <div class="text-h6 q-my-md">Sob consulta</div>
+                  <ul class="text-left">
+                    <li>Leads ilimitados</li>
+                    <li>Suporte dedicado</li>
+                    <li>Integrações exclusivas</li>
+                    <li>Gestão por equipe</li>
+                  </ul>
+                </q-card-section>
+                <q-card-actions align="center">
+                  <q-btn label="Fale conosco" color="primary" to="/contato" />
+                </q-card-actions>
+              </q-card>
+            </div>
+          </div>
         </div>
       </section>
       <div class="w100 bg-grad-landing" style="height: 40vh"></div>

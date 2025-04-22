@@ -5,6 +5,10 @@ const routes = [
     component: () => import('layouts/LandingLayout.vue'),
   },
   {
+    path: '/free-trial',
+    component: () => import('layouts/FreeTrialLayout.vue'),
+  },
+  {
     path: '/loja',
     component: () => import('layouts/LojaLayout.vue'),
     children: [
