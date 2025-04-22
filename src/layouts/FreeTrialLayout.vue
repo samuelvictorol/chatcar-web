@@ -7,79 +7,110 @@
                         <q-icon name="sms" size="lg" to="/" />
                     </q-avatar>
                     <div class="q-pl-sm">
-                        Chat da Loja
+                        ChatCar Teste
                     </div>
                 </q-toolbar-title>
-                <q-btn glossy color="secondary" label="estoque" @click="toggleEstoqueDrawer" />
+                <q-btn class="q-mr-sm" color="grey-2" to="/" flat icon="logout" />
+                <q-btn glossy color="secondary" icon="store" @click="toggleEstoqueDrawer" />
             </q-toolbar>
         </q-header>
 
         <!-- Menu lateral com estoque completo -->
         <q-drawer v-model="showEstoqueDrawer" side="right" bordered>
             <q-toolbar class="bg-dark text-white">
-                <q-toolbar-title>Estoque completo</q-toolbar-title>
+                <q-toolbar-title>Estoque</q-toolbar-title>
                 <q-btn flat round icon="close" @click="showEstoqueDrawer = false" />
             </q-toolbar>
-            <q-input v-model="filtroEstoque" label="Filtrar estoque..." dense debounce="300" class="q-pa-sm" />
+            <q-input v-model="filtroEstoque" color="secondary" outlined label="Filtrar estoque..." dense debounce="300"
+                class="q-pa-sm">
+                <template v-slot:append>
+                    <q-icon name="search" class="cursor-pointer" color="secondary" />
+                </template>
+            </q-input>
             <q-list>
-                <q-item v-for="(carro, i) in estoqueFiltrado" :key="i">
-                    <q-item-section>
-                        <q-item-label>{{ carro.modelo }} - {{ carro.ano }}</q-item-label>
-                        <q-item-label caption>{{ carro.categoria }}</q-item-label>
+                <q-item id="item-estoque" v-for="(carro, i) in estoqueFiltrado" :key="i">
+                    <q-item-section style="border-bottom: 1px solid #26A69A ;" class="q-pb-sm">
+                        <div class="row w100 no-wrap items-center">
+                            <div class="column text-bold">
+                                <q-item-label>{{ carro.modelo }} - {{ carro.ano }}</q-item-label>
+                                <q-item-label caption>{{ carro.categoria }}</q-item-label>
+                            </div>
+                            <q-btn icon="visibility" color="secondary" glossy dense class="q-ml-md"
+                                @click="() => $q.notify({ message: 'detalhes do carro', color: 'secondary' })" />
+                        </div>
                     </q-item-section>
                 </q-item>
             </q-list>
-            <q-btn class="q-mt-md q-ma-sm" color="primary" to="/" label="Voltar" />
         </q-drawer>
 
         <!-- Página principal do chat -->
         <q-page-container class="bg-dark">
-            <q-page class="q-pa-md bg-grey-4 column justify-end full-height">
-                <div class="scroll column q-gutter-sm" style="flex: 1; overflow-y: auto">
+            <q-page class="q-pa-none bg-grey-4 column full-height relative">
+                <!-- Vitrine fixa -->
+                <div class="bg-dark text-white q-pa-sm w100" style="position: sticky; top: 50px; z-index: 10;">
+
+                    <div class="text-h6 q-mb-sm">Vitrine de SuaLoja</div>
+
                     <q-carousel v-if="carrossel.length" v-model="carrosselIndex" navigation navigation-color="secondary"
-                        arrows height="250px" class="bg-dark text-white q-my-md q-py-lg">
-                        <q-carousel-slide v-for="(carro, i) in carrossel" :name="i" :key="i"
-                            class="column items-center justify-center">
-                            <q-img :src="carro.img_url" :alt="carro.modelo" class="q-mb-sm rounded-borders shadow-1"
-                                style="max-width: 100px" />
-                            <div class="text-weight-bold">{{ carro.modelo }}</div>
-                            <div>{{ carro.categoria }} - {{ carro.ano }}</div>
-                            <q-btn icon="search" color="secondary" glossy></q-btn>
+                        arrows height="250px" class="bg-dark  text-white q-pb-md">
+                        <q-carousel-slide v-for="(carro, i) in carrossel" :name="i" :key="i" class="relative-position">
+                            <q-img :src="carro.img_url" :alt="carro.modelo" class="fit"
+                                style="object-fit: cover; border-radius: 12px;">
+                                <div class="absolute-bottom text-white q-pa-sm"
+                                    style="background: #070707a2; backdrop-filter: blur(4px);">
+                                    <div class="text-subtitle1 text-weight-bold">{{ carro.modelo }}</div>
+                                    <div class="text-caption">{{ carro.categoria }} - {{ carro.ano }}</div>
+                                    <q-btn icon="search" color="secondary" glossy dense class="q-mt-sm full-width"
+                                        label="Ver Detalhes" />
+                                </div>
+                            </q-img>
                         </q-carousel-slide>
                     </q-carousel>
+                </div>
+
+                <div ref="mensagensContainer" class="col scroll q-pa-md q-gutter-sm"
+                    style="min-height: 0; overflow-y: auto;">
                     <q-chat-message v-for="(msg, index) in messages" :key="index" :sent="msg.from === 'user'"
                         :text="[msg.text]" :name="msg.from === 'user' ? 'Você' : 'Concessionária'"
                         :bg-color="msg.from === 'user' ? 'blue-2' : 'grey-3'" />
                 </div>
-
-                <div class="row q-mt-md">
-                    <q-input filled v-model="input" class="col" placeholder="Pergunte algo sobre o estoque..."
-                        @keyup.enter="sendMessage" />
+                <!-- Input fixo no final -->
+                <div class="q-pa-md bg-white row items-center" style="flex-shrink: 0;">
+                    <q-input filled v-model="input" color="secondary" class="col"
+                        placeholder="Pergunte algo sobre o estoque..." @keyup.enter="sendMessage" />
                     <q-btn v-if="interacoes >= 5" icon="rocket" color="orange" flat round
                         @click="() => $q.notify('chama resultado por ia aqui')" />
                     <q-btn icon="send" color="secondary" flat round @click="sendMessage" />
                 </div>
             </q-page>
+
+
         </q-page-container>
     </q-layout>
 </template>
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { useQuasar } from 'quasar'
+import { nextTick } from 'vue'
+const mensagensContainer = ref(null)
 
 const $q = useQuasar()
 
 // Mock do estoque com imagens e valores
 const estoque = [
-    { modelo: 'Fiat Uno', categoria: 'popular', ano: 2015, valor: 25000, img_url: '/logo.jpg' },
-    { modelo: 'Chevrolet Onix', categoria: 'popular', ano: 2020, valor: 48000, img_url: '/logo.jpg' },
-    { modelo: 'Toyota Corolla', categoria: 'sedan', ano: 2019, valor: 72000, img_url: '/logo.jpg' },
-    { modelo: 'Volkswagen T-Cross', categoria: 'SUV', ano: 2021, valor: 89000, img_url: '/logo.jpg' },
-    { modelo: 'Jeep Renegade', categoria: 'SUV', ano: 2022, valor: 95000, img_url: '/logo.jpg' },
-    { modelo: 'Honda Civic', categoria: 'sedan', ano: 2020, valor: 88000, img_url: '/logo.jpg' },
-    { modelo: 'Ford Ka', categoria: 'popular', ano: 2018, valor: 32000, img_url: '/logo.jpg' },
-    { modelo: 'Hyundai Creta', categoria: 'SUV', ano: 2022, valor: 104000, img_url: '/logo.jpg' },
-    { modelo: 'Renault Kwid', categoria: 'popular', ano: 2023, valor: 46000, img_url: '/logo.jpg' }
+    { modelo: 'Fiat Uno', categoria: 'popular', ano: 2015, valor: 25000, img_url: '/uno.jpg' },
+    { modelo: 'Chevrolet Onix', categoria: 'popular', ano: 2020, valor: 48000, img_url: '/onix.jpg' },
+    { modelo: 'Chevrolet Camaro', categoria: 'esportivo', ano: 2023, valor: 46000, img_url: '/camaro.jpg' },
+    { modelo: 'Toyota Corolla', categoria: 'sedan', ano: 2019, valor: 72000, img_url: '/corolla.jpg' },
+    { modelo: 'Volkswagen T-Cross', categoria: 'SUV', ano: 2021, valor: 89000, img_url: '/tcross.jpg' },
+    { modelo: 'Jeep Renegade', categoria: 'SUV', ano: 2022, valor: 95000, img_url: '/renegade.jpg' },
+    { modelo: 'Renault Kwid', categoria: 'popular', ano: 2023, valor: 46000, img_url: '/kwid.jpg' },
+    { modelo: 'Honda Civic', categoria: 'sedan', ano: 2020, valor: 88000, img_url: '/civic.jpg' },
+    { modelo: 'Ford Ka', categoria: 'popular', ano: 2018, valor: 32000, img_url: '/ka.jpg' },
+    { modelo: 'Hyundai Creta', categoria: 'SUV', ano: 2022, valor: 104000, img_url: '/creta.jpg' },
+    { modelo: 'Up Tsi', categoria: 'hatch', ano: 2016, valor: 46000, img_url: '/up.jpg' },
+    { modelo: 'Ford Mustang', categoria: 'esportivo', ano: 2016, valor: 46000, img_url: '/mustang.jpg' },
+    { modelo: 'Chevy Impala', categoria: 'colecionador', ano: 1975, valor: 290000, img_url: '/impala.jpg' },
 ]
 
 const messages = ref([])
@@ -104,7 +135,7 @@ const estoqueFiltrado = computed(() => {
 })
 onMounted(() => {
     $q.dialog({
-        title: 'Bem-vindo!',
+        title: 'Bem-vindo(a) à SuaLoja!',
         message: 'Qual o seu nome?',
         prompt: {
             model: '',
@@ -122,6 +153,7 @@ onMounted(() => {
             setTimeout(() => {
                 window.location.reload()
             }, 2000)
+            return
         }
 
         usuario.value.nome = nome
@@ -146,97 +178,118 @@ onMounted(() => {
                 setTimeout(() => {
                     window.location.reload()
                 }, 2000)
+                return
             }
 
             usuario.value.telefone = telefone
 
+            // Categorias únicas do estoque
+            const categoriasUnicas = [
+                ...new Set(estoque.map(carro => carro.categoria))
+            ]
+
+            const categoriaOptions = categoriasUnicas.map(cat => ({
+                label: cat.charAt(0).toUpperCase() + cat.slice(1),
+                value: cat
+            }))
+
             $q.dialog({
                 title: 'Preferências',
-                message: 'Quais tipos de carro você prefere?',
+                message: 'Quais tipos de carro você mais te interessa?',
                 options: {
                     type: 'checkbox',
                     model: [],
                     color: 'secondary',
-                    items: [
-                        { label: 'Popular', value: 'popular' },
-                        { label: 'SUV', value: 'SUV' },
-                        { label: 'Sedan', value: 'sedan' }
-                    ]
+                    items: categoriaOptions
                 },
                 persistent: true
             }).onOk(preferencias => {
                 if (!preferencias.length) {
-                    // mostra 5 carros aleatórios
                     const randomCarros = estoque.sort(() => 0.5 - Math.random()).slice(0, 5)
                     carrossel.value = randomCarros
-                    messages.value.push({
-                        from: 'bot',
-                        text: `Olá ${nome.split(' ')[0]}! Veja algumas opções aleatórias ⬆️`
-                    })
-                    messages.value.push({
-                        from: 'bot',
-                        text: `🧐 Me diga qual carro você procura! `
-                    })
-                    messages.value.push({
-                        from: 'bot',
-                        text: `Se quiser ver mais opções, clique no botão "estoque" ao lado!`
-                    })
-                    messages.value.push({
-                        from: 'bot',
-                        text:  `😁 Você pode pesquisar por modelo, ano, categoria ou valor!`
-                    })
-                    return
                 }
+                messages.value.push({
+                    from: 'bot',
+                    text: `Se quiser ver mais opções, clique no ícone de "estoque" na parte superior.`,
+                })
+                messages.value.push({
+                    from: 'bot',
+                    text: `😁 Qual veículo você busca? Poderia me informar o modelo, ano, categoria ou preço?`
+                })
 
                 usuario.value.preferencias = preferencias
 
-                const carrosSugeridos = estoque.filter(e =>
-                    preferencias.includes(e.categoria)).slice(0, 5)
+                $q.dialog({
+                    title: 'Nos conte mais...',
+                    message: 'Se quiser, descreva em poucas palavras como pretende usar o carro (uso urbano, família, trabalho, etc). Isso nos ajuda a entender melhor seu perfil:',
+                    prompt: {
+                        model: '',
+                        type: 'textarea',
+                        color: 'secondary',
+                        isValid: val => true // não obrigatório
+                    },
+                    persistent: false
+                }).onOk(descricao => {
+                    // usuario.value.descricao = descricao || ''
 
-                carrossel.value = carrosSugeridos
-                messages.value.push({
-                    from: 'bot',
-                    text: `Olá ${nome.split(' ')[0]}! Veja algumas opções com base no seu perfil:`
+                    // const carrosSugeridos = estoque
+                    //     .filter(carro => preferencias.includes(carro.categoria))
+                    //     .slice(0, 5)
+
+                    // carrossel.value = carrosSugeridos
+
+                    // messages.value.push({
+                    //     from: 'bot',
+                    //     text: `Olá ${nome.split(' ')[0]}! Veja algumas opções com base no seu perfil⬆️`
+                    // })
                 })
             })
         })
     })
 })
+
 function toggleEstoqueDrawer() {
     showEstoqueDrawer.value = !showEstoqueDrawer.value
 }
-
 function sendMessage() {
-    const question = input.value.trim()
-    if (!question) return
+    if (!input.value.trim()) return
 
-    interacoes.value += 1
-    messages.value.push({ from: 'user', text: question })
+    const texto = input.value.trim()
+    messages.value.push({ from: 'user', text: texto })
+    interacoes.value++
+
     input.value = ''
 
-    let resposta = 'Desculpe, não encontrei nenhum carro com esses critérios.'
-    let resultados = []
+    const termo = texto.toLowerCase()
 
-    // Buscas por nome, desc, ano ou valor
-    resultados = estoque.filter(c =>
-        c.modelo.toLowerCase().includes(question.toLowerCase()) ||
-        c.categoria.toLowerCase().includes(question.toLowerCase()) ||
-        String(c.ano).includes(question) ||
-        String(c.valor).includes(question)
+    const resultado = estoque.filter(carro =>
+        carro.modelo.toLowerCase().includes(termo) ||
+        carro.categoria.toLowerCase().includes(termo) ||
+        carro.ano.toString().includes(termo) ||
+        carro.valor.toString().includes(termo)
     )
 
-    if (resultados.length === 1) {
-        const c = resultados[0]
-        resposta = `🔎 Resultado: ${c.modelo} ${c.ano} (${c.categoria}) - R$ ${c.valor.toLocaleString()}`
-    } else if (resultados.length > 1) {
-        resposta = `🔎 Encontrei ${resultados.length} opções para você:`
-        carrossel.value = resultados.slice(0, 5)
+    if (resultado.length) {
+        messages.value.push({
+            from: 'bot',
+            text: `🔍 Encontrei ${resultado.length} carro(s) que podem te interessar. Veja na vitrine acima!`
+        })
+        carrossel.value = resultado
+    } else {
+        messages.value.push({
+            from: 'bot',
+            text: `😕 Não encontrei resultados com esse termo. Tente algo como "SUV", "Corolla", "2020" ou "até 50 mil".`
+        })
     }
 
-    setTimeout(() => {
-        messages.value.push({ from: 'bot', text: resposta })
-    }, 400)
+    nextTick(() => {
+        if (mensagensContainer.value) {
+            mensagensContainer.value.scrollTop = mensagensContainer.value.scrollHeight
+        }
+    })
 }
+
+
 
 watch(interacoes, (val) => {
     if (val === 5) {
@@ -250,10 +303,23 @@ watch(interacoes, (val) => {
 })
 </script>
 <style scoped>
+#item-estoque {
+    cursor: pointer;
+    transform: all 0.2s linear;
+}
+
+#item-estoque:hover {
+    background-color: #26A69A !important;
+    color: white !important;
+}
 
 @media (min-width: 800px) {
     .q-page-container {
         padding: 0 300px 0 300px;
     }
+}
+
+.scroll {
+    scroll-behavior: smooth;
 }
 </style>
