@@ -10,7 +10,7 @@
 
     <q-page-container>
       <div class="w100">
-        <q-img src="ia.png" class="w100" height="400px">
+        <q-img src="ia.png" class="w100" style="position: fixed; z-index: -90" height="400px">
           <div class="absolute-bottom bg-black text-white q-pa-md">
             <h2 class="text-h4">ChatCar IA</h2>
           </div>
@@ -27,9 +27,8 @@
           <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" class="q-mt-lg" to="/cadastro" unelevated size="lg" />
         </div>
       </section>
-
       <!-- Como Funciona -->
-      <section class="q-py-xl container text-center">
+      <section class="bg-grey-2 q-py-xl container text-center">
         <h2 class="text-h4 text-bold q-pb-lg">Como Funciona?</h2>
         <div class="row q-col-gutter-md">
           <div class="col-12 col-md-4">
@@ -49,7 +48,7 @@
           </div>
         </div>
       </section>
-
+        <div class="w100" style="height: 40vh"></div>
       <!-- Benefícios -->
       <section class="bg-grey-2 q-py-xl text-center">
         <div class="">
@@ -90,10 +89,11 @@
               </div>
             </div>
           </div>
-      
+          
           <q-btn label="Aproveitar agora" color="green-14" glossy class="shadow-1 q-mt-lg" to="/cadastro" size="lg" unelevated />
         </div>
       </section>
+      <div class="w100" style="height: 40vh"></div>
       <section class="q-py-xl bg-grey-1 text-center">
         <div class="container q-px-md">
           <h2 class="text-h4 text-bold q-mb-md">IA Superinteligente Integrada à OpenAI</h2>
@@ -112,7 +112,7 @@
         </div>
       </section>
       <!-- Sobre -->
-      <section class="q-py-xl container text-center">
+      <section class="bg-grey-3 q-py-xl container text-center">
         <h2 class="text-h4 text-bold q-pb-lg">Sobre o ChatCar</h2>
         <p class="text-body1 q-px-md">
           O ChatCar foi criado por especialistas em tecnologia e vendas, com foco em transformar o processo de
