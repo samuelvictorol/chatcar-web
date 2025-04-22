@@ -2,10 +2,18 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated class="bg-dark text-white">
       <q-toolbar class="container">
-        <q-toolbar-title class="text-h6"><q-icon class="q-pb-xs" name="directions_car" size="md" ></q-icon> ChatCar</q-toolbar-title>
-        <q-btn label="experimente!" color="green-14" class="q-mr-sm " glossy to="/loja" />
-        <q-btn  color="white" class="text-black " icon-right="login" glossy to="/loja" />
+        <q-toolbar-title class="text-h6"><q-icon class="q-pb-xs" name="directions_car" size="md"></q-icon>
+          ChatCar</q-toolbar-title>
+        <!-- <q-btn label="experimente" icon-right="rocket_launch" color="green-14" class="q-mr-sm " glossy to="/loja" /> -->
+        <q-btn color="white" class="text-black" label="iniciar sessão" icon-right="login" glossy to="/loja" />
       </q-toolbar>
+      <q-tabs inline-label
+        v-model="tab" 
+        class="text-secondary"
+      >
+        <q-tab class="row"  icon="rocket_launch" label="experimente já" />
+        <q-tab class="row" label="Planos" icon="view_week" />
+      </q-tabs>
     </q-header>
 
     <q-page-container>
@@ -17,9 +25,10 @@
         </q-img>
       </div>
       <!-- HERO Section -->
-      <section class="q-py-xl  bg-dark text-white text-center">
+      <section class="q-pb-xl q-pt-lg  bg-dark text-white text-center">
         <div class="container q-pb-xl">
-          <h1 class="text-h3 text-bold ">Transforme Conversas em Vendas com o ChatCar</h1>
+          <h1 class="text-h3 text-bold "><q-icon name="sms" color="white" class="" size="xl"></q-icon><br>Transforme
+            Conversas em Vendas com o ChatCar</h1>
           <p class="text-subtitle1  q-px-lg q-mt-md">
             Uma plataforma inteligente para lojistas e concessionárias automatizarem o atendimento e captarem leads
             prontos para comprar.
@@ -48,7 +57,7 @@
           </div>
         </div>
       </section>
-        <div class="w100" style="height: 40vh"></div>
+      <div class="w100 bg-grad-landing" style="height: 40vh"></div>
       <!-- Benefícios -->
       <section class="bg-grey-2 q-py-xl text-center">
         <div class="">
@@ -76,33 +85,38 @@
       <section class="q-py-xl bg-blue text-white text-center">
         <div class="container">
           <div class="text-h4 text-bold">Promoção por tempo limitado!</div>
-          <p class="text-subtitle1 q-mt-sm">De <s>R$ 159,99</s> por apenas <strong class="text-h5">R$ 59,90/mês</strong></p>
-      
+          <p class="text-subtitle1 q-mt-sm">De <s>R$ 159,99</s> por apenas <strong class="text-h5">R$ 59,90/mês</strong>
+          </p>
+
           <div class="row justify-center q-mt-md">
             <div class="col-auto">
               <div class="text-h6">Oferta termina em:</div>
               <div class="row justify-center items-center q-gutter-sm q-mt-sm">
-                <div v-for="(time, label) in countdown" :key="label" class="q-pa-sm bg-white text-blue-14 text-bold rounded-borders">
+                <div v-for="(time, label) in countdown" :key="label"
+                  class="q-pa-sm bg-white text-blue-14 text-bold rounded-borders">
                   <div class="text-h6">{{ time }}</div>
                   <div class="text-caption">{{ label }}</div>
                 </div>
               </div>
             </div>
           </div>
-          
-          <q-btn label="Aproveitar agora" color="green-14" glossy class="shadow-1 q-mt-lg" to="/cadastro" size="lg" unelevated />
+
+          <q-btn label="Aproveitar agora" color="green-14" glossy class="shadow-1 q-mt-lg" to="/cadastro" size="lg"
+            unelevated />
         </div>
       </section>
-      <div class="w100" style="height: 40vh"></div>
+      <div class="w100 bg-grad-landing" style="height: 40vh"></div>
       <section class="q-py-xl bg-grey-1 text-center">
         <div class="container q-px-md">
           <h2 class="text-h4 text-bold q-mb-md">IA Superinteligente Integrada à OpenAI</h2>
           <p class="text-subtitle1 q-mt-md">
-            Utilizamos a mais avançada versão do ChatGPT, desenvolvida pela OpenAI, para automatizar conversas com altíssima
+            Utilizamos a mais avançada versão do ChatGPT, desenvolvida pela OpenAI, para automatizar conversas com
+            altíssima
             precisão, empatia e poder de persuasão.
           </p>
           <p class="text-body1 q-mt-sm">
-            A inteligência artificial do ChatCar entende as necessidades dos seus clientes, responde com linguagem natural e
+            A inteligência artificial do ChatCar entende as necessidades dos seus clientes, responde com linguagem
+            natural e
             personalizada, e direciona cada conversa para uma captação de lead superqualificado.
           </p>
           <p class="text-body1 q-mt-sm">
@@ -186,7 +200,12 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.container {
+.bg-grad-landing {
+  background: #000;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #0000005f, #F5F5F5);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #00000000, #29292971);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-
 </style>

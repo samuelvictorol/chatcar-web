@@ -1,41 +1,78 @@
 <template>
-    <q-page class="q-pa-md q-gutter-y-md column items-stretch full-height">
+    <q-page class="q-pa-md column items-stretch full-height">
         <!-- Breadcrumb -->
-        <q-breadcrumbs class="text-grey-8 rounded-borders q-mb-sm" separator-icon="chevron_right">
-            <q-breadcrumbs-el icon="store" label="Início" exact />
+        <q-breadcrumbs class="text-grey-8 q-mb-md" separator-icon="chevron_right">
+            <q-breadcrumbs-el icon="store" label="Início" to="/loja" />
             <q-breadcrumbs-el icon="directions_car" label="Estoque" exact />
         </q-breadcrumbs>
-        <div class="w100 row justify-between no-wrap">
-            <div class="text-h5 text-left text-bold text-dark">Estoque</div>
-            <q-btn class="q-mb-sm" color="secondary" glossy label="Adicionar" icon-right="add_circle" @click="$router.push({ name: 'estoque-adicionar' })" />
+
+        <div class="row justify-between items-center q-mb-md">
+            <div class="text-h5 text-bold text-dark">Estoque</div>
+            <q-btn color="secondary" glossy label="Adicionar" icon-right="add_circle"
+                @click="$router.push({ name: 'estoque-adicionar' })" />
         </div>
-        <div class="w100">
-            <q-input outlined v-model="buscar" label="Buscar" class="q-mb-md" placeholder="Digite o nome do produto" color="dark" debounce="300" :clearable="true" :dense="true" :hide-bottom-space="true">
-                <template v-slot:append>
-                    <q-icon name="search" class="cursor-pointer" color="dark" @click.stop.prevent="" />
-                </template>
-            </q-input>
-        </div>
-        <div class="w100 row rounded-borders justify-center align-start">
-            <q-card class="w100  q-px-sm q-mb-md" flat bordered>
-                <q-card-section class="q-pa-sm">
-                    <div v-for="item in estoque" :key="item.id" class="text-h6 text-left estoque-line row items-center q-pa-md q-mb-xs">
-                        <img :src="item.img" alt="" width="80" height="80" class="rounded-borders q-mr-md" /> {{ item.nome }}<br>R$ {{ item.preco | currency }},00
-                        <q-btn class="q-ml-auto" color="blue" label="Detalhes" icon-right="visibility" glossy @click="$router.push({ name: 'estoque-detalhes', params: { id: item.id } })" />
-                        <div class="w100 q-pt-xs q-mt-md bg-dark rounded-borders"></div>
-                    </div>
+
+        <q-input outlined dense debounce="300" color="dark" v-model="buscar" label="Buscar" class="q-mb-lg" clearable
+            placeholder="Digite o nome do veículo">
+            <template v-slot:append>
+                <q-icon name="search" class="cursor-pointer" color="dark" />
+            </template>
+        </q-input>
+
+        <q-card flat bordered class="q-pa-xs">
+            <q-card-section>
+                <q-row class="row w100 justify-center items-center" v-if="estoque.length">
+                    <q-card v-for="item in estoque" :key="item.id" id="card-estoque" bordered flat
+                        class="w100 q-hoverable q-ma-sm">
+                        <q-img :src="item.img" class="rounded-borders w100" height="250px" style="object-fit: fill;" />
+                        <q-card-section>
+                            <div class="text-subtitle1 text-bold">{{ item.nome }}</div>
+                            <div class="text-body2 text-grey-8">R$ {{ item.preco | currency }},00</div>
+                        </q-card-section>
+                        <q-card-actions align="right">
+                            <q-btn color="primary" glossy icon="visibility" label="Detalhes"
+                                @click="abrirDetalhes(item)" />
+                        </q-card-actions>
+                    </q-card>
+                </q-row>
+                <div v-else class="text-center text-grey-6 q-pt-lg">
+                    Nenhum veículo encontrado.
+                </div>
+            </q-card-section>
+        </q-card>
+
+        <!-- Dialog de Detalhes -->
+        <q-dialog v-model="dialogDetalhes">
+            <q-card style="min-width: 350px; max-width: 90vw;">
+                <q-card-section class="row items-center q-pb-none">
+                    <div class="text-h6">Detalhes do Veículo</div>
+                    <q-space />
+                    <q-btn icon="close" flat round dense v-close-popup />
+                </q-card-section>
+
+                <q-separator />
+
+                <q-card-section>
+                    <q-img :src="veiculoSelecionado?.img" class="q-mb-md rounded-borders" height="180px" fit="cover" />
+                    <div class="text-subtitle1 text-bold">{{ veiculoSelecionado?.nome }}</div>
+                    <div class="text-body2 q-mb-xs">Preço: R$ {{ veiculoSelecionado?.preco | currency }},00</div>
+                    <div class="text-body2">ID: {{ veiculoSelecionado?.id }}</div>
+                    <!-- Adicione mais campos conforme necessário -->
                 </q-card-section>
             </q-card>
-            <q-separator class="q-mb-md w100" />
-        </div>
+        </q-dialog>
     </q-page>
 </template>
-
 <script setup>
 import { ref } from "vue";
 
 const buscar = ref('');
-
+const dialogDetalhes = ref(false)
+const veiculoSelecionado = ref(null)
+function abrirDetalhes(item) {
+    veiculoSelecionado.value = item
+    dialogDetalhes.value = true
+}
 const estoque = ref([
     {
         id: 1,
@@ -56,7 +93,7 @@ const estoque = ref([
         preco: 45000.00,
         img: 'data:image/jpeg;base64,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',
         cor: 'cinza',
-    
+
     },
     {
         id: 3,
@@ -106,8 +143,19 @@ const estoque = ref([
 .estoque-line {
     transition: all 0.3s ease;
 }
+
 .estoque-line:hover {
     background-color: #f0f0f0;
     cursor: pointer;
+}
+
+.q-hoverable:hover {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 700px) {
+    #card-estoque {
+        width: 30%;
+    }
 }
 </style>

@@ -2,7 +2,7 @@
     <q-page class="q-pa-md q-gutter-y-md column items-stretch full-height">
         <!-- Breadcrumb -->
         <q-breadcrumbs class="text-grey-8 rounded-borders q-mb-sm" separator-icon="chevron_right">
-            <q-breadcrumbs-el icon="store" label="Início" exact />
+            <q-breadcrumbs-el icon="store" label="Início" to="/loja" />
             <q-breadcrumbs-el icon="groups" label="Leads" exact />
         </q-breadcrumbs>
 

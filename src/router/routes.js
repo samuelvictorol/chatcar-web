@@ -10,7 +10,8 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/loja/IndexPage.vue') },
       { path: 'leads', component: () => import('pages/loja/LeadsPage.vue') },
-      { path: 'estoque', component: () => import('pages/loja/EstoquePage.vue') }
+      { path: 'estoque', component: () => import('pages/loja/EstoquePage.vue') },
+      { path: 'ajuda', component: () => import('pages/loja/AjudaPage.vue') }
     ]
   },
 
