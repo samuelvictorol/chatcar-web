@@ -44,7 +44,7 @@
             Uma plataforma inteligente para lojistas e concessionárias automatizarem o atendimento e captarem leads
             prontos para comprar.
           </p>
-          <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" class="q-mt-lg" to="/cadastro" unelevated size="lg" />
+          <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" icon="query_stats" class="q-px-lg  q-mt-lg" to="/free-trial" unelevated size="lg" />
         </div>
       </section>
       <!-- Como Funciona -->
@@ -127,7 +127,7 @@
                 <q-card-section>
                   <div class="text-h5 text-bold">Free Trial</div>
                   <div class="text-subtitle2 q-mt-sm">Simule como funciona</div>
-                  <div class="text-h6 q-my-md">Gratuito</div>
+                  <div class="text-h6 q-my-md text-secondary text-bold">Gratuito</div>
                   <ul class="text-left">
                     <li>Faça testes de usabilidade</li>
                     <li>Apenas vitrine</li>
@@ -174,7 +174,7 @@
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">
-                  <q-btn label="Fale conosco" color="primary" to="/contato" />
+                  <q-btn label="Fale conosco" glossy color="primary" to="/contato" />
                 </q-card-actions>
               </q-card>
             </div>
