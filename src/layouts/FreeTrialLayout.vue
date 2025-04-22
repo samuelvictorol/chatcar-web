@@ -7,7 +7,7 @@
                         <q-icon name="sms" size="lg" to="/" />
                     </q-avatar>
                     <div class="q-pl-sm">
-                        ChatCar Teste
+                        FreeTrial
                     </div>
                 </q-toolbar-title>
                 <q-btn class="q-mr-sm" color="grey-2" to="/" flat icon="logout" />
@@ -18,7 +18,7 @@
         <!-- Menu lateral com estoque completo -->
         <q-drawer v-model="showEstoqueDrawer" side="right" bordered>
             <q-toolbar class="bg-dark text-white">
-                <q-toolbar-title>Estoque</q-toolbar-title>
+                <q-toolbar-title>Estoque de ChatCars Store</q-toolbar-title>
                 <q-btn flat round icon="close" @click="showEstoqueDrawer = false" />
             </q-toolbar>
             <q-input v-model="filtroEstoque" color="secondary" outlined label="Filtrar estoque..." dense debounce="300"
@@ -36,7 +36,8 @@
                                 <q-item-label caption>{{ carro.categoria }}</q-item-label>
                             </div>
                             <q-btn icon="visibility" color="secondary" glossy dense class="q-ml-md"
-                                @click="() => $q.notify({ message: 'detalhes do carro', color: 'secondary' })" />
+                                @click="() => selecionarCarro(carro)" />
+
                         </div>
                     </q-item-section>
                 </q-item>
@@ -47,25 +48,103 @@
         <q-page-container class="bg-dark">
             <q-page class="q-pa-none bg-grey-4 column full-height relative">
                 <!-- Vitrine fixa -->
-                <div class="bg-dark text-white q-pa-sm w100" style="position: sticky; top: 50px; z-index: 10;">
+                <div class="bg-dark">
+                    <div class="w100 row no-wrap items-center justify-between q-px-md q-pt-sm">
+                        <div class="text-h6 text-white q-pt-sm q-mb-sm">Vitrine</div>
+                        <div class="text-h6 text-white q-pt-sm q-mb-sm"><q-btn label="ChatCars Store" color="green-11"
+                                @click="openInfoLoja()" style="border:2px solid #26A69A" dense flat></q-btn></div>
 
-                    <div class="text-h6 q-mb-sm">Vitrine de SuaLoja</div>
+                    </div>
 
-                    <q-carousel v-if="carrossel.length" v-model="carrosselIndex" navigation navigation-color="secondary"
-                        arrows height="250px" class="bg-dark  text-white q-pb-md">
-                        <q-carousel-slide v-for="(carro, i) in carrossel" :name="i" :key="i" class="relative-position">
-                            <q-img :src="carro.img_url" :alt="carro.modelo" class="fit"
-                                style="object-fit: cover; border-radius: 12px;">
-                                <div class="absolute-bottom text-white q-pa-sm"
-                                    style="background: #070707a2; backdrop-filter: blur(4px);">
-                                    <div class="text-subtitle1 text-weight-bold">{{ carro.modelo }}</div>
-                                    <div class="text-caption">{{ carro.categoria }} - {{ carro.ano }}</div>
-                                    <q-btn icon="search" color="secondary" glossy dense class="q-mt-sm full-width"
-                                        label="Ver Detalhes" />
+                    <div class="q-mx-auto" style="max-width: 700px;">
+                        <q-carousel v-if="carrossel.length" v-model="carrosselIndex" navigation
+                            navigation-color="secondary" arrows height="250px" class="bg-dark text-white q-pb-md">
+                            <q-carousel-slide v-for="(carro, i) in carrossel" :name="i" :key="i"
+                                class="relative-position">
+                                <q-img :src="carro.img_url" :alt="carro.modelo" class="fit"
+                                    style="object-fit: cover; border-radius: 12px;">
+                                    <div class="absolute-bottom text-white q-pa-sm"
+                                        style="background: #070707a2; backdrop-filter: blur(4px);">
+                                        <div class="text-subtitle1 text-weight-bold">{{ carro.modelo }}</div>
+                                        <div class="text-caption">{{ carro.categoria }} - {{ carro.ano }}</div>
+                                        <q-btn icon="search" color="secondary" glossy dense class="q-mt-sm full-width"
+                                            label="Ver Detalhes" @click="abrirDialog(carro)" />
+                                    </div>
+                                </q-img>
+                            </q-carousel-slide>
+                        </q-carousel>
+                    </div>
+                    <!-- Dialog com informações da loja -->
+                    <q-dialog v-model="infoLojaVisible">
+                        <q-card class="q-pa-md" style="min-width: 350px; max-width: 90vw">
+                            <q-card-section class="row items-center q-pb-none">
+                                <div class="row justify-between no-wrap w100">
+                                    <div class="text-h6">Sobre a Loja</div><br>
+                                    <q-img src="/logo.jpg" alt="Logo da loja" class="rounded-borders" width="100px"
+                                        height="100px" />
                                 </div>
-                            </q-img>
-                        </q-carousel-slide>
-                    </q-carousel>
+                                <q-space />
+                            </q-card-section>
+
+                            <q-card-section>
+                                <q-list bordered padding class="rounded-borders">
+                                    <q-item>
+                                        <q-item-section>
+                                            <q-item-label class="text-subtitle1">Nome:</q-item-label>
+                                            <q-item-label caption>ChatCars Store</q-item-label>
+                                        </q-item-section>
+                                    </q-item>
+                                    <q-item>
+                                        <q-item-section>
+                                            <q-item-label class="text-subtitle1">CNPJ:</q-item-label>
+                                            <q-item-label caption>12.345.678/0001-99</q-item-label>
+                                        </q-item-section>
+                                    </q-item>
+                                    <q-item>
+                                        <q-item-section>
+                                            <q-item-label class="text-subtitle1">Endereço:</q-item-label>
+                                            <q-item-label caption>Av. das Inovações, 1234 - Centro, São Paulo -
+                                                SP</q-item-label>
+                                        </q-item-section>
+                                    </q-item>
+                                    <q-item>
+                                        <q-item-section>
+                                            <q-item-label class="text-subtitle1">Telefone:</q-item-label>
+                                            <q-item-label caption>(11) 98765-4321</q-item-label>
+                                        </q-item-section>
+                                    </q-item>
+                                    <q-item>
+                                        <q-item-section>
+                                            <q-item-label class="text-subtitle1">Email:</q-item-label>
+                                            <q-item-label caption>contato@chatcarsstore.com.br</q-item-label>
+                                        </q-item-section>
+                                    </q-item>
+                                </q-list>
+                            </q-card-section>
+                        </q-card>
+                    </q-dialog>
+                    <!-- Dialog de detalhes -->
+                    <q-dialog v-model="dialogAberto">
+                        <q-card class="q-pa-md" style="width: 100%; max-width: 500px;">
+                            <q-card-section>
+                                <div class="text-h6">{{ carroSelecionado.modelo }}<br>R$ {{ carroSelecionado.valor }},00
+                                </div>
+                                <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria }} - {{
+                                    carroSelecionado.ano
+                                }}
+                                </div>
+                                <q-img :src="carroSelecionado.img_url" :alt="carroSelecionado.modelo"
+                                    style="border-radius: 12px;" class="q-mb-md" />
+                                <div v-if="carroSelecionado.descricao" class="text-body2">
+                                    {{ carroSelecionado.descricao }}
+                                </div>
+                            </q-card-section>
+                            <q-card-actions align="right">
+                                <q-btn flat label="Fechar" color="secondary" v-close-popup />
+                            </q-card-actions>
+                        </q-card>
+                    </q-dialog>
+
                 </div>
 
                 <div ref="mensagensContainer" class="col scroll q-pa-md q-gutter-sm"
@@ -92,31 +171,20 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import { nextTick } from 'vue'
+
 const mensagensContainer = ref(null)
-
+const dialogAberto = ref(false)
+const carroSelecionado = ref({})
 const $q = useQuasar()
+const filtroEstoque = ref('')
+const infoLojaVisible = ref(false)
 
-// Mock do estoque com imagens e valores
-const estoque = [
-    { modelo: 'Fiat Uno', categoria: 'popular', ano: 2015, valor: 25000, img_url: '/uno.jpg' },
-    { modelo: 'Chevrolet Onix', categoria: 'popular', ano: 2020, valor: 48000, img_url: '/onix.jpg' },
-    { modelo: 'Chevrolet Camaro', categoria: 'esportivo', ano: 2023, valor: 46000, img_url: '/camaro.jpg' },
-    { modelo: 'Toyota Corolla', categoria: 'sedan', ano: 2019, valor: 72000, img_url: '/corolla.jpg' },
-    { modelo: 'Volkswagen T-Cross', categoria: 'SUV', ano: 2021, valor: 89000, img_url: '/tcross.jpg' },
-    { modelo: 'Jeep Renegade', categoria: 'SUV', ano: 2022, valor: 95000, img_url: '/renegade.jpg' },
-    { modelo: 'Renault Kwid', categoria: 'popular', ano: 2023, valor: 46000, img_url: '/kwid.jpg' },
-    { modelo: 'Honda Civic', categoria: 'sedan', ano: 2020, valor: 88000, img_url: '/civic.jpg' },
-    { modelo: 'Ford Ka', categoria: 'popular', ano: 2018, valor: 32000, img_url: '/ka.jpg' },
-    { modelo: 'Hyundai Creta', categoria: 'SUV', ano: 2022, valor: 104000, img_url: '/creta.jpg' },
-    { modelo: 'Up Tsi', categoria: 'hatch', ano: 2016, valor: 46000, img_url: '/up.jpg' },
-    { modelo: 'Ford Mustang', categoria: 'esportivo', ano: 2016, valor: 46000, img_url: '/mustang.jpg' },
-    { modelo: 'Chevy Impala', categoria: 'colecionador', ano: 1975, valor: 290000, img_url: '/impala.jpg' },
-]
-
+function openInfoLoja() {
+    infoLojaVisible.value = true
+}
 const messages = ref([])
 const input = ref('')
 const showEstoqueDrawer = ref(false)
-const filtroEstoque = ref('')
 const carrossel = ref([])
 const carrosselIndex = ref(0)
 const interacoes = ref(0)
@@ -127,15 +195,181 @@ const usuario = ref({
     preferencias: []
 })
 
-const estoqueFiltrado = computed(() => {
-    return estoque.filter(carro =>
+
+const estoqueFiltrado = computed(() =>
+    estoque.filter(carro =>
         carro.modelo.toLowerCase().includes(filtroEstoque.value.toLowerCase()) ||
-        carro.categoria.toLowerCase().includes(filtroEstoque.value.toLowerCase())
+        carro.categoria.toLowerCase().includes(filtroEstoque.value.toLowerCase()) ||
+        carro.ano.toString().includes(filtroEstoque.value)
     )
-})
+)
+
+function abrirDialog(carro) {
+    while (carro.mensagens.length > 0) {
+        messages.value.push({
+            from: 'bot',
+            text: carro.mensagens.pop()
+        })
+    }
+    carroSelecionado.value = carro
+    dialogAberto.value = true
+}
+
+function selecionarCarro(carro) {
+    // Atualiza carrossel com apenas o carro selecionado
+    carrossel.value = [carro]
+    carrosselIndex.value = 0
+
+    // Adiciona mensagens sobre o carro no chat
+    carro.mensagens.forEach(texto => {
+        messages.value.push({
+            from: 'bot',
+            text: texto
+        })
+    })
+
+    nextTick(() => {
+        mensagensContainer.value.scrollTop = mensagensContainer.value.scrollHeight
+    })
+
+    showEstoqueDrawer.value = false
+}
+
+const estoque = [
+    {
+        modelo: 'Fiat Uno', categoria: 'popular', ano: 2015, valor: 25000,
+        img_url: '/uno.jpg',
+        mensagens: [
+            'Você sabia? O Uno foi um dos carros mais vendidos da história do Brasil!',
+            'Compacto e econômico, ideal para uso urbano.',
+            'IPVA e manutenção muito baratos!'
+        ],
+        descricao: '1.0 FIRE FLEX ATTRACTIVE MANUAL - 70.000km - Branco - 2021'
+    },
+    {
+        modelo: 'Chevrolet Onix', categoria: 'popular', ano: 2020, valor: 90000,
+        img_url: '/onix.jpg',
+        mensagens: [
+            'O Onix liderou o ranking de vendas por anos seguidos.',
+            'Esse modelo 2020 já vem com central multimídia e direção elétrica.',
+            'Ótimo consumo de combustível na estrada.'
+        ],
+        descricao: '1.0 TURBO FLEX PREMIER AUTOMÁTICO - 50.000km - Preto - 2020'
+    },
+    {
+        modelo: 'Chevrolet Camaro', categoria: 'esportivo', ano: 2023, valor: 460000,
+        img_url: '/camaro.jpg',
+        mensagens: [
+            'O Camaro é um ícone dos esportivos americanos!',
+            'Esse modelo 2023 vem com motor V8 e câmbio automático de 10 marchas.',
+            'Acelera de 0 a 100 km/h em apenas 4 segundos!'
+        ],
+        descricao: '6.2 V8 16V GASOLINA 2P AUTOMÁTICO - 50.000km - Preto - 2020'
+    },
+    {
+        modelo: 'Toyota Corolla', categoria: 'sedan', ano: 2019, valor: 72000,
+        img_url: '/corolla.jpg',
+        mensagens: [
+            'O Corolla é conhecido pela sua confiabilidade e durabilidade.',
+            'Esse modelo tem um ótimo espaço interno e conforto para viagens longas.',
+            'IPVA e manutenção muito baratos!'
+        ],
+        descricao: '1.8 FLEX ALTIS CVT - 50.000km - Preto - 2020'
+    },
+    {
+        modelo: 'Volkswagen T-Cross', categoria: 'SUV', ano: 2021, valor: 89000,
+        img_url: '/tcross.jpg',
+        mensagens: [
+            'O T-Cross é um SUV compacto com ótimo espaço interno.',
+            'Esse modelo vem com motor turbo e câmbio automático de 6 marchas.',
+            'Ótimo consumo de combustível na cidade.'
+        ],
+        descricao: '1.0 TURBO FLEX HIGHLINE AUTOMÁTICO - 50.000km - Preto - 2020'
+    },
+    {
+        modelo: 'Jeep Renegade', categoria: 'SUV', ano: 2022, valor: 95000,
+        img_url: '/renegade.jpg',
+        mensagens: [
+            'O Renegade é um SUV com ótimo desempenho off-road.',
+            'Esse modelo vem com motor turbo e tração 4x4.',
+            'Ótimo consumo de combustível na estrada.'
+        ],
+        descricao: '1.3 TURBO FLEX LONGITUDE AUTOMÁTICO - 50.000km - Preto - 2020'
+    },
+    {
+        modelo: 'Renault Kwid', categoria: 'popular', ano: 2023, valor: 46000,
+        img_url: '/kwid.jpg',
+        mensagens: [
+            'O Kwid é um dos carros mais econômicos do Brasil!',
+            'Esse modelo vem com central multimídia e direção elétrica.',
+            'IPVA e manutenção fácil!'
+        ],
+        descricao: '1.0 FLEX ZEN MANUAL - 50.000km - Preto - 2020'
+    },
+    {
+        modelo: 'Honda Civic', categoria: 'sedan', ano: 2020, valor: 88000,
+        img_url: '/civic.jpg',
+        mensagens: [
+            'O Civic é conhecido pela sua confiabilidade e durabilidade.',
+            'Esse modelo tem um ótimo espaço interno e conforto para viagens longas.',
+            'IPVA e manutenção muito baratos!'
+        ],
+        descricao: '1.5 TURBO FLEX EX CVT - 50.000km - Preto - 2020'
+    },
+    {
+        modelo: 'Ford Ka', categoria: 'popular', ano: 2018, valor: 32000,
+        img_url: '/ka.jpg',
+        mensagens: [
+            'O Ka é um carro compacto ideal para o uso urbano.',
+            'Esse modelo vem com central multimídia e direção elétrica.',
+            'IPVA e manutenção muito baratos!'
+        ],
+        descricao: '1.0 FLEX SE MANUAL - 50.000km - Preto - 2020'
+    },
+    {
+        modelo: 'Hyundai Creta', categoria: 'SUV', ano: 2022, valor: 104000,
+        img_url: '/creta.jpg',
+        mensagens: [
+            'O Creta é um SUV com ótimo espaço interno e conforto para viagens longas.',
+            'Esse modelo vem com motor turbo e câmbio automático de 6 marchas.',
+            'Ótimo consumo de combustível na estrada.'
+        ],
+        descricao: '1.0 TURBO FLEX PULSE AUTOMÁTICO - 50.000km - Preto - 2020'
+    },
+    {
+        modelo: 'Up Tsi', categoria: 'hatch', ano: 2016, valor: 46000,
+        img_url: '/up.jpg',
+        mensagens: [
+            'O Up Tsi é um carro compacto ideal para o uso urbano.',
+            'Esse modelo vem com motor turbo e câmbio automático de 6 marchas.',
+            'IPVA e manutenção muito baratos!'],
+        descricao: '1.0 TURBO FLEX HIGHLINE AUTOMÁTICO - 50.000km - Preto - 2020'
+    },
+    {
+        modelo: 'Ford Mustang', categoria: 'esportivo', ano: 2016, valor: 540000,
+        img_url: '/mustang.jpg',
+        mensagens: [
+            'O Mustang é um ícone dos esportivos americanos!',
+            'Esse modelo vem com motor V8 e câmbio automático de 10 marchas.',
+            'Acelera de 0 a 100 km/h em apenas 4 segundos!'
+        ],
+        descricao: '5.0 V8 16V GASOLINA 2P AUTOMÁTICO - 50.000km - Preto - 2020'
+    },
+    {
+        modelo: 'Chevy Impala', categoria: 'colecionador', ano: 1975, valor: 290000,
+        img_url: '/impala.jpg',
+        mensagens: [
+            'O Impala é um clássico dos anos 70!',
+            'Esse modelo tem um ótimo espaço interno e conforto para viagens longas.',
+            'Isento de IPVA!'
+        ],
+        descricao: '5.7 V8 16V GASOLINA 4P AUTOMÁTICO - 50.000km - Preto - 2020'
+    },
+]
+
 onMounted(() => {
     $q.dialog({
-        title: 'Bem-vindo(a) à SuaLoja!',
+        title: 'Bem-vindo ao ChatCar IA!',
         message: 'Qual o seu nome?',
         prompt: {
             model: '',
@@ -207,6 +441,11 @@ onMounted(() => {
                 if (!preferencias.length) {
                     const randomCarros = estoque.sort(() => 0.5 - Math.random()).slice(0, 5)
                     carrossel.value = randomCarros
+                    messages.value.push({
+                        from: 'bot',
+                        text: `😕 Não escolheu nenhuma categoria. Veja algumas opções aleatórias na vitrine!`
+                    })
+                    return
                 }
                 messages.value.push({
                     from: 'bot',
@@ -218,7 +457,11 @@ onMounted(() => {
                 })
 
                 usuario.value.preferencias = preferencias
-
+                carrossel.value = estoque.filter(carro => preferencias.includes(carro.categoria)).slice(0, 5)
+                carrosselIndex.value = 0
+                nextTick(() => {
+                    mensagensContainer.value.scrollTop = mensagensContainer.value.scrollHeight
+                })
                 $q.dialog({
                     title: 'Nos conte mais...',
                     message: 'Se quiser, descreva em poucas palavras como pretende usar o carro (uso urbano, família, trabalho, etc). Isso nos ajuda a entender melhor seu perfil:',
@@ -278,7 +521,7 @@ function sendMessage() {
     } else {
         messages.value.push({
             from: 'bot',
-            text: `😕 Não encontrei resultados com esse termo. Tente algo como "SUV", "Corolla", "2020" ou "até 50 mil".`
+            text: `😕 Não encontrei resultados com esse termo. Tente algo como "SUV", "Corolla", "2020" ou "50000".`
         })
     }
 
