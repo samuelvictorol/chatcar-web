@@ -22,7 +22,7 @@
 
                 <!-- Etapas -->
                 <div class="q-gutter-y-md">
-                    <q-timeline color="primary" layout="dense">
+                    <q-timeline color="secondary" layout="dense">
 
                         <q-timeline-entry title="1. Acesse a lista de Leads" icon="groups">
                             Vá até o menu <q-icon name="groups" class="q-mx-xs" /> <strong>Leads</strong> no seu painel
@@ -51,6 +51,73 @@
 
                     </q-timeline>
                 </div>
+            </q-card-section>
+        </q-card>
+        <!-- Cadastro de Vendedor -->
+        <q-card flat bordered class="q-mt-lg">
+            <q-card-section class="q-pa-lg">
+                <div class="text-h6 text-bold q-mb-md">Como Cadastrar um Vendedor</div>
+                <div class="text-body1 q-mb-md">
+                    O cadastro de vendedores permite que sua equipe de vendas seja gerenciada de forma eficaz. Siga os
+                    passos abaixo para adicionar um novo vendedor:
+                </div>
+
+                <q-timeline color="accent" layout="dense">
+                    <q-timeline-entry title="1. Vá até o menu Loja" icon="store">
+                        Acesse o menu principal da loja onde é exibida a lista de vendedores.
+                    </q-timeline-entry>
+
+                    <q-timeline-entry title="2. Clique em 'Novo Vendedor'" icon="person_add">
+                        No topo da lista, clique no botão <strong>Novo Vendedor</strong> para abrir o formulário de
+                        cadastro.
+                    </q-timeline-entry>
+
+                    <q-timeline-entry title="3. Preencha os dados" icon="edit">
+                        Insira nome, e-mail, telefone e demais dados necessários. Certifique-se de revisar antes de
+                        salvar.
+                    </q-timeline-entry>
+
+                    <q-timeline-entry title="4. Salve o cadastro" icon="check_circle">
+                        Clique em <strong>Salvar</strong> para finalizar. O vendedor será adicionado à lista
+                        automaticamente.
+                    </q-timeline-entry>
+                </q-timeline>
+            </q-card-section>
+        </q-card>
+
+        <!-- Cadastro de Veículo no Estoque -->
+        <q-card flat bordered class="q-mt-lg">
+            <q-card-section class="q-pa-lg">
+                <div class="text-h6 text-bold q-mb-md">Como Cadastrar um Veículo no Estoque</div>
+                <div class="text-body1 q-mb-md">
+                    O menu <strong>Estoque</strong> permite cadastrar todos os veículos disponíveis para venda. Veja
+                    como cadastrar um novo veículo:
+                </div>
+
+                <q-timeline color="blue-14" layout="dense">
+                    <q-timeline-entry title="1. Acesse o menu Estoque" icon="directions_car">
+                        No painel lateral, clique em <strong>Estoque</strong> para visualizar a lista de veículos
+                        cadastrados.
+                    </q-timeline-entry>
+
+                    <q-timeline-entry title="2. Clique em 'Novo Veículo'" icon="add_box">
+                        Utilize o botão <strong>Novo Veículo</strong> no topo da tabela para abrir o formulário de
+                        inclusão.
+                    </q-timeline-entry>
+
+                    <q-timeline-entry title="3. Preencha os dados do carro" icon="description">
+                        Insira marca, modelo, ano, preço, cor, quilometragem e outras informações relevantes.
+                    </q-timeline-entry>
+
+                    <q-timeline-entry title="4. Adicione fotos (opcional)" icon="photo_camera">
+                        Faça o upload de imagens reais do veículo para ajudar na visualização pelos clientes.
+                    </q-timeline-entry>
+
+                    <q-timeline-entry title="5. Salve o veículo no estoque" icon="check_circle">
+                        Após revisar todos os dados, clique em <strong>Salvar</strong>. O veículo será exibido
+                        imediatamente na lista.
+                    </q-timeline-entry>
+                </q-timeline>
             </q-card-section>
         </q-card>
 
