@@ -9,18 +9,23 @@
       </q-toolbar>
       <q-tabs inline-label
         v-model="tab" 
-        class="text-grey-2 animate__animated animate__flipInX animate__slower"
+        class="text-grey-2 "
       >
-        <q-route-tab class="row"  icon="rocket_launch" label="experimente já" to="/free-trial" />
-        <q-route-tab class="row" label="Planos" icon="view_week" />
+        <q-route-tab class="animate__animated animate__flipInX animate__slower animate__delay-2s row"  icon="rocket_launch" label="experimente já" to="/free-trial" />
+        <q-route-tab class="animate__animated animate__flipInX animate__slower animate__delay-2s row" label="Planos" icon="view_week" />
       </q-tabs>
     </q-header>
 
     <q-page-container class="animate__animated animate__fadeIn">
       <div class="w100">
-        <q-img src="ia.png" class="w100" style="position: fixed; z-index: -90" height="400px">
+        <q-img src="ia1.png" class="w100" style="position: fixed; z-index: -90" height="50vh">
           <div class="absolute-bottom bg-black text-white q-pa-md">
-            <h2 class="text-h4">ChatCar IA</h2>
+            <h2 class="text-h4">ChatCar</h2>
+          </div>
+        </q-img>
+        <q-img src="ia.png" class="w100" style="position: fixed; bottom: 0px; z-index: -90" height="40vh">
+          <div class="absolute-bottom bg-black text-white q-pa-md">
+            <h2 class="text-h4 text-right">Inteligência Artificial</h2>
           </div>
         </q-img>
       </div>
