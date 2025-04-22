@@ -2,38 +2,44 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated class="bg-dark text-white">
       <q-toolbar class="container">
-        <q-toolbar-title class="text-h6 row items-center"><q-icon class="q-pr-sm" name="directions_car" size="md"></q-icon>
-          <div class="animate__animated animate__fadeInLeft animate__slower">ChatCar</div></q-toolbar-title>
+        <q-toolbar-title class="text-h6 row items-center"><q-icon class="q-pr-sm" name="directions_car"
+            size="md"></q-icon>
+          <div class="animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
+        </q-toolbar-title>
         <!-- <q-btn label="experimente" icon-right="rocket_launch" color="green-14" class="q-mr-sm " glossy to="/loja" /> -->
         <q-btn color="secondary" class="text-white" label="entrar" icon-right="login" glossy to="/loja" />
       </q-toolbar>
-      <q-tabs inline-label
-        v-model="tab" 
-        class="text-grey-2 "
-      >
-        <q-route-tab class="animate__animated animate__flipInX animate__slower animate__delay-2s row"  icon="rocket_launch" label="experimente já" to="/free-trial" />
-        <q-route-tab class="animate__animated animate__flipInX animate__slower animate__delay-2s row" label="Planos" icon="view_week" />
+      <q-tabs inline-label v-model="tab" class="text-grey-2 ">
+        <q-route-tab class="animate__animated animate__flipInX animate__slower animate__delay-2s row"
+          icon="rocket_launch" label="experimente já" to="/free-trial" />
+
+        <q-tab class="animate__animated animate__flipInX animate__slower animate__delay-2s row" label="Planos"
+          icon="view_week" name="planos" @click="scrollToSection('planos')" />
       </q-tabs>
+
     </q-header>
 
     <q-page-container class="animate__animated animate__fadeIn">
       <div class="w100">
         <q-img src="ia1.png" class="w100" style="position: fixed; z-index: -90" height="50vh">
           <div class="absolute-bottom bg-black text-white q-pa-md">
-            <h2 class="text-h4">ChatCar</h2>
+            <h2 class="text-h4">ChatCar I.A.</h2>
           </div>
         </q-img>
         <q-img src="ia.png" class="w100" style="position: fixed; bottom: 0px; z-index: -90" height="40vh">
           <div class="absolute-bottom bg-black text-white q-pa-md">
-            <h2 class="text-h4 text-right">Inteligência Artificial</h2>
+            <h2 class="text-h4 w100 text-right row no-wrap justify-end">Vendas Inteligentes</h2>
           </div>
         </q-img>
       </div>
       <!-- HERO Section -->
       <section class="q-pb-xl q-pt-lg  bg-dark text-white text-center">
         <div class="container q-pb-xl">
-          <h1 class="text-h3 text-bold "><q-icon name="sms" color="white" class="animate__animated animate__zoomIn animate__slower animate__delay-2s" size="xl"></q-icon><br>Transforme
-            Conversas em Vendas com o ChatCar<br><q-icon name="paid" color="secondary" class="animate__animated animate__zoomIn animate__slower animate__delay-3s" size="xl"></q-icon></h1>
+          <h1 class="text-h3 text-bold "><q-icon name="sms" color="white"
+              class="animate__animated animate__zoomIn animate__slower animate__delay-2s"
+              size="xl"></q-icon><br>Transforme
+            Conversas em Vendas com o ChatCar<br><q-icon name="paid" color="secondary"
+              class="animate__animated animate__zoomIn animate__slower animate__delay-3s" size="xl"></q-icon></h1>
           <p class="text-subtitle1  q-px-lg q-mt-md">
             Uma plataforma inteligente para lojistas e concessionárias automatizarem o atendimento e captarem leads
             prontos para comprar.
@@ -87,7 +93,7 @@
           </div>
         </div>
       </section>
-      <section class="q-py-xl bg-blue text-white text-center">
+      <section id="planos" class="q-py-xl bg-blue text-white text-center">
         <div class="container">
           <div class="text-h4 text-bold">Promoção por tempo limitado!</div>
           <p class="text-subtitle1 q-mt-sm">De <s>R$ 159,99</s> por apenas <strong class="text-h5">R$ 59,90/mês</strong>
@@ -110,36 +116,40 @@
             unelevated />
         </div>
       </section>
-      <section id="planos" style="border-bottom: 8px solid grey;" class="q-py-xl bg-grey-2 text-center">
+      <section style="border-bottom: 8px solid grey;" class="q-py-xl bg-grey-2 text-center">
         <div class="container">
           <h2 class="text-h4 text-bold q-mb-xl">Escolha seu Plano</h2>
           <div class="row q-col-gutter-md justify-center">
+
+            <!-- Plano Free Trial -->
             <div class="col-12 col-sm-6 col-md-4">
               <q-card class="q-pa-md shadow-2">
                 <q-card-section>
-                  <div class="text-h5 text-bold">Gratuito</div>
-                  <div class="text-subtitle2 q-mt-sm">Ideal para testes</div>
-                  <div class="text-h6 q-my-md">R$ 0/mês</div>
+                  <div class="text-h5 text-bold">Free Trial</div>
+                  <div class="text-subtitle2 q-mt-sm">Simule como funciona</div>
+                  <div class="text-h6 q-my-md">Gratuito</div>
                   <ul class="text-left">
-                    <li>1 loja cadastrada</li>
-                    <li>Chat IA limitado</li>
-                    <li>Leads limitados</li>
+                    <li>Faça testes de usabilidade</li>
+                    <li>Apenas vitrine</li>
+                    <li>Chat IA simplificado e limitado</li>
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">
-                  <q-btn label="Começar" color="primary" to="/cadastro" />
+                  <q-btn label="Experimentar" color="secondary" glossy to="/free-trial" />
                 </q-card-actions>
               </q-card>
             </div>
+
+            <!-- Plano Básico -->
             <div class="col-12 col-sm-6 col-md-4">
-              <q-card class="q-pa-md shadow-4 bg-blue-1">
+              <q-card class="q-pa-md shadow-4 bg-green-1">
                 <q-card-section>
-                  <div class="text-h5 text-bold">Profissional</div>
-                  <div class="text-subtitle2 q-mt-sm">Para crescer com IA</div>
-                  <div class="text-h6 q-my-md">R$ 59,90/mês</div>
+                  <div class="text-h5 text-bold">Básico</div>
+                  <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 159,90 por</div>
+                  <div class="text-h6 q-my-md text-green-14  text-bold">R$ 59,90/mês</div>
                   <ul class="text-left">
-                    <li>Até 5 lojas</li>
-                    <li>Chat IA ilimitado</li>
+                    <li>Chat Inteligente Ilimitado</li>
+                    <li>Sugestões personalizadas e automatizadas para cliente</li>
                     <li>Geração de leads qualificados</li>
                     <li>Relatórios inteligentes</li>
                   </ul>
@@ -149,17 +159,18 @@
                 </q-card-actions>
               </q-card>
             </div>
+
+            <!-- Plano White Label -->
             <div class="col-12 col-sm-6 col-md-4">
-              <q-card class="q-pa-md shadow-2">
+              <q-card class="q-pa-md shadow-2 bg-blue-1">
                 <q-card-section>
-                  <div class="text-h5 text-bold">Enterprise</div>
-                  <div class="text-subtitle2 q-mt-sm">Soluções personalizadas</div>
-                  <div class="text-h6 q-my-md">Sob consulta</div>
+                  <div class="text-h5 text-bold">White Label</div>
+                  <div class="text-subtitle2 q-mt-sm">Venda o sistema como seu</div>
+                  <div class="text-h6 q-my-md text-blue text-bold">R$ 1299,90</div>
                   <ul class="text-left">
-                    <li>Leads ilimitados</li>
-                    <li>Suporte dedicado</li>
-                    <li>Integrações exclusivas</li>
-                    <li>Gestão por equipe</li>
+                    <li>Código-fonte completo</li>
+                    <li>Tutorial de uso</li>
+                    <li>Suporte técnico para setup</li>
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">
@@ -167,9 +178,11 @@
                 </q-card-actions>
               </q-card>
             </div>
+
           </div>
         </div>
       </section>
+
       <div class="w100 bg-grad-landing" style="height: 40vh"></div>
       <section class="q-py-xl bg-grey-1 text-center">
         <div class="container q-px-md">
@@ -227,6 +240,12 @@ const countdown = ref({
   minutos: '00',
   segundos: '00',
 });
+function scrollToSection(id) {
+  const el = document.getElementById(id)
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 
 const targetDate = new Date();
 targetDate.setDate(targetDate.getDate() + 2); // Promoção por 2 dias
