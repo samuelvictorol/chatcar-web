@@ -2,21 +2,21 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated class="bg-dark text-white">
       <q-toolbar class="container">
-        <q-toolbar-title class="text-h6"><q-icon class="q-pb-xs" name="directions_car" size="md"></q-icon>
-          ChatCar</q-toolbar-title>
+        <q-toolbar-title class="text-h6 row items-center"><q-icon class="q-pr-sm" name="directions_car" size="md"></q-icon>
+          <div class="animate__animated animate__fadeInLeft animate__slower">ChatCar</div></q-toolbar-title>
         <!-- <q-btn label="experimente" icon-right="rocket_launch" color="green-14" class="q-mr-sm " glossy to="/loja" /> -->
-        <q-btn color="white" class="text-black" label="entrar" icon-right="login" glossy to="/loja" />
+        <q-btn color="secondary" class="text-white" label="entrar" icon-right="login" glossy to="/loja" />
       </q-toolbar>
       <q-tabs inline-label
         v-model="tab" 
-        class="text-grey-2"
+        class="text-grey-2 animate__animated animate__flipInX animate__slower"
       >
         <q-route-tab class="row"  icon="rocket_launch" label="experimente já" to="/free-trial" />
         <q-route-tab class="row" label="Planos" icon="view_week" />
       </q-tabs>
     </q-header>
 
-    <q-page-container>
+    <q-page-container class="animate__animated animate__fadeIn">
       <div class="w100">
         <q-img src="ia.png" class="w100" style="position: fixed; z-index: -90" height="400px">
           <div class="absolute-bottom bg-black text-white q-pa-md">
@@ -27,8 +27,8 @@
       <!-- HERO Section -->
       <section class="q-pb-xl q-pt-lg  bg-dark text-white text-center">
         <div class="container q-pb-xl">
-          <h1 class="text-h3 text-bold "><q-icon name="sms" color="secondary" style="filter: drop-shadow(0px 0px 5px white)" size="xl"></q-icon><br>Transforme
-            Conversas em Vendas com o ChatCar</h1>
+          <h1 class="text-h3 text-bold "><q-icon name="sms" color="white" class="animate__animated animate__zoomIn animate__slower animate__delay-2s" size="xl"></q-icon><br>Transforme
+            Conversas em Vendas com o ChatCar<br><q-icon name="paid" color="secondary" class="animate__animated animate__zoomIn animate__slower animate__delay-3s" size="xl"></q-icon></h1>
           <p class="text-subtitle1  q-px-lg q-mt-md">
             Uma plataforma inteligente para lojistas e concessionárias automatizarem o atendimento e captarem leads
             prontos para comprar.

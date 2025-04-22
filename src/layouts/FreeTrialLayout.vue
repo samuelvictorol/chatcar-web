@@ -9,7 +9,7 @@
                     ChatCarIA - Teste Grátis
                 </q-toolbar-title>
 
-                <q-btn glossy color="white" class="text-black" icon="logout" />
+                <q-btn glossy color="white" class="text-black" icon="logout" to="/"/>
             </q-toolbar>
 
             <q-tabs align="center">
@@ -29,7 +29,7 @@
                 <div class="row q-mt-md">
                     <q-input filled v-model="input" class="col" placeholder="Pergunte algo sobre o estoque..."
                         @keyup.enter="sendMessage" />
-                    <q-btn icon="send" color="primary" flat round @click="sendMessage" />
+                    <q-btn icon="send" color="secondary" flat round @click="sendMessage" />
                 </div>
             </q-page>
         </q-page-container>
