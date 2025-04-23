@@ -92,10 +92,10 @@
           </div>
         </div>
       </section>
-      <section id="planos" class="q-py-xl bg-blue text-white text-center">
+      <section id="planos" class="q-py-xl bg-blue-14 text-white text-center">
         <div class="container">
           <div class="text-h4 text-bold">Promoção por tempo limitado!</div>
-          <p class="text-subtitle1 q-mt-sm">De <s>R$ 159,99</s> por apenas <strong class="text-h5">R$ 59,90/mês</strong>
+          <p class="text-subtitle1 q-mt-sm">De <s>R$ 459,90</s><br>por apenas <strong class="text-h5">R$ 69,90/mês</strong>
           </p>
 
           <div class="row justify-center q-mt-md">
@@ -111,7 +111,7 @@
             </div>
           </div>
 
-          <q-btn label="Aproveitar agora" color="green-14" glossy class="shadow-1 q-mt-lg" to="/cadastro" size="lg"
+          <q-btn label="Aproveitar agora" color="secondary" glossy class="shadow-1 q-mt-lg" to="/cadastro" size="lg"
             unelevated />
         </div>
       </section>
@@ -124,17 +124,17 @@
             <div class="col-12 col-sm-6 col-md-4">
               <q-card class="q-pa-md shadow-2">
                 <q-card-section>
-                  <div class="text-h5 text-bold">Free Trial</div>
-                  <div class="text-subtitle2 q-mt-sm">Simule como funciona</div>
-                  <div class="text-h6 q-my-md text-secondary text-bold">Gratuito</div>
+                  <div class="text-h5 text-bold">Pacote Básico</div>
+                  <div class="text-subtitle2 q-mt-sm">Utilize a plataforma no plano mensal, pague apenas se for utilizar</div>
+                  <div class="text-h6 q-my-md text-secondary text-bold">R$ 89,90</div>
                   <ul class="text-left">
-                    <li>Faça testes de usabilidade</li>
-                    <li>Apenas vitrine</li>
-                    <li>Chat IA simplificado e limitado</li>
+                    <li><strong>Captação</strong> de Leads Ilimitados</li>
+                    <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da sua loja</li>
+                    <li><strong>Chat IA</strong> para seu estoque</li>
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">
-                  <q-btn label="Experimentar" color="secondary" glossy to="/free-trial" />
+                  <q-btn label="PACOTE MENSAL" color="secondary" glossy @click="openPlanoDialog('mensal')"/>
                 </q-card-actions>
               </q-card>
             </div>
@@ -143,18 +143,20 @@
             <div class="col-12 col-sm-6 col-md-4">
               <q-card class="q-pa-md shadow-4 bg-green-1">
                 <q-card-section>
-                  <div class="text-h5 text-bold">Básico</div>
-                  <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 159,90 por</div>
-                  <div class="text-h6 q-my-md text-green-14  text-bold">R$ 59,90/mês</div>
+                  <div class="text-h5 text-bold">Plano Semestral</div>
+                  <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 459,90 por</div>
+                  <div class="text-h6 q-my-md text-green  text-bold">R$ 69,90/mês</div>
                   <ul class="text-left">
-                    <li>Chat Inteligente Ilimitado</li>
-                    <li>Sugestões personalizadas e automatizadas para cliente</li>
-                    <li>Geração de leads qualificados</li>
-                    <li>Relatórios inteligentes</li>
+                    <li><strong>6 meses</strong> de <strong>acesso</strong></li>
+                    <li>Relatórios com <strong>copys otimizadas</strong> para serem mais <strong>persuasivas</strong> e <strong>matadoras</strong></li>
+                    <li><strong>Funcionalidades extras</strong> com IA</li>
+                    <li><strong>Linguagem natural</strong> configurável para os veículos</li>
+                    <li>Mais <strong>vendido</strong></li>
+                    <li><strong>R$ 419,90</strong> em até <strong>10x</strong></li>
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">
-                  <q-btn label="Assinar agora" color="green-14" glossy to="/cadastro" />
+                  <q-btn label="pacote semestral" color="green" glossy @click="openPlanoDialog('semestral')" />
                 </q-card-actions>
               </q-card>
             </div>
@@ -163,17 +165,19 @@
             <div class="col-12 col-sm-6 col-md-4">
               <q-card class="q-pa-md shadow-2 bg-blue-1">
                 <q-card-section>
-                  <div class="text-h5 text-bold">White Label</div>
-                  <div class="text-subtitle2 q-mt-sm">Venda o sistema como seu</div>
-                  <div class="text-h6 q-my-md text-blue text-bold">R$ 1299,90</div>
+                  <div class="text-h5 text-bold">Plano Anual</div>
+                  <!-- <div class="text-subtitle2 q-mt-sm">Acesso antecipado à novas funcionalidades</div> -->
+                  <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 819,90 por</div>
+                  <div class="text-h6 q-my-md text-blue-14"><strong>R$ 799,90</strong> em até 10x</div>
                   <ul class="text-left">
-                    <li>Código-fonte completo</li>
-                    <li>Tutorial de uso</li>
-                    <li>Suporte técnico para setup</li>
+                    <li><strong>12 meses</strong> de <strong>acesso</strong></li>
+                    <li>Badge <strong>personalizada</strong></li>
+                    <li><strong>Inclui</strong> todos os <strong>outros planos</strong></li>
+                    <li>Mais <strong>econômico</strong></li>
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">
-                  <q-btn label="Fale conosco" glossy color="primary" to="/contato" />
+                  <q-btn label="Plano Anual" glossy color="blue-14" @click="openPlanoDialog('anual')"/>
                 </q-card-actions>
               </q-card>
             </div>
@@ -221,7 +225,9 @@
             href="https://wa.me/SEUNUMEROAQUI" target="_blank" />
         </div>
       </section>
-
+      <q-dialog v-model="planosDialog.mensal" persistent>
+        <PlanoMensal @close="planosDialog.mensal = false" />
+      </q-dialog>
       <!-- Rodapé -->
       <q-footer class="bg-grey-9 text-white text-center q-pa-md">
         ChatCar © {{ new Date().getFullYear() }} — Todos os direitos reservados
@@ -232,6 +238,17 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import PlanoMensal from 'components/PlanoMensal.vue';
+
+const planosDialog = ref({
+  mensal: false,
+  semestral: false,
+  anual: false,
+});
+
+function openPlanoDialog(plano) {
+  planosDialog.value[plano] = true;
+}
 
 const countdown = ref({
   dias: '00',
