@@ -16,18 +16,47 @@
                     <div class="q-table__container q-table--horizontal-separator" style="overflow-x: auto;">
                         <q-table :rows="leads" :columns="columns" row-key="id" :pagination="{ rowsPerPage: 10 }"
                             :filter="''" class="my-table">
-                            <!-- Coluna Nome -->
+                            <!-- Cabeçalho customizado -->
+                            <template v-slot:header="props">
+                                <q-tr :props="props">
+                                    <q-th v-for="col in props.cols" :key="col.name" :props="props"
+                                        class="bg-dark text-white text-bold" style="font-size: 1rem;">
+                                        {{ col.label }}
+                                    </q-th>
+                                </q-tr>
+                            </template>
+
+                            <!-- Coluna Nome com estilo sticky -->
                             <template v-slot:body-cell-name="props">
                                 <q-td :props="props" class="sticky-col bg-dark text-white">
                                     {{ props.value }}
                                 </q-td>
                             </template>
 
+                            <!-- Coluna Vendedor com select se vazio -->
+                            <template v-slot:body-cell-vendedor="props">
+                                <q-td :props="props" class="text-center">
+                                    <div v-if="props.row.vendedor === '-'">
+                                        <q-select dense outlined v-model="props.row.vendedor" :options="vendedores"
+                                            emit-value map-options style="min-width: 120px" />
+                                    </div>
+                                    <div v-else>
+                                        {{ props.row.vendedor }}
+                                    </div>
+                                </q-td>
+                            </template>
+
+                            <!-- Coluna Status -->
+                            <template v-slot:body-cell-status="props">
+                                <q-td :props="props" class="text-center">
+                                    {{ props.row.status }}
+                                </q-td>
+                            </template>
+
                             <!-- Coluna Ações -->
                             <template v-slot:body-cell-acoes="props">
                                 <q-td :props="props">
-                                    <q-btn flat icon="sms" dense color="blue"
-                                        @click="gerarRelatorio(props.row)" />
+                                    <q-btn flat icon="sms" dense color="blue" @click="gerarRelatorio(props.row)" />
                                     <q-btn flat dense icon="assignment" color="secondary"
                                         @click="gerarRelatorio(props.row)" />
                                 </q-td>
@@ -58,23 +87,29 @@
         </q-dialog>
     </q-page>
 </template>
-
 <script setup>
 import { ref } from "vue";
-import RelatorioIA from 'components/RelatorioIA.vue'; // Componente do relatório
+import RelatorioIA from 'components/RelatorioIA.vue';
 
 const leads = ref([
-    { id: 1, name: '🟢 José Bueno', vendedor: '-', contato: '61 983314321' },
-    { id: 2, name: '🟠 Maria da Silva', vendedor: 'Dagoberto', contato: '61 983314321' },
-    { id: 3, name: '🟠 João da Silva', vendedor: 'Dagoberto', contato: '61 983314321' },
-    { id: 4, name: '🟠 Ana Maria', vendedor: 'Maria', contato: '61 983314321' },
-    { id: 5, name: '🟠 Carlos Alberto', vendedor: 'Maria', contato: '61 983314321' },
+    { id: 1, name: '🟢 José Bueno', vendedor: '-', contato: '61 983314321', status: 'Aguardando contato' },
+    { id: 2, name: '🟠 Maria da Silva', vendedor: 'Dagoberto', contato: '61 983314321', status: 'Em progresso' },
+    { id: 3, name: '🟠 João da Silva', vendedor: 'Dagoberto', contato: '61 983314321', status: 'Em progresso' },
+    { id: 4, name: '🟠 Ana Maria', vendedor: 'Maria', contato: '61 983314321', status: 'Finalizado' },
+    { id: 5, name: '🟠 Carlos Alberto', vendedor: 'Maria', contato: '61 983314321', status: 'Aguardando contato' },
 ]);
+
+const vendedores = [
+    { label: 'Dagoberto', value: 'Dagoberto' },
+    { label: 'Maria', value: 'Maria' },
+    { label: 'João', value: 'João' }
+];
 
 const columns = [
     { name: 'name', label: 'Nome', align: 'left', field: 'name' },
     { name: 'vendedor', label: 'Vendedor', align: 'center', field: 'vendedor' },
     { name: 'contato', label: 'Contato', align: 'center', field: 'contato' },
+    { name: 'status', label: 'Status', align: 'center', field: 'status' },
     { name: 'acoes', label: 'Ações', align: 'right' },
 ];
 
@@ -86,17 +121,20 @@ function gerarRelatorio(lead) {
     showDialog.value = true;
 }
 </script>
-
 <style scoped>
 .sticky-col {
     position: sticky;
     left: 0;
-    z-index: 1;
+    z-index: 2;
 }
 
 @media (min-width: 600px) {
     .sticky-col {
         position: relative;
     }
+}
+
+.my-table .q-th {
+    font-weight: bold;
 }
 </style>

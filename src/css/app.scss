@@ -21,3 +21,8 @@
     background-color: rgba(0, 0, 0, 0.687);
     backdrop-filter: blur(8px);
 }
+
+.q-page {
+    animation: fadeIn;
+    animation-duration: 1s;
+}
