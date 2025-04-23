@@ -152,7 +152,7 @@
                     <li><strong>Funcionalidades extras</strong> com IA</li>
                     <li><strong>Linguagem natural</strong> configurável para os veículos</li>
                     <li>Mais <strong>vendido</strong></li>
-                    <li><strong>R$ 419,90</strong> em até <strong>10x</strong></li>
+                    <li><strong>R$ 419,90</strong> em até <strong>12x</strong></li>
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">
@@ -168,7 +168,7 @@
                   <div class="text-h5 text-bold">Plano Anual</div>
                   <!-- <div class="text-subtitle2 q-mt-sm">Acesso antecipado à novas funcionalidades</div> -->
                   <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 819,90 por</div>
-                  <div class="text-h6 q-my-md text-blue-14"><strong>R$ 799,90</strong> em até 10x</div>
+                  <div class="text-h6 q-my-md text-blue-14"><strong>R$ 799,90</strong> em até 12x</div>
                   <ul class="text-left">
                     <li><strong>12 meses</strong> de <strong>acesso</strong></li>
                     <li>Badge <strong>personalizada</strong></li>
@@ -225,8 +225,14 @@
             href="https://wa.me/SEUNUMEROAQUI" target="_blank" />
         </div>
       </section>
-      <q-dialog v-model="planosDialog.mensal" persistent>
+      <q-dialog v-model="planosDialog.mensal">
         <PlanoMensal @close="planosDialog.mensal = false" />
+      </q-dialog>
+      <q-dialog v-model="planosDialog.semestral">
+        <PlanoSemestral @close="planosDialog.semestral = false" />
+      </q-dialog>
+      <q-dialog v-model="planosDialog.anual">
+        <PlanoAnual @close="planosDialog.anual = false" />
       </q-dialog>
       <!-- Rodapé -->
       <q-footer class="bg-grey-9 text-white text-center q-pa-md">
@@ -239,6 +245,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import PlanoMensal from 'components/PlanoMensal.vue';
+import PlanoSemestral from 'components/PlanoSemestral.vue';
+import PlanoAnual from 'components/PlanoAnual.vue';
 
 const planosDialog = ref({
   mensal: false,

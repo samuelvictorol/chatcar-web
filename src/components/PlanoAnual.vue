@@ -1,42 +1,43 @@
 <template>
     <q-card class="q-pa-md shadow-2" style="max-width: 500px; margin: auto">
         <q-card-section>
-            <div class="text-h5 text-bold">Pacote Básico</div>
+            <div class="text-h5 text-bold">Pacote Anual</div>
             <div class="text-subtitle2 q-mt-sm">
-                Utilize a plataforma no plano mensal, pague apenas se for utilizar
+                12 meses de plataforma, otimizada para você converter mais leads em vendas e economizar à longo prazo
             </div>
-            <div class="text-h6 q-my-md text-secondary text-bold">R$ 89,90</div>
+            <div class="text-h6 q-my-md text-blue-14 text-bold">R$ 799,90</div>
             <ul class="text-left">
-                <li><strong>Captação</strong> de Leads Ilimitados</li>
-                <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat IA da sua loja</li>
-                <li><strong>Chat IA</strong> para seu estoque</li>
+                <li><strong>12 meses</strong> de <strong>acesso</strong></li>
+                <li>Badge <strong>personalizada</strong></li>
+                <li><strong>Inclui</strong> todos os <strong>outros planos</strong></li>
+                <li>Mais <strong>econômico</strong></li>
             </ul>
         </q-card-section>
 
         <q-separator />
 
         <q-card-section v-if="step === 1">
-            <q-input filled color="secondary" v-model="formPayer.customer_name" label="Nome do Responsável*" />
-            <q-input filled color="secondary" v-model="formPayer.login" label="Login da Loja*" class="q-mt-sm" />
-            <q-input filled color="secondary" v-model="formPayer.password" type="password" label="Senha*"
+            <q-input filled color="blue-14" v-model="formPayer.customer_name" label="Nome do Responsável*" />
+            <q-input filled color="blue-14" v-model="formPayer.login" label="Login da Loja*" class="q-mt-sm" />
+            <q-input filled color="blue-14" v-model="formPayer.password" type="password" label="Senha*"
                 class="q-mt-sm" />
-            <q-input filled color="secondary" v-model="formPayer.customer_email" label="E-mail*" class="q-mt-sm" />
-            <q-input filled color="secondary" v-model="formPayer.customer_cellphone" label="Telefone*"
+            <q-input filled color="blue-14" v-model="formPayer.customer_email" label="E-mail*" class="q-mt-sm" />
+            <q-input filled color="blue-14" v-model="formPayer.customer_cellphone" label="Telefone*"
                 class="q-mt-sm" />
-            <q-input filled color="secondary" v-model="formPayer.cnpj" label="CNPJ*" class="q-mt-sm" />
+            <q-input filled color="blue-14" v-model="formPayer.cnpj" label="CNPJ*" class="q-mt-sm" />
         </q-card-section>
 
         <q-card-section v-else>
-            <q-input filled color="secondary" v-model="formPayer.address_cep" label="CEP*" />
-            <q-input filled color="secondary" v-model="formPayer.address_number" label="Número*" class="q-mt-sm" />
-            <q-input filled color="secondary" v-model="formPayer.address_complement" label="Complemento"
+            <q-input filled color="blue-14" v-model="formPayer.address_cep" label="CEP*" />
+            <q-input filled color="blue-14" v-model="formPayer.address_number" label="Número*" class="q-mt-sm" />
+            <q-input filled color="blue-14" v-model="formPayer.address_complement" label="Complemento"
                 class="q-mt-sm" />
         </q-card-section>
 
         <q-card-actions align="center" class="q-mt-md">
-            <q-btn v-if="step === 1" label="Próximo" color="secondary" glossy :disable="!isStepOneValid"
+            <q-btn v-if="step === 1" label="Próximo" color="blue-14" glossy :disable="!isStepOneValid"
                 @click="step++" />
-            <q-btn v-else label="Área de Pagamento" color="secondary" glossy :disable="!isStepTwoValid"
+            <q-btn v-else label="Área de Pagamento" color="blue-14" glossy :disable="!isStepTwoValid"
                 :href="urlInfinitePayDinamic" target="_blank" />
         </q-card-actions>
     </q-card>
@@ -62,8 +63,8 @@ const formPayer = ref({
 
 const items = [
     {
-        name: 'Plano Mensal - ChatCar IA',
-        amount: 8990,
+        name: 'Plano Anual - ChatCar IA',
+        amount: 79990,
         quantity: 1,
     },
 ]
