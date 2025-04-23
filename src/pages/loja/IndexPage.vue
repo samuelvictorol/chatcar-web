@@ -18,8 +18,8 @@
 
         <!-- Botões -->
         <div class="row q-gutter-sm q-mb-md">
-            <q-btn color="primary" icon="sms" icon-right="link" label="Meu Chat" to="/loja/perfil/editar" />
-            <q-btn color="secondary" icon="edit" label="Editar Perfil" to="/loja/perfil/editar" />
+            <q-btn color="secondary" icon="sms" icon-right="link" label="Meu Chat" glossy to="/free-trial" />
+            <q-btn color="orange-14"  glossy icon="edit" label="Editar Perfil" to="/loja/perfil/editar" />
         </div>
 
         <!-- Cards em Grid -->

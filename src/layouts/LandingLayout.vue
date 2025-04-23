@@ -44,9 +44,12 @@
             Uma plataforma inteligente para lojistas e concessionárias automatizarem o atendimento e captarem leads
             prontos para comprar.
           </p>
-          <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" icon="query_stats" class="q-px-lg  q-mt-lg" to="/free-trial" unelevated size="lg" />
+          <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" icon="query_stats" class="q-px-md q-mt-lg" to="/loja" unelevated size="lg" />
         </div>
       </section>
+      <div class="w100 bg-grey-14 text-white text-left q-pa-md">
+        Atenda 24h por dia com IA, convertendo visitantes em clientes a partir do seu chat integrado ao estoque.
+      </div>
       <!-- Como Funciona -->
       <section class="bg-grey-2 q-py-xl container text-center">
         <h2 class="text-h4 text-bold q-pb-lg">Como Funciona?</h2>
@@ -115,7 +118,7 @@
             unelevated />
         </div>
       </section>
-      <section style="border-bottom: 8px solid grey;" class="q-py-xl bg-grey-2 text-center">
+      <section style="border-bottom: 8px solid grey;" class="q-pb-xl q-pt-md bg-grey-2 text-center">
         <div class="container">
           <h2 class="text-h4 text-bold q-mb-xl">Escolha seu Plano</h2>
           <div class="row q-col-gutter-md justify-center">

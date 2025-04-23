@@ -3,8 +3,9 @@
 
         <q-header class="bg-dark text-white">
             <q-toolbar>
-                <q-toolbar-title>
-                    PRIMAVIA
+                <q-toolbar-title class="text-h6 row items-center"><q-icon class="q-pr-sm" name="store"
+                    size="md"></q-icon>
+                  <div class="animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
                 </q-toolbar-title>
                 <div class="row no-wrap items-center">
                     <q-btn label="sair" color="grey-4" flat class="full-width" to="/" />
