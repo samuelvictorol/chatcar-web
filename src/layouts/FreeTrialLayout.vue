@@ -11,7 +11,7 @@
                     </div>
                 </q-toolbar-title>
                 <q-btn class="q-mr-sm" color="grey-2" to="/" flat icon="logout" />
-                <q-btn class="q-mr-sm" glossy color="blue-14" icon="psychology" @click="showDialog = !showDialog" />
+                <!-- <q-btn class="q-mr-sm" glossy color="blue-14" icon="psychology" @click="showDialog = !showDialog" /> -->
                 <q-btn glossy color="secondary" icon="store" @click="toggleEstoqueDrawer" />
             </q-toolbar>
         </q-header>
@@ -49,7 +49,7 @@
         <q-page-container class="bg-dark">
             <q-page class="q-pa-none bg-grey-4 column full-height relative">
                 <!-- Vitrine fixa -->
-                <div class="bg-dark">
+                <div class="bg-dark sticky-top">
                     <div class="w100 row no-wrap items-center justify-between q-px-md q-pt-sm">
                         <div class="text-h6 text-white q-pt-sm q-mb-sm">Vitrine</div>
                         <div class="text-h6 text-white q-pt-sm q-mb-sm"><q-btn label="ChatCars Store" color=""
@@ -59,7 +59,8 @@
 
                     <div class="q-mx-auto" style="max-width: 700px;">
                         <q-carousel v-if="carrossel.length" v-model="carrosselIndex" navigation
-                            navigation-color="secondary" arrows height="250px" class="bg-dark text-white q-pb-md">
+                            navigation-color="secondary" arrows height="250px"
+                            class="bg-dark sticky text-white q-pb-md">
                             <q-carousel-slide v-for="(carro, i) in carrossel" :name="i" :key="i"
                                 class="relative-position">
                                 <q-img :src="carro.img_url" :alt="carro.modelo" class="fit"
@@ -253,16 +254,20 @@
 
                 </div>
 
-                <div ref="mensagensContainer" class="col scroll q-pa-md q-gutter-sm"
-                    style="min-height: 0; overflow-y: auto;">
-                    <q-chat-message v-for="(msg, index) in messages" :key="index" :sent="msg.from === 'user'"
-                        :text="[msg.text]" :name="msg.from === 'user' ? 'Você' : 'ChatCars Store diz:'"
-                        :bg-color="msg.from === 'user' ? 'green-11' : 'grey-3'" />
+                <!-- Container de mensagens -->
+                <div class="col column no-wrap" style="overflow: hidden;">
+                    <div ref="mensagensContainer" class="col scroll q-pa-md q-gutter-sm" style="overflow-y: auto;">
+                        <q-chat-message v-for="(msg, index) in messages" :key="index" :sent="msg.from === 'user'"
+                            :text="[msg.text]" :name="msg.from === 'user' ? 'Você' : 'ChatCars Store'"
+                            :bg-color="msg.from === 'user' ? 'green-11' : 'grey-3'" />
+                    </div>
                 </div>
+                <div class="w100" style="height:10px"></div>
                 <!-- Input fixo no final -->
-                <div class="q-pa-md bg-white row items-center" style="flex-shrink: 0;">
+                <div class="q-pa-md bg-white row items-center"
+                    style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
                     <q-input filled v-model="input" color="secondary" class="col"
-                        placeholder="Pergunte algo sobre o estoque..." @keyup.enter="sendMessage" />
+                        placeholder="Pergunte sobre o veículo..." @keyup.enter="sendMessage" />
                     <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" />
                     <q-btn icon="send" color="secondary" flat round @click="sendMessage" />
@@ -279,6 +284,14 @@ import { useQuasar } from 'quasar'
 import { nextTick } from 'vue'
 const showDialog = ref(false)
 
+
+const sobreLoja = ref({
+    nome: 'ChatCars Store',
+    cnpj: '12.345.678/0001-99',
+    endereco: 'Av. das Inovações, 1234 - Centro, São Paulo - SP',
+    telefone: '(11) 98765-4321',
+    email: ''
+})
 // Relatório mockado gerado pela "IA"
 const relatorio = ref({
     interesses: '',
@@ -341,7 +354,7 @@ function selecionarCarro(carro) {
     })
 
     nextTick(() => {
-        mensagensContainer.value.scrollTop = mensagensContainer.value.scrollHeight
+        window.scrollTo(0, document.body.scrollHeight)
     })
 
     showEstoqueDrawer.value = false
@@ -563,10 +576,14 @@ onMounted(() => {
                     carrossel.value = randomCarros
                     messages.value.push({
                         from: 'bot',
-                        text: `😕 Não escolheu nenhuma categoria. Veja algumas opções aleatórias na vitrine!`
+                        text: '👋🏼 Olá ' + usuario.value.nome + '! Veja algumas opções na nossa vitrine!⬆️'
                     })
                     return
                 }
+                messages.value.push({
+                    from: 'bot',
+                    text: '👋🏼 Olá, ' + usuario.value.nome + ', somos a ' + sobreLoja.value.nome + '! Aqui estão algumas opções do nosso estoque!⬆️'
+                })
                 messages.value.push({
                     from: 'bot',
                     text: `Se quiser ver mais opções, clique no ícone de "estoque" na parte superior.`,
@@ -632,25 +649,27 @@ function sendMessage() {
         carro.valor.toString().includes(termo)
     )
 
-    if (resultado.length) {
-        messages.value.push({
-            from: 'bot',
-            text: `🔍 Encontrei ${resultado.length} carro(s) que podem te interessar. Veja na vitrine acima!`
-        })
-        carrossel.value = resultado
-    } else {
-        messages.value.push({
-            from: 'bot',
-            text: `😕 Não encontrei resultados com esse termo. Tente algo como "SUV", "Corolla", "2020" ou "50000".`
-        })
-    }
-
-    nextTick(() => {
-        if (mensagensContainer.value) {
-            mensagensContainer.value.scrollTop = mensagensContainer.value.scrollHeight
+    // Simula delay na resposta do bot
+    setTimeout(() => {
+        if (resultado.length) {
+            messages.value.push({
+                from: 'bot',
+                text: `🔍 Encontrei ${resultado.length} carro(s) que podem te interessar. Veja na vitrine acima!`
+            })
+            carrossel.value = resultado
+        } else {
+            messages.value.push({
+                from: 'bot',
+                text: `😕 Não encontrei resultados com esse termo. Tente algo como "SUV", "Corolla", "2020" ou "50000".`
+            })
         }
-    })
+
+        nextTick(() => {
+            window.scrollTo(0, document.body.scrollHeight)
+        })
+    }, 500) // delay de 1 segundo (ajustável)
 }
+
 
 
 
@@ -668,10 +687,22 @@ watch(interacoes, (val) => {
                 text: 'Em breve, um de nossos atendentes irá entrar em contato com você para uma conversa mais detalhada.'
             })
         }, 600)
+        nextTick(() => {
+            window.scrollTo(0, document.body.scrollHeight)
+        })
     }
 })
+
 </script>
 <style scoped>
+.sticky-top {
+    position: sticky;
+    top: 50px;
+    z-index: 10;
+    background-color: #1a1a1a;
+    /* Cor de fundo para destacar a vitrine fixa */
+}
+
 #item-estoque {
     cursor: pointer;
     transform: all 0.2s linear;
