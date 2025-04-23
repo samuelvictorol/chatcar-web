@@ -21,14 +21,9 @@
 
     <q-page-container class="animate__animated animate__fadeIn">
       <div class="w100">
-        <q-img src="ia1.png" class="w100" style="position: fixed; z-index: -90" height="50vh">
+        <q-img src="ia1.png" class="w100" style="position: fixed; bottom: 0px; z-index: -90" height="100vh">
           <div class="absolute-bottom bg-black text-white q-pa-md">
-            <h2 class="text-h4">ChatCar I.A.</h2>
-          </div>
-        </q-img>
-        <q-img src="ia.png" class="w100" style="position: fixed; bottom: 0px; z-index: -90" height="40vh">
-          <div class="absolute-bottom bg-black text-white q-pa-md">
-            <h2 class="text-h4 w100 text-right row no-wrap justify-end">Leads Inteligentes</h2>
+            <h2 class="text-h4 w100 text-right row no-wrap justify-end">ChatCar IA</h2>
           </div>
         </q-img>
       </div>
