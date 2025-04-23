@@ -7,7 +7,7 @@
           <div class="animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
         </q-toolbar-title>
         <!-- <q-btn label="experimente" icon-right="rocket_launch" color="green-14" class="q-mr-sm " glossy to="/loja" /> -->
-        <q-btn color="secondary" class="text-white" label="entrar" icon-right="login" glossy to="/loja" />
+        <q-btn color="teal" dense class="q-px-sm text-white" label="Iniciar Sessão" icon-right="login" glossy to="/login" />
       </q-toolbar>
       <q-tabs inline-label v-model="tab" class="text-grey-2 ">
         <q-route-tab class="animate__animated animate__flipInX animate__slower animate__delay-2s row"
