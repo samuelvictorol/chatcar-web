@@ -21,11 +21,13 @@
                         class="rounded-borders shadow-1" /></div>
                     
                     <q-separator class="q-my-sm" />
-                    <div class="text-body1"><strong>Nome:</strong> {{ lojaInfo.nome }}</div>
+                    <div class="text-body1"><strong>Nome:</strong> {{ lojaInfo.nome }} - {{ lojaInfo.cnpj }}</div>
+                    <div class="text-body1"><strong>Site:</strong> {{ lojaInfo.site }}</div>
                     <div class="text-body1"><strong>Login:</strong> {{ lojaInfo.login }}</div>
-                    <div class="text-body1"><strong>CNPJ:</strong> {{ lojaInfo.cnpj }}</div>
+                    <div class="text-body1"><strong>Contato:</strong> {{ lojaInfo.telefone }}</div>
                     <div class="text-body1"><strong>Endereço:</strong> {{ lojaInfo.endereco }}</div>
-                    <div class="text-body1"><strong>Telefone:</strong> {{ lojaInfo.telefone }}</div>
+                    <div class="text-body1"><strong>Localização:</strong> {{ lojaInfo.link_loc }}</div>
+                    <div class="text-body1"><strong>Vencimento:</strong> Plano válido até <strong>{{ lojaInfo.plano_expira }}</strong></div>
                 </q-card-section>
             </q-card>
 
@@ -78,15 +80,18 @@ import { Chart, BarElement, CategoryScale, LinearScale, BarController } from 'ch
 Chart.register(BarController, BarElement, CategoryScale, LinearScale)
 
 // Dados iniciais
-const userRole = ref('Plano Gratuito')
+const userRole = ref('🥇 Plano Anual')
 
 const lojaInfo = ref({
     imgem: '/logo.jpg',
     nome: 'Minha Loja',
-    login: 'loja123',
+    site: 'www.chatcarsstore.com',
+    login: 'chatcarsstore',
     cnpj: '12.345.678/0001-99',
     endereco: 'Rua Exemplo, 123',
-    telefone: '(11) 91234-5678'
+    telefone: '(11) 91234-5678',
+    link_loc: 'maps.google.com/?q=Rua+Exemplo,+123',
+    plano_expira: '22/04/2026',
 })
 
 const vendedores = ref([
@@ -95,8 +100,12 @@ const vendedores = ref([
 ])
 
 const leadsRecentes = ref([
-    { id: 1, nome: 'Carlos', data: '2025-04-20' },
-    { id: 2, nome: 'Ana', data: '2025-04-21' }
+    { id: 1, nome: 'Carlos', data: '20/10/2023' },
+    { id: 2, nome: 'Ana', data: '19/10/2023' },
+    { id: 3, nome: 'Pedro', data: '18/10/2023' },
+    { id: 4, nome: 'Luiza', data: '17/10/2023' },
+    { id: 5, nome: 'Fernanda', data: '16/10/2023' },
+    { id: 6, nome: 'Ricardo', data: '15/10/2023' },
 ])
 
 // Referência ao canvas do gráfico

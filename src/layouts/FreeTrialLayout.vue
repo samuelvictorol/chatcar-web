@@ -3,14 +3,14 @@
         <q-header elevated class="bg-dark text-white">
             <q-toolbar>
                 <q-toolbar-title class="row no-wrap w100 items-center">
-                    <q-avatar>
+                    <!-- <q-avatar>
                         <q-icon name="sms" size="lg" to="/" />
-                    </q-avatar>
+                    </q-avatar> -->
                     <div class="q-pl-sm animate__animated animate__fadeInLeft animate__slower">
-                        ChatCar
+                        ChatCars Store
                     </div>
                 </q-toolbar-title>
-                <q-btn class="q-mr-sm" color="grey-2" to="/" flat icon="logout" />
+                <q-btn class="q-mr-sm" color="grey-2" to="/loja" flat icon="logout" />
                 <!-- <q-btn class="q-mr-sm" glossy color="blue-14" icon="psychology" @click="showDialog = !showDialog" /> -->
                 <q-btn glossy color="secondary" icon="store" @click="toggleEstoqueDrawer" />
             </q-toolbar>
@@ -52,7 +52,7 @@
                 <div class="bg-dark sticky-top">
                     <div class="w100 row no-wrap items-center justify-between q-px-md q-pt-sm">
                         <div class="text-h6 text-white q-pt-sm q-mb-sm">Vitrine</div>
-                        <div class="text-h6 text-white q-pt-sm q-mb-sm"><q-btn label="ChatCars Store" color=""
+                        <div class="text-h6 text-white q-pt-sm q-mb-sm"><q-btn label="sobre a loja" icon-right="contact_support" color=""
                                 @click="openInfoLoja()" style="border:2px solid #26A69A" dense flat></q-btn></div>
 
                     </div>
@@ -241,7 +241,7 @@
                                 </div>
                                 <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria }} - {{
                                     carroSelecionado.ano
-                                    }}
+                                }}
                                 </div>
                                 <q-img :src="carroSelecionado.img_url" :alt="carroSelecionado.modelo"
                                     style="border-radius: 12px;" class="q-mb-md" />
@@ -286,8 +286,10 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import { nextTick } from 'vue'
-const showDialog = ref(false)
+import { useRouter } from 'vue-router'
 
+const showDialog = ref(false)
+const router = useRouter()
 
 const sobreLoja = ref({
     nome: 'ChatCars Store',
@@ -520,38 +522,26 @@ onMounted(() => {
             type: 'text',
             color: 'secondary'
         },
-        persistent: true
-    }).onOk(nome => {
-        if (!nome.trim()) {
-            $q.notify({
-                color: 'orange-14',
-                position: 'top',
-                message: '⚠️ O nome é obrigatório!',
-            })
-            setTimeout(() => {
-                window.location.reload()
-            }, 2000)
-            return
+        persistent: true,
+        ok: {
+            label: 'Continuar',
+            color: 'secondary',
+            glossy: true
+        },
+        cancel: {
+            label: 'voltar',
+            color: 'dark',
+            flat: true
         }
-
-        usuario.value.nome = nome
-
-        $q.dialog({
-            title: 'Telefone',
-            message: 'Digite seu número com DDD:',
-            prompt: {
-                model: '',
-                type: 'tel',
-                mask: '(##) #####-####',
-                color: 'secondary'
-            },
-            persistent: true
-        }).onOk(telefone => {
-            if (!telefone.trim()) {
+    }).onCancel(() => {
+        router.push('/loja')
+    })
+        .onOk(nome => {
+            if (!nome.trim()) {
                 $q.notify({
                     color: 'orange-14',
                     position: 'top',
-                    message: '⚠️ O telefone é obrigatório!',
+                    message: '⚠️ O nome é obrigatório!',
                 })
                 setTimeout(() => {
                     window.location.reload()
@@ -559,69 +549,109 @@ onMounted(() => {
                 return
             }
 
-            usuario.value.telefone = telefone
-
-            // Categorias únicas do estoque
-            const categoriasUnicas = [
-                ...new Set(estoque.map(carro => carro.categoria))
-            ]
-
-            const categoriaOptions = categoriasUnicas.map(cat => ({
-                label: cat.charAt(0).toUpperCase() + cat.slice(1),
-                value: cat
-            }))
+            usuario.value.nome = nome
 
             $q.dialog({
-                title: 'Preferências',
-                message: 'Quais tipos de veículo você mais se interessa?',
-                options: {
-                    type: 'checkbox',
-                    model: [],
+                title: 'Telefone',
+                message: 'Digite seu número com DDD:',
+                prompt: {
+                    model: '',
+                    type: 'tel',
+                    mask: '(##) #####-####',
+                    color: 'secondary'
+                },
+                ok: {
+                    label: 'Continuar',
                     color: 'secondary',
-                    items: categoriaOptions
+                    glossy: true
                 },
                 persistent: true
-            }).onOk(preferencias => {
-                if (!preferencias.length) {
-                    const randomCarros = estoque.sort(() => 0.5 - Math.random()).slice(0, 5)
-                    carrossel.value = randomCarros
-                    messages.value.push({
-                        from: 'bot',
-                        text: usuario.value.nome + ', veja algumas opções na nossa vitrine!⬆️'
+            }).onOk(telefone => {
+                if (!telefone.trim()) {
+                    $q.notify({
+                        color: 'orange-14',
+                        position: 'top',
+                        message: '⚠️ O telefone é obrigatório!',
                     })
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 2000)
                     return
                 }
-                messages.value.push({
-                    from: 'bot',
-                    text: usuario.value.nome + ', somos a ' + sobreLoja.value.nome + '! Aqui estão algumas opções do nosso estoque⬆'
-                })
-                messages.value.push({
-                    from: 'bot',
-                    text: `Se quiser ver mais opções, clique no ícone de "estoque" na parte superior.`,
-                })
 
-                nextTick(() => {
-                    window.scrollTo(0, document.body.scrollHeight)
-                })
-                usuario.value.preferencias = preferencias
-                carrossel.value = estoque.filter(carro => preferencias.includes(carro.categoria)).slice(0, 5)
-                carrosselIndex.value = 0
-            }).onOk(descricao => {
+                usuario.value.telefone = telefone
+
+                // Categorias únicas do estoque
+                const categoriasUnicas = [
+                    ...new Set(estoque.map(carro => carro.categoria))
+                ]
+
+                const categoriaOptions = categoriasUnicas.map(cat => ({
+                    label: cat.charAt(0).toUpperCase() + cat.slice(1),
+                    value: cat
+                }))
+
                 $q.dialog({
-                    title: 'Nos conte mais...',
-                    message: 'Se quiser, descreva em poucas palavras como pretende usar o carro (uso urbano, família, trabalho, etc). Isso nos ajuda a entender melhor seu perfil:',
-                    prompt: {
-                        model: '',
-                        type: 'textarea',
+                    title: 'Preferências',
+                    message: 'Quais tipos de veículo você mais se interessa?',
+                    options: {
+                        type: 'checkbox',
+                        model: [],
                         color: 'secondary',
-                        isValid: val => true // não obrigatório
+                        items: categoriaOptions
                     },
-                    persistent: false
-                })
-            })
+                    ok: {
+                        label: 'Continuar',
+                        color: 'secondary',
+                        glossy: true
+                    },
+                    persistent: true
+                }).onOk(preferencias => {
+                    if (!preferencias.length) {
+                        const randomCarros = estoque.sort(() => 0.5 - Math.random()).slice(0, 5)
+                        carrossel.value = randomCarros
+                        messages.value.push({
+                            from: 'bot',
+                            text: usuario.value.nome + ', veja algumas opções na nossa vitrine!⬆️'
+                        })
+                        return
+                    }
+                    messages.value.push({
+                        from: 'bot',
+                        text: usuario.value.nome + ', somos a ' + sobreLoja.value.nome + '! Aqui estão algumas opções do nosso estoque⬆'
+                    })
+                    messages.value.push({
+                        from: 'bot',
+                        text: `Se quiser ver mais opções, clique no ícone de "estoque" na parte superior.`,
+                    })
 
+                    nextTick(() => {
+                        window.scrollTo(0, document.body.scrollHeight)
+                    })
+                    usuario.value.preferencias = preferencias
+                    carrossel.value = estoque.filter(carro => preferencias.includes(carro.categoria)).slice(0, 5)
+                    carrosselIndex.value = 0
+                }).onOk(descricao => {
+                    $q.dialog({
+                        title: 'Nos conte mais...',
+                        message: 'Se quiser, descreva em poucas palavras como pretende usar o carro (uso urbano, família, trabalho, etc). Isso nos ajuda a entender melhor seu perfil:',
+                        prompt: {
+                            model: '',
+                            type: 'textarea',
+                            color: 'secondary',
+                            isValid: val => true // não obrigatório
+                        },
+                        ok: {
+                            label: 'Continuar',
+                            color: 'secondary',
+                            glossy: true
+                        },
+                        persistent: false
+                    })
+                })
+
+            })
         })
-    })
     messages.value.push({
         from: 'bot',
         text: `😁 Qual veículo você busca? Poderia me informar o modelo, ano, categoria ou preço?`
