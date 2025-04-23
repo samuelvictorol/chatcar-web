@@ -28,7 +28,7 @@
         </q-img>
         <q-img src="ia.png" class="w100" style="position: fixed; bottom: 0px; z-index: -90" height="40vh">
           <div class="absolute-bottom bg-black text-white q-pa-md">
-            <h2 class="text-h4 w100 text-right row no-wrap justify-end">Vendas Inteligentes</h2>
+            <h2 class="text-h4 w100 text-right row no-wrap justify-end">Leads Inteligentes</h2>
           </div>
         </q-img>
       </div>
@@ -221,7 +221,7 @@
         <div class="container text-center">
           <h2 class="text-h5 text-bold q-mb-md">Quer saber mais?</h2>
           <p>Fale com nosso time agora mesmo</p>
-          <q-btn label="Entrar em contato via WhatsApp" color="green-14" class="q-mt-md" icon="sms" glossy
+          <q-btn label="Entrar em contato via WhatsApp" color="secondary" class="q-mt-md" icon="sms" glossy
             href="https://wa.me/SEUNUMEROAQUI" target="_blank" />
         </div>
       </section>

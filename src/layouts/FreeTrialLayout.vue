@@ -6,8 +6,8 @@
                     <q-avatar>
                         <q-icon name="sms" size="lg" to="/" />
                     </q-avatar>
-                    <div class="q-pl-sm">
-                        FreeTrial
+                    <div class="q-pl-sm animate__animated animate__fadeInLeft animate__slower">
+                        ChatCar
                     </div>
                 </q-toolbar-title>
                 <q-btn class="q-mr-sm" color="grey-2" to="/" flat icon="logout" />
@@ -19,7 +19,7 @@
         <!-- Menu lateral com estoque completo -->
         <q-drawer v-model="showEstoqueDrawer" side="right" bordered>
             <q-toolbar class="bg-dark text-white">
-                <q-toolbar-title>Estoque de ChatCars Store</q-toolbar-title>
+                <q-toolbar-title>Estoque</q-toolbar-title>
                 <q-btn flat round icon="close" @click="showEstoqueDrawer = false" />
             </q-toolbar>
             <q-input v-model="filtroEstoque" color="secondary" outlined label="Filtrar estoque..." dense debounce="300"
@@ -66,7 +66,7 @@
                                 <q-img :src="carro.img_url" :alt="carro.modelo" class="fit"
                                     style="object-fit: cover; border-radius: 12px;">
                                     <div class="absolute-bottom text-white q-pa-sm"
-                                        style="background: #070707a2; backdrop-filter: blur(4px);">
+                                        style="background: #070707a2; backdrop-filter: blur(2px);">
                                         <div class="text-subtitle1 text-weight-bold">{{ carro.modelo }}</div>
                                         <div class="text-caption">{{ carro.categoria }} - {{ carro.ano }}</div>
                                         <q-btn icon="search" color="secondary" glossy dense class="q-mt-sm full-width"
@@ -119,9 +119,9 @@
                     <!-- Dialog da IA -->
                     <q-dialog v-model="iaDialogVisible" persistent>
                         <q-card class="q-pa-md" style="min-width: 400px; max-width: 95vw">
-                            <q-card-section class="row items-center q-pb-none">
+                            <q-card-section class="row items-center q-pb-none no-wrap w100">
                                 <q-icon name="psychology" size="md" color="blue-14" />
-                                <div class="text-h6 q-ml-sm">Recomendações Inteligentes</div>
+                                <div class="text-h6 q-ml-sm">Sugestão IA ChatCar</div>
                                 <q-space />
                                 <q-btn icon="close" flat round dense @click="iaDialogVisible = false" />
                             </q-card-section>
@@ -192,7 +192,6 @@
                                 </div>
                                 <q-space />
                             </q-card-section>
-
                             <q-card-section>
                                 <q-list bordered padding class="rounded-borders">
                                     <q-item>
@@ -228,6 +227,10 @@
                                     </q-item>
                                 </q-list>
                             </q-card-section>
+                            <q-card-actions align="right">
+                                <q-btn flat label="Fechar" color="grey-14" v-close-popup />
+                                <q-btn glossy label="Fale Conosco" color="secondary" />
+                            </q-card-actions>
                         </q-card>
                     </q-dialog>
                     <!-- Dialog de detalhes -->
@@ -238,7 +241,7 @@
                                 </div>
                                 <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria }} - {{
                                     carroSelecionado.ano
-                                }}
+                                    }}
                                 </div>
                                 <q-img :src="carroSelecionado.img_url" :alt="carroSelecionado.modelo"
                                     style="border-radius: 12px;" class="q-mb-md" />
@@ -258,7 +261,8 @@
                 <div class="col column no-wrap" style="overflow: hidden;">
                     <div ref="mensagensContainer" class="col scroll q-pa-md q-gutter-sm" style="overflow-y: auto;">
                         <q-chat-message v-for="(msg, index) in messages" :key="index" :sent="msg.from === 'user'"
-                            :text="[msg.text]" :name="msg.from === 'user' ? 'Você' : 'ChatCars Store'"
+                            class="animate__animated animate__zoomIn" :text="[msg.text]"
+                            :name="msg.from === 'user' ? 'Você' : 'ChatCars Store'"
                             :bg-color="msg.from === 'user' ? 'green-11' : 'grey-3'" />
                     </div>
                 </div>
@@ -267,7 +271,7 @@
                 <div class="q-pa-md bg-white row items-center"
                     style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
                     <q-input filled v-model="input" color="secondary" class="col"
-                        placeholder="Pergunte sobre o veículo..." @keyup.enter="sendMessage" />
+                        placeholder="Ex: sedan, up tsi, 2020..." @keyup.enter="sendMessage" />
                     <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" />
                     <q-btn icon="send" color="secondary" flat round @click="sendMessage" />
@@ -334,6 +338,9 @@ function abrirDialog(carro) {
         messages.value.push({
             from: 'bot',
             text: carro.mensagens.pop()
+        })
+        nextTick(() => {
+            window.scrollTo(0, document.body.scrollHeight)
         })
     }
     carroSelecionado.value = carro
@@ -493,6 +500,10 @@ const estoque = [
 ]
 
 onMounted(() => {
+    messages.value.push({
+        from: 'bot',
+        text: '✨ Seja bem-vindo(a) à nossa loja!'
+    })
     setTimeout(() => {
         relatorio.value = {
             interesses:
@@ -562,7 +573,7 @@ onMounted(() => {
 
             $q.dialog({
                 title: 'Preferências',
-                message: 'Quais tipos de carro você mais te interessa?',
+                message: 'Quais tipos de veículo você mais se interessa?',
                 options: {
                     type: 'checkbox',
                     model: [],
@@ -576,29 +587,26 @@ onMounted(() => {
                     carrossel.value = randomCarros
                     messages.value.push({
                         from: 'bot',
-                        text: '👋🏼 Olá ' + usuario.value.nome + '! Veja algumas opções na nossa vitrine!⬆️'
+                        text: usuario.value.nome + ', veja algumas opções na nossa vitrine!⬆️'
                     })
                     return
                 }
                 messages.value.push({
                     from: 'bot',
-                    text: '👋🏼 Olá, ' + usuario.value.nome + ', somos a ' + sobreLoja.value.nome + '! Aqui estão algumas opções do nosso estoque!⬆️'
+                    text: usuario.value.nome + ', somos a ' + sobreLoja.value.nome + '! Aqui estão algumas opções do nosso estoque⬆'
                 })
                 messages.value.push({
                     from: 'bot',
                     text: `Se quiser ver mais opções, clique no ícone de "estoque" na parte superior.`,
                 })
-                messages.value.push({
-                    from: 'bot',
-                    text: `😁 Qual veículo você busca? Poderia me informar o modelo, ano, categoria ou preço?`
-                })
 
+                nextTick(() => {
+                    window.scrollTo(0, document.body.scrollHeight)
+                })
                 usuario.value.preferencias = preferencias
                 carrossel.value = estoque.filter(carro => preferencias.includes(carro.categoria)).slice(0, 5)
                 carrosselIndex.value = 0
-                nextTick(() => {
-                    mensagensContainer.value.scrollTop = mensagensContainer.value.scrollHeight
-                })
+            }).onOk(descricao => {
                 $q.dialog({
                     title: 'Nos conte mais...',
                     message: 'Se quiser, descreva em poucas palavras como pretende usar o carro (uso urbano, família, trabalho, etc). Isso nos ajuda a entender melhor seu perfil:',
@@ -609,22 +617,14 @@ onMounted(() => {
                         isValid: val => true // não obrigatório
                     },
                     persistent: false
-                }).onOk(descricao => {
-                    // usuario.value.descricao = descricao || ''
-
-                    // const carrosSugeridos = estoque
-                    //     .filter(carro => preferencias.includes(carro.categoria))
-                    //     .slice(0, 5)
-
-                    // carrossel.value = carrosSugeridos
-
-                    // messages.value.push({
-                    //     from: 'bot',
-                    //     text: `Olá ${nome.split(' ')[0]}! Veja algumas opções com base no seu perfil⬆️`
-                    // })
                 })
             })
+
         })
+    })
+    messages.value.push({
+        from: 'bot',
+        text: `😁 Qual veículo você busca? Poderia me informar o modelo, ano, categoria ou preço?`
     })
 })
 
@@ -669,8 +669,6 @@ function sendMessage() {
         })
     }, 500) // delay de 1 segundo (ajustável)
 }
-
-
 
 
 watch(interacoes, (val) => {
