@@ -11,6 +11,7 @@
                     </div>
                 </q-toolbar-title>
                 <q-btn class="q-mr-sm" color="grey-2" to="/" flat icon="logout" />
+                <q-btn class="q-mr-sm" glossy color="blue-14" icon="psychology" @click="showDialog = !showDialog" />
                 <q-btn glossy color="secondary" icon="store" @click="toggleEstoqueDrawer" />
             </q-toolbar>
         </q-header>
@@ -51,7 +52,7 @@
                 <div class="bg-dark">
                     <div class="w100 row no-wrap items-center justify-between q-px-md q-pt-sm">
                         <div class="text-h6 text-white q-pt-sm q-mb-sm">Vitrine</div>
-                        <div class="text-h6 text-white q-pt-sm q-mb-sm"><q-btn label="ChatCars Store" color="green-11"
+                        <div class="text-h6 text-white q-pt-sm q-mb-sm"><q-btn label="ChatCars Store" color=""
                                 @click="openInfoLoja()" style="border:2px solid #26A69A" dense flat></q-btn></div>
 
                     </div>
@@ -74,6 +75,111 @@
                             </q-carousel-slide>
                         </q-carousel>
                     </div>
+                    <q-dialog v-model="showDialog" persistent>
+                        <q-card flat bordered class="bg-white text-dark shadow-2"
+                            style="min-width: 400px; max-width: 95vw">
+                            <q-card-section class="bg-grey-2 row items-center">
+                                <q-icon name="psychology_alt" color="blue-14" size="md" />
+                                <div class="text-h6 text-blue-14 q-ml-sm">Relatório Lead<br>Vendedor</div>
+                                <q-space />
+                                <q-btn flat round dense icon="close" @click="showDialog = false" />
+                            </q-card-section>
+
+                            <q-separator />
+
+                            <q-card-section>
+                                <div class="text-subtitle1 q-mb-sm text-bold">📌 Interesses do cliente:</div>
+                                <div class="text-body1 text-grey-8" v-if="relatorio.interesses">
+                                    {{ relatorio.interesses }}
+                                </div>
+                                <q-skeleton v-else type="text" width="100%" />
+                            </q-card-section>
+
+                            <q-separator />
+
+                            <q-card-section>
+                                <div class="text-subtitle1 q-mb-sm text-bold">📞 Dicas de abordagem por telefone:</div>
+                                <div class="text-body1 text-grey-8" v-if="relatorio.abordagem">
+                                    {{ relatorio.abordagem }}
+                                </div>
+                                <q-skeleton v-else type="text" width="100%" />
+                            </q-card-section>
+
+                            <q-separator />
+
+                            <q-card-section>
+                                <div class="text-caption text-grey-6 text-center">
+                                    Análise automatizada com base nos dados de navegação e preferências recentes do
+                                    lead.
+                                </div>
+                            </q-card-section>
+                        </q-card>
+                    </q-dialog>
+                    <!-- Dialog da IA -->
+                    <q-dialog v-model="iaDialogVisible" persistent>
+                        <q-card class="q-pa-md" style="min-width: 400px; max-width: 95vw">
+                            <q-card-section class="row items-center q-pb-none">
+                                <q-icon name="psychology" size="md" color="blue-14" />
+                                <div class="text-h6 q-ml-sm">Recomendações Inteligentes</div>
+                                <q-space />
+                                <q-btn icon="close" flat round dense @click="iaDialogVisible = false" />
+                            </q-card-section>
+
+                            <q-card-section>
+                                <div class="text-body1 text-grey-8">
+                                    Com base no seu perfil de uso, a IA selecionou 2 carros com melhor custo-benefício
+                                    no
+                                    estoque:
+                                </div>
+                            </q-card-section>
+
+                            <q-separator spaced />
+
+                            <!-- Opção 1: Renault Kwid -->
+                            <q-card-section class="q-mb-sm">
+                                <div class="text-subtitle1 text-blue-14">1. Renault Kwid 2023</div>
+                                <q-img src="/kwid.jpg" class="q-mt-sm rounded-borders"
+                                    style="max-height: 180px; object-fit: cover;" />
+                                <div class="q-mt-sm text-body2">
+                                    <b>Descrição:</b> 1.0 FLEX ZEN MANUAL - 50.000km - Preto - 2020
+                                    <br />
+                                    <b>Motivos da escolha:</b>
+                                    <ul class="q-pl-md">
+                                        <li>O Kwid é um dos carros mais econômicos do Brasil!</li>
+                                        <li>Esse modelo vem com central multimídia e direção elétrica.</li>
+                                        <li>IPVA e manutenção fácil!</li>
+                                    </ul>
+                                </div>
+                            </q-card-section>
+
+                            <q-separator spaced />
+
+                            <!-- Opção 2: Honda Civic -->
+                            <q-card-section>
+                                <div class="text-subtitle1 text-blue-14">2. Honda Civic 2020</div>
+                                <q-img src="/civic.jpg" class="q-mt-sm rounded-borders"
+                                    style="max-height: 180px; object-fit: cover;" />
+                                <div class="q-mt-sm text-body2">
+                                    <b>Descrição:</b> 1.5 TURBO FLEX EX CVT - 50.000km - Preto - 2020
+                                    <br />
+                                    <b>Motivos da escolha:</b>
+                                    <ul class="q-pl-md">
+                                        <li>O Civic é conhecido pela sua confiabilidade e durabilidade.</li>
+                                        <li>Esse modelo tem um ótimo espaço interno e conforto para viagens longas.</li>
+                                        <li>IPVA e manutenção muito baratos!</li>
+                                    </ul>
+                                </div>
+                            </q-card-section>
+
+                            <q-separator spaced />
+
+                            <q-card-section>
+                                <div class="text-caption text-grey text-center">
+                                    Análise automática gerada com base no histórico de preferências dos nossos clientes.
+                                </div>
+                            </q-card-section>
+                        </q-card>
+                    </q-dialog>
                     <!-- Dialog com informações da loja -->
                     <q-dialog v-model="infoLojaVisible">
                         <q-card class="q-pa-md" style="min-width: 350px; max-width: 90vw">
@@ -150,15 +256,15 @@
                 <div ref="mensagensContainer" class="col scroll q-pa-md q-gutter-sm"
                     style="min-height: 0; overflow-y: auto;">
                     <q-chat-message v-for="(msg, index) in messages" :key="index" :sent="msg.from === 'user'"
-                        :text="[msg.text]" :name="msg.from === 'user' ? 'Você' : 'Concessionária'"
-                        :bg-color="msg.from === 'user' ? 'blue-2' : 'grey-3'" />
+                        :text="[msg.text]" :name="msg.from === 'user' ? 'Você' : 'ChatCars Store diz:'"
+                        :bg-color="msg.from === 'user' ? 'green-11' : 'grey-3'" />
                 </div>
                 <!-- Input fixo no final -->
                 <div class="q-pa-md bg-white row items-center" style="flex-shrink: 0;">
                     <q-input filled v-model="input" color="secondary" class="col"
                         placeholder="Pergunte algo sobre o estoque..." @keyup.enter="sendMessage" />
-                    <q-btn v-if="interacoes >= 5" icon="rocket" color="orange" flat round
-                        @click="() => $q.notify('chama resultado por ia aqui')" />
+                    <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
+                        @click="iaDialogVisible = true" />
                     <q-btn icon="send" color="secondary" flat round @click="sendMessage" />
                 </div>
             </q-page>
@@ -171,17 +277,20 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import { nextTick } from 'vue'
+const showDialog = ref(false)
 
+// Relatório mockado gerado pela "IA"
+const relatorio = ref({
+    interesses: '',
+    abordagem: ''
+})
 const mensagensContainer = ref(null)
 const dialogAberto = ref(false)
 const carroSelecionado = ref({})
 const $q = useQuasar()
 const filtroEstoque = ref('')
 const infoLojaVisible = ref(false)
-
-function openInfoLoja() {
-    infoLojaVisible.value = true
-}
+const iaDialogVisible = ref(false)
 const messages = ref([])
 const input = ref('')
 const showEstoqueDrawer = ref(false)
@@ -195,6 +304,9 @@ const usuario = ref({
     preferencias: []
 })
 
+function openInfoLoja() {
+    infoLojaVisible.value = true
+}
 
 const estoqueFiltrado = computed(() =>
     estoque.filter(carro =>
@@ -368,6 +480,14 @@ const estoque = [
 ]
 
 onMounted(() => {
+    setTimeout(() => {
+        relatorio.value = {
+            interesses:
+                'Cliente demonstrou forte interesse por SUVs automáticos com teto solar, até R$ 95.000. Pesquisou consumo, espaço interno e confiabilidade. Está comparando Jeep Renegade, Hyundai Creta e VW T-Cross.',
+            abordagem:
+                'Comece ressaltando os diferenciais de conforto, economia e segurança dos SUVs. Foque em modelos com teto solar e câmbio automático. Diga que temos pronta entrega de algumas versões. Ofereça test drive rápido e simulação de financiamento personalizada. Não pressione por decisão imediata.'
+        }
+    }, 1000)
     $q.dialog({
         title: 'Bem-vindo ao ChatCar IA!',
         message: 'Qual o seu nome?',
@@ -535,11 +655,11 @@ function sendMessage() {
 
 
 watch(interacoes, (val) => {
-    if (val === 5) {
+    if (val === 3) {
         setTimeout(() => {
             messages.value.push({
                 from: 'bot',
-                text: '🚀 Clique no foguete ao lado para ver os resultados por IA!'
+                text: '🚀 Clique no foguete para ver a sugestão da IA ChatCar personalizada pra você!'
             })
         }, 600)
     }
