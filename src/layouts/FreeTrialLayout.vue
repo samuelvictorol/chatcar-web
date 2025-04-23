@@ -662,6 +662,12 @@ watch(interacoes, (val) => {
                 text: '🚀 Clique no foguete para ver a sugestão da IA ChatCar personalizada pra você!'
             })
         }, 600)
+        setTimeout(() => {
+            messages.value.push({
+                from: 'bot',
+                text: 'Em breve, um de nossos atendentes irá entrar em contato com você para uma conversa mais detalhada.'
+            })
+        }, 600)
     }
 })
 </script>
