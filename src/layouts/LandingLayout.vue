@@ -68,7 +68,6 @@
           </div>
         </div>
       </section>
-      <div class="w100 bg-grad-landing" style="height: 40vh"></div>
       <!-- Benefícios -->
       <section class="bg-grey-2 q-py-xl text-center">
         <div class="">
