@@ -88,16 +88,19 @@
                 <q-separator />
 
                 <q-card-section>
-                    <q-input v-model="formVeiculo.id" label="ID do Veículo" dense outlined class="q-mb-sm" />
-                    <q-input v-model="formVeiculo.modelo" label="Modelo" dense outlined class="q-mb-sm" />
-                    <q-input v-model="formVeiculo.tipo" label="Tipo" dense outlined class="q-mb-sm" />
-                    <q-input v-model="formVeiculo.status" label="Status" dense outlined class="q-mb-sm" />
-                    <q-input v-model="formVeiculo.categoria" label="Categoria" dense outlined class="q-mb-sm" />
-                    <q-input v-model.number="formVeiculo.ano" label="Ano" type="number" dense outlined
+                    <q-img v-if="formVeiculo?.img_url" :src="formVeiculo?.img_url" class="q-mb-md rounded-borders" height="200px"
+                    fit="contain" />
+                    <q-input color="teal" v-model="formVeiculo.modelo" label="Modelo" dense outlined class="q-mb-sm" />
+                    <q-input color="teal" v-model="formVeiculo.tipo" label="Tipo" dense outlined class="q-mb-sm" />
+                    <q-input color="teal" v-model="formVeiculo.status" label="Status" dense outlined class="q-mb-sm" />
+                    <q-input color="teal" v-model="formVeiculo.categoria" label="Categoria" dense outlined
                         class="q-mb-sm" />
-                    <q-input v-model.number="formVeiculo.preco" label="Preço" type="number" prefix="R$" dense outlined
+                    <q-input color="teal" v-model.number="formVeiculo.ano" label="Ano" type="number" dense outlined
                         class="q-mb-sm" />
-                    <q-input v-model="formVeiculo.img_url" label="URL da Imagem" dense outlined class="q-mb-md" />
+                    <q-input color="teal" v-model="formVeiculo.preco" label="Preço" mask="#.##" fill-mask="0" reverse-fill-mask
+                        prefix="R$" input-class="text-right" dense outlined class="q-mb-sm" />
+                    <q-input color="teal" v-model="formVeiculo.img_url" label="URL da Imagem" dense outlined
+                        class="q-mb-md" />
 
                     <div class="text-subtitle2 q-mb-xs">Mensagens</div>
                     <div v-for="(msg, index) in formVeiculo.mensagens" :key="index"
@@ -105,7 +108,7 @@
                         <q-input v-model="formVeiculo.mensagens[index]" dense outlined class="col" />
                         <q-btn flat dense icon="delete" color="negative" @click="removerMensagem(index)" />
                     </div>
-                    <q-btn flat dense icon="add" label="Adicionar Mensagem" color="primary"
+                    <q-btn glossy dense icon="sms" icon-right="add" label="Adicionar Mensagem" color="primary"
                         @click="adicionarMensagem" />
                 </q-card-section>
 
@@ -133,7 +136,6 @@ const estoque = ref([])
 const dialogAdicionar = ref(false)
 
 const formVeiculo = ref({
-    id: '',
     modelo: '',
     tipo: '',
     status: '',
