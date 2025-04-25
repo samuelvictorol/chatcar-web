@@ -119,6 +119,9 @@ async function handleSubmit() {
     loading.value = true
     if (formType.value === 'login') {
         await api.post('/login', { login: form.value.login, password: form.value.password }).then((response) => {
+            const token = response.data.loja.password;
+            delete response.data.loja.password;
+            response.data.loja.token = token;
             localStorage.setItem('user', JSON.stringify(response.data.loja))
             $q.notify({
                 color: 'teal',

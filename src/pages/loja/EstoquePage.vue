@@ -8,8 +8,7 @@
 
         <div class="row justify-between items-center q-mb-md">
             <div class="text-h5 text-bold text-dark">Estoque</div>
-            <q-btn color="teal" glossy label="Adicionar" icon-right="add_circle"
-                />
+            <q-btn color="teal" glossy label="Adicionar" @click="dialogAdicionar = true" icon-right="add_circle" />
         </div>
 
         <q-input outlined dense debounce="300" color="dark" v-model="buscar" label="Buscar" class="q-mb-lg" clearable
@@ -32,7 +31,7 @@
                             <div class="text-body2 text-grey-8">R$ {{ item.preco | currency }},00</div>
                         </q-card-section>
                         <q-card-actions align="right">
-                            <q-btn flat color="red " icon="delete"/>
+                            <q-btn flat color="red " icon="delete" />
                             <q-btn color="teal-14   " glossy icon="visibility" label="Detalhes"
                                 @click="abrirDetalhes(item)" />
                         </q-card-actions>
@@ -78,6 +77,46 @@
                 </q-card-section>
             </q-card>
         </q-dialog>
+        <q-dialog v-model="dialogAdicionar">
+            <q-card style="min-width: 350px; max-width: 90vw;">
+                <q-card-section class="row items-center q-pb-md">
+                    <div class="text-h6">Adicionar Veículo</div>
+                    <q-space />
+                    <q-btn icon="close" flat round dense v-close-popup />
+                </q-card-section>
+
+                <q-separator />
+
+                <q-card-section>
+                    <q-input v-model="formVeiculo.id" label="ID do Veículo" dense outlined class="q-mb-sm" />
+                    <q-input v-model="formVeiculo.modelo" label="Modelo" dense outlined class="q-mb-sm" />
+                    <q-input v-model="formVeiculo.tipo" label="Tipo" dense outlined class="q-mb-sm" />
+                    <q-input v-model="formVeiculo.status" label="Status" dense outlined class="q-mb-sm" />
+                    <q-input v-model="formVeiculo.categoria" label="Categoria" dense outlined class="q-mb-sm" />
+                    <q-input v-model.number="formVeiculo.ano" label="Ano" type="number" dense outlined
+                        class="q-mb-sm" />
+                    <q-input v-model.number="formVeiculo.preco" label="Preço" type="number" prefix="R$" dense outlined
+                        class="q-mb-sm" />
+                    <q-input v-model="formVeiculo.img_url" label="URL da Imagem" dense outlined class="q-mb-md" />
+
+                    <div class="text-subtitle2 q-mb-xs">Mensagens</div>
+                    <div v-for="(msg, index) in formVeiculo.mensagens" :key="index"
+                        class="row q-gutter-sm items-center q-mb-sm">
+                        <q-input v-model="formVeiculo.mensagens[index]" dense outlined class="col" />
+                        <q-btn flat dense icon="delete" color="negative" @click="removerMensagem(index)" />
+                    </div>
+                    <q-btn flat dense icon="add" label="Adicionar Mensagem" color="primary"
+                        @click="adicionarMensagem" />
+                </q-card-section>
+
+                <q-separator />
+
+                <q-card-actions align="right">
+                    <q-btn flat label="Cancelar" v-close-popup />
+                    <q-btn color="teal" glossy label="Salvar" @click="salvarVeiculo" />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
 
     </q-page>
 </template>
@@ -91,6 +130,61 @@ const buscar = ref('')
 const dialogDetalhes = ref(false)
 const veiculoSelecionado = ref(null)
 const estoque = ref([])
+const dialogAdicionar = ref(false)
+
+const formVeiculo = ref({
+    id: '',
+    modelo: '',
+    tipo: '',
+    status: '',
+    categoria: '',
+    ano: null,
+    preco: null,
+    img_url: '',
+    mensagens: []
+})
+
+function adicionarMensagem() {
+    formVeiculo.value.mensagens.push('')
+}
+
+function removerMensagem(index) {
+    formVeiculo.value.mensagens.splice(index, 1)
+}
+
+async function salvarVeiculo() {
+    const user = JSON.parse(localStorage.getItem("user"))
+    const payload = {
+        loja: {
+            id: user?.id,
+            token: user?.token
+        },
+        estoque: estoque_id,
+        veiculo: { ...formVeiculo.value }
+    }
+
+    try {
+        await api.post("/add-veiculo", payload)
+        $q.notify({ type: 'positive', message: 'Veículo adicionado com sucesso!' })
+        dialogAdicionar.value = false
+        formVeiculo.value = {
+            id: '',
+            modelo: '',
+            tipo: '',
+            status: '',
+            categoria: '',
+            ano: null,
+            preco: null,
+            img_url: '',
+            mensagens: []
+        }
+        carregarEstoque()
+    } catch (err) {
+        console.error(err)
+        $q.notify({ type: 'negative', message: 'Erro ao adicionar veículo.' })
+    }
+}
+
 
 // Substitua por IDs reais ou recupere dinamicamente se preferir
 const estoque_id = '680ba2a6b1be6120dc27984d'
