@@ -13,6 +13,13 @@
                     <q-form @submit.prevent="handleSubmit">
                         <q-card-section class="">
 
+                            <!-- login) -->
+                            <q-input v-model="form.login" label="Login" outlined dense color="teal"
+                                :rules="[val => !!val || 'Login']">
+                                <template #prepend>
+                                    <q-icon name="account_circle" color="teal" />
+                                </template>
+                            </q-input>
                             <!-- Nome (registro) -->
                             <q-input v-if="formType === 'register'" v-model="form.name" label="Nome completo" outlined
                                 dense color="teal" :rules="[val => !!val || 'Informe seu nome']">
@@ -22,8 +29,8 @@
                             </q-input>
 
                             <!-- E-mail -->
-                            <q-input v-model="form.email" label="E-mail" type="email" outlined dense color="teal"
-                                :rules="[val => !!val || 'Informe seu e-mail']">
+                            <q-input v-model="form.email" v-if="formType === 'register'" label="E-mail" type="email"
+                                outlined dense color="teal" :rules="[val => !!val || 'Informe seu e-mail']">
                                 <template #prepend>
                                     <q-icon name="mail" />
                                 </template>
@@ -34,7 +41,7 @@
                                 label="Senha" outlined dense color="teal"
                                 :rules="[val => !!val || 'Informe sua senha']">
                                 <template #prepend>
-                                    <q-icon name="lock" />
+                                    <q-icon name="lock" color="teal" />
                                 </template>
                                 <template #append>
                                     <q-icon :name="showPassword ? 'visibility_off' : 'visibility'"
@@ -54,23 +61,29 @@
                                         class="cursor-pointer" @click="showPassword = !showPassword" />
                                 </template>
                             </q-input>
+                            <div class="w100" v-if="!loading">
+                                <!-- Botão de ação -->
+                                <q-btn glossy :label="formType === 'login' ? 'Entrar' : 'Registrar'" type="submit"
+                                    color="teal-14" class="w100 q-mt-sm q-pa-md" no-caps />
 
-                            <!-- Botão de ação -->
-                            <q-btn glossy :label="formType === 'login' ? 'Entrar' : 'Registrar'" type="submit"
-                                color="secondary" class="w100 q-mt-sm q-pa-md" no-caps />
-
-                            <!-- Link alternar -->
-                            <div class="text-caption text-center text-grey-7">
-                                <q-btn flat dense no-caps color="secondary" class="q-mt-sm text-bold "
-                                    @click="toggleForm">
-                                    {{ formType === 'login'
-                                        ? 'Ainda não tem conta? Cadastre-se'
-                                        : 'Já tem conta? Entrar' }}
-                                </q-btn>
-                                <br>
-                                <q-btn label="voltar" no-caps flat color="primary" dense class="q-mt-sm" to="/" />
+                                <!-- Link alternar -->
+                                <div class="text-caption text-center text-grey-7">
+                                    <q-btn flat dense no-caps color="secondary" class="q-mt-sm text-bold "
+                                        @click="toggleForm">
+                                        {{ formType === 'login'
+                                            ? 'Ainda não tem conta? Cadastre-se'
+                                            : 'Já tem conta? Entrar' }}
+                                    </q-btn>
+                                    <br>
+                                    <q-btn label="voltar" no-caps flat color="primary" dense class="q-mt-sm" to="/" />
+                                </div>
                             </div>
                         </q-card-section>
+                        <div v-if="loading" class="w100 q-mb-md row no-wrap items-center justify-center">
+                            <q-spinner-ball color="teal" size="2em" />
+                            <q-spinner-ball color="teal" size="2em" />
+                            <q-spinner-ball color="teal" size="2em" />
+                        </div>
                     </q-form>
                 </q-card>
             </q-page>
@@ -80,11 +93,18 @@
 
 <script setup>
 import { ref } from 'vue'
+import { api } from 'src/boot/axios';
+import { useQuasar } from 'quasar';
+import { useRouter } from 'vue-router';
 
 const formType = ref('login')
 const showPassword = ref(false)
+const loading = ref(false)
+const $q = useQuasar()
+const router = useRouter()
 
 const form = ref({
+    login: '',
     name: '',
     email: '',
     password: '',
@@ -96,10 +116,27 @@ function toggleForm() {
     form.value = { name: '', email: '', password: '', confirmPassword: '' }
 }
 
-function handleSubmit() {
+async function handleSubmit() {
+    loading.value = true
     if (formType.value === 'login') {
-        console.log('Login:', form.value.email, form.value.password)
-        // login API call
+        await api.post('/login', { login: form.value.login, password: form.value.password }).then((response) => {
+            localStorage.setItem('user', JSON.stringify(response.data.loja))
+            $q.notify({
+                color: 'teal',
+                position: 'top',
+                message: 'Bem vindo, ' + response.data.loja.login,
+                icon: 'directions_car'
+            })
+            router.push('/loja')
+        }).catch(err => {
+            $q.notify({
+                color: 'dark',
+                position: 'top',
+                message: err.response.data.error,
+                icon: 'report_problem',
+            })
+            host.value.password = ''
+        }).then(() => { loading.value = false })
     } else {
         console.log('Registro:', form.value)
         // register API call
@@ -140,5 +177,4 @@ function handleSubmit() {
         width: 40%;
     }
 }
-
 </style>
