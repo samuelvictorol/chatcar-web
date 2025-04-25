@@ -22,9 +22,9 @@
     <q-page-container class="animate__animated animate__fadeIn">
       <div class="w100">
         <q-img src="ia1.png" class="w100" style="position: fixed; bottom: 0px; z-index: -90" height="100vh">
-          <div class="absolute-bottom bg-black text-white q-pa-md">
+          <!-- <div class="absolute-bottom bg-black text-white q-pa-md">
             <h2 class="text-h4 w100 text-right row no-wrap justify-end">ChatCar IA</h2>
-          </div>
+          </div> -->
         </q-img>
       </div>
       <!-- HERO Section -->
@@ -33,7 +33,7 @@
           <h1 class="text-h3 text-bold "><q-icon name="sms" color="white"
               class="animate__animated animate__zoomIn animate__slower animate__delay-2s"
               size="xl"></q-icon><br>Transforme
-            Conversas em Vendas com o ChatCar<br><q-icon name="paid" color="secondary"
+            Conversas em Vendas com o ChatCar<br><q-icon name="paid" color="teal-14"
               class="animate__animated animate__zoomIn animate__slower animate__delay-3s" size="xl"></q-icon></h1>
           <p class="text-subtitle1  q-px-lg q-mt-md">
             Uma plataforma inteligente para lojistas e concessionárias automatizarem o atendimento e captarem leads
@@ -42,9 +42,12 @@
           <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" icon="query_stats" class="q-px-md q-mt-lg" to="/loja" unelevated size="lg" />
         </div>
       </section>
-      <div class="w100 bg-grey-14 text-white text-left q-pa-md">
-        Atenda 24h por dia com IA, convertendo visitantes em clientes a partir do seu chat integrado ao estoque.
+      <div class="w100 bg-teal text-white text-bold text-left q-pa-md">
+        <div class="w100 animate__animated animate__slower animate__delay-3s animate__lightSpeedInLeft">
+          Atenda 24h por dia com IA, convertendo visitantes em clientes a partir do seu chat integrado ao estoque.
+        </div>
       </div>
+      <div class="w100 bg-grad-landing" style="height: 40vh"></div>
       <!-- Como Funciona -->
       <section class="bg-grey-2 q-py-xl container text-center">
         <h2 class="text-h4 text-bold q-pb-lg">Como Funciona?</h2>
@@ -90,7 +93,7 @@
           </div>
         </div>
       </section>
-      <section id="planos" class="q-py-xl bg-blue-14 text-white text-center">
+      <section id="planos" class="q-py-xl bg-teal text-white text-center">
         <div class="container">
           <div class="text-h4 text-bold">Promoção por tempo limitado!</div>
           <p class="text-subtitle1 q-mt-sm">De <s>R$ 459,90</s><br>por apenas <strong class="text-h5">R$ 69,90/mês</strong>
@@ -101,7 +104,7 @@
               <div class="text-h6">Oferta termina em:</div>
               <div class="row justify-center items-center q-gutter-sm q-mt-sm">
                 <div v-for="(time, label) in countdown" :key="label"
-                  class="q-pa-sm bg-white text-blue-14 text-bold rounded-borders">
+                  class="q-pa-sm bg-white text-teal text-bold rounded-borders">
                   <div class="text-h6">{{ time }}</div>
                   <div class="text-caption">{{ label }}</div>
                 </div>
@@ -109,11 +112,11 @@
             </div>
           </div>
 
-          <q-btn label="Aproveitar agora" color="secondary" glossy class="shadow-1 q-mt-lg" to="/cadastro" size="lg"
+          <q-btn label="Aproveitar agora" color="teal-14" glossy class="shadow-1 q-mt-lg" to="/cadastro" size="lg"
             unelevated />
         </div>
       </section>
-      <section style="border-bottom: 8px solid grey;" class="q-pb-xl q-pt-md bg-grey-2 text-center">
+      <section style="border-bottom: 4px solid #43A99F;" class="q-pb-xl q-pt-md bg-grey-2 text-center">
         <div class="container">
           <h2 class="text-h4 text-bold q-mb-xl">Escolha seu Plano</h2>
           <div class="row q-col-gutter-md justify-center">
@@ -183,8 +186,6 @@
           </div>
         </div>
       </section>
-
-      <div class="w100 bg-grad-landing" style="height: 40vh"></div>
       <section class="q-py-xl bg-grey-1 text-center">
         <div class="container q-px-md">
           <h2 class="text-h4 text-bold q-mb-md">IA Superinteligente Integrada à OpenAI</h2>
