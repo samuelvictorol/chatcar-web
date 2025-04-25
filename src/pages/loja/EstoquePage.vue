@@ -32,9 +32,8 @@
                         </q-card-section>
                         <q-card-actions align="right" class="bg-dark">
                             <q-btn flat color="red-4 " icon="delete" />
-                            <q-btn color="orange" glossy icon="edit"  @click="abrirModalEdicao(item)" />
-                            <q-btn color="teal-14   " glossy icon="visibility"
-                                @click="abrirDetalhes(item)" />
+                            <q-btn color="orange" glossy icon="edit" @click="abrirModalEdicao(item)" />
+                            <q-btn color="teal-14   " glossy icon="visibility" @click="abrirDetalhes(item)" />
                         </q-card-actions>
                     </q-card>
                 </q-row>
@@ -81,7 +80,7 @@
         <q-dialog v-model="dialogAdicionar">
             <q-card style="min-width: 350px; max-width: 90vw;">
                 <q-card-section class="row items-center q-pb-md">
-                    <div class="text-h6">{{ abrirModalEdicao ? 'Editar Veículo' : 'Adicionar Veículo'}}</div>
+                    <div class="text-h6">{{ abrirModalEdicao ? 'Editar Veículo' : 'Adicionar Veículo' }}</div>
                     <q-space />
                     <q-btn icon="close" flat round dense v-close-popup />
                 </q-card-section>
@@ -92,10 +91,15 @@
                     <q-img v-if="formVeiculo?.img_url" :src="formVeiculo?.img_url" class="q-mb-md rounded-borders"
                         height="200px" fit="contain" />
                     <q-input color="teal" v-model="formVeiculo.modelo" label="Modelo" dense outlined class="q-mb-sm" />
-                    <q-input color="teal" v-model="formVeiculo.tipo" label="Tipo" dense outlined class="q-mb-sm" />
-                    <q-input color="teal" v-model="formVeiculo.status" label="Status" dense outlined class="q-mb-sm" />
-                    <q-input color="teal" v-model="formVeiculo.categoria" label="Categoria" dense outlined
+                    <q-select color="teal" v-model="formVeiculo.tipo" :options="tipoVeiculoOptions" label="Tipo" dense outlined
                         class="q-mb-sm" />
+
+                    <q-select color="teal" v-model="formVeiculo.categoria" :options="categoriaVeiculoOptions" label="Categoria" dense
+                        outlined class="q-mb-sm" />
+
+                    <q-select color="teal" v-model="formVeiculo.status" :options="statusVeiculoOptions" label="Status" dense outlined
+                        class="q-mb-sm" />
+
                     <q-input color="teal" v-model.number="formVeiculo.ano" label="Ano" type="number" dense outlined
                         class="q-mb-sm" />
                     <q-input color="teal" v-model="formVeiculo.preco" label="Preço" mask="#.##" fill-mask="0"
@@ -128,6 +132,10 @@
 import { ref, onMounted, watch } from "vue";
 import { useQuasar } from 'quasar'
 import { api } from 'src/boot/axios';
+import { TipoVeiculoEnum, CategoriaVeiculoEnum, StatusVeiculoEnum } from 'src/enums/VeiculoEnum';
+const tipoVeiculoOptions = Object.entries(TipoVeiculoEnum).map(([value, label]) => ({ label, value }));
+const categoriaVeiculoOptions = Object.entries(CategoriaVeiculoEnum).map(([value, label]) => ({ label, value }));
+const statusVeiculoOptions = Object.entries(StatusVeiculoEnum).map(([value, label]) => ({ label, value }));
 
 const $q = useQuasar()
 const buscar = ref('')
@@ -182,11 +190,11 @@ async function salvarVeiculo() {
         if (modoEdicao.value) {
             // Edição
             await api.put(`/editar-veiculo/${idVeiculoEditando.value}`, payload);
-            $q.notify({ type: 'teal', position:'top', message: 'Veículo atualizado com sucesso!' });
+            $q.notify({ type: 'teal', position: 'top', message: 'Veículo atualizado com sucesso!' });
         } else {
             // Adição
             await api.post("/add-veiculo", { ...payload, estoque: estoque_id });
-            $q.notify({ type: 'teal', position:'top', message: 'Veículo adicionado com sucesso!' });
+            $q.notify({ type: 'teal', position: 'top', message: 'Veículo adicionado com sucesso!' });
         }
 
         dialogAdicionar.value = false;
