@@ -166,15 +166,15 @@
             <div class="col-12 col-sm-6 col-md-4">
               <q-card class="q-pa-md shadow-2 bg-blue-1">
                 <q-card-section>
-                  <div class="text-h5 text-bold">Plano Anual</div>
+                  <div class="text-h5 text-bold">Plano Profissional</div>
                   <!-- <div class="text-subtitle2 q-mt-sm">Acesso antecipado à novas funcionalidades</div> -->
-                  <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 819,90 por</div>
-                  <div class="text-h6 q-my-md text-blue-14"><strong>R$ 799,90</strong> em até 12x</div>
+                  <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 1019,90 por</div>
+                  <div class="text-h6 q-my-md text-blue-14"><strong>R$ 899,90</strong> em até 12x</div>
                   <ul class="text-left">
                     <li><strong>12 meses</strong> de <strong>acesso</strong></li>
-                    <li>Badge <strong>personalizada</strong></li>
+                    <li>Funcionalidades <strong>extras</strong> das atualizações sem custo adicional</li>
                     <li><strong>Inclui</strong> todos os <strong>outros planos</strong></li>
-                    <li>Mais <strong>econômico</strong></li>
+                    <li>Mais <strong>econômico</strong> e completo</li>
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">
@@ -221,7 +221,7 @@
           <h2 class="text-h5 text-bold q-mb-md">Quer saber mais?</h2>
           <p>Fale com nosso time agora mesmo</p>
           <q-btn label="Entrar em contato via WhatsApp" color="secondary" class="q-mt-md" icon="sms" glossy
-            href="https://wa.me/SEUNUMEROAQUI" target="_blank" />
+            @click="solicitarContatoWpp()" target="_blank" />
         </div>
       </section>
       <q-dialog v-model="planosDialog.mensal">
@@ -246,6 +246,16 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import PlanoMensal from 'components/PlanoMensal.vue';
 import PlanoSemestral from 'components/PlanoSemestral.vue';
 import PlanoAnual from 'components/PlanoAnual.vue';
+
+const chatcarsWpp = '61981748795'
+const text = 'Olá, Gostaria de saber mais sobre como o ChatCars IA pode empolgar meus clientes com uma vitrine e chat inteligente do meu estoque, atendendo-os automatizadamente 24 horas e gerando leads e sugestões de abordagem personalizadas de acordo com a interação do cliente com I.A., resumindo tudo isso e os dados dos clientes em um relatório pronto pro vendedor.'
+
+function solicitarContatoWpp() {
+    const numero = chatcarsWpp
+    const mensagem = encodeURIComponent(text)
+    const link = `https://wa.me/${numero}?text=${mensagem}`
+    window.open(link, '_blank')
+}
 
 const planosDialog = ref({
   mensal: false,

@@ -8,8 +8,8 @@
                   <div class="animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
                 </q-toolbar-title>
                 <div class="row no-wrap items-center">
-                    <q-btn label="sair" color="grey-4" flat class="full-width" to="/" />
-                    <q-btn color="white" glossy class="text-black q-ml-md" icon="menu"
+                    <q-btn label="sair" color="grey-4" flat  to="/" />
+                    <q-btn color="white" glossy class="text-black q-ml-md" icon="menu" label="menu" 
                         @click="rightDrawerOpen = !rightDrawerOpen" />
                 </div>
             </q-toolbar>

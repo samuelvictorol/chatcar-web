@@ -272,8 +272,8 @@
                     style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
                     <q-input filled v-model="input" color="secondary" class="col"
                         placeholder="Ex: sedan, up tsi, 2020..." @keyup.enter="sendMessage" />
-                    <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
-                        @click="iaDialogVisible = true" />
+                    <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
+                        @click="iaDialogVisible = true" /> -->
                     <q-btn icon="send" color="secondary" flat round @click="sendMessage" />
                 </div>
             </q-page>
@@ -622,7 +622,7 @@ onMounted(() => {
                     })
                     messages.value.push({
                         from: 'bot',
-                        text: `Se quiser ver mais opções, clique no ícone de "estoque" na parte superior.`,
+                        text: `Se quiser ver mais opções, clique no ícone de "estoque" 🏪 na parte superior.`,
                     })
 
                     nextTick(() => {
@@ -703,12 +703,12 @@ function sendMessage() {
 
 watch(interacoes, (val) => {
     if (val === 3) {
-        setTimeout(() => {
-            messages.value.push({
-                from: 'bot',
-                text: '🚀 Clique no foguete para ver a sugestão da IA ChatCar personalizada pra você!'
-            })
-        }, 600)
+        // setTimeout(() => {
+        //     messages.value.push({
+        //         from: 'bot',
+        //         text: '🚀 Clique no foguete para ver a sugestão da IA ChatCar personalizada pra você!'
+        //     })
+        // }, 600)
         setTimeout(() => {
             messages.value.push({
                 from: 'bot',

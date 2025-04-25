@@ -27,8 +27,8 @@
                                 <q-input v-model="buscaLogin" label="Login do Lojista" color="teal" />
                             </q-card-section>
                             <q-card-actions align="right">
-                                <q-btn flat label="Cancelar" v-close-popup color="primary" />
-                                <q-btn flat label="Buscar" color="primary" @click="buscarLojista" />
+                                <q-btn flat label="Cancelar" v-close-popup color="teal" />
+                                <q-btn label="Buscar" icon-right="search" glossy color="teal" @click="buscarLojista" />
                             </q-card-actions>
                         </q-card>
                     </q-dialog>
@@ -83,7 +83,7 @@
                                     <q-btn  label="Editar" glossy color="orange" @click="editarLojista" />
                                     <q-btn  label="Gerar Pagamento" color="teal" glossy icon-right="paid" @click="gerarPagamento" /><br>
                                 </div>
-                                <q-btn  flat label="Fechar" color="primary" v-close-popup />
+                                <q-btn  flat label="Fechar" color="teal" v-close-popup />
                             </q-card-actions>
                         </q-card>
                     </q-dialog>

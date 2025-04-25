@@ -68,14 +68,13 @@
 
                                 <!-- Link alternar -->
                                 <div class="text-caption text-center text-grey-7">
-                                    <q-btn flat dense no-caps color="secondary" class="q-mt-sm text-bold "
-                                        @click="toggleForm">
+                                    <!-- <q-btn flat dense no-caps color="secondary" class="q-mt-sm text-bold ">
                                         {{ formType === 'login'
                                             ? 'Ainda não tem conta? Cadastre-se'
                                             : 'Já tem conta? Entrar' }}
-                                    </q-btn>
+                                    </q-btn> -->
                                     <br>
-                                    <q-btn label="voltar" no-caps flat color="primary" dense class="q-mt-sm" to="/" />
+                                    <q-btn label="voltar" no-caps flat color="teal" dense class="q-mt-sm" to="/" />
                                 </div>
                             </div>
                         </q-card-section>
@@ -136,7 +135,7 @@ async function handleSubmit() {
                 icon: 'report_problem',
             })
             host.value.password = ''
-        }).then(() => { loading.value = false })
+        }).finally(() => { loading.value = false })
     } else {
         console.log('Registro:', form.value)
         // register API call
