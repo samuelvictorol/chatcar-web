@@ -30,9 +30,10 @@
                             <div class="text-subtitle1">{{ item.status }}</div>
                             <div class="text-body2 text-grey-8">R$ {{ item.preco | currency }},00</div>
                         </q-card-section>
-                        <q-card-actions align="right">
-                            <q-btn flat color="red " icon="delete" />
-                            <q-btn color="teal-14   " glossy icon="visibility" label="Detalhes"
+                        <q-card-actions align="right" class="bg-dark">
+                            <q-btn flat color="red-4 " icon="delete" />
+                            <q-btn color="orange" glossy icon="edit"  @click="abrirModalEdicao(item)" />
+                            <q-btn color="teal-14   " glossy icon="visibility"
                                 @click="abrirDetalhes(item)" />
                         </q-card-actions>
                     </q-card>
@@ -44,7 +45,7 @@
         </q-card>
         <q-dialog v-model="dialogDetalhes">
             <q-card style="min-width: 350px; max-width: 90vw;">
-                <q-card-section class="row items-center q-pb-none">
+                <q-card-section class="row items-center q-pb-md">
                     <div class="text-h6">Detalhes do Veículo</div>
                     <q-space />
                     <q-btn icon="close" flat round dense v-close-popup />
@@ -80,7 +81,7 @@
         <q-dialog v-model="dialogAdicionar">
             <q-card style="min-width: 350px; max-width: 90vw;">
                 <q-card-section class="row items-center q-pb-md">
-                    <div class="text-h6">Adicionar Veículo</div>
+                    <div class="text-h6">{{ abrirModalEdicao ? 'Editar Veículo' : 'Adicionar Veículo'}}</div>
                     <q-space />
                     <q-btn icon="close" flat round dense v-close-popup />
                 </q-card-section>
@@ -88,8 +89,8 @@
                 <q-separator />
 
                 <q-card-section>
-                    <q-img v-if="formVeiculo?.img_url" :src="formVeiculo?.img_url" class="q-mb-md rounded-borders" height="200px"
-                    fit="contain" />
+                    <q-img v-if="formVeiculo?.img_url" :src="formVeiculo?.img_url" class="q-mb-md rounded-borders"
+                        height="200px" fit="contain" />
                     <q-input color="teal" v-model="formVeiculo.modelo" label="Modelo" dense outlined class="q-mb-sm" />
                     <q-input color="teal" v-model="formVeiculo.tipo" label="Tipo" dense outlined class="q-mb-sm" />
                     <q-input color="teal" v-model="formVeiculo.status" label="Status" dense outlined class="q-mb-sm" />
@@ -97,8 +98,8 @@
                         class="q-mb-sm" />
                     <q-input color="teal" v-model.number="formVeiculo.ano" label="Ano" type="number" dense outlined
                         class="q-mb-sm" />
-                    <q-input color="teal" v-model="formVeiculo.preco" label="Preço" mask="#.##" fill-mask="0" reverse-fill-mask
-                        prefix="R$" input-class="text-right" dense outlined class="q-mb-sm" />
+                    <q-input color="teal" v-model="formVeiculo.preco" label="Preço" mask="#.##" fill-mask="0"
+                        reverse-fill-mask prefix="R$" input-class="text-right" dense outlined class="q-mb-sm" />
                     <q-input color="teal" v-model="formVeiculo.img_url" label="URL da Imagem" dense outlined
                         class="q-mb-md" />
 
@@ -134,6 +135,16 @@ const dialogDetalhes = ref(false)
 const veiculoSelecionado = ref(null)
 const estoque = ref([])
 const dialogAdicionar = ref(false)
+const modoEdicao = ref(false);
+const idVeiculoEditando = ref(null);
+
+function abrirModalEdicao(veiculo) {
+    modoEdicao.value = true;
+    idVeiculoEditando.value = veiculo.id;
+    formVeiculo.value = { ...veiculo };
+    dialogAdicionar.value = true;
+}
+
 
 const formVeiculo = ref({
     modelo: '',
@@ -154,23 +165,32 @@ function removerMensagem(index) {
     formVeiculo.value.mensagens.splice(index, 1)
 }
 
+const user = JSON.parse(localStorage.getItem("user"))
+const estoque_id = user.estoque
+const loja_id = user._id
+
 async function salvarVeiculo() {
-    const user = JSON.parse(localStorage.getItem("user"))
     const payload = {
         loja: {
-            id: user?.id,
+            id: user?._id,
             token: user?.token
         },
-        estoque: estoque_id,
         veiculo: { ...formVeiculo.value }
-    }
+    };
 
     try {
-        await api.post("/add-veiculo", payload)
-        $q.notify({ type: 'positive', message: 'Veículo adicionado com sucesso!' })
-        dialogAdicionar.value = false
+        if (modoEdicao.value) {
+            // Edição
+            await api.put(`/editar-veiculo/${idVeiculoEditando.value}`, payload);
+            $q.notify({ type: 'teal', position:'top', message: 'Veículo atualizado com sucesso!' });
+        } else {
+            // Adição
+            await api.post("/add-veiculo", { ...payload, estoque: estoque_id });
+            $q.notify({ type: 'teal', position:'top', message: 'Veículo adicionado com sucesso!' });
+        }
+
+        dialogAdicionar.value = false;
         formVeiculo.value = {
-            id: '',
             modelo: '',
             tipo: '',
             status: '',
@@ -179,18 +199,15 @@ async function salvarVeiculo() {
             preco: null,
             img_url: '',
             mensagens: []
-        }
-        carregarEstoque()
+        };
+        modoEdicao.value = false;
+        idVeiculoEditando.value = null;
+        await carregarEstoque();
     } catch (err) {
-        console.error(err)
-        $q.notify({ type: 'negative', message: 'Erro ao adicionar veículo.' })
+        console.error(err);
+        $q.notify({ type: 'negative', message: 'Erro ao salvar veículo.' });
     }
 }
-
-
-// Substitua por IDs reais ou recupere dinamicamente se preferir
-const estoque_id = '680ba2a6b1be6120dc27984d'
-const loja_id = '680ba2a5b1be6120dc27984b'
 
 function abrirDetalhes(item) {
     veiculoSelecionado.value = item
@@ -230,8 +247,8 @@ async function carregarEstoque() {
     }
 }
 
-onMounted(() => {
-    carregarEstoque()
+onMounted(async () => {
+    await carregarEstoque()
 })
 </script>
 
