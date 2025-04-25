@@ -31,7 +31,7 @@
                             <div class="text-body2 text-grey-8">R$ {{ item.preco | currency }},00</div>
                         </q-card-section>
                         <q-card-actions align="right" class="bg-dark">
-                            <q-btn flat color="red-4 " icon="delete" />
+                            <q-btn flat color="red-4" icon="delete" @click="confirmarRemocao(item)" />
                             <q-btn color="orange" glossy icon="edit" @click="abrirModalEdicao(item)" />
                             <q-btn color="teal-14   " glossy icon="visibility" @click="abrirDetalhes(item)" />
                         </q-card-actions>
@@ -56,7 +56,7 @@
                     <q-img :src="veiculoSelecionado?.img_url" class="q-mb-md rounded-borders" height="200px"
                         fit="contain" />
 
-                    <div class="text-subtitle1 text-bold">{{ veiculoSelecionado?.status }}</div>
+                    <div class="text-subtitle1 text-bold">{{ veiculoSelecionado?.ano }}</div>
                     <div class="text-body2">Modelo: {{ veiculoSelecionado?.modelo }}</div>
                     <div class="text-body2 q-mb-xs">Preço: R$ {{ veiculoSelecionado?.preco | currency }},00</div>
                     <!-- <div class="text-body2">ID: {{ veiculoSelecionado?.id }}</div> -->
@@ -91,14 +91,14 @@
                     <q-img v-if="formVeiculo?.img_url" :src="formVeiculo?.img_url" class="q-mb-md rounded-borders"
                         height="200px" fit="contain" />
                     <q-input color="teal" v-model="formVeiculo.modelo" label="Modelo" dense outlined class="q-mb-sm" />
-                    <q-select color="teal" v-model="formVeiculo.tipo" :options="tipoVeiculoOptions" label="Tipo" dense outlined
-                        class="q-mb-sm" />
-
-                    <q-select color="teal" v-model="formVeiculo.categoria" :options="categoriaVeiculoOptions" label="Categoria" dense
+                    <q-select color="teal" v-model="formVeiculo.tipo" :options="tipoVeiculoOptions" label="Tipo" dense
                         outlined class="q-mb-sm" />
 
-                    <q-select color="teal" v-model="formVeiculo.status" :options="statusVeiculoOptions" label="Status" dense outlined
-                        class="q-mb-sm" />
+                    <q-select color="teal" v-model="formVeiculo.categoria" :options="categoriaVeiculoOptions"
+                        label="Categoria" dense outlined class="q-mb-sm" />
+
+                    <q-select color="teal" v-model="formVeiculo.status" :options="statusVeiculoOptions" label="Status"
+                        dense outlined class="q-mb-sm" />
 
                     <q-input color="teal" v-model.number="formVeiculo.ano" label="Ano" type="number" dense outlined
                         class="q-mb-sm" />
@@ -153,6 +153,38 @@ function abrirModalEdicao(veiculo) {
     dialogAdicionar.value = true;
 }
 
+const user = JSON.parse(localStorage.getItem("user"))
+const estoque_id = user.estoque
+const loja_id = user._id
+
+function confirmarRemocao(veiculo) {
+    $q.dialog({
+        title: 'Confirmar Remoção',
+        message: `Deseja realmente remover o veículo "${veiculo.modelo}"?`,
+        cancel: {
+            color: 'teal',
+            flat: true,
+            label: 'Cancelar'
+        },
+        ok: {
+            color: 'teal',
+            glossy: true,
+            label: 'Remover'
+        },
+        persistent: true,
+    }).onOk(async () => {
+        try {
+            await api.delete(`/remover-veiculo/${veiculo.id}`, {
+                data: { estoque: estoque_id, loja: loja_id }
+            });
+            $q.notify({ color: 'teal', position: 'top', message: 'Veículo removido com sucesso!', icon: 'delete' });
+            await carregarEstoque(); // Atualiza a lista de veículos
+        } catch (error) {
+            console.error('Erro ao remover veículo:', error);
+            $q.notify({ color: 'dark', position: 'top', message: 'Erro ao remover veículo.' });
+        }
+    });
+}
 
 const formVeiculo = ref({
     modelo: '',
@@ -172,10 +204,6 @@ function adicionarMensagem() {
 function removerMensagem(index) {
     formVeiculo.value.mensagens.splice(index, 1)
 }
-
-const user = JSON.parse(localStorage.getItem("user"))
-const estoque_id = user.estoque
-const loja_id = user._id
 
 async function salvarVeiculo() {
     const payload = {
