@@ -34,7 +34,7 @@
                         <div class="row w100 no-wrap items-center">
                             <div class="column text-bold">
                                 <q-item-label>{{ carro.modelo }} - {{ carro.ano }}</q-item-label>
-                                <q-item-label caption>{{ carro.categoria }}</q-item-label>
+                                <q-item-label caption>{{ carro.categoria.label }}</q-item-label>
                             </div>
                             <q-btn icon="visibility" color="secondary" glossy dense class="q-ml-md"
                                 @click="() => selecionarCarro(carro)" />
@@ -52,8 +52,9 @@
                 <div class="bg-dark sticky-top">
                     <div class="w100 row no-wrap items-center justify-between q-px-md q-pt-sm">
                         <div class="text-h6 text-white q-pt-sm q-mb-sm">Vitrine</div>
-                        <div class="text-h6 text-white q-pt-sm q-mb-sm"><q-btn label="sobre a loja" icon-right="contact_support" color=""
-                                @click="openInfoLoja()" style="border:2px solid #26A69A" dense flat></q-btn></div>
+                        <div class="text-h6 text-white q-pt-sm q-mb-sm"><q-btn label="sobre a loja"
+                                icon-right="contact_support" color="" @click="openInfoLoja()"
+                                style="border:2px solid #26A69A" dense flat></q-btn></div>
 
                     </div>
 
@@ -68,7 +69,7 @@
                                     <div class="absolute-bottom text-white q-pa-sm"
                                         style="background: #070707a2; backdrop-filter: blur(2px);">
                                         <div class="text-subtitle1 text-weight-bold">{{ carro.modelo }}</div>
-                                        <div class="text-caption">{{ carro.categoria }} - {{ carro.ano }}</div>
+                                        <div class="text-caption">{{ carro.categoria.label }} - {{ carro.ano }}</div>
                                         <q-btn icon="search" color="secondary" glossy dense class="q-mt-sm full-width"
                                             label="Ver Detalhes" @click="abrirDialog(carro)" />
                                     </div>
@@ -239,9 +240,9 @@
                             <q-card-section>
                                 <div class="text-h6">{{ carroSelecionado.modelo }}<br>R$ {{ carroSelecionado.valor }},00
                                 </div>
-                                <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria }} - {{
+                                <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria.label }} - {{
                                     carroSelecionado.ano
-                                }}
+                                    }}
                                 </div>
                                 <q-img :src="carroSelecionado.img_url" :alt="carroSelecionado.modelo"
                                     style="border-radius: 12px;" class="q-mb-md" />
@@ -283,10 +284,11 @@
     </q-layout>
 </template>
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, onBeforeMount } from 'vue'
 import { useQuasar } from 'quasar'
 import { nextTick } from 'vue'
 import { useRouter } from 'vue-router'
+import { api } from 'src/boot/axios';
 
 const showDialog = ref(false)
 const router = useRouter()
@@ -322,13 +324,31 @@ const usuario = ref({
     telefone: '',
     preferencias: []
 })
+const userLogado = JSON.parse(localStorage.getItem("user"))
+const estoque_id = userLogado.estoque
+const loja_id = userLogado._id
+
+async function carregarEstoque() {
+    try {
+        const { data } = await api.get('/meu-estoque', {
+            params: { estoque_id, loja_id }
+        })
+        estoque.value = data.estoque.veiculos
+    } catch (err) {
+        console.error('Erro ao buscar estoque', err)
+        $q.notify({
+            type: 'negative',
+            message: 'Erro ao buscar estoque'
+        })
+    }
+}
 
 function openInfoLoja() {
     infoLojaVisible.value = true
 }
 
 const estoqueFiltrado = computed(() =>
-    estoque.filter(carro =>
+    estoque.value.filter(carro =>
         carro.modelo.toLowerCase().includes(filtroEstoque.value.toLowerCase()) ||
         carro.categoria.toLowerCase().includes(filtroEstoque.value.toLowerCase()) ||
         carro.ano.toString().includes(filtroEstoque.value)
@@ -369,137 +389,8 @@ function selecionarCarro(carro) {
     showEstoqueDrawer.value = false
 }
 
-const estoque = [
-    {
-        modelo: 'Fiat Uno', categoria: 'popular', ano: 2015, valor: 25000,
-        img_url: '/uno.jpg',
-        mensagens: [
-            'Você sabia? O Uno foi um dos carros mais vendidos da história do Brasil!',
-            'Compacto e econômico, ideal para uso urbano.',
-            'IPVA e manutenção muito baratos!'
-        ],
-        descricao: '1.0 FIRE FLEX ATTRACTIVE MANUAL - 70.000km - Branco - 2021'
-    },
-    {
-        modelo: 'Chevrolet Onix', categoria: 'popular', ano: 2020, valor: 90000,
-        img_url: '/onix.jpg',
-        mensagens: [
-            'O Onix liderou o ranking de vendas por anos seguidos.',
-            'Esse modelo 2020 já vem com central multimídia e direção elétrica.',
-            'Ótimo consumo de combustível na estrada.'
-        ],
-        descricao: '1.0 TURBO FLEX PREMIER AUTOMÁTICO - 50.000km - Preto - 2020'
-    },
-    {
-        modelo: 'Chevrolet Camaro', categoria: 'esportivo', ano: 2023, valor: 460000,
-        img_url: '/camaro.jpg',
-        mensagens: [
-            'O Camaro é um ícone dos esportivos americanos!',
-            'Esse modelo 2023 vem com motor V8 e câmbio automático de 10 marchas.',
-            'Acelera de 0 a 100 km/h em apenas 4 segundos!'
-        ],
-        descricao: '6.2 V8 16V GASOLINA 2P AUTOMÁTICO - 50.000km - Preto - 2020'
-    },
-    {
-        modelo: 'Toyota Corolla', categoria: 'sedan', ano: 2019, valor: 72000,
-        img_url: '/corolla.jpg',
-        mensagens: [
-            'O Corolla é conhecido pela sua confiabilidade e durabilidade.',
-            'Esse modelo tem um ótimo espaço interno e conforto para viagens longas.',
-            'IPVA e manutenção muito baratos!'
-        ],
-        descricao: '1.8 FLEX ALTIS CVT - 50.000km - Preto - 2020'
-    },
-    {
-        modelo: 'Volkswagen T-Cross', categoria: 'SUV', ano: 2021, valor: 89000,
-        img_url: '/tcross.jpg',
-        mensagens: [
-            'O T-Cross é um SUV compacto com ótimo espaço interno.',
-            'Esse modelo vem com motor turbo e câmbio automático de 6 marchas.',
-            'Ótimo consumo de combustível na cidade.'
-        ],
-        descricao: '1.0 TURBO FLEX HIGHLINE AUTOMÁTICO - 50.000km - Preto - 2020'
-    },
-    {
-        modelo: 'Jeep Renegade', categoria: 'SUV', ano: 2022, valor: 95000,
-        img_url: '/renegade.jpg',
-        mensagens: [
-            'O Renegade é um SUV com ótimo desempenho off-road.',
-            'Esse modelo vem com motor turbo e tração 4x4.',
-            'Ótimo consumo de combustível na estrada.'
-        ],
-        descricao: '1.3 TURBO FLEX LONGITUDE AUTOMÁTICO - 50.000km - Preto - 2020'
-    },
-    {
-        modelo: 'Renault Kwid', categoria: 'popular', ano: 2023, valor: 46000,
-        img_url: '/kwid.jpg',
-        mensagens: [
-            'O Kwid é um dos carros mais econômicos do Brasil!',
-            'Esse modelo vem com central multimídia e direção elétrica.',
-            'IPVA e manutenção fácil!'
-        ],
-        descricao: '1.0 FLEX ZEN MANUAL - 50.000km - Preto - 2020'
-    },
-    {
-        modelo: 'Honda Civic', categoria: 'sedan', ano: 2020, valor: 88000,
-        img_url: '/civic.jpg',
-        mensagens: [
-            'O Civic é conhecido pela sua confiabilidade e durabilidade.',
-            'Esse modelo tem um ótimo espaço interno e conforto para viagens longas.',
-            'IPVA e manutenção muito baratos!'
-        ],
-        descricao: '1.5 TURBO FLEX EX CVT - 50.000km - Preto - 2020'
-    },
-    {
-        modelo: 'Ford Ka', categoria: 'popular', ano: 2018, valor: 32000,
-        img_url: '/ka.jpg',
-        mensagens: [
-            'O Ka é um carro compacto ideal para o uso urbano.',
-            'Esse modelo vem com central multimídia e direção elétrica.',
-            'IPVA e manutenção muito baratos!'
-        ],
-        descricao: '1.0 FLEX SE MANUAL - 50.000km - Preto - 2020'
-    },
-    {
-        modelo: 'Hyundai Creta', categoria: 'SUV', ano: 2022, valor: 104000,
-        img_url: '/creta.jpg',
-        mensagens: [
-            'O Creta é um SUV com ótimo espaço interno e conforto para viagens longas.',
-            'Esse modelo vem com motor turbo e câmbio automático de 6 marchas.',
-            'Ótimo consumo de combustível na estrada.'
-        ],
-        descricao: '1.0 TURBO FLEX PULSE AUTOMÁTICO - 50.000km - Preto - 2020'
-    },
-    {
-        modelo: 'Up Tsi', categoria: 'hatch', ano: 2016, valor: 46000,
-        img_url: '/up.jpg',
-        mensagens: [
-            'O Up Tsi é um carro compacto ideal para o uso urbano.',
-            'Esse modelo vem com motor turbo e câmbio automático de 6 marchas.',
-            'IPVA e manutenção muito baratos!'],
-        descricao: '1.0 TURBO FLEX HIGHLINE AUTOMÁTICO - 50.000km - Preto - 2020'
-    },
-    {
-        modelo: 'Ford Mustang', categoria: 'esportivo', ano: 2016, valor: 540000,
-        img_url: '/mustang.jpg',
-        mensagens: [
-            'O Mustang é um ícone dos esportivos americanos!',
-            'Esse modelo vem com motor V8 e câmbio automático de 10 marchas.',
-            'Acelera de 0 a 100 km/h em apenas 4 segundos!'
-        ],
-        descricao: '5.0 V8 16V GASOLINA 2P AUTOMÁTICO - 50.000km - Preto - 2020'
-    },
-    {
-        modelo: 'Chevy Impala', categoria: 'colecionador', ano: 1975, valor: 290000,
-        img_url: '/impala.jpg',
-        mensagens: [
-            'O Impala é um clássico dos anos 70!',
-            'Esse modelo tem um ótimo espaço interno e conforto para viagens longas.',
-            'Isento de IPVA!'
-        ],
-        descricao: '5.7 V8 16V GASOLINA 4P AUTOMÁTICO - 50.000km - Preto - 2020'
-    },
-]
+const estoque = ref([])
+
 
 onMounted(() => {
     messages.value.push({
@@ -581,15 +472,24 @@ onMounted(() => {
 
                 usuario.value.telefone = telefone
 
-                // Categorias únicas do estoque
-                const categoriasUnicas = [
-                    ...new Set(estoque.map(carro => carro.categoria))
-                ]
+                const categoriasUnicas = Array.from(
+                    new Set(
+                        estoque.value
+                            .map(carro => carro.categoria?.label)
+                            .filter(Boolean)
+                    )
+                );
 
-                const categoriaOptions = categoriasUnicas.map(cat => ({
-                    label: cat.charAt(0).toUpperCase() + cat.slice(1),
-                    value: cat
-                }))
+                const categoriaOptions = categoriasUnicas.map(cat => {
+                    if (cat == null) {
+                        return { label: '', value: cat };
+                    }
+                    const categoriaStr = String(cat);
+                    return {
+                        label: categoriaStr.charAt(0).toUpperCase() + categoriaStr.slice(1),
+                        value: cat
+                    };
+                });
 
                 $q.dialog({
                     title: 'Preferências',
@@ -608,7 +508,7 @@ onMounted(() => {
                     persistent: true
                 }).onOk(preferencias => {
                     if (!preferencias.length) {
-                        const randomCarros = estoque.sort(() => 0.5 - Math.random()).slice(0, 5)
+                        const randomCarros = estoque.value.sort(() => 0.5 - Math.random()).slice(0, 5)
                         carrossel.value = randomCarros
                         messages.value.push({
                             from: 'bot',
@@ -629,7 +529,7 @@ onMounted(() => {
                         window.scrollTo(0, document.body.scrollHeight)
                     })
                     usuario.value.preferencias = preferencias
-                    carrossel.value = estoque.filter(carro => preferencias.includes(carro.categoria)).slice(0, 5)
+                    carrossel.value = estoque.value.filter(carro => preferencias.includes(carro.categoria)).slice(0, 5)
                     carrosselIndex.value = 0
                 }).onOk(descricao => {
                     $q.dialog({
@@ -672,7 +572,7 @@ function sendMessage() {
 
     const termo = texto.toLowerCase()
 
-    const resultado = estoque.filter(carro =>
+    const resultado = estoque.value.filter(carro =>
         carro.modelo.toLowerCase().includes(termo) ||
         carro.categoria.toLowerCase().includes(termo) ||
         carro.ano.toString().includes(termo) ||
@@ -721,6 +621,9 @@ watch(interacoes, (val) => {
     }
 })
 
+onBeforeMount(async () => {
+    await carregarEstoque()
+})
 </script>
 <style scoped>
 .sticky-top {

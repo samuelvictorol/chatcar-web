@@ -27,7 +27,7 @@
                             style="object-fit: cover;" />
                         <q-card-section>
                             <div class="text-subtitle1 text-bold">{{ item.modelo }}</div>
-                            <div class="text-subtitle1">{{ item.status }}</div>
+                            <div class="text-subtitle1">{{ item.ano }}</div>
                             <div class="text-body2 text-grey-8">R$ {{ item.preco | currency }},00</div>
                         </q-card-section>
                         <q-card-actions align="right" class="bg-dark">
@@ -91,6 +91,7 @@
                     <q-img v-if="formVeiculo?.img_url" :src="formVeiculo?.img_url" class="q-mb-md rounded-borders"
                         height="200px" fit="contain" />
                     <q-input color="teal" v-model="formVeiculo.modelo" label="Modelo" dense outlined class="q-mb-sm" />
+                    <q-input color="teal" v-model="formVeiculo.descricao" label="Descrição" maxlength="350"  type="textarea" dense outlined class="q-mb-sm" />
                     <q-select color="teal" v-model="formVeiculo.tipo" :options="tipoVeiculoOptions" label="Tipo" dense
                         outlined class="q-mb-sm" />
 
@@ -191,6 +192,7 @@ const formVeiculo = ref({
     tipo: '',
     status: '',
     categoria: '',
+    descricao: '',
     ano: null,
     preco: null,
     img_url: '',
