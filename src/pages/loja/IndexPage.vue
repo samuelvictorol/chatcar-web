@@ -95,8 +95,10 @@ const lojaInfo = ref({
 })
 
 const vendedores = ref([
-    { id: 1, nome: 'João', leadsCount: 12 },
-    { id: 2, nome: 'Maria', leadsCount: 8 }
+    { id: 1, nome: 'Amanda', leadsCount: 12 },
+    { id: 3, nome: 'Sebastião', leadsCount: 25 },
+    { id: 2, nome: 'João', leadsCount: 15 },
+    { id: 4, nome: 'Maria', leadsCount: 43 }
 ])
 
 const leadsRecentes = ref([
@@ -123,7 +125,7 @@ onMounted(() => {
             datasets: [{
                 label: 'Leads',
                 data: vendedores.value.map(v => v.leadsCount),
-                backgroundColor: ['#2196f3', '#ff9800']
+                backgroundColor: ['#44B1A7', '#275CF0']
             }]
         },
         options: {
