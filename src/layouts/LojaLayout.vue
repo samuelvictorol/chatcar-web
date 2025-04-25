@@ -49,8 +49,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { useQuasar } from 'quasar'
+import { onBeforeMount, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
 const rightDrawerOpen = ref(false)
+const $q = useQuasar()
+const router = useRouter()
+
 const menuOptions = ref([
     {
         label: 'Início',
@@ -75,5 +81,18 @@ const menuOptions = ref([
     },
 
 ])
+
+onBeforeMount(() => {
+    const user = localStorage.getItem('user')
+    if(!user) {
+        $q.notify({
+            color: 'dark',
+            position: 'top',
+            message: 'Você deve estar logado para acessar o seu painel.' ,
+            icon: 'account_circle',
+        })
+        router.push('/login')
+    }
+})
 
 </script>

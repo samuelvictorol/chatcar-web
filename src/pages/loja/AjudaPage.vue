@@ -127,7 +127,7 @@
                 <div class="text-subtitle1 text-bold q-mb-sm">Precisa de ajuda?</div>
                 <div class="text-body2">
                     Se você tiver dúvidas ou dificuldades com o uso da IA, entre em contato com nosso time de suporte
-                    pelo WhatsApp ou envie um e-mail para <strong>suporte@midnighttickets.com</strong>.
+                    pelo WhatsApp ao final da página inicial ou envie uma mensagem no instagram para <strong>@chatcar.ia</strong>.
                 </div>
             </q-card-section>
         </q-card>
