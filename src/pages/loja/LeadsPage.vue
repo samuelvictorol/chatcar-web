@@ -20,29 +20,23 @@
                             <template v-slot:header="props">
                                 <q-tr :props="props">
                                     <q-th v-for="col in props.cols" :key="col.name" :props="props"
-                                        class="bg-dark text-white text-bold" style="font-size: 1rem;">
+                                        class="bg-teal text-white text-bold" style="font-size: 1rem;">
                                         {{ col.label }}
                                     </q-th>
                                 </q-tr>
                             </template>
-
-                            <!-- Coluna Nome com estilo sticky -->
-                            <template v-slot:body-cell-name="props">
-                                <q-td :props="props" class="sticky-col bg-dark text-white">
-                                    {{ props.value }}
-                                </q-td>
-                            </template>
-
-                            <!-- Coluna Vendedor com select se vazio -->
+                            <!-- Coluna Vendedor com select sempre visível -->
                             <template v-slot:body-cell-vendedor="props">
                                 <q-td :props="props" class="text-center">
-                                    <div v-if="props.row.vendedor === '-'">
-                                        <q-select dense outlined v-model="props.row.vendedor" :options="vendedores"
-                                            emit-value map-options style="min-width: 120px" />
-                                    </div>
-                                    <div v-else>
-                                        {{ props.row.vendedor }}
-                                    </div>
+                                    <q-select dense outlined v-model="props.row.vendedor" :options="vendedores"
+                                        emit-value map-options style="min-width: 160px"
+                                        :placeholder="props.row.vendedor === '-' ? 'Vendedor Responsável' : ''" />
+                                </q-td>
+                            </template>
+                            <!-- Coluna Nome com estilo sticky -->
+                            <template v-slot:body-cell-name="props">
+                                <q-td :props="props" class="sticky-col text-white bg-dark" >
+                                    {{ props.value }}
                                 </q-td>
                             </template>
 
@@ -81,7 +75,7 @@
                 </q-card-section>
 
                 <q-card-actions align="right">
-                    <q-btn flat label="Fechar" color="primary" v-close-popup />
+                    <q-btn flat label="Fechar" color="teal" v-close-popup />
                 </q-card-actions>
             </q-card>
         </q-dialog>
@@ -93,10 +87,10 @@ import RelatorioIA from 'components/RelatorioIA.vue';
 
 const leads = ref([
     { id: 1, name: '🟢 José Bueno', vendedor: '-', contato: '61 983314321', status: 'Aguardando contato' },
-    { id: 2, name: '🟠 Maria da Silva', vendedor: 'Dagoberto', contato: '61 983314321', status: 'Em progresso' },
-    { id: 3, name: '🟠 João da Silva', vendedor: 'Dagoberto', contato: '61 983314321', status: 'Em progresso' },
-    { id: 4, name: '🟠 Ana Maria', vendedor: 'Maria', contato: '61 983314321', status: 'Finalizado' },
-    { id: 5, name: '🟠 Carlos Alberto', vendedor: 'Maria', contato: '61 983314321', status: 'Aguardando contato' },
+    { id: 2, name: '🟡 Maria da Silva', vendedor: 'Dagoberto', contato: '61 983314321', status: 'Em progresso' },
+    { id: 3, name: '🟡 João da Silva', vendedor: 'Dagoberto', contato: '61 983314321', status: 'Em progresso' },
+    { id: 4, name: '🔵 Ana Maria', vendedor: 'Maria', contato: '61 983314321', status: 'Venda Finalizada' },
+    { id: 5, name: '🟣 Carlos Alberto', vendedor: 'Maria', contato: '61 983314321', status: 'Atendimento Finalizado' },
 ]);
 
 const vendedores = [

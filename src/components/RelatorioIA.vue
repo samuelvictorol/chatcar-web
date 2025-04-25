@@ -2,8 +2,8 @@
     <div class="q-pa-md q-gutter-md">
         <q-card flat bordered class="bg-white text-dark shadow-2">
             <q-card-section class="bg-grey-2">
-                <div class="text-h6 text-primary">Relatório Inteligente do Cliente</div>
-                <div class="text-subtitle2 text-grey-7">Gerado por inteligência artificial</div>
+                <div class="text-h6 text-teal text-bold">Relatório Inteligente do Cliente</div>
+                <div class="text-subtitle2 text-grey-7">Otimizado pela I.A. do ChatCar</div>
             </q-card-section>
 
             <q-separator />
