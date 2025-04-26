@@ -22,10 +22,10 @@
                 <q-toolbar-title>Estoque</q-toolbar-title>
                 <q-btn flat round icon="close" @click="showEstoqueDrawer = false" />
             </q-toolbar>
-            <q-input v-model="filtroEstoque" color="secondary" outlined label="Filtrar estoque..." dense debounce="300"
-                class="q-pa-sm">
+            <q-input v-model="filtroEstoque" color="secondary" @update:model-value="filtrarMenuEstoque()" outlined label="Filtrar estoque..." dense debounce="300"
+                class="q-pa-sm relative">
                 <template v-slot:append>
-                    <q-icon name="search" class="cursor-pointer" color="secondary" />
+                    <q-btn icon='search' name="search"  @click="filtrarMenuEstoque()"  class="cursor-pointer absolute-right" color="secondary" />
                 </template>
             </q-input>
             <q-list>
@@ -334,6 +334,7 @@ async function carregarEstoque() {
             params: { estoque_id, loja_id }
         })
         estoque.value = data.estoque.veiculos
+        estoqueFiltrado.value = [...estoque.value];
     } catch (err) {
         console.error('Erro ao buscar estoque', err)
         $q.notify({
@@ -347,13 +348,7 @@ function openInfoLoja() {
     infoLojaVisible.value = true
 }
 
-const estoqueFiltrado = computed(() =>
-    estoque.value.filter(carro =>
-        carro.modelo.toLowerCase().includes(filtroEstoque.value.toLowerCase()) ||
-        carro.categoria.toLowerCase().includes(filtroEstoque.value.toLowerCase()) ||
-        carro.ano.toString().includes(filtroEstoque.value)
-    )
-)
+const estoqueFiltrado = ref([])
 
 function abrirDialog(carro) {
     while (carro.mensagens.length > 0) {
@@ -376,12 +371,9 @@ function selecionarCarro(carro) {
     carrossel.value = [carro]
     carrosselIndex.value = 0
 
-    // Adiciona mensagens sobre o carro no chat
-    carro.mensagens.forEach(texto => {
-        messages.value.push({
-            from: 'bot',
-            text: texto
-        })
+    messages.value.push({
+        from: 'bot',
+        text: '🚗 Aqui está ' + carro.modelo + ', para saber mais clique em 🔍Ver Detalhes.'
     })
 
     nextTick(() => {
@@ -575,45 +567,72 @@ onMounted(() => {
 function toggleEstoqueDrawer() {
     showEstoqueDrawer.value = !showEstoqueDrawer.value
 }
+
 function sendMessage() {
-    if (!input.value.trim()) return
+    if (!input.value.trim()) return;
 
-    const texto = input.value.trim()
-    messages.value.push({ from: 'user', text: texto })
-    interacoes.value++
+    const texto = input.value.trim();
+    messages.value.push({ from: 'user', text: texto });
+    interacoes.value++;
 
-    input.value = ''
+    input.value = '';  // Limpa o campo de entrada
 
-    const termo = texto.toLowerCase()
+    const termo = texto.toLowerCase();
 
-    const resultado = estoque.value.filter(carro =>
-        carro.modelo.toLowerCase().includes(termo) ||
-        carro.categoria.label.toLowerCase().includes(termo) ||
-        carro.ano.toString().includes(termo) ||
-        carro.valor.toString().includes(termo)
-    )
+    // Filtra os carros no estoque com base no termo de busca
+    const resultado = estoque.value.filter(carro => {
+        return (
+            carro.modelo.toLowerCase().includes(termo) || // Verifica no modelo
+            carro.ano.toString().includes(termo) || // Verifica no ano
+            (carro.descricao && carro.descricao.toLowerCase().includes(termo)) || // Verifica na descrição
+            (carro.mensagens && carro.mensagens.some(msg => msg.toLowerCase().includes(termo))) // Verifica nas mensagens
+        );
+    });
 
-    // Simula delay na resposta do bot
     setTimeout(() => {
         if (resultado.length) {
+            // Se encontrou carros, exibe o resultado
             messages.value.push({
                 from: 'bot',
                 text: `🔍 Encontrei ${resultado.length} carro(s) que podem te interessar. Veja na vitrine acima!`
-            })
-            carrossel.value = resultado
+            });
+            carrossel.value = resultado; // Atualiza o carrossel com os resultados encontrados
         } else {
+            // Se não encontrou, exibe uma mensagem dizendo que não há resultados
             messages.value.push({
                 from: 'bot',
-                text: `😕 Não encontrei resultados com esse termo. Tente algo como "SUV", "Corolla", "2020" ou "50000".`
-            })
+                text: `😕 Não encontrei resultados com esse termo. Tente algo como "SUV", "Corolla", "2020" ou algo relacionado à descrição dos veículos.`
+            });
         }
 
+        // Rola a página até a parte inferior para ver as mensagens
         nextTick(() => {
-            window.scrollTo(0, document.body.scrollHeight)
-        })
-    }, 500) // delay de 1 segundo (ajustável)
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    }, 500);  // Delay de 500ms para uma transição mais suave
 }
 
+
+function filtrarMenuEstoque() {
+    if (!filtroEstoque.value.trim()) {
+        estoqueFiltrado.value = estoque.value
+    }
+
+    const texto = filtroEstoque.value.trim();
+    messages.value.push({ from: 'user', text: texto });
+    interacoes.value++;
+
+    
+    const termo = texto.toLowerCase();
+    
+    const resultado = estoque.value.filter(carro => {
+        return (
+            carro.modelo.toLowerCase().includes(termo) || 
+            carro.ano.toString().includes(termo)
+        )
+    });
+    estoqueFiltrado.value = resultado
+}
 
 watch(interacoes, (val) => {
     if (val === 3) {
