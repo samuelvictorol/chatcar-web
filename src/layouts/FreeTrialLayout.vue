@@ -238,7 +238,7 @@
                     <q-dialog v-model="dialogAberto">
                         <q-card class="q-pa-md" style="width: 100%; max-width: 500px;">
                             <q-card-section>
-                                <div class="text-h6">{{ carroSelecionado.modelo }}<br>R$ {{ carroSelecionado.valor }},00
+                                <div class="text-h6">{{ carroSelecionado.modelo }}<br>R$ {{ carroSelecionado.preco }}
                                 </div>
                                 <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria.label }} - {{
                                     carroSelecionado.ano
@@ -361,12 +361,14 @@ function abrirDialog(carro) {
             from: 'bot',
             text: carro.mensagens.pop()
         })
-        nextTick(() => {
-            window.scrollTo(0, document.body.scrollHeight)
-        })
     }
+    nextTick(() => {
+        window.scrollTo(0, document.body.scrollHeight)
+    })
     carroSelecionado.value = carro
-    dialogAberto.value = true
+    setTimeout(() => {
+        dialogAberto.value = true
+    }, 1000)
 }
 
 function selecionarCarro(carro) {
@@ -508,29 +510,40 @@ onMounted(() => {
                     persistent: true
                 }).onOk(preferencias => {
                     if (!preferencias.length) {
-                        const randomCarros = estoque.value.sort(() => 0.5 - Math.random()).slice(0, 5)
-                        carrossel.value = randomCarros
+                        const totalCarros = estoque.value.length;
+                        const quantidade = totalCarros >= 5 ? 5 : totalCarros;
+                        const randomCarros = [...estoque.value]
+                            .sort(() => 0.5 - Math.random())
+                            .slice(0, quantidade);
+                        carrossel.value = randomCarros;
                         messages.value.push({
                             from: 'bot',
-                            text: usuario.value.nome + ', veja algumas opções na nossa vitrine!⬆️'
-                        })
-                        return
+                            text: `${usuario.value.nome}, veja algumas opções na nossa vitrine!⬆️`
+                        });
+                        return;
                     }
+
+                    usuario.value.preferencias = preferencias;
+
+                    const carrosFiltrados = estoque.value.filter(carro => preferencias.includes(carro.categoria.label));
+                    const quantidade = carrosFiltrados.length >= 5 ? 5 : carrosFiltrados.length;
+                    carrossel.value = [...carrosFiltrados]
+                        .sort(() => 0.5 - Math.random())
+                        .slice(0, quantidade);
+                    carrosselIndex.value = 0;
+
                     messages.value.push({
                         from: 'bot',
-                        text: usuario.value.nome + ', somos a ' + sobreLoja.value.nome + '! Aqui estão algumas opções do nosso estoque⬆'
-                    })
+                        text: `${usuario.value.nome}, somos a ${sobreLoja.value.nome}! Aqui estão algumas opções do nosso estoque⬆`
+                    });
                     messages.value.push({
                         from: 'bot',
                         text: `Se quiser ver mais opções, clique no ícone de "estoque" 🏪 na parte superior.`,
-                    })
+                    });
 
                     nextTick(() => {
-                        window.scrollTo(0, document.body.scrollHeight)
-                    })
-                    usuario.value.preferencias = preferencias
-                    carrossel.value = estoque.value.filter(carro => preferencias.includes(carro.categoria)).slice(0, 5)
-                    carrosselIndex.value = 0
+                        window.scrollTo(0, document.body.scrollHeight);
+                    });
                 }).onOk(descricao => {
                     $q.dialog({
                         title: 'Nos conte mais...',
@@ -548,8 +561,9 @@ onMounted(() => {
                         },
                         persistent: false
                     })
+                }).onOk(sobreUsuario => {
+                    usuario.value.preferencias.push(sobreUsuario)
                 })
-
             })
         })
     messages.value.push({
@@ -574,7 +588,7 @@ function sendMessage() {
 
     const resultado = estoque.value.filter(carro =>
         carro.modelo.toLowerCase().includes(termo) ||
-        carro.categoria.toLowerCase().includes(termo) ||
+        carro.categoria.label.toLowerCase().includes(termo) ||
         carro.ano.toString().includes(termo) ||
         carro.valor.toString().includes(termo)
     )
