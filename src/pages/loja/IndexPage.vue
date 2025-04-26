@@ -1,49 +1,230 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import { api } from 'src/boot/axios'
+import { Notify } from 'quasar'
+import { Chart, BarElement, CategoryScale, LinearScale, BarController } from 'chart.js'
+
+Chart.register(BarController, BarElement, CategoryScale, LinearScale)
+
+const userRole = ref('🥇 Plano Anual')
+const editando = ref(false)
+const lojaInfo = ref(null)
+const senha = ref('')
+const confirmarSenha = ref('')
+const mostrarSenha = ref(false)
+const mostrarConfirmarSenha = ref(false)
+
+const storedLoja = JSON.parse(localStorage.getItem('user'))
+
+if (storedLoja) {
+    lojaInfo.value = storedLoja
+    userRole.value = storedLoja.plano
+}
+
+function formatarData(data) {
+    if (!data) return ''
+    const d = new Date(data)
+    const dia = String(d.getDate()).padStart(2, '0')
+    const mes = String(d.getMonth() + 1).padStart(2, '0')
+    const ano = d.getFullYear()
+    return `${dia}/${mes}/${ano}`
+}
+
+const vendedores = ref([
+    { id: 1, nome: 'Amanda', leadsCount: 12 },
+    { id: 2, nome: 'João', leadsCount: 15 },
+    { id: 3, nome: 'Sebastião', leadsCount: 25 },
+    { id: 4, nome: 'Maria', leadsCount: 43 },
+])
+
+const leadsRecentes = ref([
+    { id: 1, nome: 'Carlos', data: '20/10/2023' },
+    { id: 2, nome: 'Ana', data: '19/10/2023' },
+    { id: 3, nome: 'Pedro', data: '18/10/2023' },
+    { id: 4, nome: 'Luiza', data: '17/10/2023' },
+    { id: 5, nome: 'Fernanda', data: '16/10/2023' },
+    { id: 6, nome: 'Ricardo', data: '15/10/2023' },
+])
+
+const graficoLeads = ref(null)
+
+const editarLoja = async () => {
+    try {
+        if (senha.value || confirmarSenha.value) {
+            if (senha.value !== confirmarSenha.value) {
+                Notify.create({
+                    position:'top',
+                    icon:'lock',
+                    type: 'dark',
+                    message: 'As senhas não coincidem.'
+                })
+                return
+            }
+            lojaInfo.value.password = senha.value // Envia nova senha
+        }
+
+        const response = await api.put(`/editar-loja/${lojaInfo.value._id}`, lojaInfo.value)
+
+        Notify.create({
+            position:'top',
+            icon:'edit',
+            type: 'teal',
+            message: 'Loja editada com sucesso!'
+        })
+
+        localStorage.setItem('user', JSON.stringify(lojaInfo.value))
+        editando.value = false
+        senha.value = ''
+        confirmarSenha.value = ''
+    } catch (error) {
+        console.error('Erro ao editar a loja:', error)
+        Notify.create({
+            type: 'negative',
+            message: 'Erro ao editar a loja. Tente novamente.'
+        })
+    }
+}
+
+onMounted(() => {
+    const ctx = graficoLeads.value.getContext('2d')
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: vendedores.value.map(v => v.nome),
+            datasets: [{
+                label: 'Leads',
+                data: vendedores.value.map(v => v.leadsCount),
+                backgroundColor: ['#44B1A7', '#275CF0']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    })
+})
+</script>
+
+
 <template>
     <q-page class="q-pa-md column items-stretch full-height">
+
         <!-- Breadcrumb -->
         <q-breadcrumbs class="text-grey-8 rounded-borders q-mb-md" separator-icon="chevron_right">
             <q-breadcrumbs-el icon="store" label="Início" exact />
         </q-breadcrumbs>
+
         <!-- Botões -->
-        <strong class="text-teal">{{ userRole }}</strong><br>
+        <strong class="text-teal">{{ userRole }}</strong><br />
         <div class="row q-gutter-sm q-mb-md">
             <q-btn color="secondary" icon="sms" icon-right="link" label="Meu Chat" glossy to="/free-trial" />
-            <q-btn color="orange-14" glossy icon="edit" label="Editar Perfil" to="/loja/perfil/editar" />
+            <q-btn v-if="!editando" color="orange-14" glossy icon="edit" label="Editar Perfil"
+                @click="editando = true" />
+            <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" />
+            <q-btn v-if="editando" color="negative" glossy icon="cancel" label="Cancelar" @click="editando = false" />
         </div>
 
-        <!-- Cards em Grid -->
+        <!-- Cards -->
         <q-layout-grid class="q-gutter-md" cols="12" sm-cols="6" md-cols="4" lg-cols="3">
 
             <!-- Card Perfil -->
             <q-card class="q-pa-sm full-height" flat bordered>
                 <q-card-section>
-                    <div class="text-h6 text-bold text-secondary row w100 no-wrap justify-between text-center">Perfil<q-img :src="lojaInfo.imgem" alt="Imagem da Loja" height="80px" width="80px"
-                        class="rounded-borders shadow-1" /></div>
-                    
+                    <div class="text-h6 text-bold text-secondary row w100 no-wrap justify-between text-center">
+                        Perfil
+                        <q-img :src="lojaInfo.img_url" alt="Imagem da Loja" height="80px" width="80px"
+                            class="rounded-borders shadow-1" />
+                    </div>
+
                     <q-separator class="q-my-sm" />
-                    <div class="text-body1"><strong>Nome:</strong> {{ lojaInfo.nome }} - {{ lojaInfo.cnpj }}</div>
-                    <div class="text-body1"><strong>Site:</strong> {{ lojaInfo.site }}</div>
-                    <div class="text-body1"><strong>Login:</strong> {{ lojaInfo.login }}</div>
-                    <div class="text-body1"><strong>Contato:</strong> {{ lojaInfo.telefone }}</div>
-                    <div class="text-body1"><strong>Endereço:</strong> {{ lojaInfo.endereco }}</div>
-                    <div class="text-body1"><strong>Localização:</strong> {{ lojaInfo.link_loc }}</div>
-                    <div class="text-body1"><strong>Vencimento:</strong> Plano válido até <strong>{{ lojaInfo.plano_expira }}</strong></div>
+
+                    <div class="text-body1">
+                        <strong>Nome: </strong>
+                        <template v-if="!editando">{{ lojaInfo.nome }}</template>
+                        <q-input color="teal" v-else v-model="lojaInfo.nome" dense />
+                    </div>
+
+                    <div class="text-body1">
+                        <strong>CNPJ: </strong>
+                        <template v-if="!editando">{{ lojaInfo.cnpj }}</template>
+                        <q-input color="teal" v-else v-model="lojaInfo.cnpj" dense />
+                    </div>
+
+                    <div class="text-body1">
+                        <strong>Site: </strong>
+                        <template v-if="!editando">{{ lojaInfo.site }}</template>
+                        <q-input color="teal" v-else v-model="lojaInfo.site" dense />
+                    </div>
+
+                    <div class="text-body1">
+                        <strong>Login: </strong>
+                        <template v-if="!editando">{{ lojaInfo.login }}</template>
+                        <q-input color="teal" v-else v-model="lojaInfo.login" dense />
+                    </div>
+                    <div v-if="editando" class="text-body1">
+                        <strong>Nova Senha: </strong>
+                        <q-input dense color="teal" :type="mostrarSenha ? 'text' : 'password'" v-model="senha"
+                            placeholder="Digite a nova senha">
+                            <template v-slot:append>
+                                <q-icon :name="mostrarSenha ? 'visibility_off' : 'visibility'" class="cursor-pointer"
+                                    @click="mostrarSenha = !mostrarSenha" />
+                            </template>
+                        </q-input>
+                    </div>
+
+                    <div v-if="editando" class="text-body1">
+                        <strong>Confirmar Nova Senha: </strong>
+                        <q-input dense color="teal" :type="mostrarConfirmarSenha ? 'text' : 'password'"
+                            v-model="confirmarSenha" placeholder="Confirme a nova senha">
+                            <template v-slot:append>
+                                <q-icon :name="mostrarConfirmarSenha ? 'visibility_off' : 'visibility'"
+                                    class="cursor-pointer" @click="mostrarConfirmarSenha = !mostrarConfirmarSenha" />
+                            </template>
+                        </q-input>
+                    </div>
+                    <div class="text-body1">
+                        <strong>Contato: </strong>
+                        <template v-if="!editando">{{ lojaInfo.contato }}</template>
+                        <q-input color="teal" v-else v-model="lojaInfo.contato" dense />
+                    </div>
+
+                    <div class="text-body1" v-if="editando">
+                        <strong>Imagem de Perfil: </strong>
+                        <q-input color="teal" v-model="lojaInfo.img_url" dense />
+                    </div>
+
+                    <div class="text-body1">
+                        <strong>Localização: </strong>
+                        <template v-if="!editando">{{ lojaInfo.localizacao }}</template>
+                        <q-input color="teal" v-else v-model="lojaInfo.localizacao" dense />
+                    </div>
+
+                    <div class="text-body1" v-if="!editando">
+                        <strong>Vencimento:</strong>
+                        Plano válido até
+                        <strong>{{ formatarData(lojaInfo.plano_expira) }}</strong>
+                    </div>
+
                 </q-card-section>
             </q-card>
 
-            <!-- Novo Card com Gráfico -->
-            <q-card class="q-pa-sm full-height" flat bordered style="">
+            <!-- Card Leads por Vendedor -->
+            <q-card class="q-pa-sm full-height" flat bordered>
                 <q-card-section>
                     <div class="text-h6 text-bold text-secondary text-center">Leads por Vendedor</div>
                     <q-separator class="q-my-sm" />
                     <div style="position: relative; height: 250px; width: 100%;">
-                        <canvas ref="graficoLeads" style="width: 100%; height: 100%"></canvas> <!-- Ajuste no canvas -->
+                        <canvas ref="graficoLeads" style="width: 100%; height: 100%"></canvas>
                     </div>
                 </q-card-section>
             </q-card>
 
-
-            <!-- Card Vendedores (sem leads) -->
+            <!-- Card Vendedores -->
             <q-card class="q-pa-sm full-height" flat bordered>
                 <q-card-section>
                     <div class="row items-center justify-between q-mb-sm">
@@ -69,79 +250,6 @@
             </q-card>
 
         </q-layout-grid>
+
     </q-page>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue'
-import { Chart, BarElement, CategoryScale, LinearScale, BarController } from 'chart.js'
-
-// Registra os componentes necessários do Chart.js
-Chart.register(BarController, BarElement, CategoryScale, LinearScale)
-
-// Dados iniciais
-const userRole = ref('🥇 Plano Anual')
-
-const lojaInfo = ref({
-    imgem: '/logo.jpg',
-    nome: 'Minha Loja',
-    site: 'www.chatcarsstore.com',
-    login: 'chatcarsstore',
-    cnpj: '12.345.678/0001-99',
-    endereco: 'Rua Exemplo, 123',
-    telefone: '(11) 91234-5678',
-    link_loc: 'maps.google.com/?q=Rua+Exemplo,+123',
-    plano_expira: '22/04/2026',
-})
-
-const vendedores = ref([
-    { id: 1, nome: 'Amanda', leadsCount: 12 },
-    { id: 3, nome: 'Sebastião', leadsCount: 25 },
-    { id: 2, nome: 'João', leadsCount: 15 },
-    { id: 4, nome: 'Maria', leadsCount: 43 }
-])
-
-const leadsRecentes = ref([
-    { id: 1, nome: 'Carlos', data: '20/10/2023' },
-    { id: 2, nome: 'Ana', data: '19/10/2023' },
-    { id: 3, nome: 'Pedro', data: '18/10/2023' },
-    { id: 4, nome: 'Luiza', data: '17/10/2023' },
-    { id: 5, nome: 'Fernanda', data: '16/10/2023' },
-    { id: 6, nome: 'Ricardo', data: '15/10/2023' },
-])
-
-// Referência ao canvas do gráfico
-const graficoLeads = ref(null)
-
-onMounted(() => {
-    // Garantindo que o gráfico seja desenhado após o componente ser montado
-    const ctx = graficoLeads.value.getContext('2d')
-
-    // Criando o gráfico com Chart.js
-    new Chart(ctx, {
-        type: 'bar',  // Gráfico de barras
-        data: {
-            labels: vendedores.value.map(v => v.nome),
-            datasets: [{
-                label: 'Leads',
-                data: vendedores.value.map(v => v.leadsCount),
-                backgroundColor: ['#44B1A7', '#275CF0']
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    })
-})
-
-</script>
