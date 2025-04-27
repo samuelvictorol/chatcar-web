@@ -582,10 +582,11 @@ function sendMessage() {
     // Filtra os carros no estoque com base no termo de busca
     const resultado = estoque.value.filter(carro => {
         return (
-            carro.modelo.toLowerCase().includes(termo) || // Verifica no modelo
-            carro.ano.toString().includes(termo) || // Verifica no ano
-            (carro.descricao && carro.descricao.toLowerCase().includes(termo)) || // Verifica na descrição
-            (carro.mensagens && carro.mensagens.some(msg => msg.toLowerCase().includes(termo))) // Verifica nas mensagens
+            carro.modelo.toLowerCase().includes(termo) ||
+            carro.categoria.label.toLowerCase().includes(termo) ||
+            carro.ano.toString().includes(termo) ||
+            (carro.descricao && carro.descricao.toLowerCase().includes(termo)) ||
+            (carro.mensagens && carro.mensagens.some(msg => msg.toLowerCase().includes(termo)))
         );
     });
 
@@ -619,7 +620,6 @@ function filtrarMenuEstoque() {
     }
 
     const texto = filtroEstoque.value.trim();
-    messages.value.push({ from: 'user', text: texto });
     interacoes.value++;
 
     
@@ -645,7 +645,7 @@ watch(interacoes, (val) => {
         setTimeout(() => {
             messages.value.push({
                 from: 'bot',
-                text: 'Em breve, um de nossos atendentes irá entrar em contato com você para uma conversa mais detalhada.'
+                text: '✨ Em breve, um de nossos atendentes irá entrar em contato com você para uma conversa personalizada!'
             })
         }, 600)
         nextTick(() => {

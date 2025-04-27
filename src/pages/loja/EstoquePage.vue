@@ -8,10 +8,10 @@
 
         <div class="row justify-between items-center q-mb-md">
             <div class="text-h5 text-bold text-dark">Estoque</div>
-            <q-btn color="teal" glossy label="Adicionar" @click="dialogAdicionar = true" icon-right="add_circle" />
+            <q-btn color="teal" glossy label="Adicionar" @click="abrirModalAdicionar" icon-right="add_circle" />
         </div>
 
-        <q-input outlined dense debounce="300" color="dark" v-model="buscar" label="Buscar" class="q-mb-lg" clearable
+        <q-input outlined dense debounce="300" color="dark" v-model="buscar" @update:model-value="filtrarVeiculos()" label="Buscar" class="q-mb-lg" clearable
             placeholder="Digite o nome do veículo">
             <template v-slot:append>
                 <q-icon name="search" class="cursor-pointer" color="dark" />
@@ -33,7 +33,7 @@
                         <q-card-actions align="right" class="bg-dark">
                             <q-btn flat color="red-4" icon="delete" @click="confirmarRemocao(item)" />
                             <q-btn color="orange" glossy icon="edit" @click="abrirModalEdicao(item)" />
-                            <q-btn color="teal-14   " glossy icon="visibility" @click="abrirDetalhes(item)" />
+                            <q-btn color="teal-14" glossy icon="visibility" @click="abrirDetalhes(item)" />
                         </q-card-actions>
                     </q-card>
                 </q-row>
@@ -80,7 +80,7 @@
         <q-dialog v-model="dialogAdicionar">
             <q-card style="min-width: 350px; max-width: 90vw;">
                 <q-card-section class="row items-center q-pb-md">
-                    <div class="text-h6">{{ abrirModalEdicao ? 'Editar Veículo' : 'Adicionar Veículo' }}</div>
+                    <div class="text-h6">{{ modoEdicao ? 'Editar Veículo' : 'Adicionar Veículo' }}</div>
                     <q-space />
                     <q-btn icon="close" flat round dense v-close-popup />
                 </q-card-section>
@@ -154,6 +154,23 @@ function abrirModalEdicao(veiculo) {
     dialogAdicionar.value = true;
 }
 
+function abrirModalAdicionar() {
+    modoEdicao.value = false;
+    idVeiculoEditando.value = null;
+    formVeiculo.value = {
+        modelo: '',
+        tipo: '',
+        status: '',
+        categoria: '',
+        descricao: '',
+        ano: null,
+        preco: null,
+        img_url: '',
+        mensagens: []
+    };
+    dialogAdicionar.value = true;
+}
+
 const user = JSON.parse(localStorage.getItem("user"))
 const estoque_id = user.estoque
 const loja_id = user._id
@@ -220,11 +237,11 @@ async function salvarVeiculo() {
         if (modoEdicao.value) {
             // Edição
             await api.put(`/editar-veiculo/${idVeiculoEditando.value}`, payload);
-            $q.notify({ type: 'teal', position: 'top', message: 'Veículo atualizado com sucesso!' });
+            $q.notify({ color: 'teal', position: 'top', icon:'edit', message: 'Veículo atualizadoa com sucesso!' });
         } else {
             // Adição
             await api.post("/add-veiculo", { ...payload, estoque: estoque_id });
-            $q.notify({ type: 'teal', position: 'top', message: 'Veículo adicionado com sucesso!' });
+            $q.notify({ color: 'teal', position: 'top', icon: 'directions_car', message: 'Veículo adicionado com sucesso!' });
         }
 
         dialogAdicionar.value = false;
@@ -257,9 +274,8 @@ const filtrarVeiculos = () => {
     const filtro = buscar.value.toLowerCase()
     return estoque.value.filter(v =>
         v.modelo?.toLowerCase().includes(filtro) ||
-        v.categoria?.toLowerCase().includes(filtro) ||
-        v.tipo?.toLowerCase().includes(filtro) ||
-        v.id?.toLowerCase().includes(filtro)
+        v.categoria?.label.toLowerCase().includes(filtro) ||
+        v.tipo?.label.toLowerCase().includes(filtro)
     )
 }
 
