@@ -281,7 +281,7 @@
             </q-page>
         </q-page-container>
         <q-page-container v-else>
-            <div class="w100 q-py-xl justify-center items-center">
+            <div class="w100 q-py-xl row justify-center items-center">
                 <q-spinner-ball color="teal" size="4em" />
                 <q-spinner-ball color="teal" size="4em" />
                 <q-spinner-ball color="teal" size="4em" />
@@ -380,19 +380,26 @@ function selecionarCarro(carro) {
 
 const estoque = ref([])
 
-onMounted(() => {
+onBeforeMount(async ()=>{
+    await carregarEstoque()
+    setTimeout(()=>{
+        loading.value = false
+    }, 2000)
     messages.value.push({
         from: 'bot',
         text: '✨ Seja bem-vindo(a) ao chat inteligente do nosso estoque!'
     })
-
     $q.dialog({
-        title: 'Bem-vindo(a)!',
-        message: 'Qual o seu nome?',
+        title:  '🚗' + sobreLoja.value.nome + ' diz:',
+        message: `Bem-vindo(a)! Você irá conversar nosso estoque inteligente. Pra iniciar, poderia nos informar o seu nome?`,
         prompt: {
             model: '',
             type: 'text',
-            color: 'secondary'
+            color: 'secondary',
+            placeholder: 'Digite seu nome...',
+            outlined: true,
+            isValid: val => val && val.trim().length >= 3,
+            validateInput: true,
         },
         persistent: true,
         ok: {
@@ -407,30 +414,20 @@ onMounted(() => {
         }
     }).onCancel(() => {
         router.push('/')
-    })
-        .onOk(nome => {
-            if (!nome.trim()) {
-                $q.notify({
-                    color: 'orange-14',
-                    position: 'top',
-                    message: '⚠️ O nome é obrigatório!',
-                })
-                setTimeout(() => {
-                    window.location.reload()
-                }, 2000)
-                return
-            }
-
+    }).onOk(nome => {
             usuario.value.nome = nome
-
             $q.dialog({
-                title: 'Telefone',
-                message: 'Digite seu número com DDD:',
+                title: '📲 Para acessar o @chatcar.ia, preencha com seu telefone (ou whatsapp)',
+                message: usuario.value.nome + ', digite seu número com DDD:',
                 prompt: {
                     model: '',
                     type: 'tel',
                     mask: '(##) #####-####',
-                    color: 'secondary'
+                    color: 'secondary',
+                    placeholder: '(12) 34567-8910',
+                    outlined: true,
+                    isValid: val => val && val.trim().length == 15,
+                    validateInput: true,
                 },
                 ok: {
                     label: 'Continuar',
@@ -472,7 +469,7 @@ onMounted(() => {
                 });
 
                 $q.dialog({
-                    title: 'Preferências',
+                    title: '⚙️ Preferências',
                     message: 'Quais tipos de veículo você mais se interessa?',
                     options: {
                         type: 'checkbox',
@@ -481,7 +478,7 @@ onMounted(() => {
                         items: categoriaOptions
                     },
                     ok: {
-                        label: 'Continuar',
+                        label: 'Avançar',
                         color: 'secondary',
                         glossy: true
                     },
@@ -524,13 +521,15 @@ onMounted(() => {
                     });
                 }).onOk(descricao => {
                     $q.dialog({
-                        title: 'Nos conte mais...',
-                        message: 'Se quiser, descreva em poucas palavras como pretende usar o carro (uso urbano, família, trabalho, etc). Isso nos ajuda a entender melhor seu perfil:',
+                        title: '🧠 Nos conte mais...',
+                        message: 'Se quiser, descreva em poucas palavras como pretende usar o carro (uso urbano, família, trabalho, viagens pra fazenda, etc). Isso nos ajuda a entender melhor seu perfil:',
                         prompt: {
                             model: '',
                             type: 'textarea',
                             color: 'secondary',
-                            isValid: val => true // não obrigatório
+                            placeholder: 'Ex: trabalho na cidade mas possuo uma fazenda tem estrada de chão e quando alaga não da pra passar sem ser traçado.',
+                            isValid: val => true,
+                            outlined:  true
                         },
                         ok: {
                             label: 'Continuar',
@@ -640,9 +639,6 @@ watch(interacoes, (val) => {
     }
 })
 
-onBeforeMount(async ()=>{
-    await carregarEstoque().finally(loading.value = false)
-})
 </script>
 <style scoped>
 .sticky-top {
