@@ -275,7 +275,7 @@ const filtrarVeiculos = () => {
     return estoque.value.filter(v =>
         v.modelo?.toLowerCase().includes(filtro) ||
         v.categoria?.label.toLowerCase().includes(filtro) ||
-        v.tipo?.label.toLowerCase().includes(filtro)
+        v.tipo?.label.toLowerCase().includes(filtro) 
     )
 }
 

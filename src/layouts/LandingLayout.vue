@@ -7,11 +7,15 @@
           <div class="animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
         </q-toolbar-title>
         <!-- <q-btn label="experimente" icon-right="rocket_launch" color="green-14" class="q-mr-sm " glossy to="/loja" /> -->
-        <q-btn color="teal" dense class="q-px-sm text-white" label="Iniciar Sessão" icon-right="login" glossy to="/login" />
+        <q-btn v-if="!storedLoja" color="teal" dense class="q-px-sm text-white" label="Iniciar Sessão" icon-right="login" glossy to="/login" />
+        <div  v-else>
+          <q-btn color="teal" @click="logout()" dense class="q-px-sm text-white q-mr-md" flat label="sair" />
+          <q-btn color="teal" dense class="q-px-sm text-white" label="Meu Painel" icon-right="store" glossy to="/loja" />
+        </div>
       </q-toolbar>
       <q-tabs inline-label v-model="tab" class="text-grey-2 ">
         <q-route-tab class="animate__animated animate__flipInX animate__slower animate__delay-2s row"
-          icon="rocket_launch" label="experimente já" to="/loja" />
+          icon="rocket_launch" label="experimente já" to="/chatcars" />
 
         <q-tab class="animate__animated animate__flipInX animate__slower animate__delay-2s row" label="Planos"
           icon="view_week" name="planos" @click="scrollToSection('planos')" />
@@ -39,7 +43,7 @@
             Uma plataforma inteligente para lojistas e concessionárias automatizarem o atendimento e captarem leads
             prontos para comprar.
           </p>
-          <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" icon="query_stats" class="q-px-md q-mt-lg" to="/loja" unelevated size="lg" />
+          <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" icon="query_stats" class="q-px-md q-mt-lg" to="/chatcars" unelevated size="lg" />
         </div>
       </section>
       <div class="w100 bg-teal text-white text-bold text-left q-pa-md">
@@ -249,6 +253,7 @@ import PlanoAnual from 'components/PlanoAnual.vue';
 
 const chatcarsWpp = '61981748795'
 const text = 'Olá, Gostaria de saber mais sobre como o ChatCars IA pode empolgar meus clientes com uma vitrine e chat inteligente do meu estoque, atendendo-os automatizadamente 24 horas e gerando leads e sugestões de abordagem personalizadas de acordo com a interação do cliente com I.A., resumindo tudo isso e os dados dos clientes em um relatório pronto pro vendedor.'
+const storedLoja = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : null
 
 function solicitarContatoWpp() {
     const numero = chatcarsWpp
@@ -265,6 +270,14 @@ const planosDialog = ref({
 
 function openPlanoDialog(plano) {
   planosDialog.value[plano] = true;
+}
+
+function logout(){
+  const confirm = window.confirm('Deseja realmente encerrar a sessão no ChatCar?')
+  if(confirm){
+    localStorage.clear()
+    window.location.href = process.env.FRONTEND_URL
+  }
 }
 
 const countdown = ref({

@@ -15,7 +15,7 @@ const mostrarSenha = ref(false)
 const mostrarConfirmarSenha = ref(false)
 
 const storedLoja = JSON.parse(localStorage.getItem('user'))
-
+const chatLink = process.env.FRONTEND_URL + '/' + storedLoja.login
 if (storedLoja) {
     lojaInfo.value = storedLoja
     userRole.value = storedLoja.plano
@@ -122,7 +122,7 @@ onMounted(() => {
         <!-- Botões -->
         <strong class="text-teal">{{ userRole }}</strong><br />
         <div class="row q-gutter-sm q-mb-md">
-            <q-btn color="secondary" icon="sms" icon-right="link" label="Meu Chat" glossy to="/free-trial" />
+            <q-btn color="secondary" icon="sms" icon-right="directions_car" label="Chat Estoque" glossy :to="'/'+ lojaInfo.login" />
             <q-btn v-if="!editando" color="orange-14" glossy icon="edit" label="Editar Perfil"
                 @click="editando = true" />
             <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" />
@@ -155,6 +155,10 @@ onMounted(() => {
                         <q-input color="teal" v-else v-model="lojaInfo.cnpj" dense />
                     </div>
 
+                    <div  v-if="!editando" class="text-body1">
+                        <strong>ChatUrl: </strong>
+                        <template>{{ chatLink }}</template>
+                    </div>
                     <div class="text-body1">
                         <strong>Site: </strong>
                         <template v-if="!editando">{{ lojaInfo.site }}</template>

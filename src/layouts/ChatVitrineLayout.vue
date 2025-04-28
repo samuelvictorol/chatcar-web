@@ -10,7 +10,7 @@
                         ChatCars Store
                     </div>
                 </q-toolbar-title>
-                <q-btn class="q-mr-sm" color="grey-2" to="/loja" flat icon="logout" />
+                <q-btn class="q-mr-sm" color="grey-2" to="/" flat icon="logout" />
                 <!-- <q-btn class="q-mr-sm" glossy color="blue-14" icon="psychology" @click="showDialog = !showDialog" /> -->
                 <q-btn glossy color="secondary" icon="store" @click="toggleEstoqueDrawer" />
             </q-toolbar>
@@ -22,10 +22,11 @@
                 <q-toolbar-title>Estoque</q-toolbar-title>
                 <q-btn flat round icon="close" @click="showEstoqueDrawer = false" />
             </q-toolbar>
-            <q-input v-model="filtroEstoque" color="secondary" @update:model-value="filtrarMenuEstoque()" outlined label="Filtrar estoque..." dense debounce="300"
-                class="q-pa-sm relative">
+            <q-input v-model="filtroEstoque" color="secondary" @update:model-value="filtrarMenuEstoque()" outlined
+                label="Filtrar estoque..." dense debounce="300" class="q-pa-sm relative">
                 <template v-slot:append>
-                    <q-btn icon='search' name="search"  @click="filtrarMenuEstoque()"  class="cursor-pointer absolute-right" color="secondary" />
+                    <q-btn icon='search' name="search" @click="filtrarMenuEstoque()"
+                        class="cursor-pointer absolute-right" color="secondary" />
                 </template>
             </q-input>
             <q-list>
@@ -46,7 +47,7 @@
         </q-drawer>
 
         <!-- Página principal do chat -->
-        <q-page-container class="bg-dark">
+        <q-page-container class="bg-dark" v-if="!loading">
             <q-page class="q-pa-none bg-grey-4 column full-height relative">
                 <!-- Vitrine fixa -->
                 <div class="bg-dark sticky-top">
@@ -242,7 +243,7 @@
                                 </div>
                                 <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria.label }} - {{
                                     carroSelecionado.ano
-                                    }}
+                                }}
                                 </div>
                                 <q-img :src="carroSelecionado.img_url" :alt="carroSelecionado.modelo"
                                     style="border-radius: 12px;" class="q-mb-md" />
@@ -272,14 +273,19 @@
                 <div class="q-pa-md bg-white row items-center"
                     style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
                     <q-input filled v-model="input" color="secondary" class="col"
-                        placeholder="Ex: sedan, up tsi, 2020..." @keyup.enter="sendMessage" />
+                        placeholder="Ex: sedan, tração traseira, 2020..." @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
                     <q-btn icon="send" color="secondary" flat round @click="sendMessage" />
                 </div>
             </q-page>
-
-
+        </q-page-container>
+        <q-page-container v-else>
+            <div class="w100 q-py-xl justify-center items-center">
+                <q-spinner-ball color="teal" size="4em" />
+                <q-spinner-ball color="teal" size="4em" />
+                <q-spinner-ball color="teal" size="4em" />
+            </div>
         </q-page-container>
     </q-layout>
 </template>
@@ -287,24 +293,14 @@
 import { ref, computed, onMounted, watch, onBeforeMount } from 'vue'
 import { useQuasar } from 'quasar'
 import { nextTick } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { api } from 'src/boot/axios';
 
 const showDialog = ref(false)
 const router = useRouter()
 
-const sobreLoja = ref({
-    nome: 'ChatCars Store',
-    cnpj: '12.345.678/0001-99',
-    endereco: 'Av. das Inovações, 1234 - Centro, São Paulo - SP',
-    telefone: '(11) 98765-4321',
-    email: ''
-})
-// Relatório mockado gerado pela "IA"
-const relatorio = ref({
-    interesses: '',
-    abordagem: ''
-})
+const sobreLoja = ref(null)
+const loading = ref(true)
 const mensagensContainer = ref(null)
 const dialogAberto = ref(false)
 const carroSelecionado = ref({})
@@ -318,29 +314,26 @@ const showEstoqueDrawer = ref(false)
 const carrossel = ref([])
 const carrosselIndex = ref(0)
 const interacoes = ref(0)
-
+const route = useRoute()
 const usuario = ref({
     nome: '',
     telefone: '',
-    preferencias: []
+    info: '',
+    preferencias: [],
 })
-const userLogado = JSON.parse(localStorage.getItem("user"))
-const estoque_id = userLogado.estoque
-const loja_id = userLogado._id
 
 async function carregarEstoque() {
     try {
-        const { data } = await api.get('/meu-estoque', {
-            params: { estoque_id, loja_id }
-        })
-        estoque.value = data.estoque.veiculos
+        const { data } = await api.get('/estoque-publico/' + route.params.login);
+        sobreLoja.value = data.loja;
+        estoque.value = data.estoque;
         estoqueFiltrado.value = [...estoque.value];
     } catch (err) {
-        console.error('Erro ao buscar estoque', err)
+        console.error('Erro ao buscar estoque', err);
         $q.notify({
             type: 'negative',
             message: 'Erro ao buscar estoque'
-        })
+        });
     }
 }
 
@@ -366,6 +359,8 @@ function abrirDialog(carro) {
     }, 1000)
 }
 
+
+
 function selecionarCarro(carro) {
     // Atualiza carrossel com apenas o carro selecionado
     carrossel.value = [carro]
@@ -385,22 +380,14 @@ function selecionarCarro(carro) {
 
 const estoque = ref([])
 
-
 onMounted(() => {
     messages.value.push({
         from: 'bot',
-        text: '✨ Seja bem-vindo(a) à nossa loja!'
+        text: '✨ Seja bem-vindo(a) ao chat inteligente do nosso estoque!'
     })
-    setTimeout(() => {
-        relatorio.value = {
-            interesses:
-                'Cliente demonstrou forte interesse por SUVs automáticos com teto solar, até R$ 95.000. Pesquisou consumo, espaço interno e confiabilidade. Está comparando Jeep Renegade, Hyundai Creta e VW T-Cross.',
-            abordagem:
-                'Comece ressaltando os diferenciais de conforto, economia e segurança dos SUVs. Foque em modelos com teto solar e câmbio automático. Diga que temos pronta entrega de algumas versões. Ofereça test drive rápido e simulação de financiamento personalizada. Não pressione por decisão imediata.'
-        }
-    }, 1000)
+
     $q.dialog({
-        title: 'Bem-vindo ao ChatCar IA!',
+        title: 'Bem-vindo(a)!',
         message: 'Qual o seu nome?',
         prompt: {
             model: '',
@@ -419,7 +406,7 @@ onMounted(() => {
             flat: true
         }
     }).onCancel(() => {
-        router.push('/loja')
+        router.push('/')
     })
         .onOk(nome => {
             if (!nome.trim()) {
@@ -463,7 +450,6 @@ onMounted(() => {
                     }, 2000)
                     return
                 }
-
                 usuario.value.telefone = telefone
 
                 const categoriasUnicas = Array.from(
@@ -554,7 +540,7 @@ onMounted(() => {
                         persistent: false
                     })
                 }).onOk(sobreUsuario => {
-                    usuario.value.preferencias.push(sobreUsuario)
+                    usuario.value.info = sobreUsuario
                 })
             })
         })
@@ -622,12 +608,12 @@ function filtrarMenuEstoque() {
     const texto = filtroEstoque.value.trim();
     interacoes.value++;
 
-    
+
     const termo = texto.toLowerCase();
-    
+
     const resultado = estoque.value.filter(carro => {
         return (
-            carro.modelo.toLowerCase().includes(termo) || 
+            carro.modelo.toLowerCase().includes(termo) ||
             carro.ano.toString().includes(termo)
         )
     });
@@ -654,8 +640,8 @@ watch(interacoes, (val) => {
     }
 })
 
-onBeforeMount(async () => {
-    await carregarEstoque()
+onBeforeMount(async ()=>{
+    await carregarEstoque().finally(loading.value = false)
 })
 </script>
 <style scoped>
