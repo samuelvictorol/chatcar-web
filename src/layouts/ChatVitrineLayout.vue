@@ -6,13 +6,13 @@
                     <!-- <q-avatar>
                         <q-icon name="sms" size="lg" to="/" />
                     </q-avatar> -->
-                    <div class="q-pl-sm animate__animated animate__fadeInLeft animate__slower">
-                        ChatCars Store
+                    <div v-if="!loading" class="q-pl-sm animate__animated animate__fadeInLeft animate__slower">
+                        {{ sobreLoja.login }}
                     </div>
                 </q-toolbar-title>
                 <q-btn class="q-mr-sm" color="grey-2" to="/" flat icon="logout" />
                 <!-- <q-btn class="q-mr-sm" glossy color="blue-14" icon="psychology" @click="showDialog = !showDialog" /> -->
-                <q-btn glossy color="secondary" icon="store" @click="toggleEstoqueDrawer" />
+                <q-btn glossy color="teal" label="estoque" icon="store" @click="toggleEstoqueDrawer" />
             </q-toolbar>
         </q-header>
 
@@ -50,33 +50,52 @@
         <q-page-container class="bg-dark" v-if="!loading">
             <q-page class="q-pa-none bg-grey-4 column full-height relative">
                 <!-- Vitrine fixa -->
-                <div class="bg-dark sticky-top">
-                    <div class="w100 row no-wrap items-center justify-between q-px-md q-pt-sm">
-                        <div class="text-h6 text-white q-pt-sm q-mb-sm">Vitrine</div>
-                        <div class="text-h6 text-white q-pt-sm q-mb-sm"><q-btn label="sobre a loja"
+                <div class="bg-dark sticky-top" style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
+                    <div class="w100 row no-wrap items-center justify-between q-px-md q-pt-m">
+                        <div class="text-h6 text-white q-pt-sm ">Vitrine</div>
+                        <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="sobre"
                                 icon-right="contact_support" color="" @click="openInfoLoja()"
                                 style="border:2px solid #26A69A" dense flat></q-btn></div>
 
                     </div>
 
-                    <div class="q-mx-auto" style="max-width: 700px;">
-                        <q-carousel v-if="carrossel.length" v-model="carrosselIndex" navigation
-                            navigation-color="secondary" arrows height="250px"
+                    <div style="border-radius: 12px">
+                        <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length"
+                            v-model="carrosselIndex" height="300px"
                             class="bg-dark sticky text-white q-pb-md">
+                            <template v-slot:control>
+                                <div class="absolute-left q-pa-xs" style="top:45%">
+                                    <q-btn icon="chevron_left" color="white" unelevated round dense size="md"
+                                        class="bg-black"
+                                        @click="carrosselIndex = (carrosselIndex - 1 + carrossel.length) % carrossel.length" />
+                                </div>
+                                <div class="absolute-right q-pa-xs" style="top:45%">
+                                    <q-btn icon="chevron_right" color="white" unelevated round dense size="md"
+                                        class="bg-black"
+                                        @click="carrosselIndex = (carrosselIndex + 1) % carrossel.length" />
+                                </div>
+                            </template>
+
                             <q-carousel-slide v-for="(carro, i) in carrossel" :name="i" :key="i"
                                 class="relative-position">
                                 <q-img :src="carro.img_url" :alt="carro.modelo" class="fit"
                                     style="object-fit: cover; border-radius: 12px;">
-                                    <div class="absolute-bottom text-white q-pa-sm"
-                                        style="background: #070707a2; backdrop-filter: blur(2px);">
-                                        <div class="text-subtitle1 text-weight-bold">{{ carro.modelo }}</div>
-                                        <div class="text-caption">{{ carro.categoria.label }} - {{ carro.ano }}</div>
+                                    <div class="absolute-bottom text-white q-pa-sm shadow-2">
+                                        <div style="background: #070707a2; backdrop-filter: blur(4px);"
+                                            class=" text-center text-subtitle1 text-weight-bold">{{
+                                            carro.modelo
+                                            }}</div>
+                                        <div style="background: #070707a2; backdrop-filter: blur(2px);"
+                                            class="text-center text-caption">{{ carro.categoria.label }}
+                                            - {{
+                                            carro.ano }}</div>
                                         <q-btn icon="search" color="secondary" glossy dense class="q-mt-sm full-width"
                                             label="Ver Detalhes" @click="abrirDialog(carro)" />
                                     </div>
                                 </q-img>
                             </q-carousel-slide>
                         </q-carousel>
+
                     </div>
                     <q-dialog v-model="showDialog" persistent>
                         <q-card flat bordered class="bg-white text-dark shadow-2"
@@ -189,7 +208,7 @@
                             <q-card-section class="row items-center q-pb-none">
                                 <div class="row justify-between no-wrap w100">
                                     <div class="text-h6">Sobre a Loja</div><br>
-                                    <q-img src="/logo.jpg" alt="Logo da loja" class="rounded-borders" width="100px"
+                                    <q-img :src="sobreLoja.img_url" alt="Logo da loja" class="rounded-borders" width="100px"
                                         height="100px" />
                                 </div>
                                 <q-space />
@@ -199,39 +218,38 @@
                                     <q-item>
                                         <q-item-section>
                                             <q-item-label class="text-subtitle1">Nome:</q-item-label>
-                                            <q-item-label caption>ChatCars Store</q-item-label>
+                                            <q-item-label caption>{{ sobreLoja.nome }}</q-item-label>
                                         </q-item-section>
                                     </q-item>
                                     <q-item>
                                         <q-item-section>
                                             <q-item-label class="text-subtitle1">CNPJ:</q-item-label>
-                                            <q-item-label caption>12.345.678/0001-99</q-item-label>
+                                            <q-item-label caption>{{ sobreLoja.cnpj }}</q-item-label>
                                         </q-item-section>
                                     </q-item>
                                     <q-item>
                                         <q-item-section>
                                             <q-item-label class="text-subtitle1">Endereço:</q-item-label>
-                                            <q-item-label caption>Av. das Inovações, 1234 - Centro, São Paulo -
-                                                SP</q-item-label>
+                                            <q-item-label caption>{{ sobreLoja.localizacao }}</q-item-label>
                                         </q-item-section>
                                     </q-item>
                                     <q-item>
                                         <q-item-section>
-                                            <q-item-label class="text-subtitle1">Telefone:</q-item-label>
-                                            <q-item-label caption>(11) 98765-4321</q-item-label>
+                                            <q-item-label class="text-subtitle1">Contato:</q-item-label>
+                                            <q-item-label caption>{{ sobreLoja.contato }}</q-item-label>
                                         </q-item-section>
                                     </q-item>
                                     <q-item>
                                         <q-item-section>
                                             <q-item-label class="text-subtitle1">Email:</q-item-label>
-                                            <q-item-label caption>contato@chatcarsstore.com.br</q-item-label>
+                                            <q-item-label caption>{{ sobreLoja.email }}</q-item-label>
                                         </q-item-section>
                                     </q-item>
                                 </q-list>
                             </q-card-section>
                             <q-card-actions align="right">
                                 <q-btn flat label="Fechar" color="grey-14" v-close-popup />
-                                <q-btn glossy label="Fale Conosco" color="secondary" />
+                                <!-- <q-btn glossy label="Fale Conosco" @click="openWpp()" color="secondary" /> -->
                             </q-card-actions>
                         </q-card>
                     </q-dialog>
@@ -243,7 +261,7 @@
                                 </div>
                                 <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria.label }} - {{
                                     carroSelecionado.ano
-                                }}
+                                    }}
                                 </div>
                                 <q-img :src="carroSelecionado.img_url" :alt="carroSelecionado.modelo"
                                     style="border-radius: 12px;" class="q-mb-md" />
@@ -380,9 +398,9 @@ function selecionarCarro(carro) {
 
 const estoque = ref([])
 
-onBeforeMount(async ()=>{
+onBeforeMount(async () => {
     await carregarEstoque()
-    setTimeout(()=>{
+    setTimeout(() => {
         loading.value = false
     }, 2000)
     messages.value.push({
@@ -390,7 +408,7 @@ onBeforeMount(async ()=>{
         text: '✨ Seja bem-vindo(a) ao chat inteligente do nosso estoque!'
     })
     $q.dialog({
-        title:  '🚗' + sobreLoja.value.nome + ' diz:',
+        title: '🚗' + sobreLoja.value.nome + ' diz:',
         message: `Bem-vindo(a)! Você irá conversar nosso estoque inteligente. Pra iniciar, poderia nos informar o seu nome?`,
         prompt: {
             model: '',
@@ -415,134 +433,134 @@ onBeforeMount(async ()=>{
     }).onCancel(() => {
         router.push('/')
     }).onOk(nome => {
-            usuario.value.nome = nome
+        usuario.value.nome = nome
+        $q.dialog({
+            title: '📲 Para acessar o @chatcar.ia, preencha com seu telefone (ou whatsapp)',
+            message: usuario.value.nome + ', digite seu número com DDD:',
+            prompt: {
+                model: '',
+                type: 'tel',
+                mask: '(##) #####-####',
+                color: 'secondary',
+                placeholder: '(12) 34567-8910',
+                outlined: true,
+                isValid: val => val && val.trim().length == 15,
+                validateInput: true,
+            },
+            ok: {
+                label: 'Continuar',
+                color: 'secondary',
+                glossy: true
+            },
+            persistent: true
+        }).onOk(telefone => {
+            if (!telefone.trim()) {
+                $q.notify({
+                    color: 'orange-14',
+                    position: 'top',
+                    message: '⚠️ O telefone é obrigatório!',
+                })
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000)
+                return
+            }
+            usuario.value.telefone = telefone
+
+            const categoriasUnicas = Array.from(
+                new Set(
+                    estoque.value
+                        .map(carro => carro.categoria?.label)
+                        .filter(Boolean)
+                )
+            );
+
+            const categoriaOptions = categoriasUnicas.map(cat => {
+                if (cat == null) {
+                    return { label: '', value: cat };
+                }
+                const categoriaStr = String(cat);
+                return {
+                    label: categoriaStr.charAt(0).toUpperCase() + categoriaStr.slice(1),
+                    value: cat
+                };
+            });
+
             $q.dialog({
-                title: '📲 Para acessar o @chatcar.ia, preencha com seu telefone (ou whatsapp)',
-                message: usuario.value.nome + ', digite seu número com DDD:',
-                prompt: {
-                    model: '',
-                    type: 'tel',
-                    mask: '(##) #####-####',
+                title: '⚙️ Preferências',
+                message: 'Quais tipos de veículo você mais se interessa?',
+                options: {
+                    type: 'checkbox',
+                    model: [],
                     color: 'secondary',
-                    placeholder: '(12) 34567-8910',
-                    outlined: true,
-                    isValid: val => val && val.trim().length == 15,
-                    validateInput: true,
+                    items: categoriaOptions
                 },
                 ok: {
-                    label: 'Continuar',
+                    label: 'Avançar',
                     color: 'secondary',
                     glossy: true
                 },
                 persistent: true
-            }).onOk(telefone => {
-                if (!telefone.trim()) {
-                    $q.notify({
-                        color: 'orange-14',
-                        position: 'top',
-                        message: '⚠️ O telefone é obrigatório!',
-                    })
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 2000)
-                    return
+            }).onOk(preferencias => {
+                if (!preferencias.length) {
+                    const totalCarros = estoque.value.length;
+                    const quantidade = totalCarros >= 5 ? 5 : totalCarros;
+                    const randomCarros = [...estoque.value]
+                        .sort(() => 0.5 - Math.random())
+                        .slice(0, quantidade);
+                    carrossel.value = randomCarros;
+                    messages.value.push({
+                        from: 'bot',
+                        text: `${usuario.value.nome}, veja algumas opções na nossa vitrine!⬆️`
+                    });
+                    return;
                 }
-                usuario.value.telefone = telefone
 
-                const categoriasUnicas = Array.from(
-                    new Set(
-                        estoque.value
-                            .map(carro => carro.categoria?.label)
-                            .filter(Boolean)
-                    )
-                );
+                usuario.value.preferencias = preferencias;
 
-                const categoriaOptions = categoriasUnicas.map(cat => {
-                    if (cat == null) {
-                        return { label: '', value: cat };
-                    }
-                    const categoriaStr = String(cat);
-                    return {
-                        label: categoriaStr.charAt(0).toUpperCase() + categoriaStr.slice(1),
-                        value: cat
-                    };
+                const carrosFiltrados = estoque.value.filter(carro => preferencias.includes(carro.categoria.label));
+                const quantidade = carrosFiltrados.length >= 5 ? 5 : carrosFiltrados.length;
+                carrossel.value = [...carrosFiltrados]
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, quantidade);
+                carrosselIndex.value = 0;
+
+                messages.value.push({
+                    from: 'bot',
+                    text: `${usuario.value.nome}, somos a ${sobreLoja.value.nome}! Aqui estão algumas opções do nosso estoque⬆`
+                });
+                messages.value.push({
+                    from: 'bot',
+                    text: `Se quiser ver mais opções, clique no ícone de "estoque" 🏪 na parte superior.`,
                 });
 
+                nextTick(() => {
+                    window.scrollTo(0, document.body.scrollHeight);
+                });
+            }).onOk(descricao => {
                 $q.dialog({
-                    title: '⚙️ Preferências',
-                    message: 'Quais tipos de veículo você mais se interessa?',
-                    options: {
-                        type: 'checkbox',
-                        model: [],
+                    title: '🧠 Nos conte mais...',
+                    message: 'Se quiser, descreva em poucas palavras como pretende usar o carro (uso urbano, família, trabalho, viagens pra fazenda, etc). Isso nos ajuda a entender melhor seu perfil:',
+                    prompt: {
+                        model: '',
+                        type: 'textarea',
                         color: 'secondary',
-                        items: categoriaOptions
+                        placeholder: 'Ex: trabalho na cidade mas possuo uma fazenda tem estrada de chão e quando alaga não da pra passar sem ser traçado',
+                        isValid: val => true,
+                        outlined: true
                     },
                     ok: {
-                        label: 'Avançar',
+                        label: 'Continuar',
                         color: 'secondary',
                         glossy: true
                     },
-                    persistent: true
-                }).onOk(preferencias => {
-                    if (!preferencias.length) {
-                        const totalCarros = estoque.value.length;
-                        const quantidade = totalCarros >= 5 ? 5 : totalCarros;
-                        const randomCarros = [...estoque.value]
-                            .sort(() => 0.5 - Math.random())
-                            .slice(0, quantidade);
-                        carrossel.value = randomCarros;
-                        messages.value.push({
-                            from: 'bot',
-                            text: `${usuario.value.nome}, veja algumas opções na nossa vitrine!⬆️`
-                        });
-                        return;
-                    }
-
-                    usuario.value.preferencias = preferencias;
-
-                    const carrosFiltrados = estoque.value.filter(carro => preferencias.includes(carro.categoria.label));
-                    const quantidade = carrosFiltrados.length >= 5 ? 5 : carrosFiltrados.length;
-                    carrossel.value = [...carrosFiltrados]
-                        .sort(() => 0.5 - Math.random())
-                        .slice(0, quantidade);
-                    carrosselIndex.value = 0;
-
-                    messages.value.push({
-                        from: 'bot',
-                        text: `${usuario.value.nome}, somos a ${sobreLoja.value.nome}! Aqui estão algumas opções do nosso estoque⬆`
-                    });
-                    messages.value.push({
-                        from: 'bot',
-                        text: `Se quiser ver mais opções, clique no ícone de "estoque" 🏪 na parte superior.`,
-                    });
-
-                    nextTick(() => {
-                        window.scrollTo(0, document.body.scrollHeight);
-                    });
-                }).onOk(descricao => {
-                    $q.dialog({
-                        title: '🧠 Nos conte mais...',
-                        message: 'Se quiser, descreva em poucas palavras como pretende usar o carro (uso urbano, família, trabalho, viagens pra fazenda, etc). Isso nos ajuda a entender melhor seu perfil:',
-                        prompt: {
-                            model: '',
-                            type: 'textarea',
-                            color: 'secondary',
-                            placeholder: 'Ex: trabalho na cidade mas possuo uma fazenda tem estrada de chão e quando alaga não da pra passar sem ser traçado',
-                            isValid: val => true,
-                            outlined:  true
-                        },
-                        ok: {
-                            label: 'Continuar',
-                            color: 'secondary',
-                            glossy: true
-                        },
-                        persistent: false
-                    })
-                }).onOk(sobreUsuario => {
-                    usuario.value.info = sobreUsuario
+                    persistent: false
                 })
+            }).onOk(sobreUsuario => {
+                usuario.value.info = sobreUsuario
             })
         })
+    })
     messages.value.push({
         from: 'bot',
         text: `😁 Qual veículo você busca? Poderia me informar o modelo, ano, categoria ou preço?`
@@ -645,8 +663,10 @@ watch(interacoes, (val) => {
     position: sticky;
     top: 50px;
     z-index: 10;
-    background-color: #1a1a1a;
-    /* Cor de fundo para destacar a vitrine fixa */
+}
+
+.q-img__content>div {
+    background: none !important;
 }
 
 #item-estoque {
