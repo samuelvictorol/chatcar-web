@@ -7,7 +7,7 @@
         </q-breadcrumbs>
 
         <div class="w100 row justify-between no-wrap q-mb-sm">
-            <div class="text-h5 text-left text-bold text-dark">Leads Captados</div>
+            <div class="text-h5 text-left text-bold text-dark">Clientes e Leads</div>
         </div>
 
         <div class="w100 q-mt-lg">
@@ -28,9 +28,14 @@
 
                             <!-- Coluna Nome -->
                             <template v-slot:body-cell-name="props">
-                                <q-td :props="props" class="sticky-col text-white bg-dark">
+                              <q-td :props="props" class="sticky-col text-white bg-dark">
+                                <span>
+                                  {{ formatBigName(props.row.name) }}
+                                  <q-tooltip anchor="top middle" self="bottom middle">
                                     {{ props.row.name }}
-                                </q-td>
+                                  </q-tooltip>
+                                </span>
+                              </q-td>
                             </template>
 
                             <!-- Coluna Vendedor -->
@@ -61,7 +66,7 @@
                             <!-- Coluna Ações -->
                             <template v-slot:body-cell-acoes="props">
                                 <q-td :props="props" class="text-center">
-                                    <q-btn :disabled="props.row.vendedor == '-'" flat icon="sms" dense color="blue"
+                                    <q-btn flat icon="sms" dense color="blue"
                                         @click="confirmarContato(props.row)" />
                                     <q-btn :disabled="props.row.vendedor == '-'" flat dense icon="assignment" color="secondary"
                                         @click="gerarRelatorio(props.row)" />
@@ -108,7 +113,7 @@ const vendedores = [
   { label: 'João', value: 'João' }
 ];
 const columns = [
-  { name: 'name', label: 'Nome', align: 'left', field: 'name' },
+  { name: 'name', label: 'Nome Cliente', align: 'left', field: 'name' },
 //   { name: 'vendedor', label: 'Vendedor', align: 'center', field: 'vendedor' },
   { name: 'contato', label: 'Contato', align: 'center', field: 'contato' },
   { name: 'status', label: 'Status', align: 'center', field: 'status' },
@@ -153,6 +158,13 @@ function confirmarContato(row) {
       message: 'Status atualizado para Contato Efetuado'
     });
   });
+}
+
+function formatBigName(str) {
+  if (str.length > 12) {
+    return str.slice(0, 12) + '...';
+  }
+  return str;
 }
 
 // Buscando os leads no mounted

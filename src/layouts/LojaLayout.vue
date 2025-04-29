@@ -67,7 +67,7 @@ const menuOptions = ref([
         to: '/loja'
     },
     {
-        label: 'Leads Captados',
+        label: 'Clientes e Leads',
         icon: 'groups',
         to: '/loja/leads'
     },

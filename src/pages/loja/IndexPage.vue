@@ -2,9 +2,9 @@
 import { ref, onMounted } from 'vue'
 import { api } from 'src/boot/axios'
 import { Notify } from 'quasar'
-import { Chart, BarElement, CategoryScale, LinearScale, BarController } from 'chart.js'
+// import { Chart, BarElement, CategoryScale, LinearScale, BarController } from 'chart.js'
 
-Chart.register(BarController, BarElement, CategoryScale, LinearScale)
+// Chart.register(BarController, BarElement, CategoryScale, LinearScale)
 
 const userRole = ref('🥇 Plano Anual')
 const editando = ref(false)
@@ -30,23 +30,16 @@ function formatarData(data) {
     return `${dia}/${mes}/${ano}`
 }
 
-const vendedores = ref([
-    { id: 1, nome: 'Amanda', leadsCount: 12 },
-    { id: 2, nome: 'João', leadsCount: 15 },
-    { id: 3, nome: 'Sebastião', leadsCount: 25 },
-    { id: 4, nome: 'Maria', leadsCount: 43 },
-])
+// const vendedores = ref([
+//     { id: 1, nome: 'Amanda', leadsCount: 12 },
+//     { id: 2, nome: 'João', leadsCount: 15 },
+//     { id: 3, nome: 'Sebastião', leadsCount: 25 },
+//     { id: 4, nome: 'Maria', leadsCount: 43 },
+// ])
 
-const leadsRecentes = ref([
-    { id: 1, nome: 'Carlos', data: '20/10/2023' },
-    { id: 2, nome: 'Ana', data: '19/10/2023' },
-    { id: 3, nome: 'Pedro', data: '18/10/2023' },
-    { id: 4, nome: 'Luiza', data: '17/10/2023' },
-    { id: 5, nome: 'Fernanda', data: '16/10/2023' },
-    { id: 6, nome: 'Ricardo', data: '15/10/2023' },
-])
+const leadsRecentes = ref([])
 
-const graficoLeads = ref(null)
+// const graficoLeads = ref(null)
 
 const editarLoja = async () => {
     try {
@@ -85,29 +78,32 @@ const editarLoja = async () => {
     }
 }
 
-onMounted(() => {
-    const ctx = graficoLeads.value.getContext('2d')
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: vendedores.value.map(v => v.nome),
-            datasets: [{
-                label: 'Leads',
-                data: vendedores.value.map(v => v.leadsCount),
-                backgroundColor: ['#44B1A7', '#275CF0']
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false }
-            },
-            scales: {
-                y: { beginAtZero: true }
-            }
-        }
+onMounted(async () => {
+    await api.get('/leads-recentes/' + storedLoja.login).then(response =>{
+        leadsRecentes.value = response.data.leads
     })
-})
+    // const ctx = graficoLeads.value.getContext('2d')
+//     new Chart(ctx, {
+//         type: 'bar',
+//         data: {
+//             labels: vendedores.value.map(v => v.nome),
+//             datasets: [{
+//                 label: 'Leads',
+//                 data: vendedores.value.map(v => v.leadsCount),
+//                 backgroundColor: ['#44B1A7', '#275CF0']
+//             }]
+//         },
+//         options: {
+//             responsive: true,
+//             plugins: {
+//                 legend: { display: false }
+//             },
+//             scales: {
+//                 y: { beginAtZero: true }
+//             }
+//         }
+//     })
+ })
 </script>
 
 
@@ -161,7 +157,7 @@ onMounted(() => {
                     </div>
 
                     <div class="text-body1">
-                        <strong>ChatUrl: </strong>
+                        <strong>{{!editando ? 'ChatUrl: ' : 'Login: '}} </strong>
                         <template v-if="!editando">{{ 'chatcar.me/' + lojaInfo.login }}</template>
                         <q-input color="teal" v-else v-model="lojaInfo.login" dense />
                     </div>
@@ -213,7 +209,7 @@ onMounted(() => {
             </q-card>
 
             <!-- Card Leads por Vendedor -->
-            <q-card class="q-pa-sm full-height" flat bordered>
+            <!-- <q-card class="q-pa-sm full-height" flat bordered>
                 <q-card-section>
                     <div class="text-h6 text-bold text-secondary text-center">Leads por Vendedor</div>
                     <q-separator class="q-my-sm" />
@@ -221,10 +217,10 @@ onMounted(() => {
                         <canvas ref="graficoLeads" style="width: 100%; height: 100%"></canvas>
                     </div>
                 </q-card-section>
-            </q-card>
+            </q-card> -->
 
             <!-- Card Vendedores -->
-            <q-card class="q-pa-sm full-height" flat bordered>
+            <!-- <q-card class="q-pa-sm full-height" flat bordered>
                 <q-card-section>
                     <div class="row items-center justify-between q-mb-sm">
                         <div class="text-h6 text-bold text-secondary">Vendedores</div>
@@ -235,7 +231,7 @@ onMounted(() => {
                         {{ vendedor.nome }}
                     </div>
                 </q-card-section>
-            </q-card>
+            </q-card> -->
 
             <!-- Card Leads Recentes -->
             <q-card class="q-pa-sm full-height" flat bordered>
