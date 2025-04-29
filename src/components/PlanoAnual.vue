@@ -29,7 +29,7 @@ import { ref, computed } from 'vue'
 const chatcarsWpp = '61981748795'
 const text = 'Olá, Gostaria de saber mais sobre o Plano Profissional da ChatCars IA e como posso automatizar meus atendimentos.'
 
-function solicitarPlanoMensalWpp() {
+function solicitarPlanoAnualWpp() {
     const numero = chatcarsWpp
     const mensagem = encodeURIComponent(text)
     const link = `https://wa.me/${numero}?text=${mensagem}`
