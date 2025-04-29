@@ -94,80 +94,87 @@
     </q-page>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useQuasar } from 'quasar';
+import { api } from 'src/boot/axios'; // ajuste o caminho se precisar
 import RelatorioIA from 'components/RelatorioIA.vue';
 
 const $q = useQuasar();
 
-const leads = ref([
-    { id: 1, name: 'José Bueno', vendedor: '-', contato: '61 983314321', status: 'Aguardando contato' },
-    { id: 2, name: 'Maria da Silva', vendedor: 'Dagoberto', contato: '61 983314321', status: 'Em progresso' },
-    { id: 3, name: 'João da Silva', vendedor: 'Dagoberto', contato: '61 983314321', status: 'Em progresso' },
-    { id: 4, name: 'Ana Maria', vendedor: 'Maria', contato: '61 983314321', status: 'Venda Finalizada' },
-    { id: 5, name: 'Carlos Alberto', vendedor: 'Maria', contato: '61 983314321', status: 'Atendimento Finalizado' },
-]);
-
+const leads = ref([]);
 const vendedores = [
-    { label: 'Dagoberto', value: 'Dagoberto' },
-    { label: 'Maria', value: 'Maria' },
-    { label: 'João', value: 'João' }
+  { label: 'Dagoberto', value: 'Dagoberto' },
+  { label: 'Maria', value: 'Maria' },
+  { label: 'João', value: 'João' }
 ];
-
 const columns = [
-    { name: 'name', label: 'Nome', align: 'left', field: 'name' },
-    { name: 'vendedor', label: 'Vendedor', align: 'center', field: 'vendedor' },
-    { name: 'contato', label: 'Contato', align: 'center', field: 'contato' },
-    { name: 'status', label: 'Status', align: 'center', field: 'status' },
-    { name: 'acoes', label: 'Ações', align: 'center' },
+  { name: 'name', label: 'Nome', align: 'left', field: 'name' },
+  { name: 'vendedor', label: 'Vendedor', align: 'center', field: 'vendedor' },
+  { name: 'contato', label: 'Contato', align: 'center', field: 'contato' },
+  { name: 'status', label: 'Status', align: 'center', field: 'status' },
+  { name: 'acoes', label: 'Ações', align: 'center' }
 ];
 
 const showDialog = ref(false);
 const leadSelecionado = ref(null);
 
 function gerarRelatorio(lead) {
-    leadSelecionado.value = lead;
-    showDialog.value = true;
+  leadSelecionado.value = lead;
+  showDialog.value = true;
 }
 
 function limparVendedor(row) {
-    row.vendedor = '-';
-    row.status = 'Aguardando contato';
+  row.vendedor = '-';
+  row.status = 'Aguardando contato';
 }
 
-// Atualiza status baseado no vendedor
 function atualizarStatus(row) {
-    if (row.vendedor && row.vendedor !== '-') {
-        row.status = 'Em progresso';
-    } else {
-        row.status = 'Aguardando contato';
-    }
+  if (row.vendedor && row.vendedor !== '-') {
+    row.status = 'Em progresso';
+  } else {
+    row.status = 'Aguardando contato';
+  }
 }
 
 function confirmarContato(row) {
-    $q.dialog({
-        title: 'Status Atendimento',
-        message: 'Deseja realmente marcar este lead como "Contato Efetuado"?',
-        cancel: true,
-        persistent: true,
-        ok: {
-            color: 'teal',
-            glossy: true
-        },
-        cancel: {
-            color: 'teal',
-            flat: true
-        }
-    }).onOk(() => {
-        row.status = 'Contato Efetuado';
-        $q.notify({
-            color: 'teal',
-            icon: 'phone',
-            position: 'top',
-            message: 'Status atualizado para Contato Efetuado'
-        });
+  $q.dialog({
+    title: 'Status Atendimento',
+    message: 'Deseja marcar este lead como "Contato Efetuado"?',
+    cancel: true,
+    persistent: true,
+    ok: { color: 'teal', glossy: true },
+    cancel: { color: 'teal', flat: true }
+  }).onOk(() => {
+    row.status = 'Contato Efetuado';
+    $q.notify({
+      color: 'teal',
+      icon: 'phone',
+      position: 'top',
+      message: 'Status atualizado para Contato Efetuado'
     });
+  });
 }
+
+// Buscando os leads no mounted
+onMounted(async () => {
+  try {
+    const loja = JSON.parse(localStorage.getItem('user')); 
+
+    const { data } = await api.post('/buscar-leads', {
+      id: loja._id,
+      token: loja.token
+    });
+
+    leads.value = data.leads;
+  } catch (error) {
+    console.error('Erro ao carregar leads:', error);
+    $q.notify({
+      type: 'negative',
+      message: 'Erro ao buscar leads!'
+    });
+  }
+});
+
 </script>
 <style scoped>
 .sticky-col {
