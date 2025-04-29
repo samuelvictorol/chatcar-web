@@ -630,8 +630,8 @@ function filtrarMenuEstoque() {
 
     const resultado = estoque.value.filter(carro => {
         return (
-            carro.modelo.toLowerCase().includes(termo) ||
-            carro.ano.toString().includes(termo)
+            carro.modelo?.toLowerCase().includes(termo) ||
+            carro.ano?.toString().includes(termo)
         )
     });
     estoqueFiltrado.value = resultado
