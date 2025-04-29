@@ -261,7 +261,7 @@
                                 </div>
                                 <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria.label }} - {{
                                     carroSelecionado.ano
-                                    }}
+                                }}
                                 </div>
                                 <q-img :src="carroSelecionado.img_url" :alt="carroSelecionado.modelo"
                                     style="border-radius: 12px;" class="q-mb-md" />
@@ -381,6 +381,7 @@ function openInfoLoja() {
 const estoqueFiltrado = ref([])
 
 function abrirDialog(carro) {
+    interacoes.value++; // 👉 Conta como interação
     while (carro.mensagens.length > 0) {
         messages.value.push({
             from: 'bot',
@@ -395,8 +396,6 @@ function abrirDialog(carro) {
         dialogAberto.value = true
     }, 1000)
 }
-
-
 
 function selecionarCarro(carro) {
     // Atualiza carrossel com apenas o carro selecionado
@@ -627,46 +626,63 @@ function sendMessage() {
     }, 500);  // Delay de 500ms para uma transição mais suave
 }
 
-
 function filtrarMenuEstoque() {
-    if (!filtroEstoque.value.trim()) {
-        estoqueFiltrado.value = estoque.value
+    const texto = filtroEstoque.value.trim();
+    if (!texto) {
+        estoqueFiltrado.value = estoque.value;
+        return;
     }
 
-    const texto = filtroEstoque.value.trim();
-    interacoes.value++;
-
+    interacoes.value++; // 👉 Conta como interação de pesquisa
 
     const termo = texto.toLowerCase();
-
     const resultado = estoque.value.filter(carro => {
         return (
             carro.modelo?.toLowerCase().includes(termo) ||
             carro.ano?.toString().includes(termo)
         )
     });
-    estoqueFiltrado.value = resultado
+    estoqueFiltrado.value = resultado;
+}
+async function atualizarLead() {
+    if (!leadId.value) return; // Se ainda não criou o lead, não atualiza
+
+    try {
+        // Agora só pega mensagens enviadas pelo usuário
+        const respostasCliente = messages.value
+            .filter(msg => msg.from === 'user') // pega apenas quem é 'user'
+            .map(msg => msg.text);
+
+        await api.put(`/atualizar-lead/${leadId.value}`, {
+            cliente: usuario.value,
+            respostasCliente: respostasCliente
+        });
+
+        console.log('Lead atualizado com sucesso após interação!');
+    } catch (err) {
+        console.error('Erro ao atualizar lead:', err);
+    }
 }
 
-watch(interacoes, (val) => {
+
+watch(interacoes, async (val) => {
+    if (val > 0 && val % 2 === 0) {
+        // Atualiza lead a cada 2 interações
+        await atualizarLead();
+    }
+
     if (val === 3) {
-        // setTimeout(() => {
-        //     messages.value.push({
-        //         from: 'bot',
-        //         text: '🚀 Clique no foguete para ver a sugestão da IA ChatCar personalizada pra você!'
-        //     })
-        // }, 600)
         setTimeout(() => {
             messages.value.push({
                 from: 'bot',
                 text: '✨ Em breve, um de nossos atendentes irá entrar em contato com você para uma conversa personalizada!'
-            })
-        }, 600)
-        nextTick(() => {
-            window.scrollTo(0, document.body.scrollHeight)
-        })
+            });
+            nextTick(() => {
+                window.scrollTo(0, document.body.scrollHeight);
+            });
+        }, 600);
     }
-})
+});
 
 </script>
 <style scoped>

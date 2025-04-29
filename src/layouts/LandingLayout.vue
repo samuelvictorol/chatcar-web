@@ -276,7 +276,7 @@ function logout(){
   const confirm = window.confirm('Deseja realmente encerrar a sessão no ChatCar?')
   if(confirm){
     localStorage.clear()
-    window.location.href = process.env.FRONTEND_URL
+    window.location.reload()
   }
 }
 
