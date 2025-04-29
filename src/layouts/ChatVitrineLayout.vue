@@ -527,7 +527,7 @@ onBeforeMount(async ()=>{
                             model: '',
                             type: 'textarea',
                             color: 'secondary',
-                            placeholder: 'Ex: trabalho na cidade mas possuo uma fazenda tem estrada de chão e quando alaga não da pra passar sem ser traçado.',
+                            placeholder: 'Ex: trabalho na cidade mas possuo uma fazenda tem estrada de chão e quando alaga não da pra passar sem ser traçado',
                             isValid: val => true,
                             outlined:  true
                         },
@@ -561,7 +561,7 @@ function sendMessage() {
     interacoes.value++;
 
     input.value = '';  // Limpa o campo de entrada
-
+    carrosselIndex.value = 0;
     const termo = texto.toLowerCase();
 
     // Filtra os carros no estoque com base no termo de busca

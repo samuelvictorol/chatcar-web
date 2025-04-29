@@ -15,7 +15,7 @@
             </q-toolbar>
         </q-header>
 
-        <q-drawer show-if-above v-model="rightDrawerOpen" side="left" bordered class="relative bg-grey-1">
+        <q-drawer show-if-above v-model="rightDrawerOpen" side="right" bordered class="relative bg-grey-1">
             <div class="w100 text-h6 row no-wrap justify-between q-px-sm q-py-md">
                 <div>MENU</div>
                 <q-btn icon="close" glossy dense @click="rightDrawerOpen = !rightDrawerOpen"></q-btn>
@@ -53,7 +53,7 @@ import { useQuasar } from 'quasar'
 import { onBeforeMount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const rightDrawerOpen = ref(false)
+const rightDrawerOpen = ref(true)
 const $q = useQuasar()
 const router = useRouter()
 
