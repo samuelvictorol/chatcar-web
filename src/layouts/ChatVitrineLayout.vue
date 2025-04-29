@@ -50,7 +50,8 @@
         <q-page-container class="bg-dark" v-if="!loading">
             <q-page class="q-pa-none bg-grey-4 column full-height relative">
                 <!-- Vitrine fixa -->
-                <div class="bg-dark sticky-top" style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
+                <div class="bg-dark sticky-top"
+                    style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
                     <div class="w100 row no-wrap items-center justify-between q-px-md q-pt-m">
                         <div class="text-h6 text-white q-pt-sm ">Vitrine</div>
                         <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="sobre"
@@ -61,8 +62,7 @@
 
                     <div style="border-radius: 12px">
                         <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length"
-                            v-model="carrosselIndex" height="300px"
-                            class="bg-dark sticky text-white q-pb-md">
+                            v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-md">
                             <template v-slot:control>
                                 <div class="absolute-left q-pa-xs" style="top:45%">
                                     <q-btn icon="chevron_left" color="white" unelevated round dense size="md"
@@ -83,12 +83,12 @@
                                     <div class="absolute-bottom text-white q-pa-sm shadow-2">
                                         <div style="background: #070707a2; backdrop-filter: blur(4px);"
                                             class=" text-center text-subtitle1 text-weight-bold">{{
-                                            carro.modelo
+                                                carro.modelo
                                             }}</div>
                                         <div style="background: #070707a2; backdrop-filter: blur(4px);"
                                             class="text-center text-caption">{{ carro.categoria.label }}
                                             - {{
-                                            carro.ano }}</div>
+                                                carro.ano }}</div>
                                         <q-btn icon="search" color="secondary" glossy dense class="q-mt-sm full-width"
                                             label="Ver Detalhes" @click="abrirDialog(carro)" />
                                     </div>
@@ -208,8 +208,8 @@
                             <q-card-section class="row items-center q-pb-none">
                                 <div class="row justify-between no-wrap w100">
                                     <div class="text-h6">Sobre a Loja</div><br>
-                                    <q-img :src="sobreLoja.img_url" alt="Logo da loja" class="rounded-borders" width="100px"
-                                        height="100px" />
+                                    <q-img :src="sobreLoja.img_url" alt="Logo da loja" class="rounded-borders"
+                                        width="100px" height="100px" />
                                 </div>
                                 <q-space />
                             </q-card-section>
@@ -261,7 +261,7 @@
                                 </div>
                                 <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria.label }} - {{
                                     carroSelecionado.ano
-                                    }}
+                                }}
                                 </div>
                                 <q-img :src="carroSelecionado.img_url" :alt="carroSelecionado.modelo"
                                     style="border-radius: 12px;" class="q-mb-md" />
@@ -558,6 +558,16 @@ onBeforeMount(async () => {
                 })
             }).onOk(sobreUsuario => {
                 usuario.value.info = sobreUsuario
+                setTimeout(() => {
+                    showEstoqueDrawer.value = true
+                    $q.notify({
+                        color: 'teal',
+                        position: 'right',
+                        icon: 'store',
+                        message: 'Este é o nosso estoque estoque completo caso queria ter uma visão completa e com filtros',
+                        timeout: '2000'
+                    });
+                }, 4200)
             })
         })
     })
@@ -565,6 +575,7 @@ onBeforeMount(async () => {
         from: 'bot',
         text: `😁 Qual veículo você busca? Poderia me informar o modelo, ano, categoria ou preço?`
     })
+
 })
 
 function toggleEstoqueDrawer() {
