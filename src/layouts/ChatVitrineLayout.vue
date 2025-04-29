@@ -85,7 +85,7 @@
                                             class=" text-center text-subtitle1 text-weight-bold">{{
                                             carro.modelo
                                             }}</div>
-                                        <div style="background: #070707a2; backdrop-filter: blur(2px);"
+                                        <div style="background: #070707a2; backdrop-filter: blur(4px);"
                                             class="text-center text-caption">{{ carro.categoria.label }}
                                             - {{
                                             carro.ano }}</div>

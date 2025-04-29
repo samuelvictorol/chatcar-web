@@ -31,9 +31,12 @@
                     </q-item-section>
                 </q-item>
             </q-list>
+            <div v-if="user" class="w100 text-left q-px-sm q-py-md text-grey-7">
+                chatcar.me/{{ user.login }}
+            </div>
             <q-separator />
-            <div class="w100 text-right q-px-sm q-py-md text-grey-7">
-                ChatCar IA®
+            <div class="w100 text-right q-px-sm q-pt-xl text-grey-7">
+                @chatcar.ia
             </div>
         </q-drawer>
 
@@ -56,7 +59,7 @@ import { useRouter } from 'vue-router'
 const rightDrawerOpen = ref(true)
 const $q = useQuasar()
 const router = useRouter()
-
+const user = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : null
 const menuOptions = ref([
     {
         label: 'Início',

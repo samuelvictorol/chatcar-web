@@ -53,6 +53,7 @@
                 </div>
             </q-card-section>
         </q-card>
+
         <!-- Cadastro de Vendedor -->
         <q-card flat bordered class="q-mt-lg">
             <q-card-section class="q-pa-lg">
@@ -107,6 +108,8 @@
 
                     <q-timeline-entry title="3. Preencha os dados do carro" icon="description">
                         Insira marca, modelo, ano, preço, cor, quilometragem e outras informações relevantes.
+                        Você também pode adicionar uma <strong>Mensagem de Fala</strong> personalizada, que será
+                        emitida automaticamente quando o cliente selecionar o veículo no <strong>Chat Vitrine</strong>.
                     </q-timeline-entry>
 
                     <q-timeline-entry title="4. Adicione fotos (opcional)" icon="photo_camera">
@@ -115,7 +118,10 @@
 
                     <q-timeline-entry title="5. Salve o veículo no estoque" icon="check_circle">
                         Após revisar todos os dados, clique em <strong>Salvar</strong>. O veículo será exibido
-                        imediatamente na lista.
+                        imediatamente na lista e também estará acessível no link público da sua loja:
+                        <a href="https://chatcar.me/logindaloja" target="_blank" class="text-primary">
+                            chatcar.me/logindaloja
+                        </a>.
                     </q-timeline-entry>
                 </q-timeline>
             </q-card-section>
@@ -127,7 +133,8 @@
                 <div class="text-subtitle1 text-bold q-mb-sm">Precisa de ajuda?</div>
                 <div class="text-body2">
                     Se você tiver dúvidas ou dificuldades com o uso da IA, entre em contato com nosso time de suporte
-                    pelo WhatsApp ao final da página inicial ou envie uma mensagem no instagram para <strong>@chatcar.ia</strong>.
+                    pelo WhatsApp ao final da página inicial ou envie uma mensagem no Instagram para
+                    <strong>@chatcar.ia</strong>.
                 </div>
             </q-card-section>
         </q-card>

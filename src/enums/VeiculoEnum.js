@@ -23,6 +23,7 @@ const TipoVeiculoEnum = {
 const CategoriaVeiculoEnum = {
   SEDAN: "Sedan",
   HATCH: "Hatch",
+  PISTA: "Pista",
   SUV: "SUV",
   PICKUP: "Pickup",
   CONVERSIVEL: "Conversível",

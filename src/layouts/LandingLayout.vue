@@ -154,7 +154,6 @@
                   <ul class="text-left">
                     <li><strong>6 meses</strong> de <strong>acesso</strong></li>
                     <li>Relatórios com <strong>copys otimizadas</strong> para serem mais <strong>persuasivas</strong> e <strong>matadoras</strong></li>
-                    <li><strong>Funcionalidades extras</strong> com IA</li>
                     <li><strong>Linguagem natural</strong> configurável para os veículos</li>
                     <li>Mais <strong>vendido</strong></li>
                     <li><strong>R$ 419,90</strong> em até <strong>12x</strong></li>
@@ -172,13 +171,14 @@
                 <q-card-section>
                   <div class="text-h5 text-bold">Plano Profissional</div>
                   <!-- <div class="text-subtitle2 q-mt-sm">Acesso antecipado à novas funcionalidades</div> -->
-                  <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 1019,90 por</div>
-                  <div class="text-h6 q-my-md text-blue-14"><strong>R$ 899,90</strong> em até 12x</div>
+                  <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 1699,90 por</div>
+                  <div class="text-h6 q-my-md text-blue-14"><strong>R$ 1299,90</strong> em até 12x</div>
                   <ul class="text-left">
                     <li><strong>12 meses</strong> de <strong>acesso</strong></li>
-                    <li>Funcionalidades <strong>extras</strong> das atualizações sem custo adicional</li>
+                    <li>Para empresas de <strong>alto nível</strong></li>
+                    <li>Funcionalidades <strong>extras</strong> e atualizações sem custo adicional</li>
                     <li><strong>Inclui</strong> todos os <strong>outros planos</strong></li>
-                    <li>Mais <strong>econômico</strong> e completo</li>
+                    <li>Mais <strong>otimizado</strong> e completo</li>
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">

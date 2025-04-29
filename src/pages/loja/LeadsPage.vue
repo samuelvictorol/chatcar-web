@@ -16,7 +16,7 @@
                     <div class="q-table__container q-table--horizontal-separator" style="overflow-x: auto;">
                         <q-table :rows="leads" :columns="columns" row-key="id" :pagination="{ rowsPerPage: 10 }"
                             :filter="''" class="my-table">
-                            <!-- Cabeçalho customizado -->
+                            <!-- Cabeçalho -->
                             <template v-slot:header="props">
                                 <q-tr :props="props">
                                     <q-th v-for="col in props.cols" :key="col.name" :props="props"
@@ -25,18 +25,29 @@
                                     </q-th>
                                 </q-tr>
                             </template>
-                            <!-- Coluna Vendedor com select sempre visível -->
+
+                            <!-- Coluna Nome -->
+                            <template v-slot:body-cell-name="props">
+                                <q-td :props="props" class="sticky-col text-white bg-dark">
+                                    {{ props.row.name }}
+                                </q-td>
+                            </template>
+
+                            <!-- Coluna Vendedor -->
                             <template v-slot:body-cell-vendedor="props">
                                 <q-td :props="props" class="text-center">
                                     <q-select dense outlined v-model="props.row.vendedor" :options="vendedores"
                                         emit-value map-options style="min-width: 160px"
-                                        :placeholder="props.row.vendedor === '-' ? 'Vendedor Responsável' : ''" />
+                                        :placeholder="props.row.vendedor === '-' ? 'Vendedor Responsável' : ''"
+                                        clearable @update:model-value="atualizarStatus(props.row)"
+                                        @clear="limparVendedor(props.row)" />
                                 </q-td>
                             </template>
-                            <!-- Coluna Nome com estilo sticky -->
-                            <template v-slot:body-cell-name="props">
-                                <q-td :props="props" class="sticky-col text-white bg-dark" >
-                                    {{ props.value }}
+
+                            <!-- Coluna Contato -->
+                            <template v-slot:body-cell-contato="props">
+                                <q-td :props="props" class="text-center">
+                                    {{ props.row.contato }}
                                 </q-td>
                             </template>
 
@@ -49,9 +60,10 @@
 
                             <!-- Coluna Ações -->
                             <template v-slot:body-cell-acoes="props">
-                                <q-td :props="props">
-                                    <q-btn flat icon="sms" dense color="blue" @click="gerarRelatorio(props.row)" />
-                                    <q-btn flat dense icon="assignment" color="secondary"
+                                <q-td :props="props" class="text-center">
+                                    <q-btn :disabled="props.row.vendedor == '-'" flat icon="sms" dense color="blue"
+                                        @click="confirmarContato(props.row)" />
+                                    <q-btn :disabled="props.row.vendedor == '-'" flat dense icon="assignment" color="secondary"
                                         @click="gerarRelatorio(props.row)" />
                                 </q-td>
                             </template>
@@ -83,14 +95,17 @@
 </template>
 <script setup>
 import { ref } from "vue";
+import { useQuasar } from 'quasar';
 import RelatorioIA from 'components/RelatorioIA.vue';
 
+const $q = useQuasar();
+
 const leads = ref([
-    { id: 1, name: '🟢 José Bueno', vendedor: '-', contato: '61 983314321', status: 'Aguardando contato' },
-    { id: 2, name: '🟡 Maria da Silva', vendedor: 'Dagoberto', contato: '61 983314321', status: 'Em progresso' },
-    { id: 3, name: '🟡 João da Silva', vendedor: 'Dagoberto', contato: '61 983314321', status: 'Em progresso' },
-    { id: 4, name: '🔵 Ana Maria', vendedor: 'Maria', contato: '61 983314321', status: 'Venda Finalizada' },
-    { id: 5, name: '🟣 Carlos Alberto', vendedor: 'Maria', contato: '61 983314321', status: 'Atendimento Finalizado' },
+    { id: 1, name: 'José Bueno', vendedor: '-', contato: '61 983314321', status: 'Aguardando contato' },
+    { id: 2, name: 'Maria da Silva', vendedor: 'Dagoberto', contato: '61 983314321', status: 'Em progresso' },
+    { id: 3, name: 'João da Silva', vendedor: 'Dagoberto', contato: '61 983314321', status: 'Em progresso' },
+    { id: 4, name: 'Ana Maria', vendedor: 'Maria', contato: '61 983314321', status: 'Venda Finalizada' },
+    { id: 5, name: 'Carlos Alberto', vendedor: 'Maria', contato: '61 983314321', status: 'Atendimento Finalizado' },
 ]);
 
 const vendedores = [
@@ -104,7 +119,7 @@ const columns = [
     { name: 'vendedor', label: 'Vendedor', align: 'center', field: 'vendedor' },
     { name: 'contato', label: 'Contato', align: 'center', field: 'contato' },
     { name: 'status', label: 'Status', align: 'center', field: 'status' },
-    { name: 'acoes', label: 'Ações', align: 'right' },
+    { name: 'acoes', label: 'Ações', align: 'center' },
 ];
 
 const showDialog = ref(false);
@@ -113,6 +128,45 @@ const leadSelecionado = ref(null);
 function gerarRelatorio(lead) {
     leadSelecionado.value = lead;
     showDialog.value = true;
+}
+
+function limparVendedor(row) {
+    row.vendedor = '-';
+    row.status = 'Aguardando contato';
+}
+
+// Atualiza status baseado no vendedor
+function atualizarStatus(row) {
+    if (row.vendedor && row.vendedor !== '-') {
+        row.status = 'Em progresso';
+    } else {
+        row.status = 'Aguardando contato';
+    }
+}
+
+function confirmarContato(row) {
+    $q.dialog({
+        title: 'Status Atendimento',
+        message: 'Deseja realmente marcar este lead como "Contato Efetuado"?',
+        cancel: true,
+        persistent: true,
+        ok: {
+            color: 'teal',
+            glossy: true
+        },
+        cancel: {
+            color: 'teal',
+            flat: true
+        }
+    }).onOk(() => {
+        row.status = 'Contato Efetuado';
+        $q.notify({
+            color: 'teal',
+            icon: 'phone',
+            position: 'top',
+            message: 'Status atualizado para Contato Efetuado'
+        });
+    });
 }
 </script>
 <style scoped>
