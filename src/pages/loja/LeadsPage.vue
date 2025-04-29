@@ -109,7 +109,7 @@ const vendedores = [
 ];
 const columns = [
   { name: 'name', label: 'Nome', align: 'left', field: 'name' },
-  { name: 'vendedor', label: 'Vendedor', align: 'center', field: 'vendedor' },
+//   { name: 'vendedor', label: 'Vendedor', align: 'center', field: 'vendedor' },
   { name: 'contato', label: 'Contato', align: 'center', field: 'contato' },
   { name: 'status', label: 'Status', align: 'center', field: 'status' },
   { name: 'acoes', label: 'Ações', align: 'center' }
