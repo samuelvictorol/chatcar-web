@@ -409,7 +409,7 @@ onBeforeMount(async () => {
     })
     $q.dialog({
         title: '🚗' + sobreLoja.value.nome + ' diz:',
-        message: `Bem-vindo(a)! Você irá conversar nosso estoque inteligente. Pra iniciar, poderia nos informar o seu nome?`,
+        message: `Bem-vindo(a)! Pra iniciar, poderia nos informar o seu nome?`,
         prompt: {
             model: '',
             type: 'text',
@@ -435,7 +435,7 @@ onBeforeMount(async () => {
     }).onOk(nome => {
         usuario.value.nome = nome
         $q.dialog({
-            title: '📲 Para acessar o @chatcar.ia, preencha com seu telefone (ou whatsapp)',
+            title: '📲 Para acessar o nosso chat vitrine, preencha com seu telefone (ou whatsapp)',
             message: usuario.value.nome + ', digite seu número com DDD:',
             prompt: {
                 model: '',
@@ -579,21 +579,21 @@ function sendMessage() {
     interacoes.value++;
 
     input.value = '';  // Limpa o campo de entrada
-    carrosselIndex.value = 0;
     const termo = texto.toLowerCase();
 
     // Filtra os carros no estoque com base no termo de busca
     const resultado = estoque.value.filter(carro => {
         return (
-            carro.modelo.toLowerCase().includes(termo) ||
-            carro.categoria.label.toLowerCase().includes(termo) ||
-            carro.ano.toString().includes(termo) ||
+            carro.modelo?.toLowerCase().includes(termo) ||
+            carro.categoria?.label.toLowerCase().includes(termo) ||
+            carro.ano?.toString().includes(termo) ||
             (carro.descricao && carro.descricao.toLowerCase().includes(termo)) ||
             (carro.mensagens && carro.mensagens.some(msg => msg.toLowerCase().includes(termo)))
         );
     });
-
     setTimeout(() => {
+        carrosselIndex.value = 0;
+
         if (resultado.length) {
             // Se encontrou carros, exibe o resultado
             messages.value.push({
