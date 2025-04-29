@@ -9,9 +9,9 @@
             <ul class="text-left">
                 <li><strong>6 meses</strong> de <strong>acesso</strong></li>
                 <li>Relatórios com <strong>copys otimizadas</strong> para serem mais <strong>persuasivas</strong> e <strong>matadoras</strong></li>
-                <li><strong>Funcionalidades extras</strong> com IA</li>
                 <li><strong>Linguagem natural</strong> configurável para os veículos</li>
                 <li>Mais <strong>vendido</strong></li>
+                <li><strong>R$ 419,90</strong> em até <strong>12x</strong></li>
             </ul>
         </q-card-section>
 
