@@ -237,7 +237,7 @@ async function salvarVeiculo() {
         if (modoEdicao.value) {
             // Edição
             await api.put(`/editar-veiculo/${idVeiculoEditando.value}`, payload);
-            $q.notify({ color: 'teal', position: 'top', icon:'edit', message: 'Veículo atualizadoa com sucesso!' });
+            $q.notify({ color: 'teal', position: 'top', icon:'edit', message: 'Veículo atualizado com sucesso!' });
         } else {
             // Adição
             await api.post("/add-veiculo", { ...payload, estoque: estoque_id });

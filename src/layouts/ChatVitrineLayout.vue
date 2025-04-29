@@ -261,7 +261,7 @@
                                 </div>
                                 <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria.label }} - {{
                                     carroSelecionado.ano
-                                }}
+                                    }}
                                 </div>
                                 <q-img :src="carroSelecionado.img_url" :alt="carroSelecionado.modelo"
                                     style="border-radius: 12px;" class="q-mb-md" />
@@ -339,6 +339,25 @@ const usuario = ref({
     info: '',
     preferencias: [],
 })
+const leadId = ref(null)
+const lead = ref(null)
+
+async function gerarLead() {
+    await api.post('/gerar-lead', {
+        login_loja: route.params.login,
+        cliente: usuario.value,
+        respostasCliente: []
+    }).then(response => {
+        leadId.value = response.data.leadId
+        console.log('LEAD: ' + JSON.stringify(lead.value))
+        $q.notify({
+            color: 'teal',
+            position: 'top',
+            icon: 'directions_car',
+            message: 'Seja bem vindo(a)!'
+        });
+    })
+}
 
 async function carregarEstoque() {
     try {
@@ -403,10 +422,12 @@ onBeforeMount(async () => {
     setTimeout(() => {
         loading.value = false
     }, 2000)
+
     messages.value.push({
         from: 'bot',
         text: '✨ Seja bem-vindo(a) ao chat inteligente do nosso estoque!'
     })
+
     $q.dialog({
         title: '🚗' + sobreLoja.value.nome + ' diz:',
         message: `Bem-vindo(a)! Pra iniciar, poderia nos informar o seu nome?`,
@@ -417,7 +438,7 @@ onBeforeMount(async () => {
             placeholder: 'Digite seu nome...',
             outlined: true,
             isValid: val => val && val.trim().length >= 3,
-            validateInput: true,
+            validateInput: true
         },
         persistent: true,
         ok: {
@@ -434,9 +455,10 @@ onBeforeMount(async () => {
         router.push('/')
     }).onOk(nome => {
         usuario.value.nome = nome
+
         $q.dialog({
             title: '📲 Para acessar o nosso chat vitrine, preencha com seu telefone (ou whatsapp)',
-            message: usuario.value.nome + ', digite seu número com DDD:',
+            message: `${usuario.value.nome}, digite seu número com DDD:`,
             prompt: {
                 model: '',
                 type: 'tel',
@@ -444,8 +466,8 @@ onBeforeMount(async () => {
                 color: 'secondary',
                 placeholder: '(12) 34567-8910',
                 outlined: true,
-                isValid: val => val && val.trim().length == 15,
-                validateInput: true,
+                isValid: val => val && val.trim().length === 15,
+                validateInput: true
             },
             ok: {
                 label: 'Continuar',
@@ -458,13 +480,14 @@ onBeforeMount(async () => {
                 $q.notify({
                     color: 'orange-14',
                     position: 'top',
-                    message: '⚠️ O telefone é obrigatório!',
+                    message: '⚠️ O telefone é obrigatório!'
                 })
                 setTimeout(() => {
                     window.location.reload()
                 }, 2000)
                 return
             }
+
             usuario.value.telefone = telefone
 
             const categoriasUnicas = Array.from(
@@ -473,18 +496,12 @@ onBeforeMount(async () => {
                         .map(carro => carro.categoria?.label)
                         .filter(Boolean)
                 )
-            );
+            )
 
-            const categoriaOptions = categoriasUnicas.map(cat => {
-                if (cat == null) {
-                    return { label: '', value: cat };
-                }
-                const categoriaStr = String(cat);
-                return {
-                    label: categoriaStr.charAt(0).toUpperCase() + categoriaStr.slice(1),
-                    value: cat
-                };
-            });
+            const categoriaOptions = categoriasUnicas.map(cat => ({
+                label: String(cat).charAt(0).toUpperCase() + String(cat).slice(1),
+                value: cat
+            }))
 
             $q.dialog({
                 title: '⚙️ Preferências',
@@ -502,42 +519,33 @@ onBeforeMount(async () => {
                 },
                 persistent: true
             }).onOk(preferencias => {
-                if (!preferencias.length) {
-                    const totalCarros = estoque.value.length;
-                    const quantidade = totalCarros >= 5 ? 5 : totalCarros;
-                    const randomCarros = [...estoque.value]
-                        .sort(() => 0.5 - Math.random())
-                        .slice(0, quantidade);
-                    carrossel.value = randomCarros;
-                    messages.value.push({
-                        from: 'bot',
-                        text: `${usuario.value.nome}, veja algumas opções na nossa vitrine!⬆️`
-                    });
-                    return;
-                }
+                usuario.value.preferencias = preferencias
 
-                usuario.value.preferencias = preferencias;
+                const carrosFiltrados = estoque.value.filter(carro =>
+                    preferencias.includes(carro.categoria.label)
+                )
 
-                const carrosFiltrados = estoque.value.filter(carro => preferencias.includes(carro.categoria.label));
-                const quantidade = carrosFiltrados.length >= 5 ? 5 : carrosFiltrados.length;
-                carrossel.value = [...carrosFiltrados]
-                    .sort(() => 0.5 - Math.random())
-                    .slice(0, quantidade);
-                carrosselIndex.value = 0;
+                const lista = carrosFiltrados.length ? carrosFiltrados : estoque.value
+                const quantidade = lista.length >= 5 ? 5 : lista.length
+
+                carrossel.value = [...lista].sort(() => 0.5 - Math.random()).slice(0, quantidade)
+                carrosselIndex.value = 0
 
                 messages.value.push({
                     from: 'bot',
                     text: `${usuario.value.nome}, somos a ${sobreLoja.value.nome}! Aqui estão algumas opções do nosso estoque⬆`
-                });
+                })
+
                 messages.value.push({
                     from: 'bot',
-                    text: `Se quiser ver mais opções, clique no ícone de "estoque" 🏪 na parte superior.`,
-                });
+                    text: `Se quiser ver mais opções, clique no ícone de "estoque" 🏪 na parte superior.`
+                })
 
                 nextTick(() => {
-                    window.scrollTo(0, document.body.scrollHeight);
-                });
-            }).onOk(descricao => {
+                    window.scrollTo(0, document.body.scrollHeight)
+                })
+
+                // Agora sim, abrimos o último diálogo para descrição do perfil:
                 $q.dialog({
                     title: '🧠 Nos conte mais...',
                     message: 'Se quiser, descreva em poucas palavras como pretende usar o carro (uso urbano, família, trabalho, viagens pra fazenda, etc). Isso nos ajuda a entender melhor seu perfil:',
@@ -545,7 +553,7 @@ onBeforeMount(async () => {
                         model: '',
                         type: 'textarea',
                         color: 'secondary',
-                        placeholder: 'Ex: trabalho na cidade mas possuo uma fazenda tem estrada de chão e quando alaga não da pra passar sem ser traçado',
+                        placeholder: 'Ex: trabalho na cidade mas possuo uma fazenda...',
                         isValid: val => true,
                         outlined: true
                     },
@@ -554,19 +562,21 @@ onBeforeMount(async () => {
                         color: 'secondary',
                         glossy: true
                     },
-                    persistent: false
+                    persistent: true
+                }).onOk(descricao => {
+                    usuario.value.info = descricao
+                    gerarLead()
                 })
-            }).onOk(sobreUsuario => {
-                usuario.value.info = sobreUsuario
             })
         })
     })
+
     messages.value.push({
         from: 'bot',
         text: `😁 Qual veículo você busca? Poderia me informar o modelo, ano, categoria ou preço?`
     })
-
 })
+
 
 function toggleEstoqueDrawer() {
     showEstoqueDrawer.value = !showEstoqueDrawer.value
