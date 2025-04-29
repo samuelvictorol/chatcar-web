@@ -298,7 +298,7 @@
                 </div>
             </q-page>
         </q-page-container>
-        <q-page-container v-else>
+        <q-page-container v-else class="bg-dark" style="height: 100vh">
             <div class="w100 q-py-xl row justify-center items-center">
                 <q-spinner-ball color="teal" size="4em" />
                 <q-spinner-ball color="teal" size="4em" />
@@ -428,7 +428,7 @@ onBeforeMount(async () => {
     })
 
     $q.dialog({
-        title: '🚗' + sobreLoja.value.nome + ' diz:',
+        title: sobreLoja.value.nome + ' diz:',
         message: `Bem-vindo(a)! Pra iniciar, poderia nos informar o seu nome?`,
         prompt: {
             model: '',
