@@ -558,16 +558,6 @@ onBeforeMount(async () => {
                 })
             }).onOk(sobreUsuario => {
                 usuario.value.info = sobreUsuario
-                setTimeout(() => {
-                    showEstoqueDrawer.value = true
-                    $q.notify({
-                        color: 'teal',
-                        position: 'right',
-                        icon: 'store',
-                        message: 'Este é o nosso estoque estoque completo caso queria ter uma visão completa e com filtros',
-                        timeout: '2000'
-                    });
-                }, 4200)
             })
         })
     })
