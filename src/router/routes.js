@@ -1,7 +1,7 @@
 
 const routes = [
   {
-    path: '/admin',
+    path: '/chatcar_admin',
     component: () => import('layouts/AdminLayout.vue'),
   },
   {
