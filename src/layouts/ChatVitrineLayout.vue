@@ -1,6 +1,6 @@
 <template>
     <q-layout view="hHh lpR fFf">
-        <q-header elevated class="bg-dark text-white">
+        <q-header v-if="!loadingw" elevated class="bg-dark text-white">
             <q-toolbar>
                 <q-toolbar-title class="row no-wrap w100 items-center">
                     <!-- <q-avatar>
@@ -381,7 +381,9 @@ function openInfoLoja() {
 const estoqueFiltrado = ref([])
 
 function abrirDialog(carro) {
-    interacoes.value++; // 👉 Conta como interação
+    console.log(carro)
+    usuario.value.preferencias.push(carro.modelo)
+    interacoes.value++;
     while (carro.mensagens.length > 0) {
         messages.value.push({
             from: 'bot',
@@ -401,7 +403,7 @@ function selecionarCarro(carro) {
     // Atualiza carrossel com apenas o carro selecionado
     carrossel.value = [carro]
     carrosselIndex.value = 0
-
+    // usuario.value.preferencias.push(carro.modelo)
     messages.value.push({
         from: 'bot',
         text: '🚗 Aqui está ' + carro.modelo + ', para saber mais clique em 🔍Ver Detalhes.'
@@ -632,8 +634,8 @@ function filtrarMenuEstoque() {
         estoqueFiltrado.value = estoque.value;
         return;
     }
-
-    interacoes.value++; // 👉 Conta como interação de pesquisa
+    usuario.value.preferencias.push(texto)
+    interacoes.value++;
 
     const termo = texto.toLowerCase();
     const resultado = estoque.value.filter(carro => {
@@ -648,7 +650,7 @@ async function atualizarLead() {
     if (!leadId.value) return; // Se ainda não criou o lead, não atualiza
 
     try {
-        // Agora só pega mensagens enviadas pelo usuário
+        // Agora só pega mensagens enviadas pelo us uário
         const respostasCliente = messages.value
             .filter(msg => msg.from === 'user') // pega apenas quem é 'user'
             .map(msg => msg.text);
@@ -667,7 +669,7 @@ async function atualizarLead() {
 
 watch(interacoes, async (val) => {
     if (val > 0 && val % 2 === 0) {
-        // Atualiza lead a cada 2 interações
+        // Atualiza lead a cada interação
         await atualizarLead();
     }
 

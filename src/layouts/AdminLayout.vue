@@ -37,7 +37,7 @@
                                     <q-btn label="Buscar" icon-right="search" glossy color="teal"
                                         @click="buscarLojaNoServidor()" />
                                 </q-card-actions>
-                            </q-card>
+                            </q-card><br>
                             <q-card class="q-mt-md bg-grey-2 text-black w100" v-if="lojaJson">
                                 <q-card-section>
                                     <div class="w100">
@@ -46,7 +46,7 @@
                                     </div>
                                     <q-separator class="q-my-sm"/>
                                     <div class="text-h6">Dados da Loja (JSON)</div>
-                                    <q-input v-model="termoBuscaJson" label="Filtrar JSON por palavra" debounce="300"
+                                    <q-input v-model="termoBuscaJson" dense label="Filtrar JSON por palavra" debounce="300"
                                         color="teal" @update:model-value="filtrarJsonPorTermo" filled class="q-mt-sm" />
                                     <q-separator class="q-my-md" />
                                     <div class="scroll bg-grey-1 text-black q-pa-sm"

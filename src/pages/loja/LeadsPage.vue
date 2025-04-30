@@ -56,7 +56,12 @@
 
     <!-- Diálogo do Relatório -->
     <q-dialog v-model="showDialog" persistent transition-show="fade" transition-hide="fade">
-      <q-card style="width: 100%; max-width: 600px;">
+      <div v-if="loading" class="w100 q-py-xl row justify-center items-center">
+        <q-spinner-ball color="teal" size="4em" />
+        <q-spinner-ball color="teal" size="4em" />
+        <q-spinner-ball color="teal" size="4em" />
+      </div>
+      <q-card v-else style="width: 100%; max-width: 600px;">
         <q-card-section>
           <div class="text-h6">Relatório IA - {{ leadSelecionado?.name }}</div>
         </q-card-section>
@@ -83,6 +88,7 @@ import RelatorioIA from 'components/RelatorioIA.vue';
 const $q = useQuasar();
 
 const leads = ref([]);
+const loading = ref(false);
 const vendedores = [
   { label: 'Dagoberto', value: 'Dagoberto' },
   { label: 'Maria', value: 'Maria' },
@@ -100,6 +106,8 @@ const showDialog = ref(false);
 const leadSelecionado = ref(null);
 
 async function gerarRelatorio(lead) {
+  loading.value = true
+  showDialog.value = true;
   if (!lead.relatorioIA) {
     try {
       const loja = JSON.parse(localStorage.getItem('user'));
@@ -126,11 +134,12 @@ async function gerarRelatorio(lead) {
         type: 'negative',
         message: 'Erro ao gerar relatório!'
       });
+    } finally {
+        loading.value = false
     }
   }
 
   leadSelecionado.value = lead;
-  showDialog.value = true;
 }
 
 
