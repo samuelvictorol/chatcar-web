@@ -598,9 +598,9 @@ function toggleEstoqueDrawer() {
 }
 
 function sendMessage() {
+    const texto = input.value.trim();
     if (!input.value.trim()) return;
 
-    const texto = input.value.trim();
     messages.value.push({ from: 'user', text: texto });
     interacoes.value++;
 

@@ -225,6 +225,16 @@ function removerMensagem(index) {
 }
 
 async function salvarVeiculo() {
+    // Validação básica
+    if (!formVeiculo.value.modelo?.trim()) {
+        $q.notify({
+            type: 'warning',
+            message: 'O campo "Modelo" é obrigatório.',
+            position: 'top'
+        });
+        return;
+    }
+
     const payload = {
         loja: {
             id: user?._id,
@@ -235,11 +245,9 @@ async function salvarVeiculo() {
 
     try {
         if (modoEdicao.value) {
-            // Edição
             await api.put(`/editar-veiculo/${idVeiculoEditando.value}`, payload);
             $q.notify({ color: 'teal', position: 'top', icon:'edit', message: 'Veículo atualizado com sucesso!' });
         } else {
-            // Adição
             await api.post("/add-veiculo", { ...payload, estoque: estoque_id });
             $q.notify({ color: 'teal', position: 'top', icon: 'directions_car', message: 'Veículo adicionado com sucesso!' });
         }
@@ -250,6 +258,7 @@ async function salvarVeiculo() {
             tipo: '',
             status: '',
             categoria: '',
+            descricao: '',
             ano: null,
             preco: null,
             img_url: '',
@@ -263,6 +272,7 @@ async function salvarVeiculo() {
         $q.notify({ type: 'negative', message: 'Erro ao salvar veículo.' });
     }
 }
+
 
 function abrirDetalhes(item) {
     veiculoSelecionado.value = item
