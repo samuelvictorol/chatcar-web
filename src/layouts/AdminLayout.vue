@@ -18,42 +18,44 @@
                 <div v-else>
                     <h4 class="text-center q-mb-lg text-white">Painel Chatcar</h4>
                     <div class="q-gutter-md row justify-center">
-                        <q-btn label="Criar Lojista" color="positive" glossy icon="add"
+                        <q-btn label="Criar Lojista" class="q-py-xl" color="positive" glossy icon-right="person_add"
                             @click="dialogCriarLojista = true" />
-                        <q-btn label="Buscar Lojista" color="teal" glossy icon="search" @click="buscarDialog = true" />
+                        <q-btn label="Buscar Lojista" color="teal" class="q-py-xl" glossy icon-right="search" @click="buscarDialog = true" />
                     </div>
 
                     <q-dialog v-model="buscarDialog">
                         <div class="column w100">
-                            <q-card >
-                                <q-card-section>
-                                    <div class="text-h6">Buscar Lojista</div>
-                                </q-card-section>
-                                <q-card-section>
-                                    <q-input v-model="buscaLogin" label="Login do Lojista" color="teal" />
-                                </q-card-section>
-                                <q-card-actions align="right">
-                                    <q-btn flat label="Cancelar" v-close-popup color="teal" />
-                                    <q-btn label="Buscar" icon-right="search" glossy color="teal"
-                                        @click="buscarLojaNoServidor()" />
-                                </q-card-actions>
-                            </q-card><br>
-                            <q-card class="q-mt-md bg-grey-2 text-black w100" v-if="lojaJson">
-                                <q-card-section>
-                                    <div class="w100">
-                                        <q-btn icon-right="send" class="q-mr-md" color="teal" glossy @click="enviarAcesso()" label="Enviar Acesso"></q-btn>
-                                        <q-btn :disabled="true" icon-right="edit_note" color="blue-14" label="Alterar Plano"></q-btn>
-                                    </div>
-                                    <q-separator class="q-my-sm"/>
-                                    <div class="text-h6">Dados da Loja (JSON)</div>
-                                    <q-input v-model="termoBuscaJson" dense label="Filtrar JSON por palavra" debounce="300"
-                                        color="teal" @update:model-value="filtrarJsonPorTermo" filled class="q-mt-sm" />
-                                    <q-separator class="q-my-md" />
-                                    <div class="scroll bg-grey-1 text-black q-pa-sm"
-                                        style="max-height: 400px; white-space: pre-wrap; font-family: monospace; font-size: 13px"
-                                        v-html="highlightedJson" />
-                                </q-card-section>
-                            </q-card>
+                            <div class="w100">
+                                <q-card >
+                                    <q-card-section>
+                                        <div class="text-h6">Buscar Lojista</div>
+                                    </q-card-section>
+                                    <q-card-section>
+                                        <q-input v-model="buscaLogin" label="Login do Lojista" color="teal" />
+                                    </q-card-section>
+                                    <q-card-actions align="right">
+                                        <q-btn flat label="Cancelar" v-close-popup color="teal" />
+                                        <q-btn label="Buscar" icon-right="search" glossy color="teal"
+                                            @click="buscarLojaNoServidor()" />
+                                    </q-card-actions>
+                                </q-card>
+                                <q-card class="q-mt-md bg-grey-2 text-black w100" v-if="lojaJson">
+                                    <q-card-section>
+                                        <div class="w100">
+                                            <q-btn icon-right="share" class="q-mr-md" color="teal" glossy @click="enviarAcesso()" label="Enviar"></q-btn>
+                                            <q-btn :disabled="true" icon-right="edit_note" color="blue-14" label="Plano"></q-btn>
+                                        </div>
+                                        <q-separator class="q-my-sm"/>
+                                        <div class="text-h6">Dados da Loja (JSON)</div>
+                                        <q-input v-model="termoBuscaJson" dense label="Filtrar JSON por palavra" debounce="300"
+                                            color="teal" @update:model-value="filtrarJsonPorTermo" filled class="q-mt-sm" />
+                                        <q-separator class="q-my-md" />
+                                        <div class="scroll bg-grey-1 text-black q-pa-sm"
+                                            style="max-height: 400px; white-space: pre-wrap; font-family: monospace; font-size: 13px"
+                                            v-html="highlightedJson" />
+                                    </q-card-section>
+                                </q-card>
+                            </div>
                         </div>
                     </q-dialog>
 
@@ -122,7 +124,7 @@
                         <q-card-section class="q-gutter-md">
                             <q-input color="teal" v-model="novoLojista.nome" label="Nome" filled />
                             <q-input color="teal" v-model="novoLojista.login" label="Login" filled />
-                            <q-input color="teal" v-model="novoLojista.password" label="Senha" type="password" filled />
+                            <q-input color="teal" v-model="novoLojista.password" label="Senha" filled />
                             <q-input color="teal" v-model="novoLojista.email" label="Email" filled />
                             <q-input color="teal" v-model="novoLojista.cnpj" label="CNPJ" filled />
                             <q-input color="teal" v-model="novoLojista.contato" mask="(##) #####-####" label="Contato"
@@ -252,8 +254,8 @@ function filtrarJsonPorTermo() {
 async function buscarLojaNoServidor() {
     try {
         const { data } = await api.post('/get-loja', {
-            login: 'chatcars',
-            admin: 'samuel'
+            login:buscaLogin.value,
+            admin: localStorage.getItem('admin')
         })
         lojaJson.value = data
         lojaJsonFiltrado.value = data

@@ -78,9 +78,9 @@
 
                             <q-carousel-slide v-for="(carro, i) in carrossel" :name="i" :key="i"
                                 class="relative-position">
-                                <q-img :src="carro.img_url" :alt="carro.modelo" class="fit"
-                                    style="object-fit: cover; border-radius: 12px;">
-                                    <div class="absolute-bottom text-white q-pa-sm shadow-2">
+                                <q-img :src="carro.img_url" :alt="carro.modelo" class="fit relative rounded-borders"
+                                    style="object-fit: cover;">
+                                    <div class="absolute-bottom text-white shadow-2">
                                         <div style="background: #070707a2; backdrop-filter: blur(4px);"
                                             class=" text-center text-subtitle1 text-weight-bold">{{
                                                 carro.modelo
@@ -89,10 +89,10 @@
                                             class="text-center text-caption">{{ carro.categoria.label }}
                                             - {{
                                                 carro.ano }}</div>
-                                        <q-btn icon="search" color="secondary" glossy dense class="q-mt-sm full-width"
-                                            label="Ver Detalhes" @click="abrirDialog(carro)" />
-                                    </div>
-                                </q-img>
+                                            </div>
+                                        </q-img>
+                                        <q-btn icon-right="directions_car" color="secondary" glossy dense class="q-mx-md rounded-borders q-mt-md absolute-top"
+                                            label="Detalhes" @click="abrirDialog(carro)"  style="z-index: 99999999999!important;"/>
                             </q-carousel-slide>
                         </q-carousel>
 

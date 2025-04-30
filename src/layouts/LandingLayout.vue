@@ -43,7 +43,7 @@
             Uma plataforma inteligente para lojistas e concessionárias automatizarem o atendimento e captarem leads
             prontos para comprar.
           </p>
-          <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" icon="query_stats" class="q-px-md q-mt-lg" to="/chatcars" unelevated size="lg" />
+          <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" icon="query_stats" class="q-px-md q-mt-lg" @click="solicitarContatoWpp()" unelevated size="lg" />
         </div>
       </section>
       <div class="w100 bg-teal text-white text-bold text-left q-pa-md">
