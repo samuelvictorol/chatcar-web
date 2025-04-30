@@ -1,6 +1,6 @@
 <template>
     <q-layout view="hHh lpR fFf">
-        <q-header v-if="!loadingw" elevated class="bg-dark text-white">
+        <q-header v-if="!loading" elevated class="bg-dark text-white">
             <q-toolbar>
                 <q-toolbar-title class="row no-wrap w100 items-center">
                     <!-- <q-avatar>
@@ -54,7 +54,7 @@
                     style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
                     <div class="w100 row no-wrap items-center justify-between q-px-md q-pt-m">
                         <div class="text-h6 text-white q-pt-sm ">Vitrine</div>
-                        <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="sobre"
+                        <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="contato"
                                 icon-right="contact_support" color="" @click="openInfoLoja()"
                                 style="border:2px solid #26A69A" dense flat></q-btn></div>
 
@@ -65,13 +65,13 @@
                             v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-md">
                             <template v-slot:control>
                                 <div class="absolute-left q-pa-xs" style="top:45%">
-                                    <q-btn icon="chevron_left" color="white" unelevated round dense size="md"
-                                        class="bg-black"
+                                    <q-btn icon="chevron_left" color="white" unelevated round dense size="lg"
+                                        class="bg-black mid" style="opacity:.85"
                                         @click="carrosselIndex = (carrosselIndex - 1 + carrossel.length) % carrossel.length" />
                                 </div>
                                 <div class="absolute-right q-pa-xs" style="top:45%">
-                                    <q-btn icon="chevron_right" color="white" unelevated round dense size="md"
-                                        class="bg-black"
+                                    <q-btn icon="chevron_right" color="white" unelevated round dense size="lg"
+                                        class="bg-black mid" style="opacity:.85"
                                         @click="carrosselIndex = (carrosselIndex + 1) % carrossel.length" />
                                 </div>
                             </template>
@@ -89,10 +89,11 @@
                                             class="text-center text-caption">{{ carro.categoria.label }}
                                             - {{
                                                 carro.ano }}</div>
-                                            </div>
-                                        </q-img>
-                                        <q-btn icon-right="directions_car" color="secondary" glossy dense class="q-mx-md rounded-borders q-mt-md absolute-top"
-                                            label="Detalhes" @click="abrirDialog(carro)"  style="z-index: 99999999999!important;"/>
+                                    </div>
+                                </q-img>
+                                <q-btn icon-right="search" color="teal" glossy dense
+                                    class="q-mx-md rounded-borders q-mt-md absolute-top" label="Detalhes"
+                                    @click="abrirDialog(carro)" style="width: 40%;z-index: 99999999999!important;" />
                             </q-carousel-slide>
                         </q-carousel>
 
@@ -249,7 +250,9 @@
                             </q-card-section>
                             <q-card-actions align="right">
                                 <q-btn flat label="Fechar" color="grey-14" v-close-popup />
-                                <!-- <q-btn glossy label="Fale Conosco" @click="openWpp()" color="secondary" /> -->
+                                <q-btn label="fale conosco" glossy icon-right="sms"
+                                    @click="sendWppMessage('seu estoque de veículos')" color="secondary"
+                                    v-close-popup />
                             </q-card-actions>
                         </q-card>
                     </q-dialog>
@@ -271,6 +274,8 @@
                             </q-card-section>
                             <q-card-actions align="right">
                                 <q-btn flat label="Fechar" color="secondary" v-close-popup />
+                                <q-btn label="Contato" glossy icon-right="sms"
+                                    @click="sendWppMessage(carroSelecionado.modelo)" color="secondary" v-close-popup />
                             </q-card-actions>
                         </q-card>
                     </q-dialog>
@@ -294,7 +299,7 @@
                         placeholder="Ex: sedan, tração traseira, 2020..." @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
-                    <q-btn icon="send" color="secondary" flat round @click="sendMessage" />
+                    <q-btn icon="send" color="teal" flat round @click="sendMessage" />
                 </div>
             </q-page>
         </q-page-container>
@@ -397,6 +402,15 @@ function abrirDialog(carro) {
     setTimeout(() => {
         dialogAberto.value = true
     }, 1000)
+}
+
+function sendWppMessage(modelo) {
+    // Extrai apenas os números do telefone
+    const numeroFormatado = sobreLoja.value.contato.replace(/\D/g, '');
+    const text = `Olá! Gostaria de saber mais sobre ${modelo}.`;
+    const mensagem = encodeURIComponent(text);
+    const link = `https://wa.me/${numeroFormatado}?text=${mensagem}`;
+    window.open(link, '_blank');
 }
 
 function selecionarCarro(carro) {
@@ -603,29 +617,30 @@ function sendMessage() {
             (carro.mensagens && carro.mensagens.some(msg => msg.toLowerCase().includes(termo)))
         );
     });
-    setTimeout(() => {
-        carrosselIndex.value = 0;
+    carrosselIndex.value = 0;
 
-        if (resultado.length) {
-            // Se encontrou carros, exibe o resultado
+    if (resultado.length) {
+        setTimeout(() => {
+            carrossel.value = resultado; 
             messages.value.push({
                 from: 'bot',
                 text: `🔍 Encontrei ${resultado.length} carro(s) que podem te interessar. Veja na vitrine acima!`
             });
-            carrossel.value = resultado; // Atualiza o carrossel com os resultados encontrados
-        } else {
-            // Se não encontrou, exibe uma mensagem dizendo que não há resultados
+            nextTick(() => {
+                window.scrollTo(0, document.body.scrollHeight);
+            });
+        }, 500)
+    } else {
+        setTimeout(() => {
             messages.value.push({
                 from: 'bot',
-                text: `😕 Não encontrei resultados com esse termo. Tente algo como "SUV", "Corolla", "2020" ou algo relacionado à descrição dos veículos.`
+                text: `😕 Não possuo nenhum veículo com essas características. Tente algo como "SUV", "Corolla", "2020" etc.`
             });
-        }
-
-        // Rola a página até a parte inferior para ver as mensagens
-        nextTick(() => {
-            window.scrollTo(0, document.body.scrollHeight);
-        });
-    }, 500);  // Delay de 500ms para uma transição mais suave
+            nextTick(() => {
+                window.scrollTo(0, document.body.scrollHeight);
+            });
+        }, 500)
+    }
 }
 
 function filtrarMenuEstoque() {
@@ -688,6 +703,8 @@ watch(interacoes, async (val) => {
 
 </script>
 <style scoped>
+.q-page-container {}
+
 .sticky-top {
     position: sticky;
     top: 50px;
@@ -708,9 +725,15 @@ watch(interacoes, async (val) => {
     color: white !important;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 900px) {
     .q-page-container {
-        padding: 0 300px 0 300px;
+        padding: 0 250px 0 250px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .q-page-container {
+        padding: 0 500px 0 500px;
     }
 }
 
