@@ -3,12 +3,16 @@
         <q-page-container>
             <q-page class="q-pa-md bg-dark">
                 <div v-if="!logado" class="q-gutter-y-md" style="max-width: 400px; margin: auto">
-                    <h3 class="text-center text-white">Admin</h3>
+                    <h3 class="text-center text-white">@chatcar.ia</h3>
+                    <div class="w100 text-center">
+                        <img src="/pq.png" class="rounded-borders" width="300">
+                    </div>
                     <q-input color="teal" v-model="form.login" label="Login" outlined
                         class="bg-teal-1 rounded-borders" />
                     <q-input color="teal" v-model="form.senha" label="Senha" type="password" outlined
                         class="bg-teal-1 rounded-borders" />
-                    <q-btn label="Entrar" glossy class="w100" color="teal" @click="fazerLogin" />
+                    <q-btn label="Entrar" glossy class="w100 q-py-lg q-mb-xl" icon-right="login" color="teal" @click="fazerLogin" />
+
                 </div>
 
                 <div v-else>
