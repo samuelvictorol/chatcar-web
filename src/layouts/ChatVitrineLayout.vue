@@ -53,7 +53,7 @@
                 <div class="bg-dark sticky-top"
                     style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
                     <div class="w100 row no-wrap items-center justify-between q-px-md q-pt-m">
-                        <div class="text-h6 text-white q-pt-sm ">Vitrine</div>
+                        <div class="text-h6 text-white q-pt-sm ">{{ sobreLoja.nome}}</div>
                         <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="contato"
                                 icon-right="contact_support" color="" @click="openInfoLoja()"
                                 style="border:2px solid #26A69A" dense flat></q-btn></div>
