@@ -255,7 +255,7 @@ async function buscarLojaNoServidor() {
     try {
         const { data } = await api.post('/get-loja', {
             login:buscaLogin.value,
-            admin: localStorage.getItem('admin')
+            admin: localStorage.getItem('admin').toLowerCase()
         })
         lojaJson.value = data
         lojaJsonFiltrado.value = data
