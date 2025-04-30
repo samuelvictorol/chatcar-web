@@ -137,7 +137,7 @@ async function handleSubmit() {
                 message: err.response.data.error,
                 icon: 'report_problem',
             })
-            host.value.password = ''
+            
         }).finally(() => { loading.value = false })
     } else {
         console.log('Registro:', form.value)
