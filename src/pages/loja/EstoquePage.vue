@@ -58,11 +58,11 @@
 
                     <div class="text-subtitle1 text-bold">{{ veiculoSelecionado?.ano }}</div>
                     <div class="text-body2">Modelo: {{ veiculoSelecionado?.modelo }}</div>
-                    <div class="text-body2 q-mb-xs">Preço: R$ {{ veiculoSelecionado?.preco | currency }},00</div>
+                    <div class="text-body2 q-mb-xs">Preço: R$ {{ veiculoSelecionado?.preco }}</div>
                     <!-- <div class="text-body2">ID: {{ veiculoSelecionado?.id }}</div> -->
                     <!-- Campos adicionais -->
-                    <div class="text-body2">Categoria: {{ veiculoSelecionado?.categoria }}</div>
-                    <div class="text-body2">Tipo: {{ veiculoSelecionado?.tipo }}</div>
+                    <div class="text-body2">Categoria: {{ veiculoSelecionado?.categoria.label }}</div>
+                    <div class="text-body2">Tipo: {{ veiculoSelecionado?.tipo.label }}</div>
                     <div class="text-body2">Ano: {{ veiculoSelecionado?.ano }}</div>
                 </q-card-section>
                 <q-card-section class="q-pt-none">
