@@ -2,15 +2,21 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated class="bg-dark text-white">
       <q-toolbar class="container">
-        <q-toolbar-title class="text-h6 row items-center"><q-icon class="q-pr-sm" name="directions_car"
-            size="md"></q-icon>
-          <div class="animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
+        <q-toolbar-title class="text-h6 row items-center">
+          <q-avatar size="50px" class="q-mr-sm">
+            <img src="/logo.jpeg" alt="Logo" />
+          </q-avatar>
+          <div class="animate__animated animate__fadeInLeft animate__slower">
+            ChatCar
+          </div>
         </q-toolbar-title>
         <!-- <q-btn label="experimente" icon-right="rocket_launch" color="green-14" class="q-mr-sm " glossy to="/loja" /> -->
-        <q-btn v-if="!storedLoja" color="teal" dense class="q-px-sm text-white" label="Iniciar Sessão" icon-right="login" glossy to="/login" />
-        <div  v-else>
+        <q-btn v-if="!storedLoja" color="teal" dense class="q-px-sm text-white" label="Iniciar Sessão"
+          icon-right="login" glossy to="/login" />
+        <div v-else>
           <q-btn color="teal" @click="logout()" dense class="q-px-sm text-white q-mr-md" flat label="sair" />
-          <q-btn color="teal" dense class="q-px-sm text-white" label="Meu Painel" icon-right="store" glossy to="/loja" />
+          <q-btn color="teal" dense class="q-px-sm text-white" label="Meu Painel" icon-right="store" glossy
+            to="/loja" />
         </div>
       </q-toolbar>
       <q-tabs inline-label v-model="tab" class="text-grey-2 ">
@@ -43,15 +49,14 @@
             Uma plataforma inteligente para lojistas e concessionárias automatizarem o atendimento e captarem leads
             prontos para comprar.
           </p>
-          <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" icon="query_stats" class="q-px-md q-mt-lg" @click="solicitarContatoWpp()" unelevated size="lg" />
+          <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" icon="query_stats" class="q-px-md q-mt-lg"
+            @click="solicitarContatoWpp()" unelevated size="lg" />
         </div>
       </section>
-      <div class="w100 bg-teal text-white text-bold text-left q-pa-md">
-        <div class="w100 animate__animated animate__slower animate__delay-3s animate__lightSpeedInLeft">
-          Atenda 24h por dia com IA, convertendo visitantes em clientes a partir do seu chat integrado ao estoque.
-        </div>
+      <div class="w100 row no-wrap justify-between">
+        <img src="porque.png" width="50%" alt="">
+        <img src="cowboy.png" width="50%" alt="">
       </div>
-      <div class="w100 bg-grad-landing" style="height: 40vh"></div>
       <!-- Como Funciona -->
       <section class="bg-grey-2 q-py-xl container text-center">
         <h2 class="text-h4 text-bold q-pb-lg">Como Funciona?</h2>
@@ -73,6 +78,7 @@
           </div>
         </div>
       </section>
+      <div class="w100 bg-grad-landing" style="height: 40vh"></div>
       <!-- Benefícios -->
       <section class="bg-grey-2 q-py-xl text-center">
         <div class="">
@@ -97,10 +103,16 @@
           </div>
         </div>
       </section>
+      <div class="w100 row justify-between no-wrap">
+        <img src="modelo1.png" width="50%" alt="">
+        <img src="modelo2.png" width="50%" alt="">
+      </div>
+
       <section id="planos" class="q-py-xl bg-teal text-white text-center">
         <div class="container">
           <div class="text-h4 text-bold">Promoção por tempo limitado!</div>
-          <p class="text-subtitle1 q-mt-sm">De <s>R$ 459,90</s><br>por apenas <strong class="text-h5">R$ 69,90/mês</strong>
+          <p class="text-subtitle1 q-mt-sm">De <s>R$ 459,90</s><br>por apenas <strong class="text-h5">R$
+              69,90/mês</strong>
           </p>
 
           <div class="row justify-center q-mt-md">
@@ -120,7 +132,7 @@
             unelevated />
         </div>
       </section>
-      <section style="border-bottom: 4px solid #43A99F;" class="q-pb-xl q-pt-md bg-grey-2 text-center">
+      <section class="q-pb-xl q-pt-md bg-grey-2 text-center">
         <div class="container">
           <h2 class="text-h4 text-bold q-mb-xl">Escolha seu Plano</h2>
           <div class="row q-col-gutter-md justify-center">
@@ -130,7 +142,8 @@
               <q-card class="q-pa-md shadow-2">
                 <q-card-section>
                   <div class="text-h5 text-bold">Pacote Básico</div>
-                  <div class="text-subtitle2 q-mt-sm">Utilize a plataforma no plano mensal, pague apenas se for utilizar</div>
+                  <div class="text-subtitle2 q-mt-sm">Utilize a plataforma no plano mensal, pague apenas se for utilizar
+                  </div>
                   <div class="text-h6 q-my-md text-secondary text-bold">R$ 89,90</div>
                   <ul class="text-left">
                     <li><strong>Captação</strong> de Leads Ilimitados</li>
@@ -139,7 +152,7 @@
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">
-                  <q-btn label="PACOTE MENSAL" color="secondary" glossy @click="openPlanoDialog('mensal')"/>
+                  <q-btn label="PACOTE MENSAL" color="secondary" glossy @click="openPlanoDialog('mensal')" />
                 </q-card-actions>
               </q-card>
             </div>
@@ -153,7 +166,8 @@
                   <div class="text-h6 q-my-md text-green  text-bold">R$ 69,90/mês</div>
                   <ul class="text-left">
                     <li><strong>6 meses</strong> de <strong>acesso</strong></li>
-                    <li>Relatórios com <strong>copys otimizadas</strong> para serem mais <strong>persuasivas</strong> e <strong>matadoras</strong></li>
+                    <li>Relatórios com <strong>copys otimizadas</strong> para serem mais <strong>persuasivas</strong> e
+                      <strong>matadoras</strong></li>
                     <li><strong>Linguagem natural</strong> configurável para os veículos</li>
                     <li>Mais <strong>vendido</strong></li>
                     <li><strong>R$ 419,90</strong> em até <strong>12x</strong></li>
@@ -182,7 +196,7 @@
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">
-                  <q-btn label="Plano Anual" glossy color="blue-14" @click="openPlanoDialog('anual')"/>
+                  <q-btn label="Plano Anual" glossy color="blue-14" @click="openPlanoDialog('anual')" />
                 </q-card-actions>
               </q-card>
             </div>
@@ -209,6 +223,10 @@
           </p>
         </div>
       </section>
+      <div class="w100 row justify-between no-wrap">
+        <img src="iamodel.png" width="50%" alt="">
+        <img src="sistema.png" width="50%" alt="">
+      </div>
       <!-- Sobre -->
       <section class="bg-grey-3 q-py-xl container text-center">
         <h2 class="text-h4 text-bold q-pb-lg">Sobre o ChatCar</h2>
@@ -224,8 +242,11 @@
         <div class="container text-center">
           <h2 class="text-h5 text-bold q-mb-md">Quer saber mais?</h2>
           <p>Fale com nosso time agora mesmo</p>
-          <q-btn label="Entrar em contato via WhatsApp" color="secondary" class="q-mt-md" icon="sms" glossy
+          <q-btn label="Entrar em contato via WhatsApp" color="secondary" class="q-mt-md q-py-xl" icon="sms" glossy
             @click="solicitarContatoWpp()" target="_blank" />
+        </div>
+        <div class="w100 row justify-between q-pt-xl q-px-xl rounded-borders no-wrap">
+          <img src="modelo3.png" width="100%" class="rounded-borders shadow-1" alt="">
         </div>
       </section>
       <q-dialog v-model="planosDialog.mensal">
@@ -239,7 +260,7 @@
       </q-dialog>
       <!-- Rodapé -->
       <q-footer class="bg-grey-9 text-white text-center q-pa-md">
-        ChatCar © {{ new Date().getFullYear() }} — Todos os direitos reservados
+        @chatcar.ia © {{ new Date().getFullYear() }}
       </q-footer>
     </q-page-container>
   </q-layout>
@@ -256,10 +277,10 @@ const text = 'Olá, Gostaria de saber mais sobre como o ChatCars IA pode empolga
 const storedLoja = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : null
 
 function solicitarContatoWpp() {
-    const numero = chatcarsWpp
-    const mensagem = encodeURIComponent(text)
-    const link = `https://wa.me/${numero}?text=${mensagem}`
-    window.open(link, '_blank')
+  const numero = chatcarsWpp
+  const mensagem = encodeURIComponent(text)
+  const link = `https://wa.me/${numero}?text=${mensagem}`
+  window.open(link, '_blank')
 }
 
 const planosDialog = ref({
@@ -272,9 +293,9 @@ function openPlanoDialog(plano) {
   planosDialog.value[plano] = true;
 }
 
-function logout(){
+function logout() {
   const confirm = window.confirm('Deseja realmente encerrar a sessão no ChatCar?')
-  if(confirm){
+  if (confirm) {
     localStorage.clear()
     window.location.reload()
   }

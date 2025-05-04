@@ -118,7 +118,7 @@ onMounted(async () => {
         <!-- Botões -->
         <strong class="text-teal">{{ userRole }}</strong><br />
         <div class="row q-gutter-sm q-mb-md">
-            <q-btn color="secondary" icon="sms" icon-right="directions_car" label="Chat Estoque" glossy :to="'/'+ lojaInfo.login" />
+            <q-btn color="teal" icon="sms" icon-right="directions_car" label="Chat Estoque" glossy :to="'/'+ lojaInfo.login" />
             <q-btn v-if="!editando" color="orange-14" glossy icon="edit" label="Editar Perfil"
                 @click="editando = true" />
             <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" />

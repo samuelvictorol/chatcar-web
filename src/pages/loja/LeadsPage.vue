@@ -26,7 +26,7 @@
                 </q-tr>
               </template>
               <template v-slot:body-cell-name="props">
-                <q-td :props="props" class="sticky-col text-white bg-dark">
+                <q-td :props="props" class="sticky-col text-black text-bold bg-teal-2">
                   <span>
                     {{ formatBigName(props.row.name) }}
                     <q-tooltip anchor="top middle" self="bottom middle">
