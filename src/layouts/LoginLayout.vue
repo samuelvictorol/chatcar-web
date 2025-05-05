@@ -215,6 +215,7 @@ async function handleSubmit() {
             localStorage.setItem('user', JSON.stringify(data))
 
             $q.notify({ color: 'teal', position: 'top', icon: 'person_add', message: 'Conta criada com sucesso!' })
+            $q.notify({ color: 'teal', position: 'top', icon: 'redeem', message: 'Você recebeu 48 horas de ChatCar de graça 💚' })
             router.push('/loja')
         } catch (err) {
             $q.notify({

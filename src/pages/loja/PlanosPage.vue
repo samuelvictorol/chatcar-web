@@ -23,13 +23,15 @@
                                 <div class="text-subtitle2 q-mt-sm">Utilize a plataforma no plano mensal, pague apenas
                                     se for utilizar
                                 </div>
-                                <div class="text-h6 q-my-md text-secondary"><strong>R$ 19,90</strong><br>⌛ tempo limitado</div>
+                                <div class="text-h6 q-my-md text-secondary"><strong>R$ 19,90</strong><br>⌛ tempo
+                                    limitado</div>
                                 <ul class="text-left">
                                     <li><strong>Captação</strong> de Leads limitados</li>
                                     <li><strong>Linguagem natural</strong> configurável para os veículos</li>
                                     <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da sua loja
                                     </li>
-                                    <li><strong>ChatCar IA</strong> para geração de relatórios com dicas de abordagem personalizadas</li>
+                                    <li><strong>ChatCar IA</strong> para geração de relatórios com dicas de abordagem
+                                        personalizadas</li>
                                 </ul>
                             </q-card-section>
                             <q-card-actions align="center">
@@ -84,7 +86,8 @@
                                 </ul>
                             </q-card-section>
                             <q-card-actions align="center">
-                                <q-btn label="Plano Anual" glossy color="blue-14" @click="openPagarMeLinkUrl('444444')" />
+                                <q-btn label="Plano Anual" glossy color="blue-14"
+                                    @click="openPagarMeLinkUrl('444444')" />
                             </q-card-actions>
                         </q-card>
                     </div>
@@ -99,25 +102,37 @@
 
 import { useQuasar } from 'quasar';
 import { api } from 'src/boot/axios';
+import { onMounted } from 'vue';
 const sobreLoja = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : null
 const $q = useQuasar()
 
-async function openPagarMeLinkUrl (planoId){
+async function openPagarMeLinkUrl(planoId) {
     await api.post('/pagar/criar-link', {
         login: sobreLoja.login,
         plano_id: planoId
-    }).then(response=>{
+    }).then(response => {
         $q.notify({
             color: 'teal',
             icon: 'paid',
             message: 'Você será redirecionado ao ambiente seguro de pagamento 😉',
             position: 'top'
         });
-        setTimeout(()=>{
-            window.open(response.data.payment_url, '_blank');
-        }, 1200)
-    })
+
+        setTimeout(() => {
+            window.open(response.data.payment_url, '_self'); // Abrir na mesma guia
+        }, 1000);
+    });
 }
+
+
+onMounted(()=>{
+    $q.notify({
+            color: 'teal',
+            icon: 'currency_exchange',
+            message: 'As vezes é necessário relogar após adquirir um plano ✨',
+            position: 'bottom'
+        });
+})
 
 </script>
 

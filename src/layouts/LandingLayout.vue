@@ -128,7 +128,7 @@
             </div>
           </div>
 
-          <q-btn label="Aproveitar agora" color="teal-14" glossy class="shadow-1 q-mt-lg" to="/cadastro" size="lg"
+          <q-btn label="Aproveitar agora" color="teal-14" glossy class="shadow-1 q-mt-lg" @click="routerPush('agora')" size="lg"
             unelevated />
         </div>
       </section>

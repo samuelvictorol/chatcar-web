@@ -24,6 +24,7 @@
                 <q-toolbar-title>Estoque</q-toolbar-title>
                 <q-btn flat round icon="close" @click="showEstoqueDrawer = false" />
             </q-toolbar>
+
             <q-input v-model="filtroEstoque" color="secondary" @update:model-value="filtrarMenuEstoque()" outlined
                 label="Filtrar estoque..." dense debounce="300" class="q-pa-sm relative">
                 <template v-slot:append>
@@ -31,6 +32,10 @@
                         class="cursor-pointer absolute-right" color="secondary" />
                 </template>
             </q-input>
+            <q-separator />
+            <div class="q-pb-md w100 text-right q-px-sm text-grey-7">
+                @chatcar.ia - <a href="chatcar.me" target="_blank" class="text-teal">chatcar.me</a>
+            </div>
             <q-list>
                 <q-item id="item-estoque" v-for="(carro, i) in estoqueFiltrado" :key="i">
                     <q-item-section style="border-bottom: 1px solid #26A69A ;" class="q-pb-sm">
@@ -46,6 +51,7 @@
                     </q-item-section>
                 </q-item>
             </q-list>
+
         </q-drawer>
 
         <!-- Página principal do chat -->
