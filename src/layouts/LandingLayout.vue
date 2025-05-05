@@ -31,7 +31,8 @@
 
     <q-page-container class="animate__animated animate__fadeIn">
       <div class="w100">
-        <q-img src="ia1.png" class="w100" style="position: fixed; bottom: 0px; z-index: -90" height="100vh">
+        <q-img src="/logo.jpeg" class="w100" style="object-fit: cover;position: fixed; bottom: 0px; z-index: -90"
+          height="100vh">
           <!-- <div class="absolute-bottom bg-black text-white q-pa-md">
             <h2 class="text-h4 w100 text-right row no-wrap justify-end">ChatCar IA</h2>
           </div> -->
@@ -46,11 +47,10 @@
             Conversas em Vendas com o ChatCar<br><q-icon name="paid" color="teal-14"
               class="animate__animated animate__zoomIn animate__slower animate__delay-3s" size="xl"></q-icon></h1>
           <p class="text-subtitle1  q-px-lg q-mt-md">
-            Uma plataforma inteligente para lojistas e concessionárias automatizarem o atendimento e captarem leads
-            prontos para comprar.
+            Atenda 24 horas, aumente a experiência do seu cliente e gere leads com i.a.
           </p>
           <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" icon="query_stats" class="q-px-md q-mt-lg"
-            @click="solicitarContatoWpp()" unelevated size="lg" />
+            @click="mostrarCarousel = true" unelevated size="lg" />
         </div>
       </section>
       <div class="w100 row no-wrap justify-between">
@@ -144,15 +144,18 @@
                   <div class="text-h5 text-bold">Pacote Básico</div>
                   <div class="text-subtitle2 q-mt-sm">Utilize a plataforma no plano mensal, pague apenas se for utilizar
                   </div>
-                  <div class="text-h6 q-my-md text-secondary text-bold">R$ 89,90</div>
+                  <div class="text-h6 q-my-md text-secondary"><strong>R$ 19,90</strong><br>⌛ tempo limitado</div>
                   <ul class="text-left">
-                    <li><strong>Captação</strong> de Leads Ilimitados</li>
-                    <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da sua loja</li>
-                    <li><strong>Chat IA</strong> para seu estoque</li>
+                    <li><strong>Captação</strong> de Leads limitados</li>
+                    <li><strong>Linguagem natural</strong> configurável para os veículos</li>
+                    <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da sua loja
+                    </li>
+                    <li><strong>ChatCar IA</strong> para geração de relatórios com dicas de abordagem personalizadas
+                    </li>
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">
-                  <q-btn label="PACOTE MENSAL" color="secondary" glossy @click="openPlanoDialog('mensal')" />
+                  <q-btn label="PACOTE MENSAL" color="secondary" glossy @click="routerPush('mensal')" />
                 </q-card-actions>
               </q-card>
             </div>
@@ -165,16 +168,18 @@
                   <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 459,90 por</div>
                   <div class="text-h6 q-my-md text-green  text-bold">R$ 69,90/mês</div>
                   <ul class="text-left">
+                    <li>Até <strong>100</strong> leads Inteligentes simultâneos</li>
                     <li><strong>6 meses</strong> de <strong>acesso</strong></li>
-                    <li>Relatórios com <strong>copys otimizadas</strong> para serem mais <strong>persuasivas</strong> e
-                      <strong>matadoras</strong></li>
-                    <li><strong>Linguagem natural</strong> configurável para os veículos</li>
+                    <li>Relatórios com <strong>copys otimizadas</strong> para serem mais
+                      <strong>persuasivas</strong> e
+                      <strong>matadoras</strong>
+                    </li>
                     <li>Mais <strong>vendido</strong></li>
                     <li><strong>R$ 419,90</strong> em até <strong>12x</strong></li>
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">
-                  <q-btn label="pacote semestral" color="green" glossy @click="openPlanoDialog('semestral')" />
+                  <q-btn label="pacote semestral" color="green" glossy @click="routerPush('semestral')" />
                 </q-card-actions>
               </q-card>
             </div>
@@ -185,18 +190,19 @@
                 <q-card-section>
                   <div class="text-h5 text-bold">Plano Profissional</div>
                   <!-- <div class="text-subtitle2 q-mt-sm">Acesso antecipado à novas funcionalidades</div> -->
-                  <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 1699,90 por</div>
-                  <div class="text-h6 q-my-md text-blue-14"><strong>R$ 1299,90</strong> em até 12x</div>
+                  <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 1899,90 por</div>
+                  <div class="text-h6 q-my-md text-blue-14"><strong>R$ 1599,90</strong> em até 12x</div>
                   <ul class="text-left">
+                    <li>Até <strong>1000</strong> leads Inteligentes simultâneos</li>
                     <li><strong>12 meses</strong> de <strong>acesso</strong></li>
-                    <li>Para empresas de <strong>alto nível</strong></li>
+                    <li>Para empresas de <strong>alto padrão</strong></li>
                     <li>Funcionalidades <strong>extras</strong> e atualizações sem custo adicional</li>
                     <li><strong>Inclui</strong> todos os <strong>outros planos</strong></li>
-                    <li>Mais <strong>otimizado</strong> e completo</li>
+                    <li>Mais <strong>otimizado</strong> e completo em funcionalidades</li>
                   </ul>
                 </q-card-section>
                 <q-card-actions align="center">
-                  <q-btn label="Plano Anual" glossy color="blue-14" @click="openPlanoDialog('anual')" />
+                  <q-btn label="Plano Anual" glossy color="blue-14" @click="routerPush('anual')" />
                 </q-card-actions>
               </q-card>
             </div>
@@ -204,6 +210,35 @@
           </div>
         </div>
       </section>
+      <q-dialog v-model="mostrarCarousel" maximized transition-show="slide-up" transition-hide="slide-down">
+        <q-card class="bg-white text-dark q-pa-none" style="max-width: 100vw; max-height: 100vh;">
+          <q-bar class="bg-white">
+            <div class="text-h6">Conheça a plataforma</div>
+            <q-space />
+            <q-btn dense flat icon="close" v-close-popup />
+          </q-bar>
+
+          <q-carousel animated v-model="slide" control-color="teal" arrows swipeable infinite class="q-mb-sm">
+            <q-carousel-slide name="1" class="flex flex-center bg-white">
+              <img src="/e1.png" style="max-width: 100%; max-height: 90vh; object-fit: cover;" />
+            </q-carousel-slide>
+
+            <q-carousel-slide name="2" class="flex flex-center bg-white">
+              <img src="/e2.png" style="max-width: 100%; max-height: 90vh; object-fit: cover;" />
+            </q-carousel-slide>
+
+            <q-carousel-slide name="3" class="flex flex-center bg-white">
+              <img src="/e3.png" style="max-width: 100%; max-height: 90vh; object-fit: cover;" />
+            </q-carousel-slide>
+          </q-carousel>
+
+          <q-card-actions align="center">
+            <q-btn flat color="teal" label="Fechar" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+
+
       <section class="q-py-xl bg-grey-1 text-center">
         <div class="container q-px-md">
           <h2 class="text-h4 text-bold q-mb-md">IA Superinteligente Integrada à OpenAI</h2>
@@ -271,11 +306,14 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import PlanoMensal from 'components/PlanoMensal.vue';
 import PlanoSemestral from 'components/PlanoSemestral.vue';
 import PlanoAnual from 'components/PlanoAnual.vue';
+import { useRouter } from 'vue-router';
+const mostrarCarousel = ref(false);
+const slide = ref("1");
 
 const chatcarsWpp = '61981748795'
 const text = 'Olá, Gostaria de saber mais sobre como o ChatCars IA pode empolgar meus clientes com uma vitrine e chat inteligente do meu estoque, atendendo-os automatizadamente 24 horas e gerando leads e sugestões de abordagem personalizadas de acordo com a interação do cliente com I.A., resumindo tudo isso e os dados dos clientes em um relatório pronto pro vendedor.'
 const storedLoja = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : null
-
+const router = useRouter()
 function solicitarContatoWpp() {
   const numero = chatcarsWpp
   const mensagem = encodeURIComponent(text)
@@ -289,8 +327,12 @@ const planosDialog = ref({
   anual: false,
 });
 
-function openPlanoDialog(plano) {
-  planosDialog.value[plano] = true;
+function routerPush(plano) {
+  if (storedLoja) {
+    router.push('/loja/planos')
+  } else {
+    router.push('/login')
+  }
 }
 
 function logout() {
@@ -356,6 +398,7 @@ onUnmounted(() => {
   background: -webkit-linear-gradient(to bottom, #0000005f, #565656);
   background: linear-gradient(to bottom, #00000000, #29292971);
 }
+
 .bg-glass-dark {
   background: #000000c8;
   background: -webkit-linear-gradient(to bottom, #000000c8, #141414d5);

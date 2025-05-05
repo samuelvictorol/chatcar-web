@@ -368,6 +368,14 @@ async function gerarLead() {
 
 async function carregarEstoque() {
     try {
+        if(route.params.login === 'chatcars') {
+            $q.notify({
+            color: 'teal',
+            icon: 'directions_car',
+            position: 'top',
+            message: 'Esse é o nosso estoque de testes! É assim que seus clientes serão atendidos 24 horas!'
+        });
+        }
         const { data } = await api.get('/estoque-publico/' + route.params.login);
         sobreLoja.value = data.loja;
         estoque.value = data.estoque;

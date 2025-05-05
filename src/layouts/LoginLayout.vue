@@ -5,7 +5,9 @@
                 <q-card id="card-login" class="q-px-md q-py-md shadow-10 w100 q-mx-md" style="border-radius: 20px">
                     <q-card-section>
                         <div class="text-h5 text-weight-bold text-center text-teal">
-                            {{ formType === 'login' ? 'Login' : 'Criar Conta' }}
+                            <q-avatar size="50px" class="q-mr-sm">
+                                <img src="/logo.jpeg" class="" alt="Logo" />
+                            </q-avatar> {{ formType === 'login' ? 'Login' : 'Criar Conta' }}
                         </div>
                     </q-card-section>
 
@@ -62,7 +64,13 @@
                                         class="cursor-pointer" @click="showPassword = !showPassword" />
                                 </template>
                             </q-input>
+                            <q-toggle v-if="formType === 'register'" v-model="aceitaTermos"
+                                label="Li e aceito os termos de uso" color="teal" />
 
+                            <q-btn flat dense color="primary" no-caps @click="mostrarTermos = true"
+                                v-if="formType === 'register'">
+                                Ver Termos de Uso
+                            </q-btn>
                             <q-btn glossy :label="formType === 'login' ? 'Entrar' : 'Registrar'" type="submit"
                                 color="teal-14" class="w100 q-mt-sm q-pa-md" no-caps />
 
@@ -78,6 +86,46 @@
                         </div>
                     </q-form>
                 </q-card>
+                <q-dialog v-model="mostrarTermos">
+                    <q-card style="max-width: 600px;">
+                        <q-card-section>
+                            <div class="text-h6"> <q-avatar size="50px" class="q-mr-sm">
+                                    <img src="/logo.jpeg" class="" alt="Logo" />
+                                </q-avatar><br>Termos de Uso da ChatCar</div>
+                        </q-card-section>
+                        <q-separator />
+                        <q-card-section class="scroll" style="max-height: 400px; font-size: 0.9rem;">
+                            <p>
+                                Ao utilizar a plataforma ChatCar, você, usuário, concorda em fornecer seu nome e
+                                telefone para que os
+                                lojistas
+                                possam entrar em contato diretamente com você por meio da plataforma.
+                            </p>
+                            <p>
+                                O lojista se compromete a utilizar essas informações exclusivamente para o fim de
+                                realizar abordagens
+                                comerciais
+                                com o objetivo de vender veículos anunciados em seu estoque.
+                            </p>
+                            <p>
+                                Qualquer outro uso dos dados do usuário por parte do lojista, incluindo spam, revenda de
+                                dados ou
+                                contatos não relacionados à venda de veículos, é estritamente proibido e constitui
+                                violação dos Termos
+                                de Uso da ChatCar.
+                            </p>
+                            <p>
+                                A ChatCar se reserva o direito de suspender ou banir lojistas que fizerem uso indevido
+                                das informações
+                                recebidas
+                                por meio da plataforma.
+                            </p>
+                        </q-card-section>
+                        <q-card-actions align="right">
+                            <q-btn flat label="Fechar" color="teal" v-close-popup />
+                        </q-card-actions>
+                    </q-card>
+                </q-dialog>
             </q-page>
         </q-page-container>
     </q-layout>
@@ -95,7 +143,8 @@ const router = useRouter()
 const formType = ref('login')
 const showPassword = ref(false)
 const loading = ref(false)
-
+const aceitaTermos = ref(false);
+const mostrarTermos = ref(false);
 const form = ref({
     login: '',
     name: '',
@@ -112,6 +161,12 @@ function toggleForm() {
 
 async function handleSubmit() {
     loading.value = true
+    if (!aceitaTermos.value) {
+        $q.notify({ type: 'warning', message: 'Você precisa aceitar os termos de uso para continuar.' });
+        loading.value = false;
+        return;
+    }
+
     if (formType.value === 'login') {
         try {
             const { data } = await api.post('/login', {
