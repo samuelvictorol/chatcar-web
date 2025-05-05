@@ -64,7 +64,8 @@ const editarLoja = async () => {
             type: 'teal',
             message: 'Loja editada com sucesso!'
         })
-
+        lojaInfo.value.token = response.data.loja.password
+        delete lojaInfo.value.password
         localStorage.setItem('user', JSON.stringify(lojaInfo.value))
         editando.value = false
         senha.value = ''
