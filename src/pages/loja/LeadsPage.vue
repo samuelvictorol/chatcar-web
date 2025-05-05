@@ -10,46 +10,46 @@
       <div class="text-h5 text-left text-bold text-dark">Clientes e Leads</div>
     </div>
 
-    <div class="w100 q-mt-lg">
-      <q-card class="q-pa-md full-height">
-        <q-card-section class="q-pa-none">
-          <div class="q-table__container q-table--horizontal-separator" style="overflow-x: auto;">
-            <q-table :rows="leads" :columns="columns" row-key="id" :pagination="{ rowsPerPage: 10 }" :filter="''"
-              class="my-table">
-              <!-- Cabeçalho -->
-              <template v-slot:header="props">
-                <q-tr :props="props">
-                  <q-th v-for="col in props.cols" :key="col.name" :props="props" class="bg-teal text-white text-bold"
-                    style="font-size: 1rem;">
-                    {{ col.label }}
-                  </q-th>
-                </q-tr>
-              </template>
-              <template v-slot:body-cell-name="props">
-                <q-td :props="props" class="sticky-col text-black text-bold bg-teal-2">
-                  <span>
-                    {{ formatBigName(props.row.name) }}
-                    <q-tooltip anchor="top middle" self="bottom middle">
-                      {{ props.row.name }}
-                    </q-tooltip>
-                  </span>
-                </q-td>
-              </template>
-              <template v-slot:body-cell-contato="props">
-                <q-td :props="props" class="text-center">
-                  {{ props.row.contato }}
-                </q-td>
-              </template>
-              <template v-slot:body-cell-acoes="props">
-                <q-td :props="props" class="text-center">
-                  <q-btn v-if="!props.row.relatorioIA" dense icon-right="download" label="gerar relatório" glossy
-                    color="green" @click="gerarRelatorio(props.row)" />
-                  <q-btn v-else dense icon-right="description" label="ver relatório" glossy color="secondary"
-                    @click="verRelatorio(props.row)" />
-                </q-td>
-              </template>
-            </q-table>
+    <div class="q-gutter-md row items-start justify-start">
+      <q-input v-model="filtro" label="Buscar cliente" filled dense debounce="300" color="teal" class="w100 q-mx-md q-mb-md"
+        clearable placeholder="Digite o nome do cliente">
+        <template v-slot:append>
+          <q-icon name="search" />
+        </template>
+      </q-input>
+      <q-card v-for="lead in leadsFiltrados" :key="lead.id" class="q-pa-md"
+        :style="'border-bottom:' + '2px solid ' + (lead.relatorioIA ? '#275DF3' : '#26A69A')"
+        style="width: 100%; max-width: 400px;">
+        <q-card-section>
+          <div class="text-h6 text-bold row items-center">
+            <q-icon name="account_circle" class="q-mr-sm" size="md"></q-icon>
+            {{ lead.name }}
           </div>
+          <div class="text-caption text-grey-8">Recebido em {{ lead.dataHora }}</div>
+        </q-card-section>
+
+        <q-separator />
+
+        <q-card-section>
+          <div class="q-mb-sm">
+            <div class="text-subtitle2 text-grey-7">Contato:</div>
+            <div class="row items-center">
+              <span class="text-body1 text-dark">
+                {{ lead.mostrarContato ? lead.contato : mascararTelefone(lead.contato) }}
+              </span>
+              <q-btn size="sm" color="teal" flat round icon="visibility" class="q-ml-sm"
+                @click="lead.mostrarContato = !lead.mostrarContato">
+                <q-tooltip>
+                  {{ lead.mostrarContato ? 'Ocultar' : 'Mostrar' }}
+                </q-tooltip>
+              </q-btn>
+            </div>
+          </div>
+
+          <q-btn v-if="!lead.relatorioIA" class="q-px-sm" dense icon-right="download" label="Gerar Relatório" glossy
+            color="teal" @click="gerarRelatorio(lead)" />
+          <q-btn v-else dense class="q-px-sm" icon-right="description" label="Ver Relatório" glossy color="blue-14"
+            @click="verRelatorio(lead)" />
         </q-card-section>
       </q-card>
     </div>
@@ -82,31 +82,41 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useQuasar } from 'quasar';
-import { api } from 'src/boot/axios'; // ajuste o caminho se precisar
+import { api } from 'src/boot/axios';
 import RelatorioIA from 'components/RelatorioIA.vue';
+import { computed } from 'vue';
 
 const $q = useQuasar();
-
 const leads = ref([]);
-const loading = ref(false);
-const vendedores = [
-  { label: 'Dagoberto', value: 'Dagoberto' },
-  { label: 'Maria', value: 'Maria' },
-  { label: 'João', value: 'João' }
-];
-const columns = [
-  { name: 'name', label: 'Nome Cliente', align: 'left', field: 'name' },
-  //   { name: 'vendedor', label: 'Vendedor', align: 'center', field: 'vendedor' },
-  { name: 'contato', label: 'Contato', align: 'center', field: 'contato' },
-  // { name: 'status', label: 'Status', align: 'center', field: 'status' },
-  { name: 'acoes', label: 'Ações', align: 'center' }
-];
-
 const showDialog = ref(false);
 const leadSelecionado = ref(null);
+const loading = ref(false);
+const filtro = ref('');
+
+function mascararTelefone(telefone) {
+  if (!telefone || telefone.length < 5) return 'Telefone não informado';
+  return telefone.slice(0, 4) + '****' + telefone.slice(-2);
+}
+
+function formatarDataHoraBr(date) {
+  return new Date(date).toLocaleString("pt-BR", {
+    timeZone: "America/Sao_Paulo",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  });
+}
+
+function verRelatorio(lead) {
+  leadSelecionado.value = lead;
+  showDialog.value = true;
+}
 
 async function gerarRelatorio(lead) {
-  loading.value = true
+  loading.value = true;
   showDialog.value = true;
   if (!lead.relatorioIA) {
     try {
@@ -116,9 +126,7 @@ async function gerarRelatorio(lead) {
         token: loja.token,
         lead: lead.id
       };
-
       const { data } = await api.post('/gerar-relatorio', payload);
-
       lead.relatorioIA = data.relatorio;
 
       $q.notify({
@@ -130,56 +138,31 @@ async function gerarRelatorio(lead) {
 
     } catch (err) {
       console.error('Erro ao gerar relatório:', err);
-      return $q.notify({
+      $q.notify({
         type: 'negative',
         message: 'Erro ao gerar relatório!'
       });
     } finally {
-        loading.value = false
+      loading.value = false;
     }
   }
-
   leadSelecionado.value = lead;
 }
 
-
-function confirmarContato(row) {
-  $q.dialog({
-    title: 'Status Atendimento',
-    message: 'Deseja marcar este lead como "Contato Efetuado"?',
-    cancel: true,
-    persistent: true,
-    ok: { color: 'teal', glossy: true },
-    cancel: { color: 'teal', flat: true }
-  }).onOk(() => {
-    row.status = 'Contato Efetuado';
-    $q.notify({
-      color: 'teal',
-      icon: 'phone',
-      position: 'top',
-      message: 'Status atualizado para Contato Efetuado'
-    });
-  });
-}
-
-function formatBigName(str) {
-  if (str.length > 12) {
-    return str.slice(0, 12) + '...';
-  }
-  return str;
-}
-
-// Buscando os leads no mounted
 onMounted(async () => {
   try {
     const loja = JSON.parse(localStorage.getItem('user'));
-
     const { data } = await api.post('/buscar-leads', {
       id: loja._id,
       token: loja.token
     });
 
-    leads.value = data.leads;
+    leads.value = data.leads.map((lead) => ({
+      ...lead,
+      mostrarContato: false,
+      dataHora: formatarDataHoraBr(lead.dataHora || new Date()) // <- usar campo correto vindo da API
+    }));
+
   } catch (error) {
     console.error('Erro ao carregar leads:', error);
     $q.notify({
@@ -188,12 +171,16 @@ onMounted(async () => {
     });
   }
 });
-function verRelatorio(lead) {
-  leadSelecionado.value = lead;
-  showDialog.value = true;
-}
+
+const leadsFiltrados = computed(() => {
+  if (!filtro.value) return leads.value;
+  return leads.value.filter(lead =>
+    lead.name.toLowerCase().includes(filtro.value.toLowerCase())
+  );
+});
 
 </script>
+
 <style scoped>
 .sticky-col {
   position: sticky;

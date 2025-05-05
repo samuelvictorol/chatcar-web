@@ -21,6 +21,38 @@ if (storedLoja) {
     userRole.value = storedLoja.plano
 }
 
+function compartilharChatUrl() {
+    const url = `https://chatcar.me/${lojaInfo.value.login}`;
+    const texto = `Confira nossa vitrine inteligente: ${url}`;
+
+    if (navigator.share) {
+        navigator.share({
+            title: 'Chat Estoque',
+            text: texto,
+            url
+        }).catch((err) => {
+            console.warn('Erro ao compartilhar:', err);
+            Notify.create({
+                type: 'warning',
+                message: 'Falha ao abrir o menu de compartilhamento.'
+            });
+        });
+    } else {
+        navigator.clipboard.writeText(texto).then(() => {
+            Notify.create({
+                type: 'positive',
+                message: 'Link copiado para a área de transferência!'
+            });
+        }).catch(() => {
+            Notify.create({
+                type: 'negative',
+                message: 'Erro ao copiar o link.'
+            });
+        });
+    }
+}
+
+
 function formatarData(data) {
     if (!data) return ''
     const d = new Date(data)
@@ -46,8 +78,8 @@ const editarLoja = async () => {
         if (senha.value || confirmarSenha.value) {
             if (senha.value !== confirmarSenha.value) {
                 Notify.create({
-                    position:'top',
-                    icon:'lock',
+                    position: 'top',
+                    icon: 'lock',
                     type: 'dark',
                     message: 'As senhas não coincidem.'
                 })
@@ -59,8 +91,8 @@ const editarLoja = async () => {
         const response = await api.put(`/editar-loja/${lojaInfo.value._id}`, lojaInfo.value)
 
         Notify.create({
-            position:'top',
-            icon:'edit',
+            position: 'top',
+            icon: 'edit',
             type: 'teal',
             message: 'Loja editada com sucesso!'
         })
@@ -80,31 +112,31 @@ const editarLoja = async () => {
 }
 
 onMounted(async () => {
-    await api.get('/leads-recentes/' + storedLoja.login).then(response =>{
+    await api.get('/leads-recentes/' + storedLoja.login).then(response => {
         leadsRecentes.value = response.data.leads
     })
     // const ctx = graficoLeads.value.getContext('2d')
-//     new Chart(ctx, {
-//         type: 'bar',
-//         data: {
-//             labels: vendedores.value.map(v => v.nome),
-//             datasets: [{
-//                 label: 'Leads',
-//                 data: vendedores.value.map(v => v.leadsCount),
-//                 backgroundColor: ['#44B1A7', '#275CF0']
-//             }]
-//         },
-//         options: {
-//             responsive: true,
-//             plugins: {
-//                 legend: { display: false }
-//             },
-//             scales: {
-//                 y: { beginAtZero: true }
-//             }
-//         }
-//     })
- })
+    //     new Chart(ctx, {
+    //         type: 'bar',
+    //         data: {
+    //             labels: vendedores.value.map(v => v.nome),
+    //             datasets: [{
+    //                 label: 'Leads',
+    //                 data: vendedores.value.map(v => v.leadsCount),
+    //                 backgroundColor: ['#44B1A7', '#275CF0']
+    //             }]
+    //         },
+    //         options: {
+    //             responsive: true,
+    //             plugins: {
+    //                 legend: { display: false }
+    //             },
+    //             scales: {
+    //                 y: { beginAtZero: true }
+    //             }
+    //         }
+    //     })
+})
 </script>
 
 
@@ -119,7 +151,9 @@ onMounted(async () => {
         <!-- Botões -->
         <strong class="text-teal">{{ userRole }}</strong><br />
         <div class="row q-gutter-sm q-mb-md">
-            <q-btn color="teal" icon="sms" icon-right="directions_car" label="Chat Estoque" glossy :to="'/'+ lojaInfo.login" />
+            <q-btn color="teal" icon="sms" icon-right="directions_car" label="Chat Estoque" glossy
+                :to="'/' + lojaInfo.login" />
+            <q-btn color="blue-14" icon="currency_exchange" label="Planos" glossy to="/loja/planos" />
             <q-btn v-if="!editando" color="orange-14" glossy icon="edit" label="Editar Perfil"
                 @click="editando = true" />
             <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" />
@@ -158,8 +192,10 @@ onMounted(async () => {
                     </div>
 
                     <div class="text-body1">
-                        <strong>{{!editando ? 'ChatUrl: ' : 'Login: '}} </strong>
+                        <strong>{{ !editando ? 'ChatUrl: ' : 'Login: ' }} </strong>
                         <template v-if="!editando">{{ 'chatcar.me/' + lojaInfo.login }}</template>
+                        <template v-if="!editando"><br><q-btn label="compartilhar" @click="compartilharChatUrl" dense
+                                icon-right="share" class="q-my-sm" color="teal"></q-btn></template>
                         <q-input color="teal" v-else v-model="lojaInfo.login" dense />
                     </div>
                     <div v-if="editando" class="text-body1">
