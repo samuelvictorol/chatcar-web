@@ -259,8 +259,8 @@
         <PlanoAnual @close="planosDialog.anual = false" />
       </q-dialog>
       <!-- Rodapé -->
-      <q-footer class="bg-grey-9 text-white text-center q-pa-md">
-        @chatcar.ia © {{ new Date().getFullYear() }}
+      <q-footer class="bg-glass-dark text-white text-center q-pa-sm">
+        chatcar.me ® - 2025
       </q-footer>
     </q-page-container>
   </q-layout>
@@ -353,10 +353,13 @@ onUnmounted(() => {
 <style scoped>
 .bg-grad-landing {
   background: #000;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #0000005f, #F5F5F5);
-  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to bottom, #0000005f, #565656);
   background: linear-gradient(to bottom, #00000000, #29292971);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.bg-glass-dark {
+  background: #000000c8;
+  background: -webkit-linear-gradient(to bottom, #000000c8, #141414d5);
+  background: linear-gradient(to bottom, #000000c8, #141414d5);
+  backdrop-filter: blur(4px);
 }
 </style>

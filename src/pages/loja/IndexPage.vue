@@ -113,7 +113,7 @@ onMounted(async () => {
 
         <!-- Breadcrumb -->
         <q-breadcrumbs class="text-grey-8 rounded-borders q-mb-md" separator-icon="chevron_right">
-            <q-breadcrumbs-el icon="store" label="Início" exact />
+            <q-breadcrumbs-el color="teal" icon="store" label="Início" exact />
         </q-breadcrumbs>
 
         <!-- Botões -->
@@ -149,7 +149,7 @@ onMounted(async () => {
                     <div class="text-body1">
                         <strong>CNPJ: </strong>
                         <template v-if="!editando">{{ lojaInfo.cnpj }}</template>
-                        <q-input color="teal" v-else v-model="lojaInfo.cnpj" dense />
+                        <q-input maxlength="18" color="teal" v-else v-model="lojaInfo.cnpj" dense />
                     </div>
                     <div class="text-body1">
                         <strong>Site: </strong>
