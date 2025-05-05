@@ -2,7 +2,7 @@
     <q-page class="q-pa-md column items-stretch full-height">
         <!-- Breadcrumb -->
         <q-breadcrumbs class="text-grey-8 q-mb-md" separator-icon="chevron_right">
-            <q-breadcrumbs-el icon="store" label="Início" to="/loja" />
+            <q-breadcrumbs-el class="text-teal" icon="store" label="Início" to="/loja" />
             <q-breadcrumbs-el icon="directions_car" label="Estoque" exact />
         </q-breadcrumbs>
 
@@ -269,7 +269,7 @@ async function salvarVeiculo() {
         await carregarEstoque();
     } catch (err) {
         console.error(err);
-        $q.notify({ type: 'negative', message: 'Erro ao salvar veículo.' });
+        $q.notify({ icon:'paid', position: 'top',type: 'negative', message: err.response?.data?.error || 'Erro ao salvar veículo.' });
     }
 }
 
@@ -331,9 +331,18 @@ onMounted(async () => {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
+#card-estoque{
+    transition: all 0.2s linear;
+    filter: grayscale(1);
+    cursor: pointer;
+}
+#card-estoque:hover{
+    transition: all 0.2s linear;
+    filter: grayscale(0);
+}
 @media (min-width: 700px) {
     #card-estoque {
-        width: 35%;
+        width: 32%;
     }
 }
 </style>

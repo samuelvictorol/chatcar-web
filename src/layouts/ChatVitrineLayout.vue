@@ -7,7 +7,9 @@
                         <q-icon name="sms" size="lg" to="/" />
                     </q-avatar> -->
                     <div v-if="!loading" class="q-pl-sm animate__animated animate__fadeInLeft animate__slower">
-                        {{ sobreLoja.login }}
+                        <q-avatar size="50px" class="q-mr-sm">
+                            <img :src=" sobreLoja.img_url ? sobreLoja.img_url : '/logo.jpeg'" alt="Logo" />
+                          </q-avatar>
                     </div>
                 </q-toolbar-title>
                 <q-btn class="q-mr-sm" color="grey-2" to="/" flat icon="logout" />
@@ -366,16 +368,38 @@ async function gerarLead() {
 
 async function carregarEstoque() {
     try {
+        if(route.params.login === 'chatcars') {
+            $q.notify({
+            color: 'teal',
+            icon: 'directions_car',
+            position: 'top',
+            message: 'Esse é o nosso estoque de testes! É assim que seus clientes serão atendidos 24 horas!'
+        });
+        }
         const { data } = await api.get('/estoque-publico/' + route.params.login);
         sobreLoja.value = data.loja;
         estoque.value = data.estoque;
         estoqueFiltrado.value = [...estoque.value];
+        if(estoque.value == [] || estoque.value.length == 0) {
+            $q.notify({
+            color: 'teal',
+            icon: 'directions_car',
+            position: 'top',
+            message: 'Esse estoque ainda não possui veículos cadastrados'
+        });
+        setTimeout(()=> window.location.href = '/', 2000)
+        }
     } catch (err) {
         console.error('Erro ao buscar estoque', err);
         $q.notify({
-            type: 'negative',
-            message: 'Erro ao buscar estoque'
+            color: 'dark',
+            icon: 'error',
+            position: 'top',
+            message: err.response?.data?.error
         });
+        setTimeout(()=>{
+            router.push('/')
+        }, 1000)
     }
 }
 
@@ -444,7 +468,7 @@ onBeforeMount(async () => {
     })
 
     $q.dialog({
-        title: sobreLoja.value.nome + ' diz:',
+        title: sobreLoja.value.nome + ':',
         message: `Bem-vindo(a)! Pra iniciar, poderia nos informar o seu nome?`,
         prompt: {
             model: '',

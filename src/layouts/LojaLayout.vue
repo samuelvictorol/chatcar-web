@@ -3,13 +3,17 @@
 
         <q-header class="bg-dark text-white">
             <q-toolbar>
-                <q-toolbar-title class="text-h6 row items-center"><q-icon class="q-pr-sm" name="store"
-                    size="md"></q-icon>
-                  <div class="animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
+                <q-toolbar-title class="text-h6 row items-center no-wrap">
+                    <q-avatar size="50px" class="q-mr-sm">
+                        <img src="/logo.jpeg" alt="Logo" />
+                    </q-avatar>
+                    <div class="animate__animated animate__fadeInLeft animate__slower">
+                        ChatCar
+                    </div>
                 </q-toolbar-title>
                 <div class="row no-wrap items-center">
-                    <q-btn label="sair" color="grey-4" flat  to="/" />
-                    <q-btn color="white" glossy class="text-black q-ml-md" icon="menu" label="menu" 
+                    <q-btn label="sair" color="grey-4" flat to="/" />
+                    <q-btn color="white" glossy class="text-black q-ml-xs" icon="menu" label="menu"
                         @click="rightDrawerOpen = !rightDrawerOpen" />
                 </div>
             </q-toolbar>
@@ -76,7 +80,11 @@ const menuOptions = ref([
         icon: 'directions_car',
         to: '/loja/estoque'
     },
-
+    {
+        label: 'Planos',
+        icon: 'currency_exchange',
+        to: '/loja/planos'
+    },
     {
         label: 'Ajuda',
         icon: 'contact_support',
@@ -87,11 +95,11 @@ const menuOptions = ref([
 
 onBeforeMount(() => {
     const user = localStorage.getItem('user')
-    if(!user) {
+    if (!user) {
         $q.notify({
             color: 'dark',
             position: 'top',
-            message: 'Você deve estar logado para acessar o seu painel.' ,
+            message: 'Você deve estar logado para acessar o seu painel.',
             icon: 'account_circle',
         })
         router.push('/login')

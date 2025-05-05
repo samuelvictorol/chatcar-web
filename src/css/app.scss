@@ -26,3 +26,7 @@
     animation: fadeIn;
     animation-duration: 1s;
 }
+
+.q-item.q-router-link--active {
+    color: #26A69A;
+}
