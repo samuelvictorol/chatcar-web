@@ -11,7 +11,7 @@
     </div>
 
     <div class="q-gutter-md row items-start justify-start">
-      <q-input v-model="filtro" label="Buscar cliente" filled dense debounce="300" color="teal" class="w100 q-mx-md q-mb-md"
+      <q-input v-model="filtro" label="Buscar cliente" filled dense debounce="300" color="teal" class="w100 q-mx-md"
         clearable placeholder="Digite o nome do cliente">
         <template v-slot:append>
           <q-icon name="search" />
@@ -21,7 +21,7 @@
         :style="'border-bottom:' + '2px solid ' + (lead.relatorioIA ? '#275DF3' : '#26A69A')"
         style="width: 100%; max-width: 400px;">
         <q-card-section>
-          <div class="text-h6 text-bold row items-center">
+          <div style="font-size:1.2rem" class=" text-bold row items-center">
             <q-icon name="account_circle" class="q-mr-sm" size="md"></q-icon>
             {{ lead.name }}
           </div>

@@ -331,9 +331,18 @@ onMounted(async () => {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
+#card-estoque{
+    transition: all 0.2s linear;
+    filter: grayscale(1);
+    cursor: pointer;
+}
+#card-estoque:hover{
+    transition: all 0.2s linear;
+    filter: grayscale(0);
+}
 @media (min-width: 700px) {
     #card-estoque {
-        width: 35%;
+        width: 32%;
     }
 }
 </style>

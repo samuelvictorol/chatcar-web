@@ -23,7 +23,7 @@
                                 <div class="text-subtitle2 q-mt-sm">Utilize a plataforma no plano mensal, pague apenas
                                     se for utilizar
                                 </div>
-                                <div class="text-h6 q-my-md text-secondary text-bold">R$ 89,90</div>
+                                <div class="text-h6 q-my-md text-secondary text-bold">R$ 19,90</div>
                                 <ul class="text-left">
                                     <li><strong>Captação</strong> de Leads Ilimitados</li>
                                     <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da sua loja
