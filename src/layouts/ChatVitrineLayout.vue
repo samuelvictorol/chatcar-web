@@ -373,9 +373,14 @@ async function carregarEstoque() {
     } catch (err) {
         console.error('Erro ao buscar estoque', err);
         $q.notify({
-            type: 'negative',
-            message: 'Erro ao buscar estoque'
+            color: 'dark',
+            icon: 'error',
+            position: 'top',
+            message: err.response?.data?.error
         });
+        setTimeout(()=>{
+            router.push('/')
+        }, 1000)
     }
 }
 

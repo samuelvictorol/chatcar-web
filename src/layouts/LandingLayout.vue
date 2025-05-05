@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated class="bg-dark text-white">
       <q-toolbar class="container">
-        <q-toolbar-title class="text-h6 row items-center">
+        <q-toolbar-title class="text-h6 row items-center no-wrap">
           <q-avatar size="50px" class="q-mr-sm">
             <img src="/logo.jpeg" alt="Logo" />
           </q-avatar>
@@ -14,7 +14,7 @@
         <q-btn v-if="!storedLoja" color="teal" dense class="q-px-sm text-white" label="Iniciar Sessão"
           icon-right="login" glossy to="/login" />
         <div v-else>
-          <q-btn color="teal" @click="logout()" dense class="q-px-sm text-white q-mr-md" flat label="sair" />
+          <q-btn color="teal" @click="logout()" dense class="q-px-sm text-white q-mr-xs" flat label="sair" />
           <q-btn color="teal" dense class="q-px-sm text-white" label="Meu Painel" icon-right="store" glossy
             to="/loja" />
         </div>
