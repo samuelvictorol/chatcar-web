@@ -1,7 +1,7 @@
 {
-  "name": "charcar.ia",
+  "name": "charcar",
   "version": "0.0.1",
-  "description": "SaaS para captação de leads em vendas de carros",
+  "description": "I.A que transforma seu estoque de veículos em um chat inteligente e gera de leads com dicas de abordagem personalizadas.",
   "productName": "ChatCar IA",
   "author": "samuelvictorol",
   "private": true,
