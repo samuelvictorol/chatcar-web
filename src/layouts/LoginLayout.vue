@@ -161,7 +161,7 @@ function toggleForm() {
 
 async function handleSubmit() {
     loading.value = true
-    if (!aceitaTermos.value) {
+    if (!aceitaTermos.value && formType.value != 'login') {
         $q.notify({ type: 'warning', message: 'Você precisa aceitar os termos de uso para continuar.' });
         loading.value = false;
         return;

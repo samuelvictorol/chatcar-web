@@ -269,7 +269,7 @@ async function salvarVeiculo() {
         await carregarEstoque();
     } catch (err) {
         console.error(err);
-        $q.notify({ type: 'negative', message: 'Erro ao salvar veículo.' });
+        $q.notify({ icon:'paid', position: 'top',type: 'negative', message: err.response?.data?.error || 'Erro ao salvar veículo.' });
     }
 }
 

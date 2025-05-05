@@ -138,10 +138,8 @@ async function gerarRelatorio(lead) {
 
     } catch (err) {
       console.error('Erro ao gerar relatório:', err);
-      $q.notify({
-        type: 'negative',
-        message: 'Erro ao gerar relatório!'
-      });
+      $q.notify({ icon:'paid', position: 'top',type: 'negative', message: err.response?.data?.error || 'Erro ao gerar relatorio IA.' });
+      showDialog.value = false;
     } finally {
       loading.value = false;
     }
