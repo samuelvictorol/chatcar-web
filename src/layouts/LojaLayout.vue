@@ -42,6 +42,11 @@
             <div class="w100 text-right q-px-sm q-pt-xl text-grey-7">
                 @chatcar.ia
             </div>
+            <q-separator />
+            <div class="w100 text-right q-px-sm q-pt-xl text-grey-7">
+                <q-btn color="orange-14" @click="logout()" dense class="q-px-sm text-white q-mr-xs" flat
+                    icon-right="logout" label="Logout" />
+            </div>
         </q-drawer>
 
         <q-page-container class="bg-grey-3">
@@ -92,7 +97,13 @@ const menuOptions = ref([
     },
 
 ])
-
+function logout() {
+    const confirm = window.confirm('Deseja realmente encerrar a sessão no ChatCar?')
+    if (confirm) {
+        localStorage.clear()
+        window.open('https://chatcar.me', '_self');
+    }
+}
 onBeforeMount(() => {
     const user = localStorage.getItem('user')
     if (!user) {

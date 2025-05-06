@@ -11,8 +11,8 @@
           </div>
         </q-toolbar-title>
         <!-- <q-btn label="experimente" icon-right="rocket_launch" color="green-14" class="q-mr-sm " glossy to="/loja" /> -->
-        <q-btn v-if="!storedLoja" color="teal" dense class="q-px-sm text-white" label="Iniciar Sessão"
-          icon-right="login" glossy to="/login" />
+        <q-btn v-if="!storedLoja" color="teal" glossy dense class="q-px-sm text-white" label="Iniciar Sessão"
+          icon-right="login"  to="/login" />
         <div v-else>
           <q-btn color="teal" @click="logout()" dense class="q-px-sm text-white q-mr-xs" flat label="sair" />
           <q-btn color="teal" dense class="q-px-sm text-white" label="Meu Painel" icon-right="store" glossy
@@ -46,11 +46,11 @@
               size="xl"></q-icon><br>Transforme
             Conversas em Vendas com o ChatCar<br><q-icon name="paid" color="teal-14"
               class="animate__animated animate__zoomIn animate__slower animate__delay-3s" size="xl"></q-icon></h1>
-          <p class="text-subtitle1  q-px-lg q-mt-md">
+          <p class="text-subtitle1  q-px-lg ">
             Atenda 24 horas, aumente a experiência do seu cliente e gere leads com i.a.
           </p>
-          <q-btn label="CONHEÇA A PLATAFORMA" color="secondary" icon="query_stats" class="q-px-md q-mt-lg"
-            @click="mostrarCarousel = true" unelevated size="lg" />
+          <q-btn label="CONHEÇA A PLATAFORMA" color="teal-14" icon="query_stats" class="q-px-md q-mt-lg"
+            to="/login" unelevated size="lg" />
         </div>
       </section>
       <div class="w100 row no-wrap justify-between">

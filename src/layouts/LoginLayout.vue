@@ -71,13 +71,13 @@
                                 v-if="formType === 'register'">
                                 Ver Termos de Uso
                             </q-btn>
-                            <q-btn glossy :label="formType === 'login' ? 'Entrar' : 'Registrar'" type="submit"
+                            <q-btn v-if="!loading" glossy :label="formType === 'login' ? 'Entrar' : 'Registrar'" type="submit"
                                 color="teal-14" class="w100 q-mt-sm q-pa-md" no-caps />
 
-                            <q-btn flat dense no-caps color="teal" class="w100 q-mt-sm text-bold" @click="toggleForm">
+                            <q-btn v-if="!loading" flat dense no-caps color="teal" class="w100 q-mt-sm text-bold" @click="toggleForm">
                                 {{ formType === 'login' ? 'Ainda não tem conta? Cadastre-se' : 'Já tem conta? Entrar' }}
                             </q-btn>
-                            <q-btn label="Voltar" no-caps flat color="teal" dense class="w100 q-mt-sm" to="/" />
+                            <q-btn v-if="!loading" label="Voltar" no-caps flat color="teal" dense class="w100 q-mt-sm" to="/" />
                         </q-card-section>
                         <div v-if="loading" class="w100 q-mb-md row no-wrap items-center justify-center">
                             <q-spinner-ball color="teal" size="2em" />
@@ -216,7 +216,7 @@ async function handleSubmit() {
 
             $q.notify({ color: 'teal', position: 'top', icon: 'person_add', message: 'Conta criada com sucesso!' })
             $q.notify({ color: 'teal', position: 'top', icon: 'redeem', message: 'Você recebeu 48 horas de ChatCar de graça 💚' })
-            router.push('/loja')
+            router.push('/loja/planos')
         } catch (err) {
             $q.notify({
                 color: 'dark',
