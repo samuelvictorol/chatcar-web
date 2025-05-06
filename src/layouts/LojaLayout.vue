@@ -71,14 +71,14 @@ const menuOptions = ref([
         to: '/loja'
     },
     {
-        label: 'Clientes e Leads',
-        icon: 'groups',
-        to: '/loja/leads'
-    },
-    {
         label: 'Estoque',
         icon: 'directions_car',
         to: '/loja/estoque'
+    },
+    {
+        label: 'Clientes e Leads',
+        icon: 'groups',
+        to: '/loja/leads'
     },
     {
         label: 'Planos',
