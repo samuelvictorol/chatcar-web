@@ -114,7 +114,7 @@
                         <q-input v-model="formVeiculo.mensagens[index]" dense outlined class="col" />
                         <q-btn flat dense icon="delete" color="negative" @click="removerMensagem(index)" />
                     </div>
-                    <q-btn glossy dense icon="sms" icon-right="add" label="Adicionar Mensagem" color="primary"
+                    <q-btn glossy dense icon="sms" v-if="formVeiculo.mensagens.length <= 3" icon-right="add" label="Adicionar Mensagem" color="primary"
                         @click="adicionarMensagem" />
                 </q-card-section>
 

@@ -303,7 +303,7 @@
                 <!-- Input fixo no final -->
                 <div class="q-pa-md bg-white row items-center"
                     style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
-                    <q-input filled v-model="input" color="secondary" class="col"
+                    <q-input filled v-model="input" maxlength="30" color="secondary" class="col"
                         placeholder="Ex: sedan, tração traseira, 2020..." @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
