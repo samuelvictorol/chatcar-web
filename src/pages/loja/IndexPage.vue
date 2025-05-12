@@ -190,6 +190,10 @@ onMounted(async () => {
                         <template v-if="!editando">{{ lojaInfo.site }}</template>
                         <q-input color="teal" v-else v-model="lojaInfo.site" dense />
                     </div>
+                    <div class="text-body1" v-if="editando"> 
+                        <strong>Email: </strong>
+                        <q-input color="teal"  v-model="lojaInfo.email" dense />
+                    </div>
 
                     <div class="text-body1">
                         <strong>{{ !editando ? 'ChatUrl: ' : 'Login: ' }} </strong>

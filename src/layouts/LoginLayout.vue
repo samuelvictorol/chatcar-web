@@ -13,7 +13,9 @@
 
                     <q-form @submit.prevent="handleSubmit">
                         <q-card-section>
-                            <q-input v-model="form.login" label="Login" outlined :prefix="(form.login.trim() != '' && formType === 'register') ? 'chatcar.me/' : ''" dense color="teal" placeholder="Digite seu login público"
+                            <q-input v-model="form.login" label="Login" outlined
+                                :prefix="(form.login.trim() != '' && formType === 'register') ? 'chatcar.me/' : ''"
+                                dense color="teal" placeholder="Digite seu login público"
                                 :rules="[val => !!val || 'Login é obrigatório']">
                                 <template #prepend>
                                     <q-icon name="account_circle" color="teal" />
@@ -71,13 +73,18 @@
                                 v-if="formType === 'register'">
                                 Ver Termos de Uso
                             </q-btn>
-                            <q-btn v-if="!loading" glossy :label="formType === 'login' ? 'Entrar' : 'Registrar'" type="submit"
-                                color="teal-14" class="w100 q-mt-sm q-pa-md" no-caps />
-
-                            <q-btn v-if="!loading" flat dense no-caps color="teal" class="w100 q-mt-sm text-bold" @click="toggleForm">
+                            <q-btn v-if="!loading" glossy :label="formType === 'login' ? 'Entrar' : 'Registrar'"
+                                type="submit" color="teal-14" class="w100 q-mt-sm q-pa-md" no-caps />
+                            <q-btn v-if="!loading" flat dense no-caps color="teal" class="w100 q-mt-sm text-bold"
+                                @click="toggleForm">
                                 {{ formType === 'login' ? 'Ainda não tem conta? Cadastre-se' : 'Já tem conta? Entrar' }}
                             </q-btn>
-                            <q-btn v-if="!loading" label="Voltar" no-caps flat color="teal" dense class="w100 q-mt-sm" to="/" />
+                            <q-btn v-if="formType === 'login'" flat dense no-caps color="primary" class="w100 q-mt-sm"
+                                @click="mostrarRecuperarSenha = true">
+                                Esqueci minha senha
+                            </q-btn>
+                            <q-btn v-if="!loading && formType == 'login'" label="Voltar" no-caps flat color="teal" dense
+                                class="w100 q-mt-sm" to="/" />
                         </q-card-section>
                         <div v-if="loading" class="w100 q-mb-md row no-wrap items-center justify-center">
                             <q-spinner-ball color="teal" size="2em" />
@@ -86,6 +93,29 @@
                         </div>
                     </q-form>
                 </q-card>
+                <q-dialog v-model="mostrarRecuperarSenha" persistent>
+                    <q-card style="min-width: 350px">
+                        <q-card-section>
+                            <div class="text-h6 text-teal">Redefinir Senha</div>
+                            <div class="text-subtitle2">Informe seu e-mail cadastrado na ChatCar:</div>
+                        </q-card-section>
+
+                        <q-card-section>
+                            <q-input v-model="emailRecuperacao" type="email" label="E-mail" outlined dense color="teal"
+                                :rules="[val => !!val || 'Informe um e-mail válido']" >
+                                <template #prepend>
+                                    <q-icon name="mail" color="teal" />
+                                </template>
+                            </q-input>
+                        </q-card-section>
+
+                        <q-card-actions align="right">
+                            <q-btn flat label="Cancelar" color="teal" v-close-popup />
+                            <q-btn label="Enviar" icon-right="send" color="teal" glossy @click="enviarRecuperacaoSenha" :disable="loading" />
+                        </q-card-actions>
+                    </q-card>
+                </q-dialog>
+
                 <q-dialog v-model="mostrarTermos">
                     <q-card style="max-width: 600px;">
                         <q-card-section>
@@ -153,11 +183,72 @@ const form = ref({
     password: '',
     confirmPassword: ''
 })
+const mostrarRecuperarSenha = ref(false)
+const emailRecuperacao = ref('')
+
+async function enviarRecuperacaoSenha() {
+    if (!emailRecuperacao.value) {
+        $q.notify({ type: 'warning', message: 'Informe seu e-mail.' })
+        return
+    }
+
+    loading.value = true
+    try {
+        const { data } = await api.post('/esqueci-senha', {
+            email: emailRecuperacao.value
+        })
+
+        $q.notify({ color: 'teal', position: 'top', icon: 'mail', message: data.message || 'Verifique seu e-mail.' })
+        mostrarRecuperarSenha.value = false
+        emailRecuperacao.value = ''
+    } catch (err) {
+        $q.notify({
+            color: 'negative',
+            position: 'top',
+            icon: 'report_problem',
+            message: err.response?.data?.error || 'Erro ao enviar nova senha.'
+        })
+    } finally {
+        loading.value = false
+    }
+}
 
 function toggleForm() {
     formType.value = formType.value === 'login' ? 'register' : 'login'
     form.value = { login: '', name: '', email: '', contato: '', password: '', confirmPassword: '' }
 }
+
+async function recuperarSenha() {
+    if (!form.value.login && !form.value.email) {
+        $q.notify({
+            type: 'warning',
+            message: 'Informe seu e-mail para recuperar a senha.'
+        });
+        return;
+    }
+
+    loading.value = true;
+    try {
+        const { data } = await api.post('/esqueci-senha', {
+            email: form.value.email || form.value.login  // login pode ser o e-mail
+        });
+
+        $q.notify({
+            color: 'teal',
+            icon: 'mail',
+            message: data.message || 'Verifique seu e-mail.'
+        });
+    } catch (err) {
+        $q.notify({
+            color: 'red',
+            icon: 'report_problem',
+            message: err.response?.data?.error || 'Erro ao recuperar senha.'
+        });
+    } finally {
+        loading.value = false;
+    }
+}
+
 
 async function handleSubmit() {
     loading.value = true
