@@ -11,14 +11,18 @@
             <q-btn color="teal" glossy label="Adicionar" @click="abrirModalAdicionar" icon-right="add_circle" />
         </div>
 
-        <q-input outlined dense debounce="300" color="dark" v-model="buscar" @update:model-value="filtrarVeiculos()" label="Buscar" class="q-mb-lg" clearable
-            placeholder="Digite o nome do veículo">
+        <q-input outlined dense debounce="300" color="dark" v-model="buscar" @update:model-value="filtrarVeiculos()"
+            label="Buscar" class="q-mb-lg" clearable placeholder="Digite o nome do veículo">
             <template v-slot:append>
                 <q-icon name="search" class="cursor-pointer" color="dark" />
             </template>
         </q-input>
-
-        <q-card flat bordered class="q-pa-xs">
+        <div v-if="loading" class="w100 q-mb-md row no-wrap items-center justify-center">
+            <q-spinner-ball color="teal" size="2em" />
+            <q-spinner-ball color="teal" size="2em" />
+            <q-spinner-ball color="teal" size="2em" />
+        </div>
+        <q-card v-if="!loading" flat bordered class="q-pa-xs">
             <q-card-section>
                 <q-row class="row w100 justify-center items-center" v-if="estoque.length">
                     <q-card v-for="item in veiculosFiltrados" :key="item.id" id="card-estoque" bordered flat
@@ -91,7 +95,8 @@
                     <q-img v-if="formVeiculo?.img_url" :src="formVeiculo?.img_url" class="q-mb-md rounded-borders"
                         height="200px" fit="contain" />
                     <q-input color="teal" v-model="formVeiculo.modelo" label="Modelo" dense outlined class="q-mb-sm" />
-                    <q-input color="teal" v-model="formVeiculo.descricao" label="Descrição" maxlength="350"  type="textarea" dense outlined class="q-mb-sm" />
+                    <q-input color="teal" v-model="formVeiculo.descricao" label="Descrição" maxlength="350"
+                        type="textarea" dense outlined class="q-mb-sm" />
                     <q-select color="teal" v-model="formVeiculo.tipo" :options="tipoVeiculoOptions" label="Tipo" dense
                         outlined class="q-mb-sm" />
 
@@ -114,8 +119,8 @@
                         <q-input v-model="formVeiculo.mensagens[index]" dense outlined class="col" />
                         <q-btn flat dense icon="delete" color="negative" @click="removerMensagem(index)" />
                     </div>
-                    <q-btn glossy dense icon="sms" v-if="formVeiculo.mensagens.length <= 3" icon-right="add" label="Adicionar Mensagem" color="primary"
-                        @click="adicionarMensagem" />
+                    <q-btn glossy dense icon="sms" v-if="formVeiculo.mensagens.length <= 3" icon-right="add"
+                        label="Adicionar Mensagem" color="primary" @click="adicionarMensagem" />
                 </q-card-section>
 
                 <q-separator />
@@ -146,7 +151,7 @@ const estoque = ref([])
 const dialogAdicionar = ref(false)
 const modoEdicao = ref(false);
 const idVeiculoEditando = ref(null);
-
+const loading = ref(false)
 function abrirModalEdicao(veiculo) {
     modoEdicao.value = true;
     idVeiculoEditando.value = veiculo.id;
@@ -246,7 +251,7 @@ async function salvarVeiculo() {
     try {
         if (modoEdicao.value) {
             await api.put(`/editar-veiculo/${idVeiculoEditando.value}`, payload);
-            $q.notify({ color: 'teal', position: 'top', icon:'edit', message: 'Veículo atualizado com sucesso!' });
+            $q.notify({ color: 'teal', position: 'top', icon: 'edit', message: 'Veículo atualizado com sucesso!' });
         } else {
             await api.post("/add-veiculo", { ...payload, estoque: estoque_id });
             $q.notify({ color: 'teal', position: 'top', icon: 'directions_car', message: 'Veículo adicionado com sucesso!' });
@@ -269,7 +274,7 @@ async function salvarVeiculo() {
         await carregarEstoque();
     } catch (err) {
         console.error(err);
-        $q.notify({ icon:'paid', position: 'top',type: 'negative', message: err.response?.data?.error || 'Erro ao salvar veículo.' });
+        $q.notify({ icon: 'paid', position: 'top', type: 'negative', message: err.response?.data?.error || 'Erro ao salvar veículo.' });
     }
 }
 
@@ -285,7 +290,7 @@ const filtrarVeiculos = () => {
     return estoque.value.filter(v =>
         v.modelo?.toLowerCase().includes(filtro) ||
         v.categoria?.label.toLowerCase().includes(filtro) ||
-        v.tipo?.label.toLowerCase().includes(filtro) 
+        v.tipo?.label.toLowerCase().includes(filtro)
     )
 }
 
@@ -296,6 +301,7 @@ watch(buscar, () => {
 })
 
 async function carregarEstoque() {
+    loading.value = true
     try {
         const { data } = await api.get('/meu-estoque', {
             params: { estoque_id, loja_id }
@@ -308,6 +314,8 @@ async function carregarEstoque() {
             type: 'negative',
             message: 'Erro ao buscar estoque'
         })
+    } finally {
+        loading.value = false
     }
 }
 
@@ -331,15 +339,17 @@ onMounted(async () => {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
-#card-estoque{
+#card-estoque {
     transition: all 0.2s linear;
     filter: grayscale(1);
     cursor: pointer;
 }
-#card-estoque:hover{
+
+#card-estoque:hover {
     transition: all 0.2s linear;
     filter: grayscale(0);
 }
+
 @media (min-width: 700px) {
     #card-estoque {
         width: 32%;

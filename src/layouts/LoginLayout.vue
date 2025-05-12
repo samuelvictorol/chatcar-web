@@ -13,7 +13,7 @@
 
                     <q-form @submit.prevent="handleSubmit">
                         <q-card-section>
-                            <q-input v-model="form.login" label="Login" outlined dense color="teal"
+                            <q-input v-model="form.login" label="Login" outlined :prefix="(form.login.trim() != '' && formType === 'register') ? 'chatcar.me/' : ''" dense color="teal" placeholder="Digite seu login público"
                                 :rules="[val => !!val || 'Login é obrigatório']">
                                 <template #prepend>
                                     <q-icon name="account_circle" color="teal" />

@@ -12,8 +12,8 @@
                     </div>
                 </q-toolbar-title>
                 <div class="row no-wrap items-center">
-                    <q-btn label="sair" color="grey-4" flat to="/" />
-                    <q-btn color="white" glossy class="text-black q-ml-xs" icon="menu" label="menu"
+                    <q-btn icon="home" color="grey-4" flat to="/loja" />
+                    <q-btn color="white" glossy class="text-black " icon="menu" label="menu"
                         @click="rightDrawerOpen = !rightDrawerOpen" />
                 </div>
             </q-toolbar>

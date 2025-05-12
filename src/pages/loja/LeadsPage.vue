@@ -17,9 +17,14 @@
           <q-icon name="search" />
         </template>
       </q-input>
-      <q-card v-for="lead in leadsFiltrados" :key="lead.id" class="q-pa-md"
+      <div v-if="loading" class="w100 q-mb-md row no-wrap items-center justify-center">
+        <q-spinner-ball color="teal" size="2em" />
+        <q-spinner-ball color="teal" size="2em" />
+        <q-spinner-ball color="teal" size="2em" />
+      </div>
+      <q-card id="lead" v-for="lead in leadsFiltrados" :key="lead.id" class="q-pa-md"
         :style="'border-bottom:' + '2px solid ' + (lead.relatorioIA ? '#275DF3' : '#26A69A')"
-        style="width: 100%; max-width: 400px;">
+        style="width: 100%; max-width: 300px;">
         <q-card-section>
           <div style="font-size:1.2rem" class=" text-bold row items-center">
             <q-icon name="account_circle" class="q-mr-sm" size="md"></q-icon>
@@ -138,7 +143,7 @@ async function gerarRelatorio(lead) {
 
     } catch (err) {
       console.error('Erro ao gerar relatório:', err);
-      $q.notify({ icon:'paid', position: 'top',type: 'negative', message: err.response?.data?.error || 'Erro ao gerar relatorio IA.' });
+      $q.notify({ icon: 'paid', position: 'top', type: 'negative', message: err.response?.data?.error || 'Erro ao gerar relatorio IA.' });
       showDialog.value = false;
     } finally {
       loading.value = false;
@@ -148,6 +153,7 @@ async function gerarRelatorio(lead) {
 }
 
 onMounted(async () => {
+  loading.value = true;
   try {
     const loja = JSON.parse(localStorage.getItem('user'));
     const { data } = await api.post('/buscar-leads', {
@@ -167,6 +173,8 @@ onMounted(async () => {
       type: 'negative',
       message: 'Erro ao buscar leads!'
     });
+  } finally {
+    loading.value = false;
   }
 });
 
@@ -184,6 +192,12 @@ const leadsFiltrados = computed(() => {
   position: sticky;
   left: 0;
   z-index: 2;
+}
+
+@media (min-width: 700px) {
+  #lead {
+    width: 100%;
+  }
 }
 
 @media (min-width: 600px) {
