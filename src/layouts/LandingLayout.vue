@@ -12,7 +12,7 @@
         </q-toolbar-title>
         <!-- <q-btn label="experimente" icon-right="rocket_launch" color="green-14" class="q-mr-sm " glossy to="/loja" /> -->
         <q-btn v-if="!storedLoja" color="teal" glossy dense class="q-px-sm text-white" label="Iniciar Sessão"
-          icon-right="login"  to="/login" />
+          icon-right="login" to="/login" />
         <div v-else>
           <q-btn color="teal" @click="logout()" dense class="q-px-sm text-white q-mr-xs" flat label="sair" />
           <q-btn color="teal" dense class="q-px-sm text-white" label="Meu Painel" icon-right="store" glossy
@@ -49,8 +49,8 @@
           <p class="text-subtitle1  q-px-lg ">
             Atenda 24 horas, aumente a experiência do seu cliente e gere leads com i.a.
           </p>
-          <q-btn label="CONHEÇA A PLATAFORMA" color="teal" icon="query_stats" class="q-px-md q-mt-lg"
-            to="/login" unelevated size="lg" />
+          <q-btn label="CONHEÇA A PLATAFORMA" color="teal" icon="query_stats" class="q-px-md q-mt-lg" to="/login"
+            unelevated size="lg" />
         </div>
       </section>
       <div class="w100 row no-wrap justify-between">
@@ -128,8 +128,8 @@
             </div>
           </div>
 
-          <q-btn label="Aproveitar agora" color="teal-14" glossy class="shadow-1 q-mt-lg" @click="routerPush('agora')" size="lg"
-            unelevated />
+          <q-btn label="Aproveitar agora" color="teal-14" glossy class="shadow-1 q-mt-lg" @click="routerPush('agora')"
+            size="lg" unelevated />
         </div>
       </section>
       <section class="q-pb-xl q-pt-md bg-grey-2 text-center">
@@ -279,10 +279,16 @@
           <p>Fale com nosso time agora mesmo</p>
           <q-btn label="Entrar em contato via WhatsApp" color="secondary" class="q-mt-md q-py-xl" icon="sms" glossy
             @click="solicitarContatoWpp()" target="_blank" />
+            <div class="w100 text-center text-teal-2 q-pt-lg text-bold">
+                chatcar.suporte@gmail.com
+            </div>
+            <div class="w100 text-center text-teal-2 q-pt-sm text-bold">
+                Instagram e TikTok: @chatcar.ia
+            </div>
         </div>
-        <div class="w100 row justify-between q-pt-xl q-px-xl rounded-borders no-wrap">
+        <!-- <div class="w100 row justify-between q-pt-xl q-px-xl rounded-borders no-wrap">
           <img src="modelo3.png" width="100%" class="rounded-borders shadow-1" alt="">
-        </div>
+        </div> -->
       </section>
       <q-dialog v-model="planosDialog.mensal">
         <PlanoMensal @close="planosDialog.mensal = false" />

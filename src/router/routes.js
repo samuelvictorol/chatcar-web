@@ -1,12 +1,12 @@
 
 const routes = [
   {
-    path: '/chatcar_admin',
-    component: () => import('layouts/AdminLayout.vue'),
-  },
-  {
     path: '',
     component: () => import('layouts/LandingLayout.vue'),
+  },
+  {
+    path: '/ia',
+    component: () => import('layouts/LandingDirectPage.vue'),
   },
   {
     path: '/login',
