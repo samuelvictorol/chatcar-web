@@ -238,7 +238,7 @@ onMounted(async () => {
 
                     <div class="text-body1" v-if="!editando">
                         <strong>Vencimento:</strong>
-                        Plano válido até
+                        Plano ativo até
                         <strong>{{ formatarData(lojaInfo.plano_expira) }}</strong>
                     </div>
 

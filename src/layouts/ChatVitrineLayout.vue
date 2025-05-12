@@ -146,71 +146,6 @@
                             </q-card-section>
                         </q-card>
                     </q-dialog>
-                    <!-- Dialog da IA -->
-                    <q-dialog v-model="iaDialogVisible" persistent>
-                        <q-card class="q-pa-md" style="min-width: 400px; max-width: 95vw">
-                            <q-card-section class="row items-center q-pb-none no-wrap w100">
-                                <q-icon name="psychology" size="md" color="blue-14" />
-                                <div class="text-h6 q-ml-sm">Sugestão IA ChatCar</div>
-                                <q-space />
-                                <q-btn icon="close" flat round dense @click="iaDialogVisible = false" />
-                            </q-card-section>
-
-                            <q-card-section>
-                                <div class="text-body1 text-grey-8">
-                                    Com base no seu perfil de uso, a IA selecionou 2 carros com melhor custo-benefício
-                                    no
-                                    estoque:
-                                </div>
-                            </q-card-section>
-
-                            <q-separator spaced />
-
-                            <!-- Opção 1: Renault Kwid -->
-                            <q-card-section class="q-mb-sm">
-                                <div class="text-subtitle1 text-blue-14">1. Renault Kwid 2023</div>
-                                <q-img src="/kwid.jpg" class="q-mt-sm rounded-borders"
-                                    style="max-height: 180px; object-fit: cover;" />
-                                <div class="q-mt-sm text-body2">
-                                    <b>Descrição:</b> 1.0 FLEX ZEN MANUAL - 50.000km - Preto - 2020
-                                    <br />
-                                    <b>Motivos da escolha:</b>
-                                    <ul class="q-pl-md">
-                                        <li>O Kwid é um dos carros mais econômicos do Brasil!</li>
-                                        <li>Esse modelo vem com central multimídia e direção elétrica.</li>
-                                        <li>IPVA e manutenção fácil!</li>
-                                    </ul>
-                                </div>
-                            </q-card-section>
-
-                            <q-separator spaced />
-
-                            <!-- Opção 2: Honda Civic -->
-                            <q-card-section>
-                                <div class="text-subtitle1 text-blue-14">2. Honda Civic 2020</div>
-                                <q-img src="/civic.jpg" class="q-mt-sm rounded-borders"
-                                    style="max-height: 180px; object-fit: cover;" />
-                                <div class="q-mt-sm text-body2">
-                                    <b>Descrição:</b> 1.5 TURBO FLEX EX CVT - 50.000km - Preto - 2020
-                                    <br />
-                                    <b>Motivos da escolha:</b>
-                                    <ul class="q-pl-md">
-                                        <li>O Civic é conhecido pela sua confiabilidade e durabilidade.</li>
-                                        <li>Esse modelo tem um ótimo espaço interno e conforto para viagens longas.</li>
-                                        <li>IPVA e manutenção muito baratos!</li>
-                                    </ul>
-                                </div>
-                            </q-card-section>
-
-                            <q-separator spaced />
-
-                            <q-card-section>
-                                <div class="text-caption text-grey text-center">
-                                    Análise automática gerada com base no histórico de preferências dos nossos clientes.
-                                </div>
-                            </q-card-section>
-                        </q-card>
-                    </q-dialog>
                     <!-- Dialog com informações da loja -->
                     <q-dialog v-model="infoLojaVisible">
                         <q-card class="q-pa-md" style="min-width: 350px; max-width: 90vw">
@@ -272,7 +207,7 @@
                                 </div>
                                 <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria.label }} - {{
                                     carroSelecionado.ano
-                                    }}
+                                }}
                                 </div>
                                 <q-img :src="carroSelecionado.img_url" :alt="carroSelecionado.modelo"
                                     style="border-radius: 12px;" class="q-mb-md" />
@@ -303,7 +238,7 @@
                 <!-- Input fixo no final -->
                 <div class="q-pa-md bg-white row items-center"
                     style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
-                    <q-input filled v-model="input" maxlength="30" color="secondary" class="col"
+                    <q-input filled v-model="input" maxlength="100" color="secondary" class="col"
                         placeholder="Ex: sedan, tração traseira, 2020..." @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
@@ -617,11 +552,6 @@ onBeforeMount(async () => {
             })
         })
     })
-
-    messages.value.push({
-        from: 'bot',
-        text: `😁 Qual veículo você busca? Poderia me informar o modelo, ano, categoria ou preço?`
-    })
 })
 
 
@@ -642,22 +572,22 @@ async function sendMessage() {
 
     try {
         loadingIA.value = true;
+
         const response = await api.post('/chatvitrine', {
             login: sobreLoja.value.login,
+            lead: leadId.value, // <-- Adiciona o ID do lead
             mensagem: texto
         });
 
         const { chatvitrine } = response.data;
 
-        // Exibir as mensagens da IA com delay entre elas
         for (const msg of chatvitrine.mensagens) {
-            await delay(500); // delay entre as mensagens da IA
+            await delay(500);
             messages.value.push({ from: 'bot', text: msg });
             await nextTick();
             scrollToBottom();
         }
 
-        // Atualiza o carrossel com os veículos sugeridos
         const sugeridos = estoque.value.filter(veiculo =>
             chatvitrine.estoque.includes(veiculo.id)
         );
@@ -677,6 +607,7 @@ async function sendMessage() {
         loadingIA.value = false;
     }
 }
+
 
 // Função utilitária para delay
 function delay(ms) {
