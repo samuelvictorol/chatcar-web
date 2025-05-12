@@ -49,7 +49,7 @@
           <p class="text-subtitle1  q-px-lg ">
             Atenda 24 horas, aumente a experiência do seu cliente e gere leads com i.a.
           </p>
-          <q-btn label="CONHEÇA A PLATAFORMA" color="teal-14" icon="query_stats" class="q-px-md q-mt-lg"
+          <q-btn label="CONHEÇA A PLATAFORMA" color="teal" icon="query_stats" class="q-px-md q-mt-lg"
             to="/login" unelevated size="lg" />
         </div>
       </section>

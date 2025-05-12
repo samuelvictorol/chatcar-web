@@ -8,8 +8,8 @@
                     </q-avatar> -->
                     <div v-if="!loading" class="q-pl-sm animate__animated animate__fadeInLeft animate__slower">
                         <q-avatar size="50px" class="q-mr-sm">
-                            <img :src=" sobreLoja.img_url ? sobreLoja.img_url : '/logo.jpeg'" alt="Logo" />
-                          </q-avatar>
+                            <img :src="sobreLoja.img_url ? sobreLoja.img_url : '/logo.jpeg'" alt="Logo" />
+                        </q-avatar>
                     </div>
                 </q-toolbar-title>
                 <q-btn class="q-mr-sm" color="grey-2" to="/" flat icon="logout" />
@@ -61,7 +61,7 @@
                 <div class="bg-dark sticky-top"
                     style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
                     <div class="w100 row no-wrap items-center justify-between q-px-md q-pt-m">
-                        <div class="text-h6 text-white q-pt-sm ">{{ sobreLoja.nome}}</div>
+                        <div class="text-h6 text-white q-pt-sm ">{{ sobreLoja.nome }}</div>
                         <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="contato"
                                 icon-right="contact_support" color="" @click="openInfoLoja()"
                                 style="border:2px solid #26A69A" dense flat></q-btn></div>
@@ -272,7 +272,7 @@
                                 </div>
                                 <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria.label }} - {{
                                     carroSelecionado.ano
-                                }}
+                                    }}
                                 </div>
                                 <q-img :src="carroSelecionado.img_url" :alt="carroSelecionado.modelo"
                                     style="border-radius: 12px;" class="q-mb-md" />
@@ -307,7 +307,8 @@
                         placeholder="Ex: sedan, tração traseira, 2020..." @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
-                    <q-btn icon="send" color="teal" flat round @click="sendMessage" />
+                    <q-btn v-if="!loadingIA" icon="send" color="teal" flat round @click="sendMessage" />
+                    <q-spinner-comment v-else color="teal" size="2em" />
                 </div>
             </q-page>
         </q-page-container>
@@ -332,6 +333,7 @@ const router = useRouter()
 
 const sobreLoja = ref(null)
 const loading = ref(true)
+const loadingIA = ref(false)
 const mensagensContainer = ref(null)
 const dialogAberto = ref(false)
 const carroSelecionado = ref({})
@@ -374,26 +376,26 @@ async function gerarLead() {
 
 async function carregarEstoque() {
     try {
-        if(route.params.login === 'chatcars') {
+        if (route.params.login === 'chatcars') {
             $q.notify({
-            color: 'teal',
-            icon: 'directions_car',
-            position: 'top',
-            message: 'Esse é o nosso estoque de testes! É assim que seus clientes serão atendidos 24 horas!'
-        });
+                color: 'teal',
+                icon: 'directions_car',
+                position: 'top',
+                message: 'Esse é o nosso estoque de testes! É assim que seus clientes serão atendidos 24 horas!'
+            });
         }
         const { data } = await api.get('/estoque-publico/' + route.params.login);
         sobreLoja.value = data.loja;
         estoque.value = data.estoque;
         estoqueFiltrado.value = [...estoque.value];
-        if(estoque.value == [] || estoque.value.length == 0) {
+        if (estoque.value == [] || estoque.value.length == 0) {
             $q.notify({
-            color: 'teal',
-            icon: 'directions_car',
-            position: 'top',
-            message: 'Esse estoque ainda não possui veículos cadastrados'
-        });
-        setTimeout(()=> window.location.href = '/', 2000)
+                color: 'teal',
+                icon: 'directions_car',
+                position: 'top',
+                message: 'Esse estoque ainda não possui veículos cadastrados'
+            });
+            setTimeout(() => window.location.href = '/', 2000)
         }
     } catch (err) {
         console.error('Erro ao buscar estoque', err);
@@ -403,7 +405,7 @@ async function carregarEstoque() {
             position: 'top',
             message: err.response?.data?.error
         });
-        setTimeout(()=>{
+        setTimeout(() => {
             router.push('/')
         }, 1000)
     }
@@ -626,52 +628,69 @@ onBeforeMount(async () => {
 function toggleEstoqueDrawer() {
     showEstoqueDrawer.value = !showEstoqueDrawer.value
 }
-
-function sendMessage() {
+async function sendMessage() {
     const texto = input.value.trim();
-    if (!input.value.trim()) return;
+    if (!texto) return;
 
+    // Adiciona mensagem do usuário
     messages.value.push({ from: 'user', text: texto });
     interacoes.value++;
+    input.value = '';
 
-    input.value = '';  // Limpa o campo de entrada
-    const termo = texto.toLowerCase();
+    await nextTick();
+    scrollToBottom();
 
-    // Filtra os carros no estoque com base no termo de busca
-    const resultado = estoque.value.filter(carro => {
-        return (
-            carro.modelo?.toLowerCase().includes(termo) ||
-            carro.categoria?.label.toLowerCase().includes(termo) ||
-            carro.ano?.toString().includes(termo) ||
-            (carro.descricao && carro.descricao.toLowerCase().includes(termo)) ||
-            (carro.mensagens && carro.mensagens.some(msg => msg.toLowerCase().includes(termo)))
+    try {
+        loadingIA.value = true;
+        const response = await api.post('/chatvitrine', {
+            login: sobreLoja.value.login,
+            mensagem: texto
+        });
+
+        const { chatvitrine } = response.data;
+
+        // Exibir as mensagens da IA com delay entre elas
+        for (const msg of chatvitrine.mensagens) {
+            await delay(500); // delay entre as mensagens da IA
+            messages.value.push({ from: 'bot', text: msg });
+            await nextTick();
+            scrollToBottom();
+        }
+
+        // Atualiza o carrossel com os veículos sugeridos
+        const sugeridos = estoque.value.filter(veiculo =>
+            chatvitrine.estoque.includes(veiculo.id)
         );
-    });
-    carrosselIndex.value = 0;
 
-    if (resultado.length) {
-        setTimeout(() => {
-            carrossel.value = resultado; 
-            messages.value.push({
-                from: 'bot',
-                text: `🔍 Encontrei ${resultado.length} carro(s) que podem te interessar. Veja na vitrine acima!`
-            });
-            nextTick(() => {
-                window.scrollTo(0, document.body.scrollHeight);
-            });
-        }, 500)
-    } else {
-        setTimeout(() => {
-            messages.value.push({
-                from: 'bot',
-                text: `😕 Não possuo nenhum veículo com essas características. Tente algo como "SUV", "Corolla", "2020" etc.`
-            });
-            nextTick(() => {
-                window.scrollTo(0, document.body.scrollHeight);
-            });
-        }, 500)
+        carrosselIndex.value = 0;
+        carrossel.value = sugeridos;
+
+    } catch (error) {
+        console.error('Erro no chat vitrine:', error);
+        messages.value.push({
+            from: 'bot',
+            text: '⚠️ Algo deu errado ao buscar os veículos. Tente novamente mais tarde.'
+        });
+        await nextTick();
+        scrollToBottom();
+    } finally {
+        loadingIA.value = false;
     }
 }
+
+// Função utilitária para delay
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Scroll automático para o final do chat
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
+}
+
 
 function filtrarMenuEstoque() {
     const texto = filtroEstoque.value.trim();
