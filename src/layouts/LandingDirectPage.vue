@@ -50,11 +50,19 @@
             </div>
 
             <!-- Formulário de cadastro -->
-            <div class="q-my-xl">
+            <div class="q-my-xl bg-green-1 q-pt-md q-pb-xl rouded-borders shadow-2 q-pl-md">
                 <h2 class="text-h6 text-teal text-left text-bold q-mb-md">1/2 Cadastre-se agora mesmo*</h2>
                 <q-form @submit.prevent="handleSubmit" class="q-gutter-y-sm" style="max-width: 500px; margin: auto;">
-                    <q-input color="teal" filled v-model="form.email" label="E-mail" type="email" required />
-                    <q-input color="teal" filled v-model="form.login" label="Login" required />
+                    <q-input color="teal" filled v-model="form.email" label="E-mail" type="email" required>
+                        <template v-slot:append>
+                            <q-icon name="email" class="cursor-pointer" @click.stop />
+                        </template>
+                    </q-input>
+                    <q-input color="teal" filled v-model="form.login" label="Login" required>
+                        <template v-slot:append>
+                            <q-icon name="person" class="cursor-pointer" @click.stop />
+                        </template>
+                    </q-input>
                     <q-input color="teal" filled v-model="form.senha" label="Senha" type="password" required />
                     <q-input color="teal" filled v-model="form.telefone" label="Telefone" mask="(##) #####-####"
                         required />

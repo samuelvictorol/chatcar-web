@@ -559,55 +559,57 @@ function toggleEstoqueDrawer() {
     showEstoqueDrawer.value = !showEstoqueDrawer.value
 }
 async function sendMessage() {
-    const texto = input.value.trim();
-    if (!texto) return;
+  const texto = input.value.trim();
+  if (!texto) return;
 
-    // Adiciona mensagem do usuário
-    messages.value.push({ from: 'user', text: texto });
-    interacoes.value++;
-    input.value = '';
+  // Adiciona mensagem do usuário
+  messages.value.push({ from: 'user', text: texto });
+  interacoes.value++;
+  input.value = '';
 
+  await nextTick();
+  scrollToBottom();
+
+  try {
+    loadingIA.value = true;
+
+    const vitrineAtualIds = carrossel.value.map(v => v.id);
+
+    const response = await api.post('/chatvitrine', {
+      login: sobreLoja.value.login,
+      lead: leadId.value,
+      mensagem: texto,
+      vitrineAtual: vitrineAtualIds
+    });
+
+    const { chatvitrine } = response.data;
+
+    for (const msg of chatvitrine.mensagens) {
+      await delay(500);
+      messages.value.push({ from: 'bot', text: msg });
+      await nextTick();
+      scrollToBottom();
+    }
+
+    const sugeridos = estoque.value.filter(veiculo =>
+      chatvitrine.estoque.includes(veiculo.id)
+    );
+
+    carrosselIndex.value = 0;
+    carrossel.value = sugeridos;
+
+  } catch (error) {
+    console.error('Erro no chat vitrine:', error);
+    messages.value.push({
+      from: 'bot',
+      text: '⚠️ Algo deu errado ao buscar os veículos. Tente novamente mais tarde.'
+    });
     await nextTick();
     scrollToBottom();
-
-    try {
-        loadingIA.value = true;
-
-        const response = await api.post('/chatvitrine', {
-            login: sobreLoja.value.login,
-            lead: leadId.value, // <-- Adiciona o ID do lead
-            mensagem: texto
-        });
-
-        const { chatvitrine } = response.data;
-
-        for (const msg of chatvitrine.mensagens) {
-            await delay(500);
-            messages.value.push({ from: 'bot', text: msg });
-            await nextTick();
-            scrollToBottom();
-        }
-
-        const sugeridos = estoque.value.filter(veiculo =>
-            chatvitrine.estoque.includes(veiculo.id)
-        );
-
-        carrosselIndex.value = 0;
-        carrossel.value = sugeridos;
-
-    } catch (error) {
-        console.error('Erro no chat vitrine:', error);
-        messages.value.push({
-            from: 'bot',
-            text: '⚠️ Algo deu errado ao buscar os veículos. Tente novamente mais tarde.'
-        });
-        await nextTick();
-        scrollToBottom();
-    } finally {
-        loadingIA.value = false;
-    }
+  } finally {
+    loadingIA.value = false;
+  }
 }
-
 
 // Função utilitária para delay
 function delay(ms) {
@@ -663,21 +665,8 @@ async function atualizarLead() {
 
 
 watch(interacoes, async (val) => {
-    if (val > 0 && val % 2 === 0) {
-        // Atualiza lead a cada interação
+    if (val > 0 && val % 1 === 0) {
         await atualizarLead();
-    }
-
-    if (val === 3) {
-        setTimeout(() => {
-            messages.value.push({
-                from: 'bot',
-                text: '✨ Em breve, um de nossos atendentes irá entrar em contato com você para uma conversa personalizada!'
-            });
-            nextTick(() => {
-                window.scrollTo(0, document.body.scrollHeight);
-            });
-        }, 600);
     }
 });
 

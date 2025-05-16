@@ -30,7 +30,7 @@
             <q-icon name="account_circle" class="q-mr-sm" size="md"></q-icon>
             {{ lead.name }}
           </div>
-          <div class="text-caption text-grey-8">Recebido em {{ lead.dataHora }}</div>
+          <div class="text-caption text-grey-8">Recebido em {{ formatarDataHora(lead.dataHora) }}</div>
         </q-card-section>
 
         <q-separator />
@@ -151,7 +151,28 @@ async function gerarRelatorio(lead) {
   }
   leadSelecionado.value = lead;
 }
+function formatarDataHora(dataString) {
+  if (!dataString) return 'Data inválida';
 
+  // Espera algo como "13/05/2025, 20:22"
+  const [data, hora] = dataString.split(', ');
+  if (!data || !hora) return 'Data inválida';
+
+  const [dia, mes, ano] = data.split('/');
+
+  const dataISO = `${ano}-${mes}-${dia}T${hora}:00`;
+  const dateObj = new Date(dataISO);
+
+  if (isNaN(dateObj.getTime())) return 'Data inválida';
+
+  return dateObj.toLocaleString('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+}
 onMounted(async () => {
   loading.value = true;
   try {
