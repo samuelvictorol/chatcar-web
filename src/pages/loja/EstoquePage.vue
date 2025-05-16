@@ -32,7 +32,7 @@
                         <q-card-section>
                             <div class="text-subtitle1 text-bold">{{ item.modelo }}</div>
                             <div class="text-subtitle1">{{ item.ano }} - {{ item.status.label }}</div>
-                            <div class="text-body2 text-grey-8">R$ {{ item.preco | currency }},00</div>
+                            <div class="text-body2 text-grey-8">R$ {{ item.preco }}</div>
                         </q-card-section>
                         <q-card-actions align="right" class="bg-dark">
                             <q-btn flat color="red-4" icon="delete" @click="confirmarRemocao(item)" />
@@ -57,9 +57,12 @@
                 <q-separator />
 
                 <q-card-section>
-                    <q-img :src="veiculoSelecionado?.img_url" class="q-mb-md rounded-borders" height="200px"
-                        fit="contain" />
-
+                    <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length" swipeable animated
+                         class="rounded-borders q-mb-md bg-grey-2" navigation arrows infinite>
+                        <q-carousel-slide class="bg-dark" v-for="(img, index) in imagensVeiculoSelecionado" :key="index" :name="index">
+                            <q-img :src="img" fit="contain" class="rounded-borders w100" style="border-bottom: 4px solid teal;border-top: 4px solid teal;" height="100%" />
+                        </q-carousel-slide>
+                    </q-carousel>
                     <div class="text-subtitle1 text-bold">{{ veiculoSelecionado?.ano }}</div>
                     <div class="text-body2">Modelo: {{ veiculoSelecionado?.modelo }}</div>
                     <div class="text-body2 q-mb-xs">Preço: R$ {{ veiculoSelecionado?.preco }}</div>
@@ -69,16 +72,8 @@
                     <div class="text-body2">Tipo: {{ veiculoSelecionado?.tipo.label }}</div>
                     <div class="text-body2">Ano: {{ veiculoSelecionado?.ano }}</div>
                 </q-card-section>
-                <q-card-section class="q-pt-none">
-                    <div class="text-subtitle2 text-bold q-mb-sm">Mensagens</div>
-                    <q-list bordered separator>
-                        <q-item v-for="(mensagem, index) in veiculoSelecionado?.mensagens || []" :key="index">
-                            <q-item-section class="row no-wrap">
-                                <q-icon name="sms" size="sm" color="teal"></q-icon>{{ mensagem }}
-                            </q-item-section>
-                        </q-item>
-                    </q-list>
-                </q-card-section>
+                <q-separator />
+                <div class="w100 q-mt-md"></div>
             </q-card>
         </q-dialog>
         <q-dialog v-model="dialogAdicionar">
@@ -92,35 +87,77 @@
                 <q-separator />
 
                 <q-card-section>
-                    <q-img v-if="formVeiculo?.img_url" :src="formVeiculo?.img_url" class="q-mb-md rounded-borders"
-                        height="200px" fit="contain" />
-                    <q-input color="teal" v-model="formVeiculo.modelo" label="Modelo" dense outlined class="q-mb-sm" />
-                    <q-input color="teal" v-model="formVeiculo.descricao" label="Descrição" maxlength="350"
-                        type="textarea" dense outlined class="q-mb-sm" />
+                    <q-carousel v-model="slideAtivoAdicionar" v-if="imagensFormVeiculo.length" swipeable animated
+                        height="200px" class="rounded-borders q-mb-md bg-grey-2" navigation arrows infinite>
+                        <q-carousel-slide class="bg-dark" v-for="(img, index) in imagensFormVeiculo" :key="index" :name="index">
+                            <q-img :src="img" fit="cover" class="full-height" style="border-bottom: 4px solid teal" />
+                        </q-carousel-slide>
+                    </q-carousel>
+                    <q-input color="teal" v-model="formVeiculo.modelo" label="Modelo"
+                        placeholder="Ex: BMW 320i, HYUNDAI HB20" dense outlined class="q-mb-sm">
+                        <template v-slot:append>
+                            <q-icon name="directions_car" class="cursor-pointer" color="teal" />
+                        </template>
+                    </q-input>
+                    <q-input color="teal" v-model="formVeiculo.descricao"
+                        placeholder="Descreva o máximo de informações relevantes sobre o veículo pois a i.a utiliza esse campo para filtrar"
+                        label="Descrição" maxlength="350" type="textarea" dense outlined class="q-mb-sm">
+                        <template v-slot:append>
+                            <q-icon name="description" class="cursor-pointer" color="teal" />
+                        </template>
+                    </q-input>
                     <q-select color="teal" v-model="formVeiculo.tipo" :options="tipoVeiculoOptions" label="Tipo" dense
-                        outlined class="q-mb-sm" />
-
+                        outlined class="q-mb-sm">
+                        <template v-slot:append>
+                            <q-icon name="two_wheeler" class="cursor-pointer" color="teal" />
+                        </template>
+                    </q-select>
                     <q-select color="teal" v-model="formVeiculo.categoria" :options="categoriaVeiculoOptions"
-                        label="Categoria" dense outlined class="q-mb-sm" />
+                        label="Categoria" dense outlined class="q-mb-sm">
+                        <template v-slot:append>
+                            <q-icon name="sports_motorsports" class="cursor-pointer" color="teal" />
+                        </template>
+                    </q-select>
 
                     <q-select color="teal" v-model="formVeiculo.status" :options="statusVeiculoOptions" label="Status"
-                        dense outlined class="q-mb-sm" />
+                        dense outlined class="q-mb-sm">
+                        <template v-slot:append>
+                            <q-icon name="mode_standby" class="cursor-pointer" color="teal" />
+                        </template>
+                    </q-select>
 
                     <q-input color="teal" v-model.number="formVeiculo.ano" label="Ano" type="number" dense outlined
-                        class="q-mb-sm" />
+                        class="q-mb-sm">
+                        <template v-slot:append>
+                            <q-icon name="calendar_today" class="cursor-pointer" color="teal" />
+                        </template>
+                    </q-input>
                     <q-input color="teal" v-model="formVeiculo.preco" label="Preço" mask="#.##" fill-mask="0"
-                        reverse-fill-mask prefix="R$" input-class="text-right" dense outlined class="q-mb-sm" />
-                    <q-input color="teal" v-model="formVeiculo.img_url" label="URL da Imagem" dense outlined
-                        class="q-mb-md" />
+                        reverse-fill-mask prefix="R$" input-class="text-right" dense outlined class="q-mb-sm">
+                        <template v-slot:append>
+                            <q-icon name="paid" class="cursor-pointer" color="teal" />
+                        </template>
+                    </q-input>
+                    <q-input color="teal" v-model="formVeiculo.img_url" label="Imagem Principal Url" dense outlined
+                        class="q-mb-md">
+                        <template v-slot:append>
+                            <q-icon name="image" class="cursor-pointer" color="teal" />
+                        </template>
+                    </q-input>
+                    <q-separator />
 
-                    <div class="text-subtitle2 q-mb-xs">Mensagens</div>
+                    <div class="text-subtitle2 q-mb-xs">Imagens</div>
                     <div v-for="(msg, index) in formVeiculo.mensagens" :key="index"
                         class="row q-gutter-sm items-center q-mb-sm">
-                        <q-input v-model="formVeiculo.mensagens[index]" dense outlined class="col" />
+                        <q-input v-model="formVeiculo.mensagens[index]" color="teal" dense outlined placeholder="Cole o link da imagem do veículo" class="col">
+                            <template v-slot:append>
+                                <q-icon name="image" class="cursor-pointer" color="teal" />
+                            </template>
+                        </q-input>
                         <q-btn flat dense icon="delete" color="negative" @click="removerMensagem(index)" />
                     </div>
-                    <q-btn glossy dense icon="sms" v-if="formVeiculo.mensagens.length <= 3" icon-right="add"
-                        label="Adicionar Mensagem" color="primary" @click="adicionarMensagem" />
+                    <q-btn glossy dense icon="image" v-if="formVeiculo.mensagens.length <= 3" icon-right="add"
+                        label="Adicionar imagem" color="primary" @click="adicionarMensagem" />
                 </q-card-section>
 
                 <q-separator />
@@ -135,7 +172,7 @@
     </q-page>
 </template>
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, computed } from "vue";
 import { useQuasar } from 'quasar'
 import { api } from 'src/boot/axios';
 import { TipoVeiculoEnum, CategoriaVeiculoEnum, StatusVeiculoEnum } from 'src/enums/VeiculoEnum';
@@ -158,7 +195,20 @@ function abrirModalEdicao(veiculo) {
     formVeiculo.value = { ...veiculo };
     dialogAdicionar.value = true;
 }
+const imagensVeiculoSelecionado = computed(() => {
+    if (!veiculoSelecionado.value) return []
+    const lista = []
 
+    if (veiculoSelecionado.value.img_url?.trim()) {
+        lista.push(veiculoSelecionado.value.img_url)
+    }
+
+    if (Array.isArray(veiculoSelecionado.value.mensagens)) {
+        lista.push(...veiculoSelecionado.value.mensagens.filter(msg => msg?.trim()))
+    }
+
+    return lista
+})
 function abrirModalAdicionar() {
     modoEdicao.value = false;
     idVeiculoEditando.value = null;
@@ -175,6 +225,8 @@ function abrirModalAdicionar() {
     };
     dialogAdicionar.value = true;
 }
+const slideAtivoDetalhes = ref(0)
+const slideAtivoAdicionar = ref(0)
 
 const user = JSON.parse(localStorage.getItem("user"))
 const estoque_id = user.estoque
@@ -220,6 +272,17 @@ const formVeiculo = ref({
     img_url: '',
     mensagens: []
 })
+
+const imagensFormVeiculo = computed(() => {
+    if (!formVeiculo.value) return []
+    const imgs = []
+    if (formVeiculo.value.img_url) imgs.push(formVeiculo.value.img_url)
+    if (Array.isArray(formVeiculo.value.mensagens)) {
+        imgs.push(...formVeiculo.value.mensagens.filter(Boolean))
+    }
+    return imgs
+})
+
 
 function adicionarMensagem() {
     formVeiculo.value.mensagens.push('')
@@ -341,13 +404,7 @@ onMounted(async () => {
 
 #card-estoque {
     transition: all 0.2s linear;
-    filter: grayscale(1);
     cursor: pointer;
-}
-
-#card-estoque:hover {
-    transition: all 0.2s linear;
-    filter: grayscale(0);
 }
 
 @media (min-width: 700px) {
@@ -355,4 +412,5 @@ onMounted(async () => {
         width: 32%;
     }
 }
+
 </style>

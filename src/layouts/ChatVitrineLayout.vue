@@ -200,23 +200,31 @@
                         </q-card>
                     </q-dialog>
                     <!-- Dialog de detalhes -->
-                    <q-dialog v-model="dialogAberto">
+                    <q-dialog v-model="dialogAberto" persistent>
                         <q-card class="q-pa-md" style="width: 100%; max-width: 500px;">
                             <q-card-section>
                                 <div class="text-h6">{{ carroSelecionado.modelo }}<br>R$ {{ carroSelecionado.preco }}
                                 </div>
                                 <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria.label }} - {{
                                     carroSelecionado.ano
-                                }}
+                                    }}
                                 </div>
-                                <q-img :src="carroSelecionado.img_url" :alt="carroSelecionado.modelo"
-                                    style="border-radius: 12px;" class="q-mb-md" />
+                                <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length"
+                                    swipeable animated class="rounded-borders q-mb-md bg-grey-2" navigation arrows
+                                    infinite>
+                                    <q-carousel-slide class="bg-dark" v-for="(img, index) in imagensVeiculoSelecionado"
+                                        :key="index" :name="index">
+                                        <q-img :src="img" fit="contain" class="rounded-borders w100"
+                                            style="border-bottom: 4px solid teal;border-top: 4px solid teal;"
+                                            height="100%" />
+                                    </q-carousel-slide>
+                                </q-carousel>
                                 <div v-if="carroSelecionado.descricao" class="text-body2">
                                     {{ carroSelecionado.descricao }}
                                 </div>
                             </q-card-section>
                             <q-card-actions align="right">
-                                <q-btn flat label="Fechar" color="secondary" v-close-popup />
+                                <q-btn flat label="Fechar" color="secondary" @click="fecharDetalhes()"/>
                                 <q-btn label="Contato" glossy icon-right="sms"
                                     @click="sendWppMessage(carroSelecionado.modelo)" color="secondary" v-close-popup />
                             </q-card-actions>
@@ -291,7 +299,11 @@ const usuario = ref({
 })
 const leadId = ref(null)
 const lead = ref(null)
-
+const slideAtivoDetalhes = ref(0)
+function fecharDetalhes() {
+    dialogAberto.value = false
+    slideAtivoDetalhes.value = 0
+}
 async function gerarLead() {
     await api.post('/gerar-lead', {
         login_loja: route.params.login,
@@ -308,7 +320,20 @@ async function gerarLead() {
         });
     })
 }
+const imagensVeiculoSelecionado = computed(() => {
+    if (!carroSelecionado.value) return []
+    const lista = []
 
+    if (carroSelecionado.value.img_url?.trim()) {
+        lista.push(carroSelecionado.value.img_url)
+    }
+
+    if (Array.isArray(carroSelecionado.value.mensagens)) {
+        lista.push(...carroSelecionado.value.mensagens.filter(msg => msg?.trim()))
+    }
+
+    return lista
+})
 async function carregarEstoque() {
     try {
         if (route.params.login === 'chatcars') {
@@ -356,12 +381,6 @@ function abrirDialog(carro) {
     console.log(carro)
     usuario.value.preferencias.push(carro.modelo)
     interacoes.value++;
-    while (carro.mensagens.length > 0) {
-        messages.value.push({
-            from: 'bot',
-            text: carro.mensagens.pop()
-        })
-    }
     nextTick(() => {
         window.scrollTo(0, document.body.scrollHeight)
     })
@@ -559,56 +578,56 @@ function toggleEstoqueDrawer() {
     showEstoqueDrawer.value = !showEstoqueDrawer.value
 }
 async function sendMessage() {
-  const texto = input.value.trim();
-  if (!texto) return;
+    const texto = input.value.trim();
+    if (!texto) return;
 
-  // Adiciona mensagem do usuário
-  messages.value.push({ from: 'user', text: texto });
-  interacoes.value++;
-  input.value = '';
+    // Adiciona mensagem do usuário
+    messages.value.push({ from: 'user', text: texto });
+    interacoes.value++;
+    input.value = '';
 
-  await nextTick();
-  scrollToBottom();
-
-  try {
-    loadingIA.value = true;
-
-    const vitrineAtualIds = carrossel.value.map(v => v.id);
-
-    const response = await api.post('/chatvitrine', {
-      login: sobreLoja.value.login,
-      lead: leadId.value,
-      mensagem: texto,
-      vitrineAtual: vitrineAtualIds
-    });
-
-    const { chatvitrine } = response.data;
-
-    for (const msg of chatvitrine.mensagens) {
-      await delay(500);
-      messages.value.push({ from: 'bot', text: msg });
-      await nextTick();
-      scrollToBottom();
-    }
-
-    const sugeridos = estoque.value.filter(veiculo =>
-      chatvitrine.estoque.includes(veiculo.id)
-    );
-
-    carrosselIndex.value = 0;
-    carrossel.value = sugeridos;
-
-  } catch (error) {
-    console.error('Erro no chat vitrine:', error);
-    messages.value.push({
-      from: 'bot',
-      text: '⚠️ Algo deu errado ao buscar os veículos. Tente novamente mais tarde.'
-    });
     await nextTick();
     scrollToBottom();
-  } finally {
-    loadingIA.value = false;
-  }
+
+    try {
+        loadingIA.value = true;
+
+        const vitrineAtualIds = carrossel.value.map(v => v.id);
+
+        const response = await api.post('/chatvitrine', {
+            login: sobreLoja.value.login,
+            lead: leadId.value,
+            mensagem: texto,
+            vitrineAtual: vitrineAtualIds
+        });
+
+        const { chatvitrine } = response.data;
+
+        for (const msg of chatvitrine.mensagens) {
+            await delay(500);
+            messages.value.push({ from: 'bot', text: msg });
+            await nextTick();
+            scrollToBottom();
+        }
+
+        const sugeridos = estoque.value.filter(veiculo =>
+            chatvitrine.estoque.includes(veiculo.id)
+        );
+
+        carrosselIndex.value = 0;
+        carrossel.value = sugeridos;
+
+    } catch (error) {
+        console.error('Erro no chat vitrine:', error);
+        messages.value.push({
+            from: 'bot',
+            text: '⚠️ Algo deu errado ao buscar os veículos. Tente novamente mais tarde.'
+        });
+        await nextTick();
+        scrollToBottom();
+    } finally {
+        loadingIA.value = false;
+    }
 }
 
 // Função utilitária para delay
