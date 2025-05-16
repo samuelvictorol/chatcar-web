@@ -190,6 +190,7 @@ const modoEdicao = ref(false);
 const idVeiculoEditando = ref(null);
 const loading = ref(false)
 function abrirModalEdicao(veiculo) {
+    slideAtivoAdicionar.value = 0
     modoEdicao.value = true;
     idVeiculoEditando.value = veiculo.id;
     formVeiculo.value = { ...veiculo };
@@ -210,6 +211,7 @@ const imagensVeiculoSelecionado = computed(() => {
     return lista
 })
 function abrirModalAdicionar() {
+    slideAtivoAdicionar.value = 0
     modoEdicao.value = false;
     idVeiculoEditando.value = null;
     formVeiculo.value = {
@@ -344,6 +346,7 @@ async function salvarVeiculo() {
 
 function abrirDetalhes(item) {
     veiculoSelecionado.value = item
+    slideAtivoDetalhes.value = 0
     dialogDetalhes.value = true
 }
 
