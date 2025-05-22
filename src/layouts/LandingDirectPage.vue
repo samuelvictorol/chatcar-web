@@ -8,9 +8,8 @@
                     </q-avatar>
                     <div class="animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
                 </q-toolbar-title>
-                <q-btn flat dense class="q-pr-sm text-grey-5" label="sair" to="/" />
-                <q-btn color="teal" glossy dense class="q-px-sm text-white" label="Adquira Já" icon-right="paid"
-                    to="/login" />
+                <a style="color:#00BFA5;text-decoration: none;" href="https://instagram.com/chatcar.ia"
+                    target="_blank">@chatcar.ia</a>
             </q-toolbar>
         </q-header>
 
@@ -18,60 +17,79 @@
             <!-- Vídeo responsivo -->
             <div class="q-mb-xl q-mt-md">
                 <div class="video-container rounded-borders" style="border-bottom:4px solid #00BFA5;">
-                    <iframe width="100%" height="400" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0"
+                    <iframe width="100%" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0"
                         allowfullscreen></iframe>
                 </div>
             </div>
-
             <!-- Copys persuasivas -->
             <div class="text-center q-my-xl">
-                <h2 class="text-h4 text-bold text-teal">Por que usar a ChatCar IA?</h2>
-                <p class="text-subtitle1 q-mt-md">Venda 24h por dia com nossa IA configurada para captar, abordar e
-                    qualificar seus leads.</p>
-                <p class="text-subtitle1">Receba relatórios inteligentes, personalize a comunicação dos veículos e
-                    aumente sua taxa de conversão.</p>
-                <p class="text-subtitle1">Tudo isso sem depender de ferramentas complicadas ou planos caros.</p>
+                <h2 class="text-h4 text-bold text-teal">Por que usar a IA da ChatCar?</h2>
+
+                <p class="text-subtitle1 q-mt-md">
+                    📈 Seu estoque vendendo 24h por dia com atendimento automático e inteligente.
+                </p>
+
+                <p class="text-subtitle1">
+                    🤖 A IA conversa com o cliente, entende o que ele procura, recomenda e mostra veículos do seu
+                    estoque com o ChatVitrine em tempo real.
+                </p>
+
+                <p class="text-subtitle1">
+                    📊 Você recebe leads quentes e resumos das interações dos seus clientes com o chat, além de
+                    sugestões de abordagem para fechar mais
+                    vendas.
+                </p>
+
+                <p class="text-subtitle1">
+                    ⚙️ Sem precisar instalar nada. Sem mensalidade. Acesse de qualquer lugar, até pelo celular. Seu
+                    estoque atendendo por você com um clique!
+                </p>
             </div>
 
             <!-- Depoimentos dinâmicos -->
-            <div class="q-my-xl">
-                <h2 class="text-h5 text-center text-bold q-mb-lg">Depoimentos de Clientes</h2>
-                <q-carousel animated control-color="teal" arrows swipeable infinite height="200px">
-                    <q-carousel-slide v-for="(dep, index) in depoimentos" :key="index">
+            <div class="q-my-xl ">
+                <h2 class="text-h5 text-center text-bold q-mb-md">Depoimentos de Clientes</h2>
+                <q-carousel v-model="carouselIndex" animated arrows control-color="teal" swipeable infinite
+                    height="300px" class="bg-grey-2 rounded-borders shadow-2">
+                    <q-carousel-slide v-for="(dep, index) in depoimentos" :key="index" :name="index">
                         <div class="q-pa-md text-center">
-                            <q-avatar size="60px" class="q-mb-sm">
-                                <img :src="dep.foto" />
+                            <q-avatar size="100px" class="q-mb-sm q-mt-sm shadow-1">
+                                <img :src="dep.foto" style="object-fit: cover;" />
                             </q-avatar>
-                            <div class="text-subtitle1 q-mb-xs"><q-icon name="format_quote" /> {{ dep.mensagem }}</div>
+                            <div class="text-subtitle1 q-mb-xs">
+                                <q-icon name="format_quote" /> {{ dep.mensagem }}
+                            </div>
                             <div class="text-caption text-grey">- {{ dep.nome }}</div>
                         </div>
                     </q-carousel-slide>
                 </q-carousel>
+
             </div>
 
-            <!-- Formulário de cadastro -->
-            <div class="q-my-xl bg-green-1 q-pt-md q-pb-xl rouded-borders shadow-2 q-pl-md">
-                <h2 class="text-h6 text-teal text-left text-bold q-mb-md">1/2 Cadastre-se agora mesmo*</h2>
-                <q-form @submit.prevent="handleSubmit" class="q-gutter-y-sm" style="max-width: 500px; margin: auto;">
-                    <q-input color="teal" filled v-model="form.email" label="E-mail" type="email" required>
+            <div style="font-size:2rem;" class="q-pt-sm text-teal text-left text-bold q-mb-md text-shadow">1/2
+                Cadastre-se*</div>
+            <div class="q-mb-xl bg-grey-1 q-pt-md q-pb-xl rouded-borders shadow-2 q-pl-md"
+                style="border-bottom:4px solid teal">
+                <q-form @submit.prevent="handleSubmit" class="q-gutter-y-sm q-pr-md"
+                    style="max-width: 500px; margin: auto;">
+                    <q-input color="teal" outlined maxlength="100" v-model="form.email" label="E-mail*" type="email"
+                        required>
                         <template v-slot:append>
-                            <q-icon name="email" class="cursor-pointer" @click.stop />
+                            <q-icon name="email" color="teal" class="cursor-pointer" @click.stop />
                         </template>
                     </q-input>
-                    <q-input color="teal" filled v-model="form.login" label="Login" required>
+                    <q-input color="teal" outlined maxlength="100" v-model="form.confirmEmail" label="Confirmar e-mail*"
+                        type="email" required>
                         <template v-slot:append>
-                            <q-icon name="person" class="cursor-pointer" @click.stop />
+                            <q-icon name="email" color="teal" class="cursor-pointer" @click.stop />
                         </template>
                     </q-input>
-                    <q-input color="teal" filled v-model="form.senha" label="Senha" type="password" required />
-                    <q-input color="teal" filled v-model="form.telefone" label="Telefone" mask="(##) #####-####"
-                        required />
                 </q-form>
             </div>
 
             <!-- Planos -->
             <div id="planos" class="q-my-xl">
-                <h2 class="text-h6 text-teal text-left text-bold q-mb-md">2/2 Escolha seu Plano*</h2>
+                <div style="font-size:2rem;" class="text-teal text-left text-bold q-mb-md">2/2 Escolha seu Plano*</div>
                 <div class="row q-col-gutter-md justify-center">
                     <section class="q-pb-xl q-pt-md text-center  q-px-md">
                         <div class="container">
@@ -81,23 +99,22 @@
                                     <q-card class="q-pa-md shadow-2">
                                         <q-card-section>
                                             <div class="text-h5 text-bold text-teal">Pacote Básico</div>
-                                            <div class="text-subtitle2 q-mt-sm">Utilize a plataforma no plano mensal,
-                                                pague apenas
-                                                se for utilizar
-                                            </div>
-                                            <div class="text-h6 q-my-md text-secondary"><strong>R$ 19,90</strong><br>⌛
-                                                tempo
-                                                limitado</div>
+                                            <div class="text-h6 q-my-md text-secondary"><strong>R$ 19,90</strong></div>
                                             <ul class="text-left">
-                                                <li><strong>Captação</strong> de Leads limitados</li>
-                                                <li><strong>Linguagem natural</strong> configurável para os veículos
-                                                </li>
                                                 <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da
                                                     sua loja
                                                 </li>
                                                 <li><strong>ChatCar IA</strong> para geração de relatórios com dicas de
                                                     abordagem
                                                     personalizadas</li>
+                                                <li>ChatVitrine <strong>3.5-turbo</strong></li>
+                                                <li><strong>Linguagem natural</strong> para o atendimento das
+                                                    informações dos seus
+                                                    veículos</li>
+                                                <li><strong>Armazenamento de Leads</strong> limitados (até
+                                                    <strong>50</strong> leads
+                                                    simultâneos)
+                                                </li>
                                             </ul>
                                         </q-card-section>
                                         <q-card-actions align="center">
@@ -114,18 +131,25 @@
                                         <q-card-section>
                                             <div class="text-h5 text-bold text-green">Plano Semestral</div>
                                             <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">
-                                                De R$ 459,90
+                                                ⌛ De R$ 129,90
                                                 por</div>
-                                            <div class="text-h6 q-my-md text-green  text-bold">R$ 69,90/mês</div>
+                                            <div class="text-h6 q-my-md text-green  text-bold">R$ 89,90/mês</div>
                                             <ul class="text-left">
-                                                <li>Até <strong>100</strong> leads Inteligentes simultâneos</li>
-                                                <li><strong>6 meses</strong> de <strong>acesso</strong></li>
-                                                <li>Relatórios com <strong>copys otimizadas</strong> para serem mais
-                                                    <strong>persuasivas</strong> e
-                                                    <strong>matadoras</strong>
+                                                <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da
+                                                    sua loja
                                                 </li>
-                                                <li>Mais <strong>vendido</strong></li>
-                                                <li><strong>R$ 419,90</strong> em até <strong>12x</strong></li>
+                                                <li>Armazenamento de leads simultâneos <strong>sem limites</strong>.
+                                                </li>
+                                                <li>ChatVitrine <strong>4.0</strong>.</li>
+                                                <li><strong>ChatCar IA</strong> para geração de relatórios com dicas de
+                                                    abordagem
+                                                    personalizadas</li>
+                                                <li>Relatórios com <strong>copys otimizadas</strong> para serem mais
+                                                    <strong>persuasivas</strong> e <strong>matadoras.</strong>
+                                                </li>
+                                                <li><strong>Linguagem natural</strong> para o atendimento das
+                                                    informações dos seus
+                                                    veículos</li>
                                             </ul>
                                         </q-card-section>
                                         <q-card-actions align="center">
@@ -135,64 +159,63 @@
                                         </q-card-actions>
                                     </q-card>
                                 </div>
-
-                                <!-- Plano White Label -->
-                                <div class="col-12 col-sm-6 col-md-4">
-                                    <q-card class="q-pa-md shadow-2 bg-blue-1">
-                                        <q-card-section>
-                                            <div class="text-h5 text-bold text-blue-14">Plano Profissional</div>
-                                            <!-- <div class="text-subtitle2 q-mt-sm">Acesso antecipado à novas funcionalidades</div> -->
-                                            <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">
-                                                De R$ 1899,90
-                                                por</div>
-                                            <div class="text-h6 q-my-md text-blue-14"><strong>R$ 1599,90</strong> em até
-                                                12x</div>
-                                            <ul class="text-left">
-                                                <li>Até <strong>1000</strong> leads Inteligentes simultâneos</li>
-                                                <li><strong>12 meses</strong> de <strong>acesso</strong></li>
-                                                <li>Para empresas de <strong>alto padrão</strong></li>
-                                                <li>Funcionalidades <strong>extras</strong> e atualizações sem custo
-                                                    adicional</li>
-                                                <li><strong>Inclui</strong> todos os <strong>outros planos</strong></li>
-                                                <li>Mais <strong>otimizado</strong> e completo em funcionalidades</li>
-                                            </ul>
-                                        </q-card-section>
-                                        <q-card-actions align="center">
-                                            <q-radio v-model="shape" val="line" checked-icon="task_alt"
-                                                unchecked-icon="panorama_fish_eye" left-label class="text-bold"
-                                                label="Quero esse plano!" color="teal" />
-
-                                        </q-card-actions>
-                                    </q-card>
-                                </div>
-
                             </div>
                         </div>
                     </section>
                     <slot name="planos" />
+                    <div class="w100 text-center q-pb-xl text-bold text-teal">
+                        📩 As instruções de como acessar e utilizar a plataforma serão enviadas para o seu e-mail.
+                    </div>
                 </div>
             </div>
-            <q-btn style="position:fixed;left:0px; bottom:0px" label="Criar Conta"  type="submit" color="teal"
-                icon-right="person_add" glossy class="w100 q-py-md" />
+            <q-btn style="position:fixed;left:0px; bottom:0px" label="Criar Conta" type="submit" color="teal"
+                icon-right="person_add" glossy class="w100 q-py-lg" />
 
         </q-page-container>
     </q-layout>
 </template>
 
 <script setup>
+import { useQuasar } from 'quasar';
 import { ref } from 'vue';
+const carouselIndex = ref(0); // índice do slide ativo
 
-const storedLoja = false;
+const $q = useQuasar();
 const form = ref({ email: '', login: '', senha: '', telefone: '' });
 const depoimentos = ref([
-    { nome: 'Carlos M.', mensagem: 'Fechei 3 carros em 1 semana usando a IA.', foto: 'https://i.pravatar.cc/60?img=1' },
-    { nome: 'Juliana R.', mensagem: 'Aumentei minha conversão em 40% com os relatórios prontos!', foto: 'https://i.pravatar.cc/60?img=2' },
-    { nome: 'Eduardo P.', mensagem: 'Muito mais fácil e moderno que outras plataformas.', foto: 'https://i.pravatar.cc/60?img=3' }
+    { nome: 'Carlos M.', mensagem: 'Fechei 3 carros em 1 semana atendidos pela a IA com o ChatVitrine.', foto: 'https://media.istockphoto.com/id/1473399413/pt/foto/salesman-working-at-a-car-dealership-selling-cars.jpg?s=612x612&w=0&k=20&c=5DCVZYdCRyVagWaO7dWjXi0ihtvEmSmKyakpY8-0RDA=' },
+    { nome: 'Juliana R.', mensagem: 'Minha equipe aumentou a conversão em 40% depois que adquiri a ferramenta para eles!', foto: 'https://www.shutterstock.com/image-photo/black-woman-arms-crossed-standing-600nw-2254569139.jpg' },
+    { nome: 'Eduardo P.', mensagem: 'Muito mais fácil de configurar e moderno que outras plataformas.', foto: 'https://lenscope.com.br/blog/wp-content/uploads/2023/03/retrato-de-bonito-sorridente-elegante-hipster-lambersexual-modelo-homem-moderno-vestido-com-camisa-azul-moda-masculina-posando-no-fundo-da-rua-perto-de-arranha-ceus-em-oculos-de-sol-scaled-1707x1707.jpg' },
+    {
+        nome: 'Larissa T.',
+        mensagem: 'Sou vendedora direta e consigo expor veìculos de váriás lojas em um só lugar com meu nome.',
+        foto: 'https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
+    },
+    {
+        nome: 'Marcos L.',
+        mensagem: 'O atendimento automático agilizou muito a minha vida junto com o texto de abordagem pronto.',
+        foto: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
+    },
 ]);
 
 function handleSubmit() {
-    // Lógica de cadastro aqui
     console.log('Form enviado:', form.value);
+}
+
+function isFormValid() {
+    if (!form.value.email || !form.value.confirmEmail) {
+        return false;
+    } else if (!form.value.email.includes('@')) {
+        return false;
+    } else if (form.value.email.length < 5) {
+        return false;
+    } else if (form.value.email.length > 100) {
+        return false;
+    }
+    if (form.value.email !== form.value.confirmEmail) {
+        return false;
+    }
+    return true;
 }
 
 function logout() {
@@ -204,8 +227,11 @@ function logout() {
 .video-container {
     position: relative;
     padding-bottom: 56.25%;
-    height: 0;
     overflow: hidden;
+    max-width: 900px;
+    /* largura máxima no desktop */
+    margin: 0 auto;
+    /* centraliza */
 }
 
 .video-container iframe {
@@ -214,5 +240,19 @@ function logout() {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+@media (min-width: 550px) {
+    .video-container {
+        padding-bottom: 0;
+        /* remove a altura proporcional */
+        height: 350px;
+        /* altura fixa no desktop */
+    }
+
+    .video-container iframe {
+        height: 350px;
+        /* altura fixa no desktop */
+    }
 }
 </style>

@@ -106,46 +106,6 @@
                         </q-carousel>
 
                     </div>
-                    <q-dialog v-model="showDialog" persistent>
-                        <q-card flat bordered class="bg-white text-dark shadow-2"
-                            style="min-width: 400px; max-width: 95vw">
-                            <q-card-section class="bg-grey-2 row items-center">
-                                <q-icon name="psychology_alt" color="blue-14" size="md" />
-                                <div class="text-h6 text-blue-14 q-ml-sm">Relatório Lead<br>Vendedor</div>
-                                <q-space />
-                                <q-btn flat round dense icon="close" @click="showDialog = false" />
-                            </q-card-section>
-
-                            <q-separator />
-
-                            <q-card-section>
-                                <div class="text-subtitle1 q-mb-sm text-bold">📌 Interesses do cliente:</div>
-                                <div class="text-body1 text-grey-8" v-if="relatorio.interesses">
-                                    {{ relatorio.interesses }}
-                                </div>
-                                <q-skeleton v-else type="text" width="100%" />
-                            </q-card-section>
-
-                            <q-separator />
-
-                            <q-card-section>
-                                <div class="text-subtitle1 q-mb-sm text-bold">📞 Dicas de abordagem por telefone:</div>
-                                <div class="text-body1 text-grey-8" v-if="relatorio.abordagem">
-                                    {{ relatorio.abordagem }}
-                                </div>
-                                <q-skeleton v-else type="text" width="100%" />
-                            </q-card-section>
-
-                            <q-separator />
-
-                            <q-card-section>
-                                <div class="text-caption text-grey-6 text-center">
-                                    Análise automatizada com base nos dados de navegação e preferências recentes do
-                                    lead.
-                                </div>
-                            </q-card-section>
-                        </q-card>
-                    </q-dialog>
                     <!-- Dialog com informações da loja -->
                     <q-dialog v-model="infoLojaVisible">
                         <q-card class="q-pa-md" style="min-width: 350px; max-width: 90vw">
@@ -203,11 +163,7 @@
                     <q-dialog v-model="dialogAberto" persistent>
                         <q-card class="q-pa-md" style="width: 100%; max-width: 500px;">
                             <q-card-section>
-                                <div class="text-h6">{{ carroSelecionado.modelo }}<br>R$ {{ carroSelecionado.preco }}
-                                </div>
-                                <div class="text-caption q-mb-sm">{{ carroSelecionado.categoria.label }} - {{
-                                    carroSelecionado.ano
-                                    }}
+                                <div class="text-h6 q-pb-sm">{{ carroSelecionado.modelo }} - {{ carroSelecionado?.ano }}
                                 </div>
                                 <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length"
                                     swipeable animated class="rounded-borders q-mb-md bg-grey-2" navigation arrows
@@ -219,8 +175,15 @@
                                             height="100%" />
                                     </q-carousel-slide>
                                 </q-carousel>
+                                <div class="text-caption q-mb-sm">{{ carroSelecionado.tipo?.label }} - {{
+                                    carroSelecionado.categoria?.label
+                                    }}
+                                </div>
+                                <div v-if="carroSelecionado.preco" class="text-body2 text-bold" style="font-size: 1rem;">
+                                    R$ {{ carroSelecionado?.preco }}
+                                </div>
                                 <div v-if="carroSelecionado.descricao" class="text-body2">
-                                    {{ carroSelecionado.descricao }}
+                                    {{ carroSelecionado?.descricao }}
                                 </div>
                             </q-card-section>
                             <q-card-actions align="right">

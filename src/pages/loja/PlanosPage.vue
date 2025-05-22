@@ -13,25 +13,25 @@
         <section class="q-pb-xl q-pt-md text-center  q-px-md">
             <div class="container">
                 <h2 class="text-h4 text-bold q-mb-xl">Escolha seu Plano</h2>
-                <div class="row q-col-gutter-md justify-center">
+                <div class="text-h6 text-secondary q-mb-xl">✅ Os planos têm duração de 1 mês (30 dias) e não é realizado
+                    cobranças e nem assinaturas,<br>só pague se for utilizar.</div>
 
-                    <!-- Plano Free Trial -->
+                <div class="row q-col-gutter-md justify-center">
                     <div class="col-12 col-sm-6 col-md-4">
                         <q-card class="q-pa-md shadow-2">
                             <q-card-section>
                                 <div class="text-h5 text-bold text-teal">Pacote Básico</div>
-                                <div class="text-subtitle2 q-mt-sm">Utilize a plataforma no plano mensal, pague apenas
-                                    se for utilizar
-                                </div>
-                                <div class="text-h6 q-my-md text-secondary"><strong>R$ 19,90</strong><br>⌛ tempo
-                                    limitado</div>
+                                <div class="text-h6 q-my-md text-secondary"><strong>R$ 19,90</strong></div>
                                 <ul class="text-left">
-                                    <li><strong>Captação</strong> de Leads limitados</li>
-                                    <li><strong>Linguagem natural</strong> configurável para os veículos</li>
                                     <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da sua loja
                                     </li>
                                     <li><strong>ChatCar IA</strong> para geração de relatórios com dicas de abordagem
                                         personalizadas</li>
+                                    <li>ChatVitrine <strong>3.5-turbo</strong></li>
+                                    <li><strong>Linguagem natural</strong> para o atendimento das informações dos seus
+                                        veículos</li>
+                                    <li><strong>Armazenamento de Leads</strong> limitados (até <strong>50</strong> leads
+                                        simultâneos)</li>
                                 </ul>
                             </q-card-section>
                             <q-card-actions align="center">
@@ -45,19 +45,21 @@
                     <div class="col-12 col-sm-6 col-md-4">
                         <q-card class="q-pa-md shadow-4 bg-green-1">
                             <q-card-section>
-                                <div class="text-h5 text-bold text-green">Plano Semestral</div>
-                                <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 459,90
+                                <div class="text-h5 text-bold text-green">Plano Profissional</div>
+                                <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">⌛ De R$ 129,90
                                     por</div>
-                                <div class="text-h6 q-my-md text-green  text-bold">R$ 69,90/mês</div>
+                                <div class="text-h6 q-my-md text-green  text-bold">R$ 89,90/mês</div>
                                 <ul class="text-left">
-                                    <li>Até <strong>100</strong> leads Inteligentes simultâneos</li>
-                                    <li><strong>6 meses</strong> de <strong>acesso</strong></li>
-                                    <li>Relatórios com <strong>copys otimizadas</strong> para serem mais
-                                        <strong>persuasivas</strong> e
-                                        <strong>matadoras</strong>
+                                    <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da sua loja
                                     </li>
-                                    <li>Mais <strong>vendido</strong></li>
-                                    <li><strong>R$ 419,90</strong> em até <strong>12x</strong></li>
+                                    <li>Armazenamento de leads simultâneos <strong>sem limites</strong>.</li>
+                                    <li>ChatVitrine <strong>4.0</strong>.</li>
+                                    <li><strong>ChatCar IA</strong> para geração de relatórios com dicas de abordagem
+                                        personalizadas</li>
+                                    <li>Relatórios com <strong>copys otimizadas</strong> para serem mais
+                                        <strong>persuasivas</strong> e <strong>matadoras.</strong></li>
+                                    <li><strong>Linguagem natural</strong> para o atendimento das informações dos seus
+                                        veículos</li>
                                 </ul>
                             </q-card-section>
                             <q-card-actions align="center">
@@ -66,32 +68,6 @@
                             </q-card-actions>
                         </q-card>
                     </div>
-
-                    <!-- Plano White Label -->
-                    <div class="col-12 col-sm-6 col-md-4">
-                        <q-card class="q-pa-md shadow-2 bg-blue-1">
-                            <q-card-section>
-                                <div class="text-h5 text-bold text-blue-14">Plano Profissional</div>
-                                <!-- <div class="text-subtitle2 q-mt-sm">Acesso antecipado à novas funcionalidades</div> -->
-                                <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">De R$ 1899,90
-                                    por</div>
-                                <div class="text-h6 q-my-md text-blue-14"><strong>R$ 1599,90</strong> em até 12x</div>
-                                <ul class="text-left">
-                                    <li>Até <strong>1000</strong> leads Inteligentes simultâneos</li>
-                                    <li><strong>12 meses</strong> de <strong>acesso</strong></li>
-                                    <li>Para empresas de <strong>alto padrão</strong></li>
-                                    <li>Funcionalidades <strong>extras</strong> e atualizações sem custo adicional</li>
-                                    <li><strong>Inclui</strong> todos os <strong>outros planos</strong></li>
-                                    <li>Mais <strong>otimizado</strong> e completo em funcionalidades</li>
-                                </ul>
-                            </q-card-section>
-                            <q-card-actions align="center">
-                                <q-btn label="Plano Anual" glossy color="blue-14"
-                                    @click="openPagarMeLinkUrl('444444')" />
-                            </q-card-actions>
-                        </q-card>
-                    </div>
-
                 </div>
             </div>
         </section>
@@ -125,13 +101,13 @@ async function openPagarMeLinkUrl(planoId) {
 }
 
 
-onMounted(()=>{
+onMounted(() => {
     $q.notify({
-            color: 'teal',
-            icon: 'currency_exchange',
-            message: 'As vezes é necessário relogar após adquirir um plano ✨',
-            position: 'bottom'
-        });
+        color: 'teal',
+        icon: 'currency_exchange',
+        message: 'As vezes é necessário relogar após adquirir um plano ✨',
+        position: 'bottom'
+    });
 })
 
 </script>

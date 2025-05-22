@@ -11,7 +11,6 @@ const TipoVeiculoEnum = {
   VAN: "Van",
   ELETRICO: "Elétrico",
   HIBRIDO: "Hibrído",
-  PICKUP: "Pickup",
   ONIBUS: "Ônibus",
   UTILITARIO: "Utilitário",
   JETSKI: "JetSki",
@@ -23,8 +22,10 @@ const TipoVeiculoEnum = {
 const CategoriaVeiculoEnum = {
   SEDAN: "Sedan",
   HATCH: "Hatch",
+  SUPER: "Superesportivo",
   PISTA: "Pista",
   SUV: "SUV",
+  PICKUP: "Picape/pickup",
   RETRO: "Retrô",
   COLECIONAVEL: "Colecionável",
   COMPACTO: "Compacto",

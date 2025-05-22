@@ -57,20 +57,17 @@
                 <q-separator />
 
                 <q-card-section>
+                    <div style="font-size: 1rem;" class="text-center  text-bold q-mb-sm">{{ veiculoSelecionado?.modelo }} - {{ veiculoSelecionado?.ano }}</div>
                     <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length" swipeable animated
                          class="rounded-borders q-mb-md bg-grey-2" navigation arrows infinite>
                         <q-carousel-slide class="bg-dark" v-for="(img, index) in imagensVeiculoSelecionado" :key="index" :name="index">
                             <q-img :src="img" fit="contain" class="rounded-borders w100" style="border-bottom: 4px solid teal;border-top: 4px solid teal;" height="100%" />
                         </q-carousel-slide>
                     </q-carousel>
-                    <div class="text-subtitle1 text-bold">{{ veiculoSelecionado?.ano }}</div>
-                    <div class="text-body2">Modelo: {{ veiculoSelecionado?.modelo }}</div>
+                    <div class="text-body2 text-bold text-teal">{{ veiculoSelecionado?.categoria.label }} - {{ veiculoSelecionado?.tipo.label }}</div>
                     <div class="text-body2 q-mb-xs">Preço: R$ {{ veiculoSelecionado?.preco }}</div>
-                    <!-- <div class="text-body2">ID: {{ veiculoSelecionado?.id }}</div> -->
-                    <!-- Campos adicionais -->
-                    <div class="text-body2">Categoria: {{ veiculoSelecionado?.categoria.label }}</div>
-                    <div class="text-body2">Tipo: {{ veiculoSelecionado?.tipo.label }}</div>
-                    <div class="text-body2">Ano: {{ veiculoSelecionado?.ano }}</div>
+                    <q-separator  class="q-my-sm" />
+                    <div class="text-body2"><strong>Descrição:</strong> {{ veiculoSelecionado?.descricao }}</div>
                 </q-card-section>
                 <q-separator />
                 <div class="w100 q-mt-md"></div>
