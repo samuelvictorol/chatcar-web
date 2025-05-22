@@ -73,7 +73,7 @@
                 <div class="w100 q-mt-md"></div>
             </q-card>
         </q-dialog>
-        <q-dialog v-model="dialogAdicionar">
+        <q-dialog v-model="dialogAdicionar" persistent>
             <q-card style="min-width: 350px; max-width: 90vw;">
                 <q-card-section class="row items-center q-pb-md">
                     <div class="text-h6">{{ modoEdicao ? 'Editar Veículo' : 'Adicionar Veículo' }}</div>

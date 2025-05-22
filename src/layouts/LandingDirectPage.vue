@@ -49,8 +49,9 @@
             <!-- Depoimentos dinâmicos -->
             <div class="q-my-xl ">
                 <h2 class="text-h5 text-center text-bold q-mb-md">Depoimentos de Clientes</h2>
-                <q-carousel v-model="carouselIndex" animated arrows control-color="teal" swipeable infinite
-                    height="300px" class="bg-grey-2 rounded-borders shadow-2">
+                <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length" swipeable animated
+                    class="rounded-borders q-mb-md bg-grey-2" navigation arrows infinite autoplay interval="2000">
+
                     <q-carousel-slide v-for="(dep, index) in depoimentos" :key="index" :name="index">
                         <div class="q-pa-md text-center">
                             <q-avatar size="100px" class="q-mb-sm q-mt-sm shadow-1">
@@ -185,7 +186,7 @@ const form = ref({ email: '', login: '', senha: '', telefone: '' });
 const depoimentos = ref([
     { nome: 'Carlos M.', mensagem: 'Fechei 3 carros em 1 semana atendidos pela a IA com o ChatVitrine.', foto: 'https://media.istockphoto.com/id/1473399413/pt/foto/salesman-working-at-a-car-dealership-selling-cars.jpg?s=612x612&w=0&k=20&c=5DCVZYdCRyVagWaO7dWjXi0ihtvEmSmKyakpY8-0RDA=' },
     { nome: 'Juliana R.', mensagem: 'Minha equipe aumentou a conversão em 40% depois que adquiri a ferramenta para eles!', foto: 'https://www.shutterstock.com/image-photo/black-woman-arms-crossed-standing-600nw-2254569139.jpg' },
-    { nome: 'Eduardo P.', mensagem: 'Muito mais fácil de configurar e moderno que outras plataformas.', foto: 'https://lenscope.com.br/blog/wp-content/uploads/2023/03/retrato-de-bonito-sorridente-elegante-hipster-lambersexual-modelo-homem-moderno-vestido-com-camisa-azul-moda-masculina-posando-no-fundo-da-rua-perto-de-arranha-ceus-em-oculos-de-sol-scaled-1707x1707.jpg' },
+    { nome: 'Eduardo P.', mensagem: 'Muito mais fácil de configurar e moderno que outras plataformas.', foto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4Zw2TQnR44yKUVXUz-W8Hpo_6gmYtRZjksw&s' },
     {
         nome: 'Larissa T.',
         mensagem: 'Sou vendedora direta e consigo expor veìculos de váriás lojas em um só lugar com meu nome.',

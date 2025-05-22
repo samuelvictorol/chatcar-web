@@ -70,7 +70,7 @@
 
                     <div style="border-radius: 12px">
                         <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length"
-                            v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-md">
+                            v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-md" autoplay interval="4000">
                             <template v-slot:control>
                                 <div class="absolute-left q-pa-xs" style="top:45%">
                                     <q-btn icon="chevron_left" color="white" unelevated round dense size="lg"
@@ -160,14 +160,14 @@
                         </q-card>
                     </q-dialog>
                     <!-- Dialog de detalhes -->
-                    <q-dialog v-model="dialogAberto" persistent>
+                    <q-dialog v-model="dialogAberto" >
                         <q-card class="q-pa-md" style="width: 100%; max-width: 500px;">
                             <q-card-section>
                                 <div class="text-h6 q-pb-sm">{{ carroSelecionado.modelo }} - {{ carroSelecionado?.ano }}
                                 </div>
                                 <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length"
                                     swipeable animated class="rounded-borders q-mb-md bg-grey-2" navigation arrows
-                                    infinite>
+                                    infinite autoplay interval="2000">
                                     <q-carousel-slide class="bg-dark" v-for="(img, index) in imagensVeiculoSelecionado"
                                         :key="index" :name="index">
                                         <q-img :src="img" fit="contain" class="rounded-borders w100"
