@@ -49,9 +49,8 @@
             <!-- Depoimentos dinâmicos -->
             <div class="q-my-xl ">
                 <h2 class="text-h5 text-center text-bold q-mb-md">Depoimentos de Clientes</h2>
-                <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length" swipeable animated
+                <q-carousel v-model="slideAtivoDetalhes" v-if="depoimentos.length > 0" swipeable animated
                     class="rounded-borders q-mb-md bg-grey-2" navigation arrows infinite autoplay interval="2000">
-
                     <q-carousel-slide v-for="(dep, index) in depoimentos" :key="index" :name="index">
                         <div class="q-pa-md text-center">
                             <q-avatar size="100px" class="q-mb-sm q-mt-sm shadow-1">
@@ -64,7 +63,6 @@
                         </div>
                     </q-carousel-slide>
                 </q-carousel>
-
             </div>
 
             <div style="font-size:2rem;" class="q-pt-sm text-teal text-left text-bold q-mb-md text-shadow">1/2
@@ -125,7 +123,6 @@
                                         </q-card-actions>
                                     </q-card>
                                 </div>
-
                                 <!-- Plano Básico -->
                                 <div class="col-12 col-sm-6 col-md-4">
                                     <q-card class="q-pa-md shadow-4 bg-green-1">
@@ -136,21 +133,12 @@
                                                 por</div>
                                             <div class="text-h6 q-my-md text-green  text-bold">R$ 89,90/mês</div>
                                             <ul class="text-left">
-                                                <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da
-                                                    sua loja
-                                                </li>
-                                                <li>Armazenamento de leads simultâneos <strong>sem limites</strong>.
-                                                </li>
+                                                <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da sua loja</li>
+                                                <li>Armazenamento de leads simultâneos <strong>sem limites</strong>.</li>
                                                 <li>ChatVitrine <strong>4.0</strong>.</li>
-                                                <li><strong>ChatCar IA</strong> para geração de relatórios com dicas de
-                                                    abordagem
-                                                    personalizadas</li>
-                                                <li>Relatórios com <strong>copys otimizadas</strong> para serem mais
-                                                    <strong>persuasivas</strong> e <strong>matadoras.</strong>
-                                                </li>
-                                                <li><strong>Linguagem natural</strong> para o atendimento das
-                                                    informações dos seus
-                                                    veículos</li>
+                                                <li><strong>ChatCar IA</strong> para geração de relatórios com dicas de abordagem personalizadas</li>
+                                                <li>Relatórios com <strong>copys otimizadas</strong> para serem mais <strong>persuasivas</strong> e <strong>matadoras.</strong></li>
+                                                <li><strong>Linguagem natural</strong> para o atendimento das informações dos seus veículos</li>
                                             </ul>
                                         </q-card-section>
                                         <q-card-actions align="center">
@@ -179,7 +167,7 @@
 <script setup>
 import { useQuasar } from 'quasar';
 import { ref } from 'vue';
-const carouselIndex = ref(0); // índice do slide ativo
+const slideAtivoDetalhes = ref(0); // índice do slide ativo
 
 const $q = useQuasar();
 const form = ref({ email: '', login: '', senha: '', telefone: '' });
