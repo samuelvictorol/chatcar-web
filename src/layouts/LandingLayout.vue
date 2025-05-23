@@ -33,9 +33,6 @@
       <div class="w100">
         <q-img src="/logo.jpeg" class="w100" style="object-fit: cover;position: fixed; bottom: 0px; z-index: -90"
           height="100vh">
-          <!-- <div class="absolute-bottom bg-black text-white q-pa-md">
-            <h2 class="text-h4 w100 text-right row no-wrap justify-end">ChatCar IA</h2>
-          </div> -->
         </q-img>
       </div>
       <!-- HERO Section -->
@@ -267,6 +264,9 @@
           </div>
           <div class="w100 text-center text-teal-2 q-pt-sm text-bold">
             Instagram e TikTok: @chatcar.ia
+          </div>
+          <div class="w100 text-center text-teal-2 q-pt-md text-bold">
+              <q-btn label="adquira já!" glossy color="green" to="/ia" icon="paid"></q-btn>
           </div>
         </div>
         <!-- <div class="w100 row justify-between q-pt-xl q-px-xl rounded-borders no-wrap">

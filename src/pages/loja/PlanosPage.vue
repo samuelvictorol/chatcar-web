@@ -13,8 +13,8 @@
         <section class="q-pb-xl q-pt-md text-center  q-px-md">
             <div class="container">
                 <h2 class="text-h4 text-bold q-mb-xl">Escolha seu Plano</h2>
-                <div class="text-h6 text-secondary q-mb-xl">✅ Os planos têm duração de 1 mês (30 dias) e não é realizado
-                    cobranças e nem assinaturas,<br>só pague se for utilizar.</div>
+                <div class="text-h6 text-secondary q-mb-xl">✅ Os planos têm duração de 1 mês (30 dias) e não será realizada
+                    cobranças e nem assinaturas,<br>só pague se utilizar.</div>
 
                 <div class="row q-col-gutter-md justify-center">
                     <div class="col-12 col-sm-6 col-md-4">
