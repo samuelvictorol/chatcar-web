@@ -8,44 +8,55 @@
                     </q-avatar>
                     <div class="animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
                 </q-toolbar-title>
-                <a style="color:#00BFA5;text-decoration: none;" href="https://instagram.com/chatcar.ia"
+                <a style="color:#00BFA5;text-decoration: none;font-size:.8rem" href="https://instagram.com/chatcar.ia"
                     target="_blank">@chatcar.ia</a>
+                <q-btn label="Cadastre-se" color="teal" glossy class="q-ml-sm q-px-sm" dense
+                    @click="scrollToRegistrar()"></q-btn>
             </q-toolbar>
         </q-header>
 
-        <q-page-container class="q-pa-md relative">
-            <div class="q-mb-md q-mt-md">
+        <q-page-container class="q-pa-md relative animate__animated animate__fadeIn">
+            <div class="q-mb-md q-mt-md ">
                 <div class="video-container rounded-borders" style="border-bottom:4px solid #00BFA5;">
                     <iframe width="100%" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0"
                         allowfullscreen></iframe>
                 </div>
             </div>
             <!-- Copys persuasivas -->
-            <h2 class="text-h4 text-bold text-center text-white">Por que usar a IA da ChatCar?</h2>
-            <div class="text-left q-mb-md bg-grey-3 q-py-md rounded-borders q-px-md"
+            <h2 class="text-h4 text-bold text-center text-white animate__animated animate__fadeInLeft animate__slower">Por que usar a IA da ChatCar?</h2>
+            <div class="text-left q-mb-md bg-grey-3 q-py-md rounded-borders q-px-md animate__animated animate__fadeInRight animate__slower"
                 style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5;">
 
-                <p class="text-subtitle1  text-bold q-mt-md">
-                    📈 Seu estoque vendendo 24h por dia com atendimento automático e inteligente.
+                <p class="text-subtitle1 text-bold q-mt-md">
+                    🚀 Sua loja vendendo mesmo quando você está dormindo? Agora é possível.
                 </p>
 
                 <p class="text-subtitle1 text-bold">
-                    🤖 A IA conversa com o cliente, entende o que ele procura, recomenda e mostra veículos do seu
-                    estoque com o ChatVitrine em tempo real.
+                    🤖 A IA da ChatCar atende, entende o cliente, recomenda o carro certo e envia direto no WhatsApp.
+                    Tudo sozinho, 24 horas por dia.
                 </p>
 
                 <p class="text-subtitle1 text-bold">
-                    📊 Você recebe leads quentes e resumos das interações dos seus clientes com o chat, além de
-                    sugestões de abordagem para fechar mais
-                    vendas.
+                    📲 Você recebe leads prontos para fechar, com nome, veículo desejado, interação completa e sugestão
+                    de abordagem personalizada.
                 </p>
 
                 <p class="text-subtitle1 text-bold">
-                    ⚙️ Sem precisar instalar nada. Sem mensalidade. Acesse de qualquer lugar, até pelo celular. Seu
-                    estoque atendendo por você com um clique!
+                    ⚙️ Nada pra instalar. Sem mensalidade fixa. Acesse até pelo celular. Sua loja atendendo 24h por dia
+                    com 1 link.
+                </p>
+
+                <p class="text-subtitle1 text-bold text-primary">
+                    💥 Chega de depender de vendedor disponível. Transforme cliques em vendas, mesmo fora do horário
+                    comercial.
                 </p>
             </div>
-            <div class="bg-dark q-pa-sm rounded-borders text-bold text-left text-teal">✅ Automatize seu estoque em 2 etapas:</div>
+
+            <div class="relative bg-dark q-pa-sm rounded-borders text-bold text-left text-teal"
+                style="position: relative!important;">✅ Automatize seu
+                estoque em 2 etapas:
+                <div id="registrar" class="q-py-md w50 absolute" style="z-index: -9999!important;top:-60px"></div>
+            </div>
             <div style="font-size:2rem;" class="q-pt-sm text-grey-2 text-left text-bold q-mb-md text-shadow">1/2
                 Cadastre-se*</div>
             <div class="q-mb-xl q-pt-md rounded-bordersq-pl-md">
@@ -57,8 +68,8 @@
                             <q-icon name="email" color="teal" class="cursor-pointer" @click.stop />
                         </template>
                     </q-input>
-                    <q-input color="teal" outlined maxlength="100" v-model="form.confirmEmail" label="Confirmar e-mail*"
-                        type="email" required>
+                    <q-input color="teal" outlined maxlength="100" v-model="form.confirmEmail"
+                        @update:model-value="scrollToPlanos()" label="Confirmar e-mail*" type="email" required>
                         <template v-slot:append>
                             <q-icon name="email" color="teal" class="cursor-pointer" @click.stop />
                         </template>
@@ -70,19 +81,22 @@
             <div id="planos" class="q-my-xl">
                 <div style="font-size:2rem;" class="text-grey-2 text-left text-bold q-mb-md">2/2 Escolha seu Plano*
                 </div>
-                <div class=" text-teal-3 q-mb-md">✅ Os planos têm duração de 1 mês (30 dias) e não será realizada
-                    cobranças e nem assinaturas,<br>só pague se utilizar.</div>
+                <div class=" text-teal-2 q-mb-md">⌛ Os planos têm duração de 30 dias e não será realizada
+                    cobranças e nem assinatura.</div>
+                <div class="w100 text-grey-2">✅ Marque o plano desejado e clique em "Criar Conta" para ser
+                    redirecionado ao ambiente seguro de pagamento.</div>
                 <div class="row justify-center">
                     <section class="q-pb-xl q-pt-md text-center  q-px-md">
                         <div class="container">
                             <div class="row q-col-gutter-md justify-center">
                                 <!-- Plano Free Trial -->
                                 <div class="w50" id="card-plano">
-                                    <q-card class="q-pa-md shadow-2">
+                                    <q-card class="q-pa-sm shadow-2 bg-grey-2"
+                                        style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5">
                                         <q-card-section>
                                             <div class="text-h5 text-bold text-teal">Pacote Básico</div>
                                             <div class="text-h6 q-my-md text-secondary"><strong>R$ 19,90</strong></div>
-                                            <ul class="text-left">
+                                            <ul class="text-left" style="font-size: 1rem;">
                                                 <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da
                                                     sua loja
                                                 </li>
@@ -102,19 +116,21 @@
                                         <q-card-actions align="center">
                                             <q-radio size="xl" v-model="selectedPlan" val="222222"
                                                 checked-icon="task_alt" unchecked-icon="panorama_fish_eye" left-label
-                                                class="text-bold" label="Quero esse plano!" color="teal" />
+                                                class="text-bold" style="font-size:1.2rem" label="Quero esse plano!"
+                                                color="teal" />
                                         </q-card-actions>
                                     </q-card>
                                 </div>
                                 <div class="w50" id="card-plano">
-                                    <q-card class="q-pa-md shadow-4 bg-green-1">
+                                    <q-card class="q-pa-md shadow-4 bg-green-1"
+                                        style="border-bottom:4px solid #4caf50;border-top:4px solid #4caf50">
                                         <q-card-section>
                                             <div class="text-h5 text-bold text-green">Plano Profissional</div>
                                             <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">
                                                 ⌛ De R$ 129,90
                                                 por</div>
-                                            <div class="text-h6 q-my-md text-green  text-bold">R$ 89,90</div>
-                                            <ul class="text-left">
+                                            <div class="text-h5 q-my-md text-green  text-bold">R$ 89,90</div>
+                                            <ul class="text-left" style="font-size: 1rem;">
                                                 <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da
                                                     sua loja
                                                 </li>
@@ -135,7 +151,8 @@
                                         <q-card-actions align="center">
                                             <q-radio size="xl" v-model="selectedPlan" val="333333"
                                                 checked-icon="task_alt" unchecked-icon="panorama_fish_eye" left-label
-                                                class="text-bold" label="Quero esse plano!" color="teal" />
+                                                class="text-bold" style="font-size:1.2rem" label="Quero esse plano!"
+                                                color="teal" />
                                         </q-card-actions>
                                     </q-card>
                                 </div>
@@ -146,20 +163,22 @@
                         style="border-bottom:4px solid #00BFA5;">
                         📩 As instruções de como acessar e utilizar a plataforma serão enviadas para o seu e-mail.
                     </div>
+                    <div class="w100 bg-teal q-pb-xs q-mt-lg rounded-borders"></div>
                     <div class=" ">
-                        <h2 class="text-h5 text-center text-grey-2 text-bold q-mb-md">Depoimentos de Clientes</h2>
+                        <h2 class="text-h5 text-center text-grey-2 text-bold q-mb-md">Depoimentos e Feedback</h2>
                         <q-carousel v-model="slideAtivoDetalhes" v-if="depoimentos.length > 0" swipeable animated
-                            style="border-bottom:4px solid #00BFA5;" class="rounded-borders q-mb-sm bg-grey-3"
-                            navigation arrows infinite autoplay interval="2000">
+                            style="border-bottom:4px solid #00BFA5;" class="rounded-borders q-mb-sm bg-dark" navigation
+                            arrows infinite autoplay interval="2000">
                             <q-carousel-slide v-for="(dep, index) in depoimentos" :key="index" :name="index">
                                 <div class="q-pa-md text-center">
                                     <q-avatar size="140px" class="q-mb-sm q-mt-sm shadow-1">
-                                        <img :src="dep.foto" style="object-fit: cover;" />
+                                        <img :src="dep.foto"
+                                            style="object-fit: cover;border-bottom:4px solid #00BFA5;" />
                                     </q-avatar>
-                                    <div class="text-subtitle1 q-mb-xs">
+                                    <div class="text-subtitle1 q-mb-xs text-grey-2">
                                         <q-icon name="format_quote" /> {{ dep.mensagem }}
                                     </div>
-                                    <div class="text-caption text-teal teax-bold">- {{ dep.nome }}</div>
+                                    <div class="text-caption text-teal text-bold">- {{ dep.nome }}</div>
                                 </div>
                             </q-carousel-slide>
                         </q-carousel>
@@ -250,6 +269,29 @@ function isFormValid() {
     return true;
 }
 
+function scrollToPlanos() {
+    if (form.value.email.toLowerCase() == form.value.confirmEmail.toLowerCase()) {
+        const el = document.getElementById('planos');
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+        }
+        $q.notify({
+            color: 'teal',
+            icon: 'paid',
+            message: 'Para continuar, selecione um plano 🚀',
+            position: 'top'
+        });
+    }
+    return
+}
+
+function scrollToRegistrar() {
+    const el = document.getElementById('registrar');
+    if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
 
 async function openPagarMeLinkUrl() {
     await api.post('/pagar/criar-link', {
@@ -321,10 +363,20 @@ function logout() {
         /* altura fixa no desktop */
     }
 }
+
 @media (min-width: 800px) {
-    .q-page-container{
+    .q-page-container {
         padding: 0 200px;
     }
 }
 
+#card-plano {
+    transition: all 0.1s ease;
+    cursor: pointer;
+    filter: brightness(.8);
+}
+
+#card-plano:hover {
+    filter: brightness(1);
+}
 </style>

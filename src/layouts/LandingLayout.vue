@@ -257,8 +257,8 @@
         <div class="container text-center">
           <h2 class="text-h5 text-bold q-mb-md">Quer saber mais?</h2>
           <p>Fale com nosso time agora mesmo</p>
-          <q-btn label="Entrar em contato via WhatsApp" color="secondary" class="q-mt-md q-py-xl" icon="sms" glossy
-            @click="solicitarContatoWpp()" target="_blank" />
+          <!-- <q-btn label="Entrar em contato via WhatsApp" color="secondary" class="q-mt-md q-py-xl" icon="sms" glossy
+            @click="solicitarContatoWpp()" target="_blank" /> -->
           <div class="w100 text-center text-teal-2 q-pt-lg text-bold">
             chatcar.suporte@gmail.com
           </div>
@@ -266,7 +266,7 @@
             Instagram e TikTok: @chatcar.ia
           </div>
           <div class="w100 text-center text-teal-2 q-pt-md text-bold">
-              <q-btn label="adquira já!" glossy color="green" to="/ia" icon="paid"></q-btn>
+              <q-btn label="adquira já!" glossy color="green" class="q-pa-xl q-mt-sm" to="/ia" icon="paid"></q-btn>
           </div>
         </div>
         <!-- <div class="w100 row justify-between q-pt-xl q-px-xl rounded-borders no-wrap">
