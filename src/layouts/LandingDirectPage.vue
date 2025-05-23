@@ -203,7 +203,9 @@
 
 <script setup>
 import { useQuasar } from 'quasar';
+import { api } from 'src/boot/axios';
 import { ref } from 'vue';
+
 const slideAtivoDetalhes = ref(0); // índice do slide ativo
 const selectedPlan = ref(null);
 const $q = useQuasar();
