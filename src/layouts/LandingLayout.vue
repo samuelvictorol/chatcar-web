@@ -108,7 +108,7 @@
       <section id="planos" class="q-py-xl bg-teal text-white text-center">
         <div class="container">
           <div class="text-h4 text-bold">Promoção por tempo limitado!</div>
-          <p class="text-subtitle1 q-mt-sm">De <s>R$ 459,90</s><br>por apenas <strong class="text-h5">R$
+          <p class="text-subtitle1 q-mt-sm">De <s>R$ 129,90</s><br>por apenas <strong class="text-h5">R$
               69,90/mês</strong>
           </p>
 
@@ -125,7 +125,7 @@
             </div>
           </div>
 
-          <q-btn label="Aproveitar agora" color="teal-14" glossy class="shadow-1 q-mt-lg" @click="routerPush('agora')"
+          <q-btn label="Aproveitar agora" color="teal-14" glossy class="shadow-1 q-mt-lg" to="/ia" icon="paid"
             size="lg" unelevated />
         </div>
       </section>
