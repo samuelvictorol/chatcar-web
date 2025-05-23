@@ -77,7 +77,7 @@
                         <div class="container">
                             <div class="row q-col-gutter-md justify-center">
                                 <!-- Plano Free Trial -->
-                                <div class="col-12 col-sm-6 col-md-4">
+                                <div class="w50" id="card-plano">
                                     <q-card class="q-pa-md shadow-2">
                                         <q-card-section>
                                             <div class="text-h5 text-bold text-teal">Pacote Básico</div>
@@ -106,7 +106,7 @@
                                         </q-card-actions>
                                     </q-card>
                                 </div>
-                                <div class="col-12 col-sm-6 col-md-4">
+                                <div class="w50" id="card-plano">
                                     <q-card class="q-pa-md shadow-4 bg-green-1">
                                         <q-card-section>
                                             <div class="text-h5 text-bold text-green">Plano Profissional</div>
@@ -192,10 +192,10 @@
                     </div>
                 </div>
             </section>
-            <div class="w100 q-pb-lg"></div>
-            <q-btn style="position:fixed;left:0px; bottom:0px" label="Criar Conta" :disabled="!isFormValid()"
-                @click="openPagarMeLinkUrl()" type="submit" color="teal" icon-right="person_add" glossy
-                class="w100 q-py-lg" />
+            <div class="w100 q-py-xl"></div>
+            <q-btn style="position:fixed;left:0px; bottom:0px" label="Criar Conta" v-if="isFormValid()"
+                @click="openPagarMeLinkUrl()" type="submit" color="green" icon-right="person_add" glossy
+                class="w100 q-py-xl" />
 
         </q-page-container>
     </q-layout>
@@ -242,7 +242,7 @@ function isFormValid() {
     if (form.value.email !== form.value.confirmEmail) {
         return false;
     }
-    if (!selectedPlan) {
+    if (!selectedPlan.value || selectedPlan.value.trim() === '') {
         return false;
     }
     return true;
@@ -300,6 +300,12 @@ function logout() {
     height: 100%;
 }
 
+@media (max-width: 550px) {
+    #card-plano {
+        width: 100%;
+    }
+}
+
 @media (min-width: 550px) {
     .video-container {
         padding-bottom: 0;
@@ -313,4 +319,10 @@ function logout() {
         /* altura fixa no desktop */
     }
 }
+@media (min-width: 800px) {
+    .q-page-container{
+        padding: 0 200px;
+    }
+}
+
 </style>
