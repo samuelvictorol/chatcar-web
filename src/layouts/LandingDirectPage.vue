@@ -38,27 +38,36 @@
                     <div class="col-12 col-md-4">
                         <q-icon name="storefront" size="64px" color="secondary" />
                         <h3 class="text-subtitle1 q-mt-sm text-bold">Cadastre seu Estoque</h3>
-                        <p style="font-size: 1rem;">Cadastre-se e tenha seu <strong>link público</strong>
-                            (chatcar.me/sualoja) pronto para
-                            receber e encantar seus clientes em tempo real com a IA que vende por você.</p>
+                        <p style="font-size: 1rem;">
+                            <strong>Cadastre-se</strong> e tenha seu <strong>link público</strong> (chatcar.me/sualoja)
+                            pronto para receber e encantar seus <strong>clientes em tempo real</strong> com a <strong>IA
+                                que vende por você</strong>.
+                        </p>
 
                     </div>
                     <div class="col-12 col-md-4">
                         <q-icon name="smart_toy" size="64px" color="secondary" />
                         <h3 class="text-subtitle1 q-mt-sm text-bold">Chat Automatizado</h3>
-                        <p style="font-size: 1rem;">Com seu link público, o ChatVitrine exibe opções em tempo real,
-                            conversa 24h e redireciona
-                            para o WhatsApp da sua loja, gerando leads prontos para fechar vendas.</p>
+                        <p style="font-size: 1rem;">
+                            Com seu <strong>link público</strong>, o <strong>ChatVitrine</strong> exibe opções em
+                            <strong>tempo real</strong>,
+                            conversa <strong>24h</strong> e redireciona para o <strong>WhatsApp da sua loja</strong>,
+                            gerando <strong>leads prontos</strong> para <strong>fechar vendas</strong>.
+                        </p>
+
                     </div>
                     <div class="col-12 col-md-4">
                         <q-icon name="list_alt" size="64px" color="secondary" />
                         <h3 class="text-subtitle1 q-mt-sm text-bold">Relatório Personalizado do Cliente</h3>
-                        <p style="font-size: 1rem;">Logo após a conversa no ChatVitrine, você recebe um resumo da
-                            interação com o cliente e dicas certeiras para fechar a venda.</p>
+                        <p style="font-size: 1rem;">
+                            Logo após a conversa no <strong>ChatVitrine</strong>, você recebe um <strong>resumo</strong>
+                            da interação com o cliente e <strong>dicas certeiras</strong> para <strong>fechar a
+                                venda</strong>.
+                        </p>
                     </div>
                 </div>
             </section>
-            <div class="relative bg-dark q-pa-sm rounded-borders q-mt-md text-bold text-left text-grey-4"
+            <div class="relative bg-dark q-pa-sm rounded-borders q-mt-md text-bold text-left bg-dark text-grey-4"
                 style="position: relative!important;">✅ Automatize seu
                 estoque em 2 etapas:
                 <div id="registrar" class="q-py-md w50 absolute" style="z-index: -9999!important;top:-60px"></div>
@@ -166,7 +175,8 @@
                     <div class="w100 q-px-md text-bold text-teal bg-grey-2 q-py-md rounded-borders q-mx-md"
                         style="border-bottom:4px solid #00BFA5;">
                         <div class="w100 text-black q-mb-md">✅ Preencha o campo com seu email, marque o plano desejado
-                            e clique em "Finalizar Cadastro e Pagar" para ser redirecionado ao ambiente seguro de pagamento.</div>
+                            e clique em "Finalizar Cadastro e Pagar" para ser redirecionado ao ambiente seguro de
+                            pagamento.</div>
                         📩 As instruções de como acessar e utilizar a plataforma serão enviadas para o seu e-mail.
                     </div>
                     <div class="w100 bg-teal q-pb-xs q-mt-lg rounded-borders"></div>
@@ -207,9 +217,17 @@
             <div class="text-left q-mb-md bg-grey-3 q-py-md rounded-borders q-px-md animate__animated animate__fadeInRight animate__slower"
                 style="border-bottom:4px solid #00BFA5; border-top:4px solid #00BFA5;">
 
-                <p style="font-size: 1rem;" class="text-grey-3 bg-dark rounded-borders q-pa-sm q-mt-md">
-                    🚀 Porque além de ser fácil, rápido e intuitivo, você terá um vendedor trabalhando 24h por dia para sua loja!
+                <p style="font-size: 1rem;" class="text-grey-3 text-center bg-dark rounded-borders q-pa-md q-mt-md">
+                    🚀 Além de ser <strong>fácil</strong> e <strong>rápido</strong> de configurar, você terá um
+                    <strong>vendedor
+                        24h</strong> com o <strong>ChatVitrine</strong> encantando seus clientes, aumentando as vendas e
+                    criando
+                    <strong>abordagens personalizadas</strong>. Seu cliente pode entrar em contato como um <strong>lead
+                        quente</strong> ou, mesmo que não entre, o sistema salva tudo: <strong>dados de contato</strong>
+                    e
+                    <strong>interesse</strong>, prontos para o próximo passo.
                 </p>
+
 
                 <p style="font-size: 1rem;">
                     🤖 A <strong>IA do ChatCar</strong> atende e entende o que seu cliente quer, recomenda o carro certo
@@ -221,25 +239,28 @@
                 <p style="font-size: 1rem;">
                     📲 Você recebe <strong>leads qualificados</strong> prontos para fechar, com nome, veículo desejado,
                     interação
-                    completa e <strong>dicas de abordagem</strong> personalizadas para converter.
+                    completa e <strong>dicas de abordagem</strong> personalizadas para
+                    <strong>conversão</strong>.<strong>Receba o
+                        cliente direto no seu
+                        WhatsApp</strong> com o lead personalizado.
                 </p>
 
                 <p style="font-size: 1rem;">
-                    ⚙️ Nada pra instalar. Sem mensalidade fixa. Funciona no celular, no desktop, onde quiser. Um único
+                    ⚙️ <strong>Sem instalação!</strong>. <strong>Sem mensalidade</strong>. Funciona no <strong>celular,
+                        no desktop,
+                        onde quiser</strong>. Um único
                     link e sua
                     <strong>loja inteira atendendo</strong>, <strong>mostrando todo o estoque</strong> e
                     <strong>centralizando o
                         contato</strong> com o cliente.
                 </p>
-
-                <p style="font-size: 1rem;" class="text-bold text-teal">
-                    💥 Seja você um vendedor, um time de marketing ou o dono da loja: transforme curiosidade em conversa
-                    e conversa
-                    em venda. Mesmo fora do horário comercial.
-                </p>
             </div>
-
             <q-separator class="q-mb-md" color="grey-4" />
+            <p style="font-size: 1rem;" class="text-bold text-secondary w100 q-px-md text-center">
+                💥 Seja você um vendedor, um time de marketing ou o dono da loja: transforme curiosidade em conversa
+                e conversa
+                em venda. Mesmo fora do horário comercial.
+            </p>
             <section class="q-py-xl q-mb-xl bg-dark text-white">
                 <div class="container text-center">
                     <h2 class="text-h5 text-bold q-mb-md">Quer saber mais?</h2>

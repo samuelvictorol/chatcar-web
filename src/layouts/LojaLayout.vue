@@ -12,7 +12,7 @@
                     </div>
                 </q-toolbar-title>
                 <div class="row no-wrap items-center">
-                    <q-btn icon="home" color="grey-4" flat to="/loja" />
+                    <!-- <q-btn icon="home" color="grey-4" flat to="/loja" /> -->
                     <q-btn color="white" glossy class="text-black " icon="menu" label="menu"
                         @click="rightDrawerOpen = !rightDrawerOpen" />
                 </div>

@@ -567,8 +567,8 @@ async function sendMessage() {
         const { chatvitrine } = response.data;
         let delayCount = 200
         for (const msg of chatvitrine.mensagens) {
-            await delay(delayCount);
             messages.value.push({ from: 'bot', text: msg });
+            await delay(delayCount);
             await nextTick();
             scrollToBottom();
             delayCount += 250

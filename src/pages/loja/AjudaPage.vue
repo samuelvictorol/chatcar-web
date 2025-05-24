@@ -5,10 +5,9 @@
             <q-breadcrumbs-el class="text-teal" icon="store" label="Início" to="/loja" />
             <q-breadcrumbs-el icon="info" label="Ajuda" />
         </q-breadcrumbs>
-
-        <!-- Título da Página -->
         <div class="row items-center justify-between q-mb-md">
-            <div class="text-h5 text-bold text-dark">Como Utilizar a IA para Analisar Leads</div>
+            <div class="text-h5 text-bold text-dark">Como Utilizar a IA para Gerar Leads e Sugestões de Abordagem
+                Personalizadas</div>
         </div>
 
         <!-- Conteúdo -->
@@ -193,8 +192,40 @@
             <q-card-section class="q-pa-lg">
                 <div class="text-subtitle1 text-bold q-mb-sm">Precisa de ajuda?</div>
                 <div class="text-body2">
-                    Se você tiver dúvidas ou dificuldades com o uso da IA, entre em contato com nosso time de suporte no instagram:
+                    Se você tiver dúvidas ou dificuldades com o uso da IA, entre em contato com nosso time de suporte no
+                    instagram:
                     <strong>@chatcar.ia</strong> ou email <strong>chatcar.suporte@gmail.com</strong> .
+                </div>
+            </q-card-section>
+        </q-card>
+
+        <div class="row items-center justify-between q-mb-md">
+            <div class="text-h5 text-bold text-dark">Termos de Uso</div>
+        </div>
+
+        <q-card flat bordered>
+            <q-card-section class="q-pa-lg">
+                <div class="text-body1 q-mb-md">
+                    Ao utilizar a plataforma <strong>ChatCar</strong>, você, usuário, concorda em fornecer seu
+                    <strong>nome</strong> e <strong>telefone</strong> para que os lojistas possam entrar em contato
+                    diretamente com você por meio da plataforma.
+                </div>
+
+                <div class="text-body1 q-mb-md">
+                    O lojista se compromete a utilizar essas informações <strong>exclusivamente</strong> para o fim de
+                    realizar abordagens comerciais relacionadas à venda de veículos <strong>anunciados em seu
+                        estoque</strong>.
+                </div>
+
+                <div class="text-body1 q-mb-md">
+                    Qualquer outro uso dos dados do usuário, incluindo <strong>spam</strong>, <strong>revenda de
+                        dados</strong> ou <strong>contatos não relacionados</strong> à venda de veículos, é estritamente
+                    proibido e constitui <strong>violação dos Termos de Uso</strong> da ChatCar.
+                </div>
+
+                <div class="text-body1">
+                    A ChatCar se reserva o direito de <strong>suspender</strong> ou <strong>banir lojistas</strong> que
+                    fizerem uso indevido das informações recebidas por meio da plataforma.
                 </div>
             </q-card-section>
         </q-card>
