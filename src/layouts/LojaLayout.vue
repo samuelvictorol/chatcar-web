@@ -35,16 +35,16 @@
                     </q-item-section>
                 </q-item>
             </q-list>
+            <q-separator />
             <div v-if="user" class="w100 text-left q-px-sm q-py-md text-grey-7">
                 chatcar.me/{{ user.login }}
             </div>
-            <q-separator />
             <div class="w100 text-right q-px-sm q-pt-xl text-grey-7">
                 @chatcar.ia
             </div>
             <q-separator />
             <div class="w100 text-right q-px-sm q-pt-xl text-grey-7">
-                <q-btn color="orange-14" @click="logout()" dense class="q-px-sm text-white q-mr-xs" flat
+                <q-btn color="red-14" @click="logout()" dense class="q-px-sm text-white q-mr-xs" flat
                     icon-right="logout" label="Logout" />
             </div>
         </q-drawer>

@@ -167,7 +167,7 @@
                                 </div>
                                 <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length"
                                     swipeable animated class="rounded-borders q-mb-md bg-grey-2" navigation arrows
-                                    infinite autoplay interval="2000">
+                                    infinite>
                                     <q-carousel-slide class="bg-dark" v-for="(img, index) in imagensVeiculoSelecionado"
                                         :key="index" :name="index">
                                         <q-img :src="img" fit="contain" class="rounded-borders w100"
@@ -199,7 +199,7 @@
                 <!-- Container de mensagens -->
                 <div class="col column no-wrap" style="overflow: hidden;">
                     <div ref="mensagensContainer" class="col scroll q-pa-md q-gutter-sm" style="overflow-y: auto;">
-                        <q-chat-message v-for="(msg, index) in messages" :key="index" :sent="msg.from === 'user'"
+                        <q-chat-message style="font-size:1rem" v-for="(msg, index) in messages" :key="index" :sent="msg.from === 'user'"
                             class="animate__animated animate__zoomIn" :text="[msg.text]"
                             :name="msg.from === 'user' ? 'Você' : 'ChatCars Store'"
                             :bg-color="msg.from === 'user' ? 'green-11' : 'grey-3'" />
@@ -502,7 +502,7 @@ onBeforeMount(async () => {
 
                 messages.value.push({
                     from: 'bot',
-                    text: `Se quiser ver mais opções, clique no ícone de "estoque" 🏪 na parte superior.`
+                    text: `Clique no Botão "estoque" para ver todas as opções disponíveis.`
                 })
 
                 nextTick(() => {
@@ -565,12 +565,13 @@ async function sendMessage() {
         });
 
         const { chatvitrine } = response.data;
-
+        let delayCount = 200
         for (const msg of chatvitrine.mensagens) {
-            await delay(500);
+            await delay(delayCount);
             messages.value.push({ from: 'bot', text: msg });
             await nextTick();
             scrollToBottom();
+            delayCount += 250
         }
 
         const sugeridos = estoque.value.filter(veiculo =>

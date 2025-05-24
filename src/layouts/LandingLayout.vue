@@ -109,7 +109,7 @@
         <div class="container">
           <div class="text-h4 text-bold">Promoção por tempo limitado!</div>
           <p class="text-subtitle1 q-mt-sm">De <s>R$ 129,90</s><br>por apenas <strong class="text-h5">R$
-              69,90/mês</strong>
+             89,90/mês</strong>
           </p>
 
           <div class="row justify-center q-mt-md">

@@ -22,6 +22,13 @@
         <q-spinner-ball color="teal" size="2em" />
         <q-spinner-ball color="teal" size="2em" />
       </div>
+      <div class="w100 q-mr-md" v-if="leadsFiltrados.length === 0 && !loading">
+        <q-card class="" style="width: 100%;border-bottom: 4px solid #00BFA5">
+          <q-card-section>
+            <div style="font-size: 1.2rem;" class="text-center">🪐 Nenhum lead encontrado</div>
+          </q-card-section>
+        </q-card>
+      </div>
       <q-card id="lead" v-for="lead in leadsFiltrados" :key="lead.id" class="q-pa-md"
         :style="'border-bottom:' + '2px solid ' + (lead.relatorioIA ? '#275DF3' : '#26A69A')"
         style="width: 100%; max-width: 300px;">

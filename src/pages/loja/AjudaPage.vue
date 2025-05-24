@@ -113,7 +113,9 @@
                     </q-timeline-entry>
 
                     <q-timeline-entry title="4. Adicione fotos (opcional)" icon="photo_camera">
-                        Faça o upload de imagens reais do veículo para ajudar na visualização pelos clientes.
+                        Adicione fotos do veículo para torná-lo mais atraente. Você pode colar o link direto da imagem
+                        no campo correspondente. Para mais detalhes, veja a seção "Como Adicionar Imagens dos
+                        Veículos" abaixo.
                     </q-timeline-entry>
 
                     <q-timeline-entry title="5. Salve o veículo no estoque" icon="check_circle">
@@ -126,15 +128,73 @@
                 </q-timeline>
             </q-card-section>
         </q-card>
+        <!-- Título -->
+        <div class="text-h4 text-bold text-dark q-mb-md q-pt-md">🚀 Como Utilizar o ChatCar IA da Melhor Forma</div>
 
+        <!-- Seção de Como Adicionar Imagens -->
+        <q-card flat bordered>
+            <q-card-section>
+                <div class="text-h6 text-bold q-mb-md text-teal">Como Adicionar Imagens dos Veículos</div>
+                <div class="text-body1 q-mb-md">
+                    Para que a IA apresente seus veículos de forma mais atraente, é essencial adicionar imagens de
+                    qualidade.
+                    Basta <strong>colar o link direto da imagem</strong> no campo correspondente.
+                </div>
+                <div class="text-body2 q-mb-md">
+                    🔗 Dica: Utilize plataformas gratuitas para hospedar as fotos e gerar links diretos:
+                    <ul>
+                        <li><strong>Imgur:</strong> <a href="https://imgur.com/" target="_blank"
+                                class="text-teal">imgur.com</a> – fácil e rápido!</li>
+                        <li><strong>Facebook:</strong> poste no feed ou em álbuns e copie o link direto.</li>
+                        <li><strong>Seu próprio site:</strong> se tiver, use os links das suas páginas de vendas.</li>
+                    </ul>
+                    Lembre-se: o link deve terminar com <code>.jpg</code>, <code>.png</code> ou <code>.webp</code>.
+                </div>
+            </q-card-section>
+        </q-card>
+
+        <!-- Dicas de Descrição -->
+        <q-card flat bordered class="q-mt-lg">
+            <q-card-section>
+                <div class="text-h6 text-bold q-mb-md text-teal">Escrevendo a Descrição Perfeita</div>
+                <div class="text-body1 q-mb-md">
+                    Uma boa descrição faz toda a diferença! Quanto mais direta e completa, melhor a IA vai funcionar e
+                    gerar leads de qualidade.
+                </div>
+                <div class="text-body2 q-mb-md">
+                    ✅ <strong>Dicas para uma descrição eficiente:</strong>
+                    <ul>
+                        <li>Informe a marca, modelo, motor e combustível.</li>
+                        <li>Inclua quilometragem, cor, número de portas e tração.</li>
+                        <li>Adicione detalhes importantes como: único dono, revisões feitas, extras, etc.</li>
+                    </ul>
+                    Quanto mais claro e direto, maior a chance de conversão!
+                </div>
+            </q-card-section>
+        </q-card>
+
+        <!-- Exemplo de Descrição -->
+        <q-card flat bordered class="q-mt-lg">
+            <q-card-section>
+                <div class="text-h6 text-bold q-mb-md text-teal">Exemplo de Boa Descrição</div>
+                <div class="q-mb-md bg-grey-3 q-pa-sm rounded-borders">
+                    <code>
+            BMW 320i GP 2.0 Turbo - Tração Traseira - 16V GASOLINA 4P, câmbio AUTOMÁTICO, 166.000km, Sedã, Gasolina, Cor Preto, único dono.
+          </code>
+                </div>
+                <div class="text-body2">
+                    🧠 A IA vai usar essas informações para criar textos e respostas personalizadas, facilitando a
+                    conversão!
+                </div>
+            </q-card-section>
+        </q-card>
         <!-- Sugestão de Suporte -->
         <q-card flat bordered class="q-mt-lg">
             <q-card-section class="q-pa-lg">
                 <div class="text-subtitle1 text-bold q-mb-sm">Precisa de ajuda?</div>
                 <div class="text-body2">
-                    Se você tiver dúvidas ou dificuldades com o uso da IA, entre em contato com nosso time de suporte
-                    pelo WhatsApp ao final da página inicial ou envie uma mensagem no Instagram para
-                    <strong>@chatcar.ia</strong>.
+                    Se você tiver dúvidas ou dificuldades com o uso da IA, entre em contato com nosso time de suporte no instagram:
+                    <strong>@chatcar.ia</strong> ou email <strong>chatcar.suporte@gmail.com</strong> .
                 </div>
             </q-card-section>
         </q-card>
