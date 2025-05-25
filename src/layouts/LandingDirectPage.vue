@@ -18,7 +18,7 @@
         <q-page-container class="q-pa-md relative animate__animated animate__fadeIn">
             <div class="q-mb-md q-mt-md ">
                 <div class="video-container rounded-borders" style="border-bottom:4px solid #00BFA5;">
-                    <iframe width="100%" src="https://www.youtube.com/watch?v=px4S7qbkVSw" frameborder="0"
+                    <iframe width="100%" src="https://www.youtube.com/embed/px4S7qbkVSw" frameborder="0"
                         allowfullscreen></iframe>
                 </div>
             </div>
