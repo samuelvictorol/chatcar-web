@@ -18,16 +18,16 @@
         <q-page-container class="q-pa-md relative animate__animated animate__fadeIn">
             <div class="q-mb-md q-mt-md ">
                 <div class="video-container rounded-borders" style="border-bottom:4px solid #00BFA5;">
-                    <iframe width="100%" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0"
+                    <iframe width="100%" src="https://www.youtube.com/watch?v=px4S7qbkVSw" frameborder="0"
                         allowfullscreen></iframe>
                 </div>
             </div>
             <section class="q-pb-lg q-pt-lg  bg-dark text-white text-center rounded-borders">
                 <div class="container rounded-borders">
-                    <h1 class="text-h3 text-bold "><q-icon name="sms" color="white"
+                    <h1 class="text-h4 text-bold q-px-md"><q-icon name="sms" color="white"
                             class="animate__animated animate__zoomIn animate__slower animate__delay-2s"
-                            size="xl"></q-icon><br>Transforme
-                        Conversas em Vendas com o ChatCar<br><q-icon name="paid" color="teal-14"
+                            size="xl"></q-icon><br>Faça com que seu ESTOQUE seja um VENDEDOR que nunca dorme!<br><q-icon
+                            name="paid" color="teal-14"
                             class="animate__animated animate__zoomIn animate__slower animate__delay-3s"
                             size="xl"></q-icon></h1>
                 </div>
@@ -350,6 +350,13 @@ function scrollToPlanos() {
 }
 
 function scrollToRegistrar() {
+    $q.notify({
+        color: 'teal',
+        icon: 'paid',
+        message: 'Preencha seu email e selecione um plano 🚀',
+        position: 'top'
+    });
+
     const el = document.getElementById('registrar');
     if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
