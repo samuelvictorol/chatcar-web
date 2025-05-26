@@ -128,25 +128,25 @@
                                     <q-item>
                                         <q-item-section>
                                             <q-item-label class="text-subtitle1">Redes Sociais:</q-item-label>
-                                            <q-item-label caption></q-item-label>
+                                            <q-item-label caption>{{ sobreLoja?.site }}</q-item-label>
                                         </q-item-section>
                                     </q-item>
                                     <q-item>
                                         <q-item-section>
                                             <q-item-label class="text-subtitle1">Endereço:</q-item-label>
-                                            <q-item-label caption>{{ sobreLoja.localizacao }}</q-item-label>
+                                            <q-item-label caption>{{ sobreLoja?.localizacao }}</q-item-label>
                                         </q-item-section>
                                     </q-item>
                                     <q-item>
                                         <q-item-section>
                                             <q-item-label class="text-subtitle1">Contato:</q-item-label>
-                                            <q-item-label caption>{{ sobreLoja.contato }}</q-item-label>
+                                            <q-item-label caption>{{ sobreLoja?.contato }}</q-item-label>
                                         </q-item-section>
                                     </q-item>
                                     <q-item>
                                         <q-item-section>
                                             <q-item-label class="text-subtitle1">Email:</q-item-label>
-                                            <q-item-label caption>{{ sobreLoja.email }}</q-item-label>
+                                            <q-item-label caption>{{ sobreLoja?.email }}</q-item-label>
                                         </q-item-section>
                                     </q-item>
                                 </q-list>
