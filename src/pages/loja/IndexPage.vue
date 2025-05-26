@@ -149,15 +149,15 @@ onMounted(async () => {
         </q-breadcrumbs>
 
         <!-- Botões -->
-        <strong class="text-teal">{{ userRole }}</strong><br />
-        <div class="row q-gutter-sm q-mb-md">
-            <q-btn color="teal" icon="sms" icon-right="directions_car" label="Chat Estoque" glossy
+        <strong class="text-teal">{{ editando ? 'Editando Perfil' : userRole }}</strong><br />
+        <div class="row q-gutter-sm q-mb-md" style="position: relative">
+            <q-btn color="teal" icon="sms" icon-right="directions_car" label="Chat Estoque" v-if="!editando" glossy
                 :to="'/' + lojaInfo.login" />
-            <q-btn color="blue-14" icon="currency_exchange" label="Planos" glossy to="/loja/planos" />
+            <q-btn color="blue-14" icon="currency_exchange" label="Planos" glossy to="/loja/planos" v-if="!editando" />
             <q-btn v-if="!editando" color="orange-14" glossy icon="edit" label="Editar Perfil"
                 @click="editando = true" />
-            <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" />
-            <q-btn v-if="editando" color="negative" glossy icon="cancel" label="Cancelar" @click="editando = false" />
+            <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" class="q-py-lg" style="position: fixed; bottom:0px;left:-8px;z-index: 999; width: 100vw" />
+            <q-btn v-if="editando" color="negative" glossy icon="cancel" label="Cancelar" @click="editando = false" style="position: fixed; top:42px;left:-8px;z-index: 999; width: 100vw" />
         </div>
 
         <!-- Cards -->
@@ -186,9 +186,9 @@ onMounted(async () => {
                         <q-input maxlength="18" color="teal" v-else v-model="lojaInfo.cnpj" dense />
                     </div>
                     <div class="text-body1">
-                        <strong>Site: </strong>
+                        <strong>Redes Sociais: </strong>
                         <template v-if="!editando">{{ lojaInfo.site }}</template>
-                        <q-input color="teal" v-else v-model="lojaInfo.site" dense />
+                        <q-input color="teal" v-else v-model="lojaInfo.site" placeholder="Use este campo para adicionar suas redes sociais e informações adicionais" dense type="textarea" />
                     </div>
                     <div class="text-body1" v-if="editando"> 
                         <strong>Email: </strong>
@@ -226,7 +226,7 @@ onMounted(async () => {
                     <div class="text-body1">
                         <strong>Contato: </strong>
                         <template v-if="!editando">{{ lojaInfo.contato }}</template>
-                        <q-input color="teal" v-else v-model="lojaInfo.contato" dense />
+                        <q-input color="teal" v-else v-model="lojaInfo.contato" mask="(##) #####-####"  dense />
                     </div>
 
                     <div class="text-body1" v-if="editando">
@@ -275,9 +275,9 @@ onMounted(async () => {
             </q-card> -->
 
             <!-- Card Leads Recentes -->
-            <q-card class="q-pa-sm full-height" flat bordered>
+            <q-card v-if="!editando" class="q-pa-sm full-height" flat bordered>
                 <q-card-section>
-                    <div class="text-h6 text-bold text-secondary text-center">Leads Recentes</div>
+                    <div class="text-h6 text-bold text-secondary text-center">Clientes Recentes</div>
                     <q-separator class="q-my-sm" />
                     <div v-for="lead in leadsRecentes" :key="lead.id" class="q-mb-xs text-body1">
                         ✨ {{ lead.nome }} - {{ lead.data }}
@@ -286,6 +286,6 @@ onMounted(async () => {
             </q-card>
 
         </q-layout-grid>
-
+        <div class="w100 q-py-lg"></div>
     </q-page>
 </template>

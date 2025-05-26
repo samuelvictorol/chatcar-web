@@ -122,13 +122,13 @@
                                     <q-item>
                                         <q-item-section>
                                             <q-item-label class="text-subtitle1">Nome:</q-item-label>
-                                            <q-item-label caption>{{ sobreLoja.nome }}</q-item-label>
+                                            <q-item-label caption>{{ sobreLoja.nome }}{{ sobreLoja.cnpj ? ' - ' + sobreLoja.cnpj : '' }}</q-item-label>
                                         </q-item-section>
                                     </q-item>
                                     <q-item>
                                         <q-item-section>
-                                            <q-item-label class="text-subtitle1">CNPJ:</q-item-label>
-                                            <q-item-label caption>{{ sobreLoja.cnpj }}</q-item-label>
+                                            <q-item-label class="text-subtitle1">Redes Sociais:</q-item-label>
+                                            <q-item-label caption></q-item-label>
                                         </q-item-section>
                                     </q-item>
                                     <q-item>
@@ -201,7 +201,7 @@
                     <div ref="mensagensContainer" class="col scroll q-pa-md q-gutter-sm" style="overflow-y: auto;">
                         <q-chat-message style="font-size:1rem" v-for="(msg, index) in messages" :key="index" :sent="msg.from === 'user'"
                             class="animate__animated animate__zoomIn" :text="[msg.text]"
-                            :name="msg.from === 'user' ? 'Você' : 'ChatCars Store'"
+                            :name="msg.from === 'user' ? 'Você' : sobreLoja.login"
                             :bg-color="msg.from === 'user' ? 'green-11' : 'grey-3'" />
                     </div>
                 </div>

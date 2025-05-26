@@ -36,16 +36,24 @@
                 </q-item>
             </q-list>
             <q-separator />
-            <div v-if="user" class="w100 text-left q-px-sm q-py-md text-grey-7">
-                chatcar.me/{{ user.login }}
-            </div>
-            <div class="w100 text-right q-px-sm q-pt-xl text-grey-7">
-                @chatcar.ia
+            <div class="w100 column q-mt-md">
+                <div class="w50">
+                    <q-btn to="/loja/planos" color="green" glossy class="q-px-sm text-white q-mb-sm q-ml-md "
+                    icon-right="currency_exchange" label="Planos" />
+                    <q-btn to="/loja/ajuda" color="blue" glossy class="q-ml-md  q-mb-md q-px-sm text-white"
+                    icon-right="contact_support" label="Ajuda" />
+                </div>
             </div>
             <q-separator />
-            <div class="w100 text-right q-px-sm q-pt-xl text-grey-7">
+            <div v-if="user" class="w100 text-left q-px-sm q-py-md text-grey-7">
+                🔗 chatcar.me/{{ user.login }}
+            </div>
+            <!-- <div class="w100 text-right q-px-sm q-pt-md text-grey-7">
+                @chatcar.ia
+            </div> -->
+            <div class="w100 text-right q-px-sm q-pt-xl q-mt-xl text-grey-7">
                 <q-btn color="red-14" @click="logout()" dense class="q-px-sm text-white q-mr-xs" flat
-                    icon-right="logout" label="Logout" />
+                    icon-right="logout" label="Encerrar Sessão" />
             </div>
         </q-drawer>
 
@@ -85,16 +93,16 @@ const menuOptions = ref([
         icon: 'groups',
         to: '/loja/leads'
     },
-    {
-        label: 'Planos',
-        icon: 'currency_exchange',
-        to: '/loja/planos'
-    },
-    {
-        label: 'Ajuda',
-        icon: 'contact_support',
-        to: '/loja/ajuda'
-    },
+    // {
+    //     label: 'Planos',
+    //     icon: 'currency_exchange',
+    //     to: '/loja/planos'
+    // },
+    // {
+    //     label: 'Ajuda',
+    //     icon: 'contact_support',
+    //     to: '/loja/ajuda'
+    // },
 
 ])
 function logout() {
