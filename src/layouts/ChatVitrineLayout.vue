@@ -299,7 +299,7 @@ const imagensVeiculoSelecionado = computed(() => {
 })
 async function carregarEstoque() {
     try {
-        if (route.params.login === 'chatcars') {
+        if (route.params.login === 'jatoveiculos') {
             $q.notify({
                 color: 'teal',
                 icon: 'directions_car',

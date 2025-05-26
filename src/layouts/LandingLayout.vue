@@ -21,7 +21,7 @@
       </q-toolbar>
       <q-tabs inline-label v-model="tab" class="text-grey-2 ">
         <q-route-tab class="animate__animated animate__flipInX animate__slower animate__delay-2s row"
-          icon="rocket_launch" label="experimente já" to="/chatcars" />
+          icon="rocket_launch" label="experimente já" to="/jatoveiculos" />
 
         <q-tab class="animate__animated animate__flipInX animate__slower animate__delay-2s row" label="Planos"
           icon="view_week" name="planos" @click="scrollToSection('planos')" />

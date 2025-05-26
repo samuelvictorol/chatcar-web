@@ -87,7 +87,6 @@ const editarLoja = async () => {
             }
             lojaInfo.value.password = senha.value // Envia nova senha
         }
-
         const response = await api.put(`/editar-loja/${lojaInfo.value._id}`, lojaInfo.value)
 
         Notify.create({
