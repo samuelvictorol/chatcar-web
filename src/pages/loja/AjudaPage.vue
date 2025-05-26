@@ -147,7 +147,6 @@
                         <li><strong>Facebook:</strong> poste no feed ou em álbuns e copie o link direto.</li>
                         <li><strong>Seu próprio site:</strong> se tiver, use os links das suas páginas de vendas.</li>
                     </ul>
-                    Lembre-se: o link deve terminar com <code>.jpg</code>, <code>.png</code> ou <code>.webp</code>.
                 </div>
             </q-card-section>
         </q-card>
