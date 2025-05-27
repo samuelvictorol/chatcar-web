@@ -70,7 +70,8 @@
 
                     <div style="border-radius: 12px">
                         <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length"
-                            v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-md" autoplay interval="4000">
+                            v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-md" autoplay
+                            interval="4000">
                             <template v-slot:control>
                                 <div class="absolute-left q-pa-xs" style="top:45%">
                                     <q-btn icon="chevron_left" color="white" unelevated round dense size="lg"
@@ -122,7 +123,9 @@
                                     <q-item>
                                         <q-item-section>
                                             <q-item-label class="text-subtitle1">Nome:</q-item-label>
-                                            <q-item-label caption>{{ sobreLoja.nome }}{{ sobreLoja.cnpj ? ' - ' + sobreLoja.cnpj : '' }}</q-item-label>
+                                            <q-item-label caption>{{ sobreLoja.nome }}{{ sobreLoja.cnpj ? ' - ' +
+                                                sobreLoja.cnpj
+                                                : '' }}</q-item-label>
                                         </q-item-section>
                                     </q-item>
                                     <q-item>
@@ -160,7 +163,7 @@
                         </q-card>
                     </q-dialog>
                     <!-- Dialog de detalhes -->
-                    <q-dialog v-model="dialogAberto" >
+                    <q-dialog v-model="dialogAberto">
                         <q-card class="q-pa-md" style="width: 100%; max-width: 500px;">
                             <q-card-section>
                                 <div class="text-h6 q-pb-sm">{{ carroSelecionado.modelo }} - {{ carroSelecionado?.ano }}
@@ -177,9 +180,10 @@
                                 </q-carousel>
                                 <div class="text-caption q-mb-sm">{{ carroSelecionado.tipo?.label }} - {{
                                     carroSelecionado.categoria?.label
-                                    }}
+                                }}
                                 </div>
-                                <div v-if="carroSelecionado.preco" class="text-body2 text-bold" style="font-size: 1rem;">
+                                <div v-if="carroSelecionado.preco" class="text-body2 text-bold"
+                                    style="font-size: 1rem;">
                                     R$ {{ carroSelecionado?.preco }}
                                 </div>
                                 <div v-if="carroSelecionado.descricao" class="text-body2">
@@ -187,7 +191,7 @@
                                 </div>
                             </q-card-section>
                             <q-card-actions align="right">
-                                <q-btn flat label="Fechar" color="secondary" @click="fecharDetalhes()"/>
+                                <q-btn flat label="Fechar" color="secondary" @click="fecharDetalhes()" />
                                 <q-btn label="Contato" glossy icon-right="sms"
                                     @click="sendWppMessage(carroSelecionado.modelo)" color="secondary" v-close-popup />
                             </q-card-actions>
@@ -199,8 +203,8 @@
                 <!-- Container de mensagens -->
                 <div class="col column no-wrap" style="overflow: hidden;">
                     <div ref="mensagensContainer" class="col scroll q-pa-md q-gutter-sm" style="overflow-y: auto;">
-                        <q-chat-message style="font-size:1rem" v-for="(msg, index) in messages" :key="index" :sent="msg.from === 'user'"
-                            class="animate__animated animate__zoomIn" :text="[msg.text]"
+                        <q-chat-message style="font-size:1rem" v-for="(msg, index) in messages" :key="index"
+                            :sent="msg.from === 'user'" class="animate__animated animate__zoomIn" :text="[msg.text]"
                             :name="msg.from === 'user' ? 'Você' : sobreLoja.login"
                             :bg-color="msg.from === 'user' ? 'green-11' : 'grey-3'" />
                     </div>
@@ -393,7 +397,13 @@ onBeforeMount(async () => {
     })
 
     $q.dialog({
-        title: sobreLoja.value.nome + ':',
+        html: true,
+        title: `
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <img src="${sobreLoja.value.img_url}" alt="Logo" style="width: 32px; height: 32px; border-radius: 50%;" />
+      <span>${sobreLoja.value.nome}:</span>
+    </div>
+  `,
         message: `Bem-vindo(a)! Pra iniciar, poderia nos informar o seu nome?`,
         prompt: {
             model: '',
@@ -411,7 +421,7 @@ onBeforeMount(async () => {
             glossy: true
         },
         cancel: {
-            label: 'voltar',
+            label: 'Voltar',
             color: 'dark',
             flat: true
         }
@@ -421,7 +431,7 @@ onBeforeMount(async () => {
         usuario.value.nome = nome
 
         $q.dialog({
-            title: '📲 Para acessar o nosso chat vitrine, preencha com seu telefone (ou whatsapp)',
+            title: '📲 Para acessar o nosso estoque de veículos, preencha com seu telefone (ou whatsapp)',
             message: `${usuario.value.nome}, digite seu número com DDD:`,
             prompt: {
                 model: '',
