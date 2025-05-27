@@ -40,10 +40,12 @@
                 <div class="container rounded-borders">
                     <h1 class="text-h4 text-bold q-px-md"><q-icon name="sms" color="white"
                             class="animate__animated animate__zoomIn animate__slower animate__delay-2s"
-                            size="xl"></q-icon><br>TRANSFORME seu <strong class="text-teal-14">ESTOQUE</strong> em um <strong class="text-teal-14">VENDEDOR</strong> que nunca dorme por apenas <strong class="text-green-14" style="font-size:2.8rem">R$49,90</strong><br><q-icon
-                            name="paid" color="teal-14"
-                            class="animate__animated animate__zoomIn animate__slower animate__delay-3s"
-                            size="xl"></q-icon></h1>
+                            size="xl"></q-icon><br>TRANSFORME seu <strong class="text-teal-14">ESTOQUE</strong> em um
+                        <strong class="text-teal-14">VENDEDOR</strong> que nunca dorme por apenas <strong
+                            class="text-green-14" style="font-size:2.8rem">R$49,90</strong><br><q-icon name="paid"
+                            color="teal-14" class="animate__animated animate__zoomIn animate__slower animate__delay-3s"
+                            size="xl"></q-icon>
+                    </h1>
                 </div>
             </section>
             <!-- Planos -->
@@ -52,45 +54,14 @@
                         realizada
                         assinatura e nem cobranças automáticas.</strong></div>
                 <div class="row justify-center">
-                    <section class="q-pb-xl q-pt-md text-center  q-px-md">
+                    <section class="q-pb-xl q-pt-md text-center  q-px-sm">
                         <div class="container">
                             <div class="row q-col-gutter-md justify-center">
-                                <!-- <div class="w50" id="card-plano">
-                                    <q-card class="q-pa-sm shadow-2 bg-grey-2"
-                                        style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5">
-                                        <q-card-section>
-                                            <div class="text-h5 text-bold text-teal">Pacote Básico</div>
-                                            <div class="text-h6 q-my-md text-secondary"><strong>R$ 19,90</strong></div>
-                                            <ul class="text-left" style="font-size: 1rem;">
-                                                <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da
-                                                    sua loja
-                                                </li>
-                                                <li><strong>ChatCar IA</strong> para geração de relatórios com dicas de
-                                                    abordagem
-                                                    personalizadas</li>
-                                                <li>ChatVitrine <strong>3.5-turbo</strong></li>
-                                                <li><strong>Linguagem natural</strong> para o atendimento das
-                                                    informações dos seus
-                                                    veículos</li>
-                                                <li><strong>Armazenamento de Leads</strong> limitados (até
-                                                    <strong>50</strong> leads
-                                                    simultâneos)
-                                                </li>
-                                            </ul>
-                                        </q-card-section>
-                                        <q-card-actions align="center">
-                                            <q-radio size="xl" v-model="selectedPlan" val="222222"
-                                                checked-icon="task_alt" unchecked-icon="panorama_fish_eye" left-label
-                                                class="text-bold" style="font-size:1.2rem" label="Quero esse plano!"
-                                                color="teal" />
-                                        </q-card-actions>
-                                    </q-card>
-                                </div> -->
                                 <div class="w50" id="card-plano">
-                                    <q-card class="q-pa-xs shadow-4 bg-blue-1"
+                                    <q-card class="q-pa-xs shadow-4 bg-grey-1"
                                         style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5">
                                         <q-card-section>
-                                            <div class="text-h6 text-bold text-teal q-px-xs">📦 O QUE VOU RECEBER ?
+                                            <div class="text-h5 text-bold text-teal q-px-xs">📦 O QUE IREI RECEBER ?
                                             </div>
                                             <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">
                                                 ⌛ De R$ 99,90
@@ -106,7 +77,7 @@
                                                 <li>💾 Armazene <strong>leads simultâneos sem limites</strong> e nunca
                                                     mais
                                                     perca um contato quente.</li>
-                                                <li>🤖 <strong>ChatVitrine I.A</strong>: seu vendedor digital
+                                                <li>🤖 <strong>ChatVitrine I.A</strong>: seu vendedor
                                                     incansável, pronto
                                                     pra encantar e converter.</li>
                                                 <li>📈 <strong>ChatCar IA</strong> gera <strong>relatórios
@@ -146,12 +117,20 @@
                                     </q-card>
                                 </div>
                             </div>
+                            <div id="comofunciona"></div>
                         </div>
                     </section>
                 </div>
-                <section id="comofunciona" style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5;"
+                <div class="text-h5 q-mb-lg text-bold text-grey-2">🧐 Como Funciona?</div>
+                <div class="text-teal q-mb-lg bg-grey-2 q-pa-sm rounded-borders shadow-1">🤗 <strong>FÁCIL</strong> e <strong>RÁPIDO!</strong> Veja <strong>como automatizar seu estoque</strong> em <strong>3</strong> etapas <strong>em menos de UM MINUTO</strong></div>
+                <div class="q-mb-lg">
+                    <div class="video-container rounded-borders" style="border-bottom:4px solid #00BFA5;">
+                        <iframe width="100%" src="https://www.youtube.com/embed/y2Qka6CeEVg" frameborder="0"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+                <section style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5;"
                     class="bg-grey-1 q-py-lg container text-center q-mt-md q-px-md rounded-borders">
-                    <h2 class="text-h4 text-bold text-teal q-pb-lg">🧐 Como Funciona?</h2>
                     <div class="row q-col-gutter-md">
                         <div class="col-12 col-md-4">
                             <q-icon name="storefront" size="64px" color="secondary" />
@@ -257,7 +236,7 @@
                     <li>🌟 <strong>Sem instalação</strong> e <strong>sem mensalidade</strong>, só resultado real</li>
                 </ul>
 
-                <p style="font-size: 1rem;" class="text-left q-mt-md text-bold text-red-5">
+                <p style="font-size: 1rem;" class="text-left q-mt-md text-bold text-orange-14">
                     🚀 Não fique pra trás enquanto outros já estão vendendo 24h.<br>
                     📲 Transforme curiosidade em conversa, conversa em venda — e venda em relacionamento!
                 </p>
