@@ -150,13 +150,13 @@ onMounted(async () => {
         <!-- Botões -->
         <strong class="text-teal">{{ editando ? 'Editando Perfil' : userRole }}</strong><br />
         <div class="row q-gutter-sm q-mb-md" style="position: relative">
-            <q-btn color="teal" icon="sms" icon-right="directions_car" label="Chat Estoque" v-if="!editando" glossy
+            <q-btn color="blue" icon="sms" icon-right="directions_car" label="Meu Chat" v-if="!editando" glossy
                 :to="'/' + lojaInfo.login" />
-            <q-btn color="blue-14" icon="currency_exchange" label="Planos" glossy to="/loja/planos" v-if="!editando" />
+            <q-btn color="green" icon="currency_exchange" label="Planos" glossy to="/loja/planos" v-if="!editando" />
             <q-btn v-if="!editando" color="orange-14" glossy icon="edit" label="Editar Perfil"
                 @click="editando = true" />
             <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" class="q-py-lg" style="position: fixed; bottom:0px;left:-8px;z-index: 999; width: 100vw" />
-            <q-btn v-if="editando" color="negative" glossy icon="cancel" label="Cancelar" @click="editando = false" style="position: fixed; top:42px;left:-8px;z-index: 999; width: 100vw" />
+            <q-btn v-if="editando" color="orange-14" glossy icon="cancel" label="Cancelar" @click="editando = false" style="position: fixed; top:42px;left:-8px;z-index: 999; width: 100vw" />
         </div>
 
         <!-- Cards -->
@@ -198,7 +198,7 @@ onMounted(async () => {
                         <strong>{{ !editando ? 'ChatUrl: ' : 'Login: ' }} </strong>
                         <template v-if="!editando">{{ 'chatcar.me/' + lojaInfo.login }}</template>
                         <template v-if="!editando"><br><q-btn label="compartilhar" @click="compartilharChatUrl" dense
-                                icon-right="share" class="q-my-sm" color="teal"></q-btn></template>
+                                icon-right="share" class="q-my-sm" color="blue"></q-btn></template>
                         <q-input color="teal" v-else v-model="lojaInfo.login" dense />
                     </div>
                     <div v-if="editando" class="text-body1">

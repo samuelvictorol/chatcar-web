@@ -108,8 +108,8 @@
       <section id="planos" class="q-py-xl bg-teal text-white text-center">
         <div class="container">
           <div class="text-h4 text-bold">Promoção por tempo limitado!</div>
-          <p class="text-subtitle1 q-mt-sm">De <s>R$ 129,90</s><br>por apenas <strong class="text-h5">R$
-             89,90/mês</strong>
+          <p class="text-subtitle1 q-mt-sm">De <s>R$ 99,90</s><br>por apenas <strong class="text-h5">R$
+              49,90/mês</strong>
           </p>
 
           <div class="row justify-center q-mt-md">
@@ -125,66 +125,71 @@
             </div>
           </div>
 
-          <q-btn label="Aproveitar agora" color="teal-14" glossy class="shadow-1 q-mt-lg" to="/ia" icon="paid"
-            size="lg" unelevated />
+          <q-btn label="Aproveitar agora" color="teal-14" glossy class="shadow-1 q-mt-lg" to="/ia" icon="paid" size="lg"
+            unelevated />
         </div>
       </section>
 
       <section class="q-pb-xl q-pt-md bg-grey-2 text-center">
         <div class="container">
           <h2 class="text-h4 text-bold q-mb-sm">Escolha seu Plano</h2>
-          <div class="w100 text-subtitle1 q-mt-sm q-mb-xl "> ✅ Utilize a plataforma no plano mensal e pague apenas se for utilizar sem
+          <div class="w100 text-subtitle1 q-mt-sm q-mb-xl "> ✅ Utilize a plataforma no plano mensal e pague apenas se
+            for utilizar sem
             cobranças ou assinaturas.</div>
 
           <div class="row q-col-gutter-md justify-center">
             <div class="col-12 col-sm-6 col-md-4">
-              <q-card class="q-pa-md shadow-2">
+              <q-card class="q-pa-xs shadow-4 bg-blue-1"
+                style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5">
                 <q-card-section>
-                  <div class="text-h5 text-bold">Pacote Básico</div>
-                  <div class="text-h6 q-my-md text-secondary"><strong>R$ 19,90</strong></div>
-                                <ul class="text-left">
-                                    <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da sua loja
-                                    </li>
-                                    <li><strong>ChatCar IA</strong> para geração de relatórios com dicas de abordagem
-                                        personalizadas</li>
-                                    <li>ChatVitrine <strong>3.5-turbo</strong></li>
-                                    <li><strong>Linguagem natural</strong> para o atendimento das informações dos seus
-                                        veículos</li>
-                                    <li><strong>Armazenamento de Leads</strong> limitados (até <strong>50</strong> leads
-                                        simultâneos)</li>
-                                </ul>
-                </q-card-section>
-                <q-card-actions align="center">
-                  <q-btn label="PACOTE MENSAL" color="secondary" glossy @click="routerPush('mensal')" />
-                </q-card-actions>
-              </q-card>
-            </div>
-
-            <!-- Plano Básico -->
-            <div class="col-12 col-sm-6 col-md-4">
-              <q-card class="q-pa-md shadow-4 bg-green-1">
-                <q-card-section>
-                  <div class="text-h5 text-bold">Plano Profissional</div>
-                  <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">⌛ De R$ 129,90 por</div>
-                  <div class="text-h6 q-my-md text-green  text-bold">R$ 89,90/mês</div>
-                  <ul class="text-left">
-                    <li><strong>Atenda 24h</strong> com <strong>link</strong> do chat ia da sua loja
+                  <div class="text-h6 text-bold text-teal q-px-xs">📦 O QUE VOU RECEBER ?
+                  </div>
+                  <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">
+                    ⌛ De R$ 99,90
+                    por</div>
+                  <div style="font-size:2.4rem" class=" q-mb-md q-mt-sm text-teal  text-bold">
+                    R$
+                    49,90
+                  </div>
+                  <ul class="text-left column q-gutter-y-sm" style="font-size: 1rem;">
+                    <li>🕐 <strong>Atenda 24h</strong> com o <strong>link</strong> do chat
+                      IA da sua
+                      loja – sempre pronto pra fechar negócios.</li>
+                    <li>💾 Armazene <strong>leads simultâneos sem limites</strong> e nunca
+                      mais
+                      perca um contato quente.</li>
+                    <li>🤖 <strong>ChatVitrine I.A</strong>: seu vendedor digital
+                      incansável, pronto
+                      pra encantar e converter.</li>
+                    <li>📈 <strong>ChatCar IA</strong> gera <strong>relatórios
+                        completos</strong>
+                      com <strong>dicas personalizadas</strong> pra vender muito mais.
                     </li>
-                    <li>Armazenamento de leads simultâneos <strong>sem limites</strong>.</li>
-                    <li>ChatVitrine <strong>4.0</strong>.</li>
-                    <li><strong>ChatCar IA</strong> para geração de relatórios com dicas de abordagem
-                      personalizadas</li>
-                    <li>Relatórios com <strong>copys otimizadas</strong> para serem mais
-                      <strong>persuasivas</strong> e <strong>matadoras.</strong>
+                    <li>📝 Relatórios com <strong>copys otimizadas</strong>, prontos pra
+                      persuadir
+                      de verdade e garantir a conversão.</li>
+                    <li>💬 <strong>Linguagem natural</strong> pra conversar como humano e
+                      fechar
+                      como profissional.</li>
+                    <li>🌐 Funciona também como um <strong>site de estoque</strong>,
+                      perfeito pra
+                      ser usado como <strong>funil de vendas</strong> em tráfego pago e
+                      anúncios.
                     </li>
-                    <li><strong>Linguagem natural</strong> para o atendimento das informações dos seus
-                      veículos</li>
-                    <li>Mais <strong>vendido</strong></li>
+                    <li>🔗 Se o cliente demonstrar <strong>interesse real</strong>, ele é
+                      redirecionado <strong>automaticamente pro seu WhatsApp</strong> –
+                      você só
+                      precisa fechar a venda.</li>
+                    <li>🚀 Ideal pra <strong>vendedores</strong>, <strong>times de
+                        marketing</strong> e <strong>donos de loja</strong> que não
+                      querem ficar
+                      pra trás.</li>
+                    <li>🎯 Um só link, <strong>tudo integrado</strong>, sempre vendendo por
+                      você.
+                      Não espere – comece hoje!</li>
                   </ul>
                 </q-card-section>
-                <q-card-actions align="center">
-                  <q-btn label="pacote semestral" color="green" glossy @click="routerPush('semestral')" />
-                </q-card-actions>
+                  <q-btn label="Comprar Acesso" icon-right="paid" color="teal" glossy @click="routerPush('semestral')" class="w100 q-pa-xl" />
               </q-card>
             </div>
           </div>
@@ -266,7 +271,7 @@
             Instagram e TikTok: @chatcar.ia
           </div>
           <div class="w100 text-center text-teal-2 q-pt-md text-bold">
-              <q-btn label="adquira já!" glossy color="green" class="q-pa-xl q-mt-sm" to="/ia" icon="paid"></q-btn>
+            <q-btn label="adquira já!" glossy color="green" class="q-pa-xl q-mt-sm" to="/ia" icon="paid"></q-btn>
           </div>
         </div>
         <!-- <div class="w100 row justify-between q-pt-xl q-px-xl rounded-borders no-wrap">

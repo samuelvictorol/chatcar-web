@@ -1,4 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Rowdies:wght@300;400;700&display=swap');
+
+/* Cor de fundo do scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Largura do scrollbar */
+  height: 8px; /* Altura do scrollbar (scroll horizontal) */
+}
+
+/* Cor da "trilha" do scrollbar */
+::-webkit-scrollbar-track {
+  background: #4b4b4b; /* Cor de fundo da trilha */
+  border-radius: 10px; /* Cantos arredondados */
+}
+
+/* Cor do "polegar" do scrollbar (a parte que se move) */
+::-webkit-scrollbar-thumb {
+  background: #00bfa5; /* Cor do polegar */
+  border-radius: 10px; /* Cantos arredondados */
+}
+
+/* Cor do polegar ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background: #008e76;
+  cursor: grab;
+}
+
+
 *{
     font-family: 'Montserrat', sans-serif;
 }
