@@ -41,7 +41,7 @@
                     <h1 class="text-h4 text-bold q-px-md"><q-icon name="sms" color="white"
                             class="animate__animated animate__zoomIn animate__slower animate__delay-2s"
                             size="xl"></q-icon><br>TRANSFORME seu <strong class="text-teal-14">ESTOQUE</strong> em um
-                        <strong class="text-teal-14">VENDEDOR</strong> que nunca dorme por apenas <strong
+                        <strong class="text-teal-14">VENDEDOR</strong> por apenas <strong
                             class="text-green-14" style="font-size:2.8rem">R$49,90</strong><br><q-icon name="paid"
                             color="teal-14" class="animate__animated animate__zoomIn animate__slower animate__delay-3s"
                             size="xl"></q-icon>
