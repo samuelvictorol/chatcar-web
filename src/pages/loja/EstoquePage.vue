@@ -117,6 +117,7 @@
                         </template>
                     </q-select>
                     <q-select color="teal" v-model="formVeiculo.combustivel" label="Combustível" dense :options="[
+                        { label: 'Diesel', value: 'diesel' },
                         { label: 'Gasolina', value: 'gasolina' },
                         { label: 'Álcool', value: 'alcool' },
                         { label: 'Flex', value: 'flex' },
@@ -265,7 +266,7 @@ function abrirModalAdicionar() {
     formVeiculo.value = {
         modelo: '',
         tipo: '',
-        status: statusVeiculoOptions,
+        status: StatusVeiculoEnum.DISPONIVEL,
         km: '',
         cor: '',
         combustivel: '',
@@ -382,7 +383,7 @@ async function salvarVeiculo() {
         formVeiculo.value = {
             modelo: '',
             tipo: '',
-            status: '',
+            status: StatusVeiculoEnum.DISPONIVEL,
             categoria: '',
             descricao: '',
             km: '',
