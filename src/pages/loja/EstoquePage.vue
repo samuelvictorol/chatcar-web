@@ -31,8 +31,8 @@
                             style="object-fit: cover;" />
                         <q-card-section>
                             <div class="text-subtitle1 text-bold">{{ item.modelo }}</div>
-                            <div class="text-subtitle1">{{ item.ano }} - {{ item.status.label }}</div>
-                            <div class="text-body2 text-grey-8">R$ {{ item.preco }}</div>
+                            <div class="text-subtitle1">{{ item?.ano }} - {{ item.status?.label }}</div>
+                            <div class="text-body2 text-grey-8">R$ {{ item?.preco }}</div>
                         </q-card-section>
                         <q-card-actions align="right" class="bg-dark">
                             <q-btn flat color="red-4" icon="delete" @click="confirmarRemocao(item)" />
@@ -57,17 +57,23 @@
                 <q-separator />
 
                 <q-card-section>
-                    <div style="font-size: 1rem;" class="text-center  text-bold q-mb-sm">{{ veiculoSelecionado?.modelo }} - {{ veiculoSelecionado?.ano }}</div>
+                    <div style="font-size: 1rem;" class="text-center  text-bold q-mb-sm">{{ veiculoSelecionado?.modelo
+                    }} - {{
+                            veiculoSelecionado?.ano }}</div>
                     <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length" swipeable animated
-                         class="rounded-borders q-mb-md bg-grey-2" navigation arrows infinite>
-                        <q-carousel-slide class="bg-dark" v-for="(img, index) in imagensVeiculoSelecionado" :key="index" :name="index">
-                            <q-img :src="img" fit="contain" class="rounded-borders w100" style="border-bottom: 4px solid teal;border-top: 4px solid teal;" height="100%" />
+                        class="rounded-borders q-mb-md bg-grey-2" navigation arrows infinite>
+                        <q-carousel-slide class="bg-dark" v-for="(img, index) in imagensVeiculoSelecionado" :key="index"
+                            :name="index">
+                            <q-img :src="img" fit="contain" class="rounded-borders w100"
+                                style="border-bottom: 4px solid teal;border-top: 4px solid teal;" height="100%" />
                         </q-carousel-slide>
                     </q-carousel>
-                    <div class="text-body2 text-bold text-teal">{{ veiculoSelecionado?.categoria.label }} - {{ veiculoSelecionado?.tipo.label }}</div>
-                    <div class="text-body2 q-mb-xs">Preço: R$ {{ veiculoSelecionado?.preco }}</div>
-                    <q-separator  class="q-my-sm" />
+                    <div class="text-body2 text-bold text-green q-mb-xs">R$ {{ veiculoSelecionado?.preco }}</div>
+                    <div class="text-body2 q-mb-xs"><strong class="text-bold text-purple" v-if="veiculoSelecionado.cor">{{ veiculoSelecionado?.cor.toUpperCase() }}</strong> <strong v-if="veiculoSelecionado.km" class="text-bold text-teal-14">{{ veiculoSelecionado?.km }}km</strong> <strong class="text-bold text-orange-14" v-if="veiculoSelecionado.combustivel">{{ veiculoSelecionado?.combustivel.value.toUpperCase() }}</strong> <strong v-if="veiculoSelecionado.cambio" class="text-bold text-blue">{{ veiculoSelecionado?.cambio.value.toUpperCase() }}</strong></div>
+                    <q-separator class="q-my-sm" />
                     <div class="text-body2"><strong>Descrição:</strong> {{ veiculoSelecionado?.descricao }}</div>
+                    <div class="q-pt-md text-body2 text-bold text-teal">{{ veiculoSelecionado?.categoria.label }} - {{
+                        veiculoSelecionado?.tipo.label }}</div>
                 </q-card-section>
                 <q-separator />
                 <div class="w100 q-mt-md"></div>
@@ -86,7 +92,8 @@
                 <q-card-section>
                     <q-carousel v-model="slideAtivoAdicionar" v-if="imagensFormVeiculo.length" swipeable animated
                         height="200px" class="rounded-borders q-mb-md bg-grey-2" navigation arrows infinite>
-                        <q-carousel-slide class="bg-dark" v-for="(img, index) in imagensFormVeiculo" :key="index" :name="index">
+                        <q-carousel-slide class="bg-dark" v-for="(img, index) in imagensFormVeiculo" :key="index"
+                            :name="index">
                             <q-img :src="img" fit="cover" class="full-height" style="border-bottom: 4px solid teal" />
                         </q-carousel-slide>
                     </q-carousel>
@@ -97,8 +104,8 @@
                         </template>
                     </q-input>
                     <q-input color="teal" v-model="formVeiculo.descricao"
-                        placeholder="Descreva o máximo de informações relevantes sobre o veículo pois a i.a utiliza esse campo para filtrar"
-                        label="Descrição" maxlength="350" type="textarea" dense outlined class="q-mb-sm">
+                        placeholder="Descreva o máximo de informações relevantes sobre o veículo.   "
+                        label="Descrição" maxlength="200" type="textarea" dense outlined class="q-mb-sm">
                         <template v-slot:append>
                             <q-icon name="description" class="cursor-pointer" color="teal" />
                         </template>
@@ -109,6 +116,26 @@
                             <q-icon name="two_wheeler" class="cursor-pointer" color="teal" />
                         </template>
                     </q-select>
+                    <q-select color="teal" v-model="formVeiculo.combustivel" label="Combustível" dense :options="[
+                        { label: 'Gasolina', value: 'gasolina' },
+                        { label: 'Álcool', value: 'alcool' },
+                        { label: 'Flex', value: 'flex' },
+                        { label: 'Elétrico', value: 'eletrico' },
+                        { label: 'Híbrido', value: 'hibrido' }]" outlined class="q-mb-sm">
+                        <template v-slot:append>
+                            <q-icon name="local_gas_station" class="cursor-pointer" color="teal" />
+                        </template>
+                    </q-select>
+                    <q-select color="teal" v-model="formVeiculo.cambio" label="Câmbio" dense :options="[
+                        { label: 'Automático', value: 'automatico' },
+                        { label: 'Manual', value: 'manual' },
+                        { label: 'CVT', value: 'cvt' },
+                        { label: 'Dual Clutch', value: 'dual-clutch' },
+                        { label: 'Semi-Automático', value: 'semi-automatico' }]" outlined class="q-mb-sm">
+                        <template v-slot:append>
+                            <q-icon name="route" class="cursor-pointer" color="teal" />
+                        </template>
+                    </q-select>
                     <q-select color="teal" v-model="formVeiculo.categoria" :options="categoriaVeiculoOptions"
                         label="Categoria" dense outlined class="q-mb-sm">
                         <template v-slot:append>
@@ -116,37 +143,61 @@
                         </template>
                     </q-select>
 
-                    <q-select color="teal" v-model="formVeiculo.status" :options="statusVeiculoOptions" label="Status"
+                    <!-- <q-select color="teal" v-model="formVeiculo.status" :options="statusVeiculoOptions" label="Status"
                         dense outlined class="q-mb-sm">
                         <template v-slot:append>
                             <q-icon name="mode_standby" class="cursor-pointer" color="teal" />
                         </template>
-                    </q-select>
-
-                    <q-input color="teal" v-model.number="formVeiculo.ano" label="Ano" type="number" dense outlined
-                        class="q-mb-sm">
-                        <template v-slot:append>
-                            <q-icon name="calendar_today" class="cursor-pointer" color="teal" />
-                        </template>
-                    </q-input>
-                    <q-input color="teal" v-model="formVeiculo.preco" label="Preço" mask="#.##" fill-mask="0"
-                        reverse-fill-mask prefix="R$" input-class="text-right" dense outlined class="q-mb-sm">
-                        <template v-slot:append>
-                            <q-icon name="paid" class="cursor-pointer" color="teal" />
-                        </template>
-                    </q-input>
+                    </q-select> -->
+                    <div class="w100 row no-wrap justify-between">
+                        <div class="w50">
+                            <q-input color="teal" v-model.number="formVeiculo.km" label="Km"
+                                placeholder="Quilometragem (km)" type="number" dense outlined class="q-mb-sm q-mr-md">
+                                <template v-slot:append>
+                                    <q-icon name="timeline" class="cursor-pointer" color="teal" />
+                                </template>
+                            </q-input>
+                        </div>
+                        <div class="w50">
+                            <q-input color="teal" v-model.number="formVeiculo.ano" label="Ano" type="number" dense
+                                outlined class="q-mb-sm">
+                                <template v-slot:append>
+                                    <q-icon name="calendar_today" class="cursor-pointer" color="teal" />
+                                </template>
+                            </q-input>
+                        </div>
+                    </div>
+                    <div class="w100 row no-wrap justify-between">
+                        <div class="w50">
+                            <q-input color="teal" v-model="formVeiculo.cor" label="Cor"
+                                placeholder="Ex: Preto, Branco, Vermelho" dense outlined class="q-mb-sm q-mr-md">
+                                <template v-slot:append>
+                                    <q-icon name="palette" class="cursor-pointer" color="teal" />
+                                </template>
+                            </q-input>
+                        </div>
+                        <div class="w50">
+                            <q-input color="teal" v-model="formVeiculo.preco" label="Preço" mask="#.##" fill-mask="0"
+                                reverse-fill-mask prefix="R$" input-class="text-right" dense outlined class="q-mb-sm">
+                                <template v-slot:append>
+                                    <q-icon name="paid" class="cursor-pointer" color="teal" />
+                                </template>
+                            </q-input>
+                        </div>
+                    </div>
+                    <q-separator class="q-mt-sm" />
+                    <div class="text-subtitle2 q-mb-xs">Imagens</div>
                     <q-input color="teal" v-model="formVeiculo.img_url" label="Imagem Principal Url" dense outlined
                         class="q-mb-md">
                         <template v-slot:append>
                             <q-icon name="image" class="cursor-pointer" color="teal" />
                         </template>
                     </q-input>
-                    <q-separator />
 
-                    <div class="text-subtitle2 q-mb-xs">Imagens</div>
                     <div v-for="(msg, index) in formVeiculo.mensagens" :key="index"
                         class="row q-gutter-sm items-center q-mb-sm">
-                        <q-input v-model="formVeiculo.mensagens[index]" color="teal" dense outlined placeholder="Cole o link da imagem do veículo" class="col">
+                        <q-input v-model="formVeiculo.mensagens[index]" color="teal" dense outlined
+                            placeholder="Cole o link da imagem do veículo" class="col">
                             <template v-slot:append>
                                 <q-icon name="image" class="cursor-pointer" color="teal" />
                             </template>
@@ -214,7 +265,11 @@ function abrirModalAdicionar() {
     formVeiculo.value = {
         modelo: '',
         tipo: '',
-        status: '',
+        status: statusVeiculoOptions,
+        km: '',
+        cor: '',
+        combustivel: '',
+        cambio: '',
         categoria: '',
         descricao: '',
         ano: null,
@@ -263,9 +318,13 @@ function confirmarRemocao(veiculo) {
 const formVeiculo = ref({
     modelo: '',
     tipo: '',
-    status: '',
+    status: StatusVeiculoEnum.DISPONIVEL,
     categoria: '',
     descricao: '',
+    km: '',
+    cor: '',
+    combustivel: '',
+    cambio: '',
     ano: null,
     preco: null,
     img_url: '',
@@ -326,6 +385,10 @@ async function salvarVeiculo() {
             status: '',
             categoria: '',
             descricao: '',
+            km: '',
+            cor: '',
+            combustivel: '',
+            cambio: '',
             ano: null,
             preco: null,
             img_url: '',
@@ -412,5 +475,4 @@ onMounted(async () => {
         width: 32%;
     }
 }
-
 </style>

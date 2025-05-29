@@ -9,18 +9,17 @@ const TipoVeiculoEnum = {
   MOTO: "Moto",
   CAMINHAO: "Caminhão",
   VAN: "Van",
-  ELETRICO: "Elétrico",
-  HIBRIDO: "Hibrído",
   ONIBUS: "Ônibus",
   UTILITARIO: "Utilitário",
   JETSKI: "JetSki",
-  QUADRICICLO: "Quadriciclo",
-  TRICICLO: "Triciclo",
   MOTORHOME: "Motorhome",
 };
 
 const CategoriaVeiculoEnum = {
   SEDAN: "Sedan",
+  ELETRICO: "Elétrico",
+  MOTO: "Motocicleta",
+  HIBRIDO: "Hibrído",
   HATCH: "Hatch",
   SUPER: "Superesportivo",
   PISTA: "Pista",

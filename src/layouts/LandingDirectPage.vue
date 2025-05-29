@@ -61,7 +61,7 @@
                                     <q-card class="q-pa-xs shadow-4 bg-grey-1"
                                         style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5">
                                         <q-card-section>
-                                            <div class="text-h5 text-bold text-teal q-px-xs">📦 O QUE IREI RECEBER ?
+                                            <div class="text-h6 text-bold text-teal q-px-xs">📦 O QUE IREI RECEBER ?
                                             </div>
                                             <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">
                                                 ⌛ De R$ 99,90

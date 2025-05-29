@@ -156,11 +156,11 @@
             <q-card-section>
                 <div class="text-h6 text-bold q-mb-md text-teal">Escrevendo a Descrição Perfeita</div>
                 <div class="text-body1 q-mb-md">
-                    Uma boa descrição faz toda a diferença! Quanto mais direta e completa, melhor a IA vai funcionar e
-                    gerar leads de qualidade.
+                    Após preencher todos os campos ao cadastrar um veículo (pois a I.A utiliza para filtrar pros seus clientes), uma boa descrição faz toda a diferença! Quanto mais direta e completa,
+                    melhor vai ser a experiência do cliente e maior a chance de conversão.
                 </div>
                 <div class="text-body2 q-mb-md">
-                    ✅ <strong>Dicas para uma descrição eficiente:</strong>
+                    ✅ <strong>Dicas para um cadastro de veículo eficiente:</strong>
                     <ul>
                         <li>Informe a marca, modelo, motor e combustível.</li>
                         <li>Inclua quilometragem, cor, número de portas e tração.</li>

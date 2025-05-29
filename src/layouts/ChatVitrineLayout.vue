@@ -71,7 +71,7 @@
                     <div style="border-radius: 12px">
                         <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length"
                             v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-md" autoplay
-                            interval="4000">
+                            interval="6000">
                             <template v-slot:control>
                                 <div class="absolute-left q-pa-xs" style="top:45%">
                                     <q-btn icon="chevron_left" color="white" unelevated round dense size="lg"
@@ -217,7 +217,7 @@
                         placeholder="Ex: sedan, tração traseira, 2020..." @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
-                    <q-btn v-if="!loadingIA" icon="send" color="teal" flat round @click="sendMessage" />
+                    <q-btn v-if="!loadingIA" icon="send" color="teal" flat round class="q-pl-xs" @click="sendMessage" />
                     <q-spinner-comment v-else color="teal" size="2em" />
                 </div>
             </q-page>
@@ -575,13 +575,13 @@ async function sendMessage() {
         });
 
         const { chatvitrine } = response.data;
-        let delayCount = 200
+        let delayCount = 800
         for (const msg of chatvitrine.mensagens) {
             messages.value.push({ from: 'bot', text: msg });
-            await delay(delayCount);
             await nextTick();
+            await delay(delayCount);
             scrollToBottom();
-            delayCount += 250
+            delayCount += 900
         }
 
         const sugeridos = estoque.value.filter(veiculo =>
@@ -609,7 +609,6 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Scroll automático para o final do chat
 function scrollToBottom() {
     window.scrollTo({
         top: document.body.scrollHeight,
