@@ -473,7 +473,7 @@ onMounted(async () => {
 
 @media (min-width: 700px) {
     #card-estoque {
-        width: 32%;
+        width: 30%;
     }
 }
 </style>

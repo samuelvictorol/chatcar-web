@@ -60,7 +60,7 @@
                 <!-- Vitrine fixa -->
                 <div class="bg-dark sticky-top"
                     style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
-                    <div class="w100 row no-wrap items-center justify-between q-px-md q-pt-m">
+                    <div class="w100 row no-wrap items-center justify-between q-px-md">
                         <div class="text-h6 text-white q-pt-sm ">{{ sobreLoja.nome }}</div>
                         <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="contato"
                                 icon-right="contact_support" color="" @click="openInfoLoja()"
@@ -70,7 +70,7 @@
 
                     <div style="border-radius: 12px">
                         <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length"
-                            v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-md" autoplay
+                            v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-sm" autoplay
                             interval="6000">
                             <template v-slot:control>
                                 <div class="absolute-left q-pa-xs" style="top:45%">
@@ -165,27 +165,27 @@
                     <!-- Dialog de detalhes -->
                     <q-dialog v-model="dialogAberto">
                         <q-card class="q-pa-md" style="width: 100%; max-width: 500px;">
-                            <q-card-section>
-                                <div class="text-h6 q-pb-sm">{{ carroSelecionado.modelo }} - {{ carroSelecionado?.ano }}
+                            <q-card-section class="relative">
+                                <div class="fixed-top text-h5 text-center w100 text-teal-14 q-pa-sm shadow-2" style="z-index: 99; backdrop-filter: blur(4px); background:rgba(26, 26, 26, 0.86)">
+                                    {{ carroSelecionado.modelo }} - {{ carroSelecionado?.ano }}
                                 </div>
                                 <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length"
                                     swipeable animated class="rounded-borders q-mb-md bg-grey-2" navigation arrows
                                     infinite>
                                     <q-carousel-slide class="bg-dark" v-for="(img, index) in imagensVeiculoSelecionado"
                                         :key="index" :name="index">
-                                        <q-img :src="img" fit="contain" class="rounded-borders w100"
-                                            style="border-bottom: 4px solid teal;border-top: 4px solid teal;"
-                                            height="100%" />
+                                        <q-img :src="img" fit="contain" class="rounded-borders w100 cursor-pointer"
+                                            style="border-bottom: 4px solid teal; border-top: 4px solid teal; height: 100%;"
+                                            @click="abrirZoom(img)" />
                                     </q-carousel-slide>
                                 </q-carousel>
                                 <div class="text-caption q-mb-sm">{{ carroSelecionado.tipo?.label }} - {{
-                                    carroSelecionado.categoria?.label
-                                }}
-                                </div>
+                                    carroSelecionado.categoria?.label }}</div>
                                 <div v-if="carroSelecionado.preco" class="text-body2 text-bold"
                                     style="font-size: 1rem;">
                                     R$ {{ carroSelecionado?.preco }}
                                 </div>
+                                <q-separator class="q-my-xs" />
                                 <div v-if="carroSelecionado.descricao" class="text-body2">
                                     {{ carroSelecionado?.descricao }}
                                 </div>
@@ -199,11 +199,29 @@
                     </q-dialog>
 
                 </div>
+                <q-dialog v-model="dialogZoom" persistent>
+                    <div style="height:100vh" class="column w100 relative">
+                        <q-img :src="zoomImagemUrl" fit="contain" class="rounded-borders"
+                            style="max-height: 100vh; max-width: 100%; object-fit: contain; border-bottom: 4px solid teal" />
+
+                        <!-- Botão para voltar -->
+                        <q-btn icon="chevron_left" color="teal" glossy dense @click="imagemAnteriorZoom"
+                            class="absolute-left" style="top: 60%; background: rgba(0,0,0,0.4);" />
+
+                        <!-- Botão para avançar -->
+                        <q-btn icon="chevron_right" color="teal"  glossy dense @click="proximaImagemZoom"
+                            class="absolute-right" style="top: 60%; background: rgba(0,0,0,0.4);" />
+
+                        <q-btn label="Fechar" color="teal" flat @click="fecharZoom"
+                            class="absolute-bottom q-mx-sm q-mb-md" />
+                    </div>
+                </q-dialog>
+
 
                 <!-- Container de mensagens -->
                 <div class="col column no-wrap" style="overflow: hidden;">
                     <div ref="mensagensContainer" class="col scroll q-pa-md q-gutter-sm" style="overflow-y: auto;">
-                        <q-chat-message style="font-size:1rem" v-for="(msg, index) in messages" :key="index"
+                        <q-chat-message style="font-size:.9rem" v-for="(msg, index) in messages" :key="index"
                             :sent="msg.from === 'user'" class="animate__animated animate__zoomIn" :text="[msg.text]"
                             :name="msg.from === 'user' ? 'Você' : sobreLoja.login"
                             :bg-color="msg.from === 'user' ? 'green-11' : 'grey-3'" />
@@ -214,11 +232,11 @@
                 <div class="q-pa-md bg-white row items-center"
                     style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
                     <q-input filled v-model="input" maxlength="100" color="secondary" class="col"
-                        placeholder="Ex: sedan, tração traseira, 2020..." @keyup.enter="sendMessage" />
+                        placeholder="Digite sua mensagem" @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
-                    <q-btn v-if="!loadingIA" icon="send" color="teal" flat round class="q-pl-xs" @click="sendMessage" />
-                    <q-spinner-comment v-else color="teal" size="2em" />
+                    <q-btn v-if="!loadingIA" icon="send" color="teal" flat round class="q-pl-sm" @click="sendMessage" />
+                    <q-spinner-comment v-else color="teal" class="q-pl-sm shadow-2" size="2em" />
                 </div>
             </q-page>
         </q-page-container>
@@ -266,7 +284,29 @@ const usuario = ref({
 })
 const leadId = ref(null)
 const lead = ref(null)
+
+const dialogZoom = ref(false)
 const slideAtivoDetalhes = ref(0)
+const zoomImagemUrl = ref(null)
+
+// Métodos
+const abrirZoom = (imgUrl) => {
+    zoomImagemUrl.value = imgUrl
+    dialogZoom.value = true
+}
+
+const fecharZoom = () => {
+    zoomImagemUrl.value = null
+    dialogZoom.value = false
+}
+
+const enviarMensagemWhatsApp = (modelo) => {
+    const mensagem = `Olá, tenho interesse no ${modelo}!`
+    const numero = 'SEU_NUMERO_WHATSAPP'
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`
+    window.open(url, '_blank')
+}
+
 function fecharDetalhes() {
     dialogAberto.value = false
     slideAtivoDetalhes.value = 0
@@ -278,7 +318,7 @@ async function gerarLead() {
         respostasCliente: []
     }).then(response => {
         leadId.value = response.data.leadId
-        console.log('LEAD: ' + JSON.stringify(lead.value))
+        // console.log('LEAD: ' + JSON.stringify(lead.value))
         $q.notify({
             color: 'teal',
             position: 'top',
@@ -301,6 +341,18 @@ const imagensVeiculoSelecionado = computed(() => {
 
     return lista
 })
+const proximaImagemZoom = () => {
+    slideAtivoDetalhes.value = (slideAtivoDetalhes.value + 1) % imagensVeiculoSelecionado.value.length
+    zoomImagemUrl.value = imagensVeiculoSelecionado.value[slideAtivoDetalhes.value]
+}
+
+const imagemAnteriorZoom = () => {
+    slideAtivoDetalhes.value =
+        (slideAtivoDetalhes.value - 1 + imagensVeiculoSelecionado.value.length) %
+        imagensVeiculoSelecionado.value.length
+    zoomImagemUrl.value = imagensVeiculoSelecionado.value[slideAtivoDetalhes.value]
+}
+
 async function carregarEstoque() {
     try {
         if (route.params.login === 'jatoveiculos') {
@@ -345,7 +397,7 @@ function openInfoLoja() {
 const estoqueFiltrado = ref([])
 
 function abrirDialog(carro) {
-    console.log(carro)
+    // console.log(carro)
     usuario.value.preferencias.push(carro.modelo)
     interacoes.value++;
     nextTick(() => {
@@ -575,7 +627,7 @@ async function sendMessage() {
         });
 
         const { chatvitrine } = response.data;
-        let delayCount = 800
+        let delayCount = 200
         for (const msg of chatvitrine.mensagens) {
             messages.value.push({ from: 'bot', text: msg });
             await nextTick();
@@ -649,9 +701,9 @@ async function atualizarLead() {
             respostasCliente: respostasCliente
         });
 
-        console.log('Lead atualizado com sucesso após interação!');
+        // console.log('Lead atualizado com sucesso após interação!');
     } catch (err) {
-        console.error('Erro ao atualizar lead:', err);
+        // console.error('Erro ao atualizar lead:', err);
     }
 }
 

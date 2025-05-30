@@ -30,8 +30,7 @@
         </q-card>
       </div>
       <q-card id="lead" v-for="lead in leadsFiltrados" :key="lead.id" class="q-pa-md"
-        :style="'border-bottom:' + '2px solid ' + (lead.relatorioIA ? '#275DF3' : '#26A69A')"
-        style="width: 100%; max-width: 300px;">
+        :style="'border-bottom:' + '2px solid ' + (lead.relatorioIA ? '#275DF3' : '#26A69A')">
         <q-card-section>
           <div style="font-size:1.2rem" class=" text-bold row items-center">
             <q-icon name="account_circle" class="q-mr-sm" size="md"></q-icon>
@@ -188,13 +187,14 @@ const leadsFiltrados = computed(() => {
   z-index: 2;
 }
 
-@media (min-width: 700px) {
+#lead {
+    width: 300px;
+}
+
+@media (max-width: 800px) {
   #lead {
     width: 100%;
   }
-}
-
-@media (min-width: 600px) {
   .sticky-col {
     position: relative;
   }
