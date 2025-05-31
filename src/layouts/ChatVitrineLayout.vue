@@ -7,7 +7,7 @@
                         <q-icon name="sms" size="lg" to="/" />
                     </q-avatar> -->
                     <div v-if="!loading" class="q-pl-sm animate__animated animate__fadeInLeft animate__slower">
-                        <q-avatar size="50px" class="q-mr-sm">
+                        <q-avatar size="45px" class="q-mr-sm">
                             <img :src="sobreLoja.img_url ? sobreLoja.img_url : '/logo.jpeg'" alt="Logo" />
                         </q-avatar>
                     </div>
@@ -166,8 +166,8 @@
                     <q-dialog v-model="dialogAberto">
                         <q-card class="q-pa-md" style="width: 100%; max-width: 500px;">
                             <q-card-section class="relative">
-                                <div class="fixed-top text-h5 text-center w100 text-teal-14 q-pa-sm shadow-2" style="z-index: 99; backdrop-filter: blur(4px); background:rgba(26, 26, 26, 0.86)">
-                                    {{ carroSelecionado.modelo }} - {{ carroSelecionado?.ano }}
+                                <div style="font-size:1.2rem" class="text-center w100 text-black rounded-borders q-mb-sm text-bold">
+                                    {{ carroSelecionado.modelo }}
                                 </div>
                                 <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length"
                                     swipeable animated class="rounded-borders q-mb-md bg-grey-2" navigation arrows
@@ -179,8 +179,8 @@
                                             @click="abrirZoom(img)" />
                                     </q-carousel-slide>
                                 </q-carousel>
-                                <div class="text-caption q-mb-sm">{{ carroSelecionado.tipo?.label }} - {{
-                                    carroSelecionado.categoria?.label }}</div>
+                                <div class="text-caption q-mb-sm"><strong class="text-orange-14">{{ carroSelecionado?.ano }}</strong> - <strong class="text-purple-14">{{
+                                    carroSelecionado.categoria?.label }}</strong> - <strong class="text-teal">{{ carroSelecionado?.cor.toUpperCase() }}</strong> - <strong class="text-blue-14">{{ carroSelecionado?.km }}km</strong></div>
                                 <div v-if="carroSelecionado.preco" class="text-body2 text-bold"
                                     style="font-size: 1rem;">
                                     R$ {{ carroSelecionado?.preco }}
