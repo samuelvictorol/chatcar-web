@@ -236,7 +236,7 @@
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
                     <q-btn v-if="!loadingIA" icon="send" color="teal" flat round class="q-pl-sm" @click="sendMessage" />
-                    <q-spinner-comment v-else color="teal" class="q-pl-sm shadow-2" size="2em" />
+                    <q-spinner-comment v-else color="teal" class="q-pl-sm" size="2em" />
                 </div>
             </q-page>
         </q-page-container>
