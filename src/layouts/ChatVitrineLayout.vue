@@ -625,6 +625,7 @@ async function sendMessage() {
             mensagem: texto,
             vitrineAtual: vitrineAtualIds
         });
+        const { chatvitrine } = response.data;
 
         const sugeridos = estoque.value.filter(veiculo =>
             chatvitrine.estoque.includes(veiculo.id)
@@ -632,7 +633,6 @@ async function sendMessage() {
         carrosselIndex.value = 0;
         carrossel.value = sugeridos;
 
-        const { chatvitrine } = response.data;
         let delayCount = 200
         for (const msg of chatvitrine.mensagens) {
             messages.value.push({ from: 'bot', text: msg });
