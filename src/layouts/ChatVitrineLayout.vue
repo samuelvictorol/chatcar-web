@@ -626,6 +626,12 @@ async function sendMessage() {
             vitrineAtual: vitrineAtualIds
         });
 
+        const sugeridos = estoque.value.filter(veiculo =>
+            chatvitrine.estoque.includes(veiculo.id)
+        );
+        carrosselIndex.value = 0;
+        carrossel.value = sugeridos;
+
         const { chatvitrine } = response.data;
         let delayCount = 200
         for (const msg of chatvitrine.mensagens) {
@@ -633,15 +639,8 @@ async function sendMessage() {
             await nextTick();
             await delay(delayCount);
             scrollToBottom();
-            delayCount += 900
+            delayCount += 1100
         }
-
-        const sugeridos = estoque.value.filter(veiculo =>
-            chatvitrine.estoque.includes(veiculo.id)
-        );
-
-        carrosselIndex.value = 0;
-        carrossel.value = sugeridos;
 
     } catch (error) {
         console.error('Erro no chat vitrine:', error);
