@@ -12,10 +12,6 @@
         </div>
         <section class="q-pb-xl q-pt-md text-left  q-px-md">
             <div class="container">
-                <div class="text-h6 text-secondary q-mb-xl">⌛ O acesso tem duração de <strong>30 dias</strong> e <strong>não será
-                        realizada
-                        assinatura e nem cobranças automáticas.</strong></div>
-
                 <div class="row q-col-gutter-md justify-center">
                     <div class="col-12 col-sm-6 col-md-4">
                         <q-card class="q-pa-xs shadow-4 bg-blue-1"
@@ -67,10 +63,15 @@
                                         você.
                                         Não espere – comece hoje!</li>
                                 </ul>
+
                             </q-card-section>
                             <q-btn label="Comprar Acesso" icon="paid" color="teal" glossy class="q-pa-xl w100"
                                 @click="openPagarMeLinkUrl('333333')" />
                         </q-card>
+                        <div class="text-h6 text-secondary q-mb-xl q-mt-md">⌛ O acesso tem duração de <strong>30 dias</strong> e
+                            <strong>não será
+                                realizada
+                                assinatura e nem cobranças automáticas.</strong> Só pague quando utilizar! 🤗</div>
                     </div>
                 </div>
             </div>

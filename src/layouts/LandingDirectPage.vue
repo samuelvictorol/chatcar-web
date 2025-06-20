@@ -145,8 +145,7 @@
                 </div>
                 <div class="text-grey-2 q-mb-lg">
                     🤖 <strong>Digite seu email</strong> e veja <strong>acima</strong> como, <strong>em menos de 1
-                        minuto</strong>, seu estoque se torna um vendedor automático.<br><br>
-                    Veja como fazer isso em apenas <strong>3 passos fáceis:</strong>
+                        minuto</strong>, seu estoque se torna um vendedor automático.<br>
                 </div>
 
                 <section style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5;"
@@ -198,8 +197,7 @@
                     </div>
                 </section>
 
-                <div class=" ">
-                    <q-separator class="q-mt-xl q-mb-md" color="teal-4" />
+                <div class="q-pt-sm ">
                     <div class="text-h4 text-center text-grey-2 text-bold q-py-md q-mb-md">Depoimentos e Feedback</div>
                     <q-carousel v-model="slideAtivoDetalhes" v-if="depoimentos.length > 0" swipeable animated
                         style="border-bottom:4px solid #00BFA5;" class="rounded-borders q-mb-sm bg-dark" navigation

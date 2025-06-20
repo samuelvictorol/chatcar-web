@@ -4,18 +4,19 @@
             <q-page class="flex flex-center" style="min-height: 100vh">
                 <q-card id="card-login" class="q-px-md q-py-md shadow-10 w100 q-mx-md" style="border-radius: 20px">
                     <q-card-section>
-                        <div class="text-h5 text-weight-bold text-center text-teal">
-                            <q-avatar size="50px" class="q-mr-sm">
+                        <div class=" text-weight-bold text-center text-teal w100 row no-wrap items-center justify-between">
+                             <div class="text-h5">{{ formType === 'login' ? 'Iniciar Sessão' : 'Criar Conta' }} </div>
+                             <q-avatar size="50px" class="q-mr-sm">
                                 <img src="/logo.jpeg" class="" alt="Logo" />
-                            </q-avatar> {{ formType === 'login' ? 'Login' : 'Criar Conta' }}
+                            </q-avatar>
                         </div>
                     </q-card-section>
 
                     <q-form @submit.prevent="handleSubmit">
                         <q-card-section>
-                            <q-input v-model="form.login" label="Login" outlined
+                            <q-input v-model="form.login" label="Login"
                                 :prefix="(form.login.trim() != '' && formType === 'register') ? 'chatcar.me/' : ''"
-                                dense color="teal" placeholder="Digite seu login público"
+                                color="teal" placeholder="Digite seu login público"
                                 :rules="[val => !!val || 'Login é obrigatório']">
                                 <template #prepend>
                                     <q-icon name="account_circle" color="teal" />
@@ -45,7 +46,7 @@
                             </q-input>
 
                             <q-input v-model="form.password" :type="showPassword ? 'text' : 'password'" label="Senha"
-                                outlined dense color="teal" :rules="[val => !!val || 'Informe sua senha']">
+                                color="teal" :rules="[val => !!val || 'Informe sua senha']">
                                 <template #prepend>
                                     <q-icon name="lock" color="teal" />
                                 </template>
@@ -73,12 +74,16 @@
                                 v-if="formType === 'register'">
                                 Ver Termos de Uso
                             </q-btn>
-                            <q-btn v-if="!loading" glossy :label="formType === 'login' ? 'Entrar' : 'Registrar'"
-                                type="submit" color="teal-14" class="w100 q-mt-sm q-pa-md" no-caps />
+                            <q-btn v-if="!loading" :label="formType === 'login' ? 'Entrar' : 'Registrar'"
+                                type="submit" color="teal" glossy class="w100 q-mt-md q-pa-md" no-caps />
                             <q-btn v-if="!loading" flat dense no-caps color="teal" class="w100 q-mt-sm text-bold"
-                                @click="toggleForm">
+                                to="/ia">
                                 {{ formType === 'login' ? 'Ainda não tem conta? Cadastre-se' : 'Já tem conta? Entrar' }}
                             </q-btn>
+                            <!-- <q-btn v-if="!loading" flat dense no-caps color="teal" class="w100 q-mt-sm text-bold"
+                                @click="toggleForm">
+                                {{ formType === 'login' ? 'Ainda não tem conta? Cadastre-se' : 'Já tem conta? Entrar' }}
+                            </q-btn> -->
                             <q-btn v-if="formType === 'login'" flat dense no-caps color="primary" class="w100 q-mt-sm"
                                 @click="mostrarRecuperarSenha = true">
                                 Esqueci minha senha
@@ -189,6 +194,9 @@ const emailRecuperacao = ref('')
 async function enviarRecuperacaoSenha() {
     if (!emailRecuperacao.value) {
         $q.notify({ type: 'warning', message: 'Informe seu e-mail.' })
+        return
+    } else if (!emailRecuperacao.value.includes('@')) {
+        $q.notify({ type: 'warning', message: 'Informe um e-mail válido.' })
         return
     }
 

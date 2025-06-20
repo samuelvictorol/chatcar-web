@@ -25,12 +25,7 @@
             class="text-bold animate__animated  animate__fadeInLeft animate__slower animate__delay-3s font-orbitron q-pb-sm">
             ChatCar
             I.A</div>
-          <p
-            class="text-subtitle1 animate__animated animate__fadeIn animate__slower animate__delay-5s bg-dark  q-px-md rounded-borders q-mt-sm">
-            Seu estoque vira um vendedor digital com I.A. que conversa, filtra e entrega só os leads prontos — direto no
-            seu WhatsApp.
-          </p>
-          <q-btn label="Iniciar Agora" color="green-14" size="lg" icon="rocket_launch"
+          <q-btn label="Iniciar Agora" color="teal-14" size="lg" icon="rocket_launch"
             class="animate__animated animate__zoomIn animate__slower animate__delay-4s q-mt-lg" to="/ia" />
 
         </div>
@@ -63,15 +58,18 @@
     <!-- VALUE PROPOSITION -->
     <section class="q-py-xl text-center bg-grey-2">
       <div class="glass-card q-pa-xl q-mx-auto">
-        <p class="text-subtitle1 text-dark">Além do ChatBot, serve como site de estoque e funil para tráfego pago e
-          redirecione leads qualificados pro seu WhatsApp.</p>
+        <p class="text-subtitle1 text-dark">
+          Muito além de um ChatBot: é seu <strong>estoque online, funil de vendas e vitrine para tráfego pago</strong>,
+          tudo em um só lugar — com leads qualificados chegando direto no seu WhatsApp.
+        </p>
+
         <div class="text-h6 q-mt-md bg-dark text-grey-2 q-pa-xs rounded-borders">Acesso por 30 dias — <strong
             class="text-green">sem assinatura</strong>, <strong>sem cobranças automáticas</strong>.</div>
         <div class="text-caption q-mt-md">Investimento único de <strong>R$49,90</strong>, somente se for utilizar.</div>
       </div>
     </section>
     <!-- CTA FINAL -->
-    <section class="q-py-xl bg-teal-1 text-center">
+    <section class="q-py-xl bg-teal-7 text-white text-center">
       <h2 class="text-h5 text-bold q-mb-md">Pronto para Começar?</h2>
       <p class="q-mb-md">Ative sua vitrine agora mesmo e comece a captar leads com I.A.</p>
       <q-btn label="Ativar Agora" to="/ia" color="green" size="lg" icon="play_circle" glossy />
@@ -79,7 +77,7 @@
     <!-- SUPPORT SECTION -->
     <section class="q-py-xl bg-teal-8 text-white text-center">
       <div class="q-mx-auto" style="max-width: 700px">
-        <h2 class="text-h5 text-bold q-mb-sm">🗣️ Suporte Rápido e Humanizado</h2>
+        <h2 class="text-h5 text-bold q-mb-sm">Suporte Rápido e Humanizado</h2>
         <p class="text-subtitle2 q-px-sm q-mb-md">Tem dúvidas? Nosso time responde rápido, com atenção de verdade e foco
           em resolver. Atendimento direto, simples e transparente — do jeito que você merece!</p>
         <q-icon name="email" size="36px" color="white" class="q-mb-sm" />
