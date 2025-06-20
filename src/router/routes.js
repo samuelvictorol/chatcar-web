@@ -17,7 +17,7 @@ const routes = [
     component: () => import('src/layouts/ChatVitrineLayout.vue'),
   },
   {
-    path: '/loja',
+    path: '/me',
     component: () => import('layouts/LojaLayout.vue'),
     children: [
       { path: '', component: () => import('pages/loja/IndexPage.vue') },

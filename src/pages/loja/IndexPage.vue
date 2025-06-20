@@ -152,7 +152,7 @@ onMounted(async () => {
         <div class="row q-gutter-sm q-mb-md" style="position: relative">
             <q-btn color="blue" icon="sms" icon-right="directions_car" label="Meu Chat" v-if="!editando" glossy
                 :to="'/' + lojaInfo.login" />
-            <q-btn color="green" icon="currency_exchange" label="Planos" glossy to="/loja/planos" v-if="!editando" />
+            <q-btn color="green" icon="currency_exchange" label="Planos" glossy to="/me/planos" v-if="!editando" />
             <q-btn v-if="!editando" color="orange-14" glossy icon="edit" label="Editar Perfil"
                 @click="editando = true" />
             <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" class="q-py-lg" style="position: fixed; bottom:0px;left:-8px;z-index: 999; width: 100vw" />
@@ -247,32 +247,6 @@ onMounted(async () => {
 
                 </q-card-section>
             </q-card>
-
-            <!-- Card Leads por Vendedor -->
-            <!-- <q-card class="q-pa-sm full-height" flat bordered>
-                <q-card-section>
-                    <div class="text-h6 text-bold text-secondary text-center">Leads por Vendedor</div>
-                    <q-separator class="q-my-sm" />
-                    <div style="position: relative; height: 250px; width: 100%;">
-                        <canvas ref="graficoLeads" style="width: 100%; height: 100%"></canvas>
-                    </div>
-                </q-card-section>
-            </q-card> -->
-
-            <!-- Card Vendedores -->
-            <!-- <q-card class="q-pa-sm full-height" flat bordered>
-                <q-card-section>
-                    <div class="row items-center justify-between q-mb-sm">
-                        <div class="text-h6 text-bold text-secondary">Vendedores</div>
-                        <q-btn round dense flat color="secondary" icon="person_add" to="/loja/vendedores/adicionar" />
-                    </div>
-                    <q-separator />
-                    <div v-for="vendedor in vendedores" :key="vendedor.id" class="q-mt-sm text-body1">
-                        {{ vendedor.nome }}
-                    </div>
-                </q-card-section>
-            </q-card> -->
-
             <!-- Card Leads Recentes -->
             <q-card v-if="!editando" class="q-pa-sm full-height" flat bordered>
                 <q-card-section>

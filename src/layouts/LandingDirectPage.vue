@@ -122,7 +122,7 @@
                                             </div>
                                         </q-card-section>
                                     </q-card>
-                                    <div class="text-left text-teal-2 q-my-md">
+                                    <div id="comofunciona" class="text-left text-teal-2 q-my-md">
                                         ✅ Acesso válido por <strong>30 dias</strong>. <br>
                                         🔒 <strong>Sem assinatura, sem mensalidade e sem cobranças
                                             automáticas.</strong><br>
@@ -131,12 +131,11 @@
 
                                 </div>
                             </div>
-                            <div id="comofunciona"></div>
                         </div>
                     </section>
                 </div>
                 <div
-                    class="text-h5 q-mb-lg text-bold bg-teal-6 rounded-borders shadow-2 q-px-sm text-right w100 row no-wrap justify-between text-grey-2">
+                    class="text-h5 q-mb-lg text-bold bg-teal rounded-borders shadow-2 q-px-sm text-right w100 row no-wrap justify-between text-grey-1">
                     Como Funciona <span>❔</span></div>
                 <div class="q-mb-lg">
                     <div class="video-container rounded-borders" style="border-bottom:4px solid #00BFA5;">
@@ -145,57 +144,47 @@
                     </div>
                 </div>
                 <div class="text-grey-2 q-mb-lg">
-                    🤖 <strong>Em menos de 1 minuto</strong>, seu estoque vira um vendedor automático.<br>
-                    Veja como fazer isso em apenas <strong>3 passos fáceis</strong>.
+                    🤖 <strong>Digite seu email</strong> e veja <strong>acima</strong> como, <strong>em menos de 1
+                        minuto</strong>, seu estoque se torna um vendedor automático.<br><br>
+                    Veja como fazer isso em apenas <strong>3 passos fáceis:</strong>
                 </div>
 
                 <section style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5;"
                     class="bg-grey-1 q-py-lg container text-center q-mt-md q-px-md rounded-borders">
                     <div class="row q-col-gutter-md">
                         <div class="col-12 col-md-4">
-                            <q-icon name="storefront" size="64px" color="green" />
-                            <h3 class="text-subtitle1 q-mt-sm text-green text-bold">Cadastre seu Estoque</h3>
+                            <q-icon name="storefront" size="64px" color="blue" />
+                            <h3 class="text-subtitle1 q-mt-sm text-blue text-bold">1. Cadastre seu Estoque</h3>
                             <p style="font-size: 1rem;">
-                                <strong>Cadastre-se</strong> e tenha seu <strong>link público</strong>
-                                (chatcar.me/sualoja)
-                                pronto para receber e encantar seus <strong>clientes em tempo real</strong> com a
-                                <strong>IA
-                                    que vende por você</strong>.
+                                <strong>Cadastre-se</strong> em segundos e receba seu <strong>link público</strong>
+                                exclusivo
+                                (<em>chatcar.me/sualoja</em>), pronto para exibir e vender com I.A. de forma automática.
                             </p>
+                        </div>
 
-                        </div>
                         <div class="col-12 col-md-4">
-                            <q-icon name="smart_toy" size="64px" color="blue" />
-                            <h3 class="text-subtitle1 q-mt-sm text-bold  text-blue">Chat Automatizado</h3>
+                            <q-icon name="smart_toy" size="64px" color="teal" />
+                            <h3 class="text-subtitle1 q-mt-sm text-bold text-teal">2. Estoque com I.A. 24h</h3>
                             <p style="font-size: 1rem;">
-                                Com seu <strong>link público</strong>, o <strong>ChatVitrine</strong> exibe opções em
-                                <strong>tempo real</strong>,
-                                conversa <strong>24h</strong> e redireciona para o <strong>W hatsApp da sua
-                                    loja</strong>,
-                                gerando <strong>leads prontos</strong> para <strong>fechar vendas</strong>.
+                                A I.A. conversa <strong>24h</strong>, mostra os veículos certos em <strong>tempo
+                                    real</strong> e
+                                só envia para o <strong>WhatsApp</strong> quem realmente quer negociar.
                             </p>
+                        </div>
 
-                        </div>
                         <div class="col-12 col-md-4">
-                            <q-icon name="list_alt" size="64px" color="purple" />
-                            <h3 class="text-subtitle1 q-mt-sm text-bold text-purple">Relatório Personalizado do
-                                Cliente</h3>
+                            <q-icon name="list_alt" size="64px" color="green" />
+                            <h3 class="text-subtitle1 q-mt-sm text-bold text-green">3. Receba Leads e Abordagem Pronta
+                            </h3>
                             <p style="font-size: 1rem;">
-                                Logo após a conversa no <strong>ChatVitrine</strong>, você recebe um
-                                <strong>resumo</strong>
-                                da interação com o cliente e <strong>dicas certeiras</strong> para <strong>fechar a
-                                    venda</strong>.
+                                Cada conversa gera um <strong>relatório com resumo do cliente</strong> e uma
+                                <strong>mensagem
+                                    pronta</strong> para você abordar no WhatsApp com muito mais chance de fechar.
                             </p>
                         </div>
+
                     </div>
                 </section>
-                <div class="w100 q-px-md text-teal-2 bg-dark q-py-md rounded-borders q-mt-lg"
-                    style="border-bottom:4px solid #00BFA5;">
-                    <div class="w100 text-grey-3 q-mb-md text-center"><strong>✨ Preencha o campo acima com seu email
-                            e clique em "Finalizar Cadastro e Pagar" para ser redirecionado ao ambiente seguro de
-                            pagamento.</strong></div>
-                    📩 As instruções de como acessar e utilizar a plataforma serão enviadas para o seu e-mail
-                </div>
                 <div class=" ">
                     <q-separator class="q-mt-xl q-mb-md" color="teal-4" />
                     <h2 class="text-h5 text-center text-grey-2 text-bold q-mb-md">Depoimentos e Feedback</h2>
@@ -222,7 +211,7 @@
                 <div id="registrar" class="q-py-md w50 absolute" style="z-index: -9999!important;top:-60px"></div>
             </div> -->
             <p style="font-size: 1rem;"
-                class="text text-teal-14 w100 q-px-md text-center bg-dark q-pa-sm rounded-borders">
+                class="text text-teal-1 w100 q-px-md text-center bg-dark q-pa-sm rounded-borders">
                 🚀 Seja você <strong>vendedor</strong>, <strong>profissional de marketing</strong> ou <strong>dono da
                     loja</strong>: transforme a <strong>curiosidade em conversa</strong> — e conversa em
                 <strong>venda</strong>.<br><br>
@@ -254,11 +243,21 @@
                     </div>
                 </div>
             </section>
+            <div class="w100 q-px-md text-teal-2 bg-dark q-py-md rounded-borders q-mt-lg q-mb-lg"
+                style="border-bottom:4px solid #00BFA5;">
+                <div class="w100 text-grey-3 q-mb-md text-center"><strong>✨ Preencha o campo acima com seu email
+                        e clique em "Finalizar Cadastro e Pagar" para ser redirecionado ao ambiente seguro de
+                        pagamento.</strong></div>
+                📩 As instruções de como acessar e utilizar a plataforma serão enviadas para o seu e-mail
+            </div>
+            <q-footer class="bg-dark text-grey-4 text-center q-pa-sm">
+                chatcar.me ® - 59.905.708/0001-34
+            </q-footer>
             <div class="w100 q-py-xl"></div>
-            <q-btn style="position:fixed;left:0px; bottom:0px" v-if="isFormValid()"
+            <q-btn style="position:fixed;left:0px; bottom:0px;z-index: 9999!important" v-if="isFormValid()"
                 :label="isFormValid() ? 'Finalizar Cadastro e Pagar' : 'Informe seu email para continuar'"
                 @click="openPagarMeLinkUrl()" type="submit" :color="isFormValid() ? 'green' : 'blue-14'"
-                :icon-right="isFormValid() ? 'shopping_cart_checkout' : 'east'" glossy
+                :icon-right="isFormValid() ? 'shopping_cart_checkout' : 'east'"
                 class="w100 q-py-xl animate__animated animate__fadeInUp animate__slower" />
         </q-page-container>
     </q-layout>

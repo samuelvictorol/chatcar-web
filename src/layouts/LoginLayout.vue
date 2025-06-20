@@ -274,7 +274,7 @@ async function handleSubmit() {
                 message: 'Bem-vindo, ' + data.loja.login,
                 icon: 'directions_car'
             })
-            router.push('/loja')
+            router.push('/me')
         } catch (err) {
             $q.notify({
                 color: 'dark',
@@ -307,7 +307,7 @@ async function handleSubmit() {
 
             $q.notify({ color: 'teal', position: 'top', icon: 'person_add', message: 'Conta criada com sucesso!' })
             $q.notify({ color: 'teal', position: 'top', icon: 'redeem', message: 'Você recebeu 48 horas de ChatCar de graça 💚' })
-            router.push('/loja/planos')
+            router.push('/me/planos')
         } catch (err) {
             $q.notify({
                 color: 'dark',

@@ -12,7 +12,6 @@
                     </div>
                 </q-toolbar-title>
                 <div class="row no-wrap items-center">
-                    <!-- <q-btn icon="home" color="grey-4" flat to="/loja" /> -->
                     <q-btn color="white" glossy class="text-black " icon="menu" label="menu"
                         @click="rightDrawerOpen = !rightDrawerOpen" />
                 </div>
@@ -38,9 +37,9 @@
             <q-separator />
             <div class="w100 column q-mt-md">
                 <div class="w50">
-                    <q-btn to="/loja/planos" color="green" glossy class="q-px-sm text-white q-mb-sm q-ml-md "
+                    <q-btn to="/me/planos" color="green" glossy class="q-px-sm text-white q-mb-sm q-ml-md "
                     icon-right="currency_exchange" label="Planos" />
-                    <q-btn to="/loja/ajuda" color="blue-14" glossy class="q-ml-md  q-mb-md q-px-sm text-white"
+                    <q-btn to="/me/ajuda" color="blue-14" glossy class="q-ml-md  q-mb-md q-px-sm text-white"
                     icon-right="contact_support" label="Ajuda" />
                 </div>
             </div>
@@ -81,28 +80,18 @@ const menuOptions = ref([
     {
         label: 'Início',
         icon: 'store',
-        to: '/loja'
+        to: '/me'
     },
     {
         label: 'Estoque',
         icon: 'directions_car',
-        to: '/loja/estoque'
+        to: '/me/estoque'
     },
     {
         label: 'Clientes e Leads',
         icon: 'groups',
-        to: '/loja/leads'
+        to: '/me/leads'
     },
-    // {
-    //     label: 'Planos',
-    //     icon: 'currency_exchange',
-    //     to: '/loja/planos'
-    // },
-    // {
-    //     label: 'Ajuda',
-    //     icon: 'contact_support',
-    //     to: '/loja/ajuda'
-    // },
 
 ])
 function logout() {
