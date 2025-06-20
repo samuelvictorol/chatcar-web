@@ -146,7 +146,7 @@ onBeforeMount(() => {
   background-size: cover;
   background-position: center;
   z-index: 0;
-  animation: zoomInOut 14s ease-in-out infinite;
+  animation: zoomInOut 20s ease-in-out infinite;
 }
 
 @media (max-width: 768px) {

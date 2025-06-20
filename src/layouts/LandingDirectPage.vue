@@ -122,9 +122,9 @@
                                             </div>
                                         </q-card-section>
                                     </q-card>
-                                    <div id="comofunciona" class="text-left text-teal-2 q-my-md">
+                                    <div class="text-left text-teal-2 q-my-md">
                                         ✅ Acesso válido por <strong>30 dias</strong>. <br>
-                                        🔒 <strong>Sem assinatura, sem mensalidade e sem cobranças
+                                        🔒 <strong id="comofunciona">Sem assinatura, sem mensalidade e sem cobranças
                                             automáticas.</strong><br>
                                         💰 Você só paga se quiser usar — simples assim!
                                     </div>
@@ -185,9 +185,22 @@
 
                     </div>
                 </section>
+                <section id="chatEstoqueTeste" class="q-py-xl bg-grey-3 text-center text-dark">
+                    <div class="q-mx-auto" style="max-width: 700px">
+                        <h2 class="text-h5 text-bold q-mb-sm">🔍 Teste ao Vivo com Estoque de Demonstração</h2>
+                        <p class="text-subtitle2 q-px-sm q-mb-md">
+                            Veja na prática como seus clientes seriam atendidos pela ChatCar I.A. <br>
+                            Interaja com o nosso estoque de testes e experimente o atendimento inteligente em tempo
+                            real.
+                        </p>
+                        <q-btn label="Testar Atendimento I.A." to="/jatoveiculos" color="teal" glossy icon="smart_toy" class="q-mx-md"
+                            size="lg" />
+                    </div>
+                </section>
+
                 <div class=" ">
                     <q-separator class="q-mt-xl q-mb-md" color="teal-4" />
-                    <h2 class="text-h5 text-center text-grey-2 text-bold q-mb-md">Depoimentos e Feedback</h2>
+                    <div class="text-h4 text-center text-grey-2 text-bold q-py-md q-mb-md">Depoimentos e Feedback</div>
                     <q-carousel v-model="slideAtivoDetalhes" v-if="depoimentos.length > 0" swipeable animated
                         style="border-bottom:4px solid #00BFA5;" class="rounded-borders q-mb-sm bg-dark" navigation
                         arrows infinite autoplay interval="2000">
@@ -401,12 +414,12 @@ function logout() {
     .video-container {
         padding-bottom: 0;
         /* remove a altura proporcional */
-        height: 350px;
+        height: 450px;
         /* altura fixa no desktop */
     }
 
     .video-container iframe {
-        height: 350px;
+        height: 450px;
         /* altura fixa no desktop */
     }
 }

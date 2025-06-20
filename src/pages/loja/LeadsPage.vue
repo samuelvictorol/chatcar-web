@@ -66,19 +66,13 @@
     </div>
 
     <!-- Diálogo do Relatório -->
-    <q-dialog v-model="showDialog" persistent transition-show="fade" transition-hide="fade">
+    <q-dialog v-model="showDialog" transition-show="fade" transition-hide="fade">
       <div v-if="loading" class="w100 q-py-xl row justify-center items-center">
         <q-spinner-ball color="teal" size="4em" />
         <q-spinner-ball color="teal" size="4em" />
         <q-spinner-ball color="teal" size="4em" />
       </div>
       <q-card v-else style="width: 100%; max-width: 600px;">
-        <q-card-section>
-          <div class="text-h6">Relatório IA - {{ leadSelecionado?.name }}</div>
-        </q-card-section>
-
-        <q-separator />
-
         <q-card-section>
           <RelatorioIA :lead="leadSelecionado" />
         </q-card-section>

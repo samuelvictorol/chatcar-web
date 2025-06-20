@@ -71,7 +71,7 @@
                     <div style="border-radius: 12px">
                         <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length"
                             v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-sm" autoplay
-                            interval="6000">
+                            interval="9000">
                             <template v-slot:control>
                                 <div class="absolute-left q-pa-xs" style="top:45%">
                                     <q-btn icon="chevron_left" color="white" unelevated round dense size="lg"
@@ -100,7 +100,7 @@
                                                 carro.ano }}</div>
                                     </div>
                                 </q-img>
-                                <q-btn icon-right="search" color="teal" glossy dense
+                                <q-btn icon-right="search" color="blue" glossy dense
                                     class="q-mx-md rounded-borders q-mt-md absolute-top" label="Detalhes"
                                     @click="abrirDialog(carro)" style="width: 40%;z-index: 99999999999!important;" />
                             </q-carousel-slide>
@@ -112,7 +112,7 @@
                         <q-card class="q-pa-md" style="min-width: 350px; max-width: 90vw">
                             <q-card-section class="row items-center q-pb-none">
                                 <div class="row justify-between no-wrap w100">
-                                    <div class="text-h6">Sobre a Loja</div><br>
+                                    <div class="text-h6">Sobre a {{ sobreLoja?.nome}}</div><br>
                                     <q-img :src="sobreLoja.img_url" alt="Logo da loja" class="rounded-borders"
                                         width="100px" height="100px" />
                                 </div>
@@ -122,15 +122,7 @@
                                 <q-list bordered padding class="rounded-borders">
                                     <q-item>
                                         <q-item-section>
-                                            <q-item-label class="text-subtitle1">Nome:</q-item-label>
-                                            <q-item-label caption>{{ sobreLoja.nome }}{{ sobreLoja.cnpj ? ' - ' +
-                                                sobreLoja.cnpj
-                                                : '' }}</q-item-label>
-                                        </q-item-section>
-                                    </q-item>
-                                    <q-item>
-                                        <q-item-section>
-                                            <q-item-label class="text-subtitle1">Redes Sociais:</q-item-label>
+                                            <!-- descrição -->
                                             <q-item-label caption>{{ sobreLoja?.site }}</q-item-label>
                                         </q-item-section>
                                     </q-item>
@@ -639,7 +631,7 @@ async function sendMessage() {
             await nextTick();
             await delay(delayCount);
             scrollToBottom();
-            delayCount += 1100
+            delayCount += 200
         }
 
     } catch (error) {
