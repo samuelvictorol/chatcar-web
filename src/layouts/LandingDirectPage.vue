@@ -36,23 +36,20 @@
                         allowfullscreen></iframe>
                 </div>
             </div>
-            <section class="q-pb-lg q-pt-lg  bg-dark text-white text-center rounded-borders">
-                <div class="container rounded-borders">
+            <section class="q-pb-lg q-pt-lg  bg-dark  shadow-3 text-white text-center rounded-borders">
+                <div class="container rounded-borders ">
                     <h1 class="text-h4 text-bold q-px-md"><q-icon name="sms" color="white"
                             class="animate__animated animate__zoomIn animate__slower animate__delay-2s"
                             size="xl"></q-icon><br>TRANSFORME seu <strong class="text-teal-14">ESTOQUE</strong> em um
-                        <strong class="text-teal-14">VENDEDOR</strong> por apenas <strong
-                            class="text-green-14" style="font-size:2.8rem">R$49,90</strong><br><q-icon name="paid"
-                            color="teal-14" class="animate__animated animate__zoomIn animate__slower animate__delay-3s"
+                        <strong class="text-teal-14">VENDEDOR</strong> por apenas <strong class="text-green-14"
+                            style="font-size:2.8rem">R$49,90</strong><br><q-icon name="paid" color="teal-14"
+                            class="animate__animated animate__zoomIn animate__slower animate__delay-3s"
                             size="xl"></q-icon>
                     </h1>
                 </div>
             </section>
             <!-- Planos -->
             <div id="planos" class="q-mb-xl">
-                <div class=" text-teal-2 q-my-md">⌛ O acesso tem duração de <strong>30 dias</strong> e <strong>não será
-                        realizada
-                        assinatura e nem cobranças automáticas.</strong></div>
                 <div class="row justify-center">
                     <section class="q-pb-xl q-pt-md text-center  q-px-sm">
                         <div class="container">
@@ -61,8 +58,61 @@
                                     <q-card class="q-pa-xs shadow-4 bg-grey-1"
                                         style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5">
                                         <q-card-section>
-                                            <div class="text-h6 text-bold text-teal q-px-xs">📦 O QUE IREI RECEBER ?
+                                            <div class="text-h5 text-bold text-teal q-px-xs">🤖 Por que usar a I.A. da
+                                                ChatCar?
                                             </div>
+
+                                            <p style="font-size: 1rem;"
+                                                class="text-grey-3 text-center bg-teal-7 rounded-borders q-px-xs q-py-md q-mt-md">
+                                                Porque você não precisa mais perder tempo com curiosos ou responder fora
+                                                de
+                                                hora.<br><br>
+
+                                                A ChatCar transforma seu <strong>estoque em um site interativo</strong>
+                                                e um
+                                                <strong>vendedor virtual</strong> que atende, qualifica e conversa com
+                                                todos os
+                                                visitantes — <strong>24h por dia</strong>, sem pausa. <br><br>
+
+                                                Só os <strong>leads realmente interessados</strong>, que querem
+                                                negociar, são
+                                                <strong>redirecionados automaticamente pro WhatsApp da sua
+                                                    loja</strong>,
+                                                prontos pra fechar negócio. <br><br>
+
+                                                Enquanto isso, tudo fica salvo: interesses, preferências e interações,
+                                                criando
+                                                um <strong>funil de vendas automático com CRM integrado</strong> que te
+                                                dá
+                                                relatórios e <strong>dicas certeiras</strong> pra vender muito mais com
+                                                menos
+                                                esforço.
+                                            </p>
+                                            <ul class="text-left column q-gutter-y-sm" style="font-size: 1rem;">
+                                                <li>📢 <strong>Funil de captação otimizado</strong> para anúncios do
+                                                    Instagram e
+                                                    tráfego pago</li>
+                                                <li>⚡️ <strong>Atendimento 24h com I.A.</strong> — sem depender de
+                                                    vendedores
+                                                    online</li>
+                                                <li>📈 <strong>Estoque publicado como site interativo</strong>, pronto
+                                                    para
+                                                    conversão</li>
+                                                <li>🔗 <strong>Qualificação automática</strong> de visitantes com
+                                                    redirecionamento pro WhatsApp</li>
+                                                <li>📲 <strong>ChatVitrine I.A.</strong> recomenda veículos com base no
+                                                    perfil
+                                                    do cliente</li>
+                                                <li>🤝 <strong>CRM integrado</strong> com histórico, interesses e dados
+                                                    estratégicos</li>
+                                                <li>📝 <strong>Relatórios e dicas personalizadas</strong> para
+                                                    fechamento de
+                                                    vendas</li>
+                                                <li>🚀 <strong>Sem instalação e sem mensalidade</strong> — só paga se
+                                                    for usar
+                                                </li>
+                                            </ul>
+
                                             <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">
                                                 ⌛ De R$ 99,90
                                                 por</div>
@@ -70,71 +120,41 @@
                                                 R$
                                                 49,90
                                             </div>
-                                            <ul class="text-left column q-gutter-y-sm" style="font-size: 1rem;">
-                                                <li>🕐 <strong>Atenda 24h</strong> com o <strong>link</strong> do chat
-                                                    IA da sua
-                                                    loja – sempre pronto pra fechar negócios.</li>
-                                                <li>💾 Armazene <strong>leads simultâneos sem limites</strong> e nunca
-                                                    mais
-                                                    perca um contato quente.</li>
-                                                <li>🤖 <strong>ChatVitrine I.A</strong>: seu vendedor
-                                                    incansável, pronto
-                                                    pra encantar e converter.</li>
-                                                <li>📈 <strong>ChatCar IA</strong> gera <strong>relatórios
-                                                        completos</strong>
-                                                    com <strong>dicas personalizadas</strong> pra vender muito mais.
-                                                </li>
-                                                <li>📝 Relatórios com <strong>copys otimizadas</strong>, prontos pra
-                                                    persuadir
-                                                    de verdade e garantir a conversão.</li>
-                                                <li>💬 <strong>Linguagem natural</strong> pra conversar como humano e
-                                                    fechar
-                                                    como profissional.</li>
-                                                <li>🌐 Funciona também como um <strong>site de estoque</strong>,
-                                                    perfeito pra
-                                                    ser usado como <strong>funil de vendas</strong> em tráfego pago e
-                                                    anúncios.
-                                                </li>
-                                                <li>🔗 Se o cliente demonstrar <strong>interesse real</strong>, ele é
-                                                    redirecionado <strong>automaticamente pro seu WhatsApp</strong> –
-                                                    você só
-                                                    precisa fechar a venda.</li>
-                                                <li>🚀 Ideal pra <strong>vendedores</strong>, <strong>times de
-                                                        marketing</strong> e <strong>donos de loja</strong> que não
-                                                    querem ficar
-                                                    pra trás.</li>
-                                                <li>🎯 Um só link, <strong>tudo integrado</strong>, sempre vendendo por
-                                                    você.
-                                                    Não espere – comece hoje!</li>
-                                            </ul>
                                         </q-card-section>
-                                        <!-- <q-card-actions align="center">
-                                            <q-radio size="xl" v-model="selectedPlan" val="333333"
-                                                checked-icon="task_alt" unchecked-icon="panorama_fish_eye" left-label
-                                                class="text-bold" style="font-size:1.2rem" label="Quero esse plano!"
-                                                color="teal" />
-                                        </q-card-actions> -->
                                     </q-card>
+                                    <div class="text-left text-teal-2 q-my-md">
+                                        ✅ Acesso válido por <strong>30 dias</strong>. <br>
+                                        🔒 <strong>Sem assinatura, sem mensalidade e sem cobranças
+                                            automáticas.</strong><br>
+                                        💰 Você só paga se quiser usar — simples assim!
+                                    </div>
+
                                 </div>
                             </div>
                             <div id="comofunciona"></div>
                         </div>
                     </section>
                 </div>
-                <div class="text-h5 q-mb-lg text-bold text-grey-2">🧐 Como Funciona?</div>
-                <div class="text-teal q-mb-lg bg-grey-2 q-pa-sm rounded-borders shadow-1">🤗 <strong>FÁCIL</strong> e <strong>RÁPIDO!</strong> Veja <strong>como automatizar seu estoque</strong> em <strong>3</strong> etapas <strong>em menos de UM MINUTO</strong></div>
+                <div
+                    class="text-h5 q-mb-lg text-bold bg-teal-6 rounded-borders shadow-2 q-px-sm text-right w100 row no-wrap justify-between text-grey-2">
+                    Como Funciona <span>❔</span></div>
                 <div class="q-mb-lg">
                     <div class="video-container rounded-borders" style="border-bottom:4px solid #00BFA5;">
                         <iframe width="100%" src="https://www.youtube.com/embed/y2Qka6CeEVg" frameborder="0"
                             allowfullscreen></iframe>
                     </div>
                 </div>
+                <div class="text-grey-2 q-mb-lg">
+                    🤖 <strong>Em menos de 1 minuto</strong>, seu estoque vira um vendedor automático.<br>
+                    Veja como fazer isso em apenas <strong>3 passos fáceis</strong>.
+                </div>
+
                 <section style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5;"
                     class="bg-grey-1 q-py-lg container text-center q-mt-md q-px-md rounded-borders">
                     <div class="row q-col-gutter-md">
                         <div class="col-12 col-md-4">
-                            <q-icon name="storefront" size="64px" color="secondary" />
-                            <h3 class="text-subtitle1 q-mt-sm text-bold">Cadastre seu Estoque</h3>
+                            <q-icon name="storefront" size="64px" color="green" />
+                            <h3 class="text-subtitle1 q-mt-sm text-green text-bold">Cadastre seu Estoque</h3>
                             <p style="font-size: 1rem;">
                                 <strong>Cadastre-se</strong> e tenha seu <strong>link público</strong>
                                 (chatcar.me/sualoja)
@@ -150,15 +170,15 @@
                             <p style="font-size: 1rem;">
                                 Com seu <strong>link público</strong>, o <strong>ChatVitrine</strong> exibe opções em
                                 <strong>tempo real</strong>,
-                                conversa <strong>24h</strong> e redireciona para o <strong>WhatsApp da sua
+                                conversa <strong>24h</strong> e redireciona para o <strong>W hatsApp da sua
                                     loja</strong>,
                                 gerando <strong>leads prontos</strong> para <strong>fechar vendas</strong>.
                             </p>
 
                         </div>
                         <div class="col-12 col-md-4">
-                            <q-icon name="list_alt" size="64px" color="orange-14" />
-                            <h3 class="text-subtitle1 q-mt-sm text-bold text-orange-14">Relatório Personalizado do
+                            <q-icon name="list_alt" size="64px" color="purple" />
+                            <h3 class="text-subtitle1 q-mt-sm text-bold text-purple">Relatório Personalizado do
                                 Cliente</h3>
                             <p style="font-size: 1rem;">
                                 Logo após a conversa no <strong>ChatVitrine</strong>, você recebe um
@@ -177,6 +197,7 @@
                     📩 As instruções de como acessar e utilizar a plataforma serão enviadas para o seu e-mail
                 </div>
                 <div class=" ">
+                    <q-separator class="q-mt-xl q-mb-md" color="teal-4" />
                     <h2 class="text-h5 text-center text-grey-2 text-bold q-mb-md">Depoimentos e Feedback</h2>
                     <q-carousel v-model="slideAtivoDetalhes" v-if="depoimentos.length > 0" swipeable animated
                         style="border-bottom:4px solid #00BFA5;" class="rounded-borders q-mb-sm bg-dark" navigation
@@ -200,48 +221,14 @@
                 estoque em 2 etapas:
                 <div id="registrar" class="q-py-md w50 absolute" style="z-index: -9999!important;top:-60px"></div>
             </div> -->
-            <q-separator class="q-mb-md" color="grey-4" />
-
             <p style="font-size: 1rem;"
                 class="text text-teal-14 w100 q-px-md text-center bg-dark q-pa-sm rounded-borders">
-                🔥 Seja você <strong>vendedor</strong>, do <strong>marketing</strong> ou <strong>dono da loja</strong>:
-                transforme a <strong>curiosidade</strong> do cliente em uma <strong>conversa que vende</strong>,
-                <strong>24h por
-                    dia</strong>. Mesmo enquanto você dorme!
+                🚀 Seja você <strong>vendedor</strong>, <strong>profissional de marketing</strong> ou <strong>dono da
+                    loja</strong>: transforme a <strong>curiosidade em conversa</strong> — e conversa em
+                <strong>venda</strong>.<br><br>
+                A I.A. da ChatCar atende, qualifica e converte <strong>24h por dia</strong>, até quando você está
+                offline.
             </p>
-            <h2 class="text-h4 text-bold text-center text-white animate__animated animate__fadeInLeft animate__slower">
-                Por que usar a IA da ChatCar?</h2>
-
-            <div class="text-left q-mb-md bg-grey-3 q-py-md rounded-borders q-px-md animate__animated animate__fadeInRight animate__slower"
-                style="border-bottom:4px solid #00BFA5; border-top:4px solid #00BFA5;">
-                <p style="font-size: 1rem;" class="text-grey-3 text-center bg-dark rounded-borders q-pa-md q-mt-md">
-                    💡 Porque não é só um chat: é a solução que te coloca à frente, cuidando de cada lead e não deixando
-                    ninguém
-                    escapar.
-                    Você transforma seu estoque num <strong>site interativo</strong> e num <strong>funil de vendas
-                        automático</strong> que encanta e converte — e ainda funciona como um <strong>CRM</strong> que
-                    guarda
-                    tudo que você precisa pra vender mais.
-                </p>
-
-                <ul class="text-left column q-gutter-y-sm" style="font-size: 1rem;">
-                    <li>⚡️ <strong>Atendimento 24h</strong> sem precisar de vendedor online</li>
-                    <li>📈 <strong>Seu estoque vira um site</strong> de vendas interativo</li>
-                    <li>🔗 <strong>Funil de vendas automático</strong> e pronto pra tráfego pago</li>
-                    <li>🤝 <strong>CRM integrado</strong> que salva contatos e interesses</li>
-                    <li>📲 <strong>ChatVitrine I.A</strong> atende e recomenda veículos certos</li>
-                    <li>📝 <strong>Relatórios completos</strong> e <strong>dicas personalizadas</strong> pra fechar a
-                        venda</li>
-                    <li>💬 <strong>Leads salvos</strong> e redirecionados pro WhatsApp prontos pra conversão</li>
-                    <li>🌟 <strong>Sem instalação</strong> e <strong>sem mensalidade</strong>, só resultado real</li>
-                </ul>
-
-                <p style="font-size: 1rem;" class="text-left q-mt-md text-bold text-orange-14">
-                    🚀 Não fique pra trás enquanto outros já estão vendendo 24h.<br>
-                    📲 Transforme curiosidade em conversa, conversa em venda — e venda em relacionamento!
-                </p>
-
-            </div>
 
             <div class="w100 row no-wrap justify-between">
                 <img src="porque.png" width="50%" alt="">
@@ -336,8 +323,8 @@ function scrollToPlanos() {
 
 function scrollToRegistrar() {
     $q.notify({
-        color: 'teal',
-        icon: 'paid',
+        color: 'blue',
+        icon: 'email',
         message: 'Preencha seu email para receber as instruções de uso e acesso da plataforma 🚀',
         position: 'top'
     });
@@ -379,7 +366,7 @@ function logout() {
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #414141, #474747);
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #414141, #474747);
+    background: linear-gradient(to left, #2e2e2e, #343434);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
