@@ -53,38 +53,6 @@
             </q-card-section>
         </q-card>
 
-        <!-- Cadastro de Vendedor -->
-        <q-card flat bordered class="q-mt-lg">
-            <q-card-section class="q-pa-lg">
-                <div class="text-h6 text-bold q-mb-md">Como Cadastrar um Vendedor</div>
-                <div class="text-body1 q-mb-md">
-                    O cadastro de vendedores permite que sua equipe de vendas seja gerenciada de forma eficaz. Siga os
-                    passos abaixo para adicionar um novo vendedor:
-                </div>
-
-                <q-timeline color="accent" layout="dense">
-                    <q-timeline-entry title="1. Vá até o menu Loja" icon="store">
-                        Acesse o menu principal da loja onde é exibida a lista de vendedores.
-                    </q-timeline-entry>
-
-                    <q-timeline-entry title="2. Clique em 'Novo Vendedor'" icon="person_add">
-                        No topo da lista, clique no botão <strong>Novo Vendedor</strong> para abrir o formulário de
-                        cadastro.
-                    </q-timeline-entry>
-
-                    <q-timeline-entry title="3. Preencha os dados" icon="edit">
-                        Insira nome, e-mail, telefone e demais dados necessários. Certifique-se de revisar antes de
-                        salvar.
-                    </q-timeline-entry>
-
-                    <q-timeline-entry title="4. Salve o cadastro" icon="check_circle">
-                        Clique em <strong>Salvar</strong> para finalizar. O vendedor será adicionado à lista
-                        automaticamente.
-                    </q-timeline-entry>
-                </q-timeline>
-            </q-card-section>
-        </q-card>
-
         <!-- Cadastro de Veículo no Estoque -->
         <q-card flat bordered class="q-mt-lg">
             <q-card-section class="q-pa-lg">
@@ -106,9 +74,9 @@
                     </q-timeline-entry>
 
                     <q-timeline-entry title="3. Preencha os dados do carro" icon="description">
-                        Insira marca, modelo, ano, preço, cor, quilometragem e outras informações relevantes.
-                        Você também pode adicionar uma <strong>Mensagem de Fala</strong> personalizada, que será
-                        emitida automaticamente quando o cliente selecionar o veículo no <strong>Chat Vitrine</strong>.
+                        Insira marca, modelo, ano, preço, cor, quilometragem e outras informações relevantes. Quanto mais
+                        completo, melhor será a experiência do cliente. A IA utilizará esses dados para gerar respostas
+                        personalizadas.
                     </q-timeline-entry>
 
                     <q-timeline-entry title="4. Adicione fotos (opcional)" icon="photo_camera">
@@ -140,12 +108,13 @@
                     Basta <strong>colar o link direto da imagem</strong> no campo correspondente.
                 </div>
                 <div class="text-body2 q-mb-md">
-                    🔗 Dica: Utilize plataformas gratuitas para hospedar as fotos e gerar links diretos:
+                    🔗 Sugestões: Utilize plataformas gratuitas para hospedar as fotos e gerar links diretos:
                     <ul>
                         <li><strong>Imgur:</strong> <a href="https://imgur.com/" target="_blank"
                                 class="text-teal">imgur.com</a> – fácil e rápido!</li>
                         <li><strong>Facebook:</strong> poste no feed ou em álbuns e copie o link direto.</li>
                         <li><strong>Seu próprio site:</strong> se tiver, use os links das suas páginas de vendas.</li>
+                        <li><strong>Web Motors:</strong> – copie o linkd das imagens que utilou no anúncio da WebMotors.</li>
                     </ul>
                 </div>
             </q-card-section>
@@ -181,8 +150,7 @@
           </code>
                 </div>
                 <div class="text-body2">
-                    🧠 A IA vai usar essas informações para criar textos e respostas personalizadas, facilitando a
-                    conversão!
+                    🧠 A IA vai usar essas informações para criar textos e respostas personalizadas, otimizando a interação com o cliente!
                 </div>
             </q-card-section>
         </q-card>
