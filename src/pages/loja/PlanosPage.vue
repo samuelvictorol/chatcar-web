@@ -88,9 +88,19 @@ const sobreLoja = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localSto
 const $q = useQuasar()
 
 async function openPagarMeLinkUrl(planoId) {
+    if (!sobreLoja || !sobreLoja.login || !sobreLoja.email) {
+        $q.notify({
+            color: 'purple-14',
+            icon: 'error',
+            message: 'Você precisa configurar um login público e um email válido na página de início para adquirir um plano.',
+            position: 'top'
+        });
+        return;
+    }
     await api.post('/pagar/criar-link', {
         login: sobreLoja.login,
-        plano_id: planoId
+        plano_id: planoId,
+        directLinkEmail: sobreLoja.email,
     }).then(response => {
         $q.notify({
             color: 'teal',
