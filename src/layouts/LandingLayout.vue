@@ -10,7 +10,7 @@
           <div class="text-weight-bold animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
         </q-toolbar-title>
 
-        <q-btn label="Entrar" color="teal" glossy icon-right="account_box" :to="isUserLoggedIn ? '/me' : '/login'" />
+        <q-btn :label="isUserLoggedIn ? 'Meu Perfil' : 'Entrar'" color="teal" glossy :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'" />
       </q-toolbar>
     </q-header>
 
@@ -112,7 +112,18 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
 
-
+const chatCarCopys = [
+  'ChatCar I.A',
+  'ChatCar Inteligência Artificial',
+  'ChatCar Assistente Virtual',
+  'ChatCar Bot de Vendas',
+  'ChatCar Atendimento Inteligente',
+  'ChatCar Suporte Automatizado',
+  'ChatCar Vitrine Digital',
+  'ChatCar Leads Qualificados',
+  'ChatCar Automação de Vendas',
+  'ChatCar Assistente Comercial'
+];
 const isUserLoggedIn = ref(false);
 
 onBeforeMount(() => {
@@ -170,6 +181,7 @@ onBeforeMount(() => {
 .glass-card {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
+  border: 2px solid teal;
   border-radius: 16px;
   max-width: 700px;
   width: 100%;

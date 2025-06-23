@@ -20,9 +20,12 @@
                     style="max-width: 500px; margin: auto;">
                     <q-input color="teal" style="border-bottom:4px solid #00BFA5" dense outlined maxlength="100"
                         v-model="form.email" placeholder="Cadastre-se na ChatCar!" class=" bg-grey-2 rounded-borders"
-                        label="Acesse com seu Email*" type="email" required>
-                        <template v-slot:append>
+                        label="Email*" type="email" required>
+                        <template v-if="!isFormValid()" v-slot:append>
                             <q-icon name="email" color="teal" class="cursor-pointer" @click.stop />
+                        </template>
+                        <template v-else v-slot:append>
+                            <q-icon name="person_add" color="teal" class="cursor-pointer" @click="openPagarMeLinkUrl()" />
                         </template>
                     </q-input>
                 </q-form>
