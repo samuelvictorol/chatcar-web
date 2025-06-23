@@ -26,7 +26,7 @@
             ChatCar
             I.A</div>
           <q-btn label="Iniciar Agora" color="teal-14" size="lg" icon="rocket_launch"
-            class="animate__animated animate__zoomIn animate__slower animate__delay-4s q-mt-lg" to="/ia" />
+            class="animate__animated animate__zoomIn animate__slower animate__delay-4s q-mt-lg" :to="isUserLoggedIn ? '/me' : '/ia'" />
 
         </div>
       </div>
