@@ -10,7 +10,7 @@
                 </q-toolbar-title>
                 <!-- <a style="color:#00BFA5;text-decoration: none;font-size:.8rem" href="https://instagram.com/chatcar.ia"
                     target="_blank">@chatcar.ia</a> -->
-                <q-btn label="Como Funciona?" color="teal" icon-right="contact_support" glossy class="q-ml-sm q-px-sm"
+                <q-btn label="Como Funciona?" color="teal" icon-right="contact_support" class="q-ml-sm q-px-sm"
                     dense @click="scrollToRegistrar()"></q-btn>
                 <!-- <q-btn label="Saiba Mais" icon-right="contact_support" color="teal" glossy class="q-ml-sm q-px-sm" dense -->
                 <!-- @click="scrollToRegistrar()"></q-btn> -->
@@ -335,7 +335,7 @@ function scrollToRegistrar() {
     $q.notify({
         color: 'blue',
         icon: 'email',
-        message: 'Preencha seu email para receber as instruções de uso e acesso da plataforma 🚀',
+        message: 'Digite seu email para receber as instruções de uso e acesso da plataforma 🚀',
         position: 'top'
     });
 
