@@ -64,10 +64,6 @@
 
                                             <p style="font-size: 1rem;"
                                                 class="text-grey-3 text-center bg-teal-7 rounded-borders q-px-xs q-py-md q-mt-md">
-                                                Porque você não precisa mais perder tempo com curiosos ou responder fora
-                                                de
-                                                hora.<br><br>
-
                                                 A ChatCar transforma seu <strong>estoque em um site interativo</strong>
                                                 e um
                                                 <strong>vendedor virtual</strong> que atende, qualifica e conversa com
