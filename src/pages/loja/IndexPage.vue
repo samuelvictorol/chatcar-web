@@ -155,8 +155,10 @@ onMounted(async () => {
             <q-btn color="green" icon="currency_exchange" label="Planos" glossy to="/me/planos" v-if="!editando" />
             <q-btn v-if="!editando" color="orange-14" glossy icon="edit" label="Editar Perfil"
                 @click="editando = true" />
-            <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" class="q-py-lg" style="position: fixed; bottom:0px;left:-8px;z-index: 999; width: 100vw" />
-            <q-btn v-if="editando" color="orange-14" glossy icon="cancel" label="Cancelar" @click="editando = false" style="position: fixed; top:42px;left:-8px;z-index: 999; width: 100vw" />
+            <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" class="q-py-lg"
+                style="position: fixed; bottom:0px;left:-8px;z-index: 999; width: 100vw" />
+            <q-btn v-if="editando" color="orange-14" glossy icon="cancel" label="Cancelar" @click="editando = false"
+                style="position: fixed; top:42px;left:-8px;z-index: 999; width: 100vw" />
         </div>
 
         <!-- Cards -->
@@ -166,32 +168,58 @@ onMounted(async () => {
             <q-card class="q-pa-sm full-height" flat bordered>
                 <q-card-section>
                     <div class="text-h6 text-bold text-secondary row w100 no-wrap justify-between text-center">
-                        Perfil
+                        {{ editando ? 'Editando Perfil' : 'Meu Perfil' }}
                         <q-img :src="lojaInfo.img_url" alt="Imagem da Loja" height="80px" width="80px"
                             class="rounded-borders shadow-1" />
                     </div>
-
-                    <q-separator class="q-my-sm" />
-
+                    <div v-if="editando" class="w100 q-py-md text-center">
+                        Para receber leads automatizados direto no WhatsApp, é necessário preencher o campo de contato.<br>
+                    </div>
+                    <q-separator v-if="!editando" class="q-my-sm" />
                     <div class="text-body1">
                         <strong>Nome: </strong>
                         <template v-if="!editando">{{ lojaInfo.nome }}</template>
-                        <q-input color="teal" v-else v-model="lojaInfo.nome" dense />
+                        <q-input color="teal" v-else v-model="lojaInfo.nome" dense>
+                            <template v-slot:prepend>
+                                <q-icon name="store" color="teal"/>
+                            </template>
+                        </q-input>
                     </div>
-
+                    <div class="text-body1" v-if="editando">
+                        <strong>Imagem de Perfil: </strong>
+                        <q-input color="teal" placeholder="Link da imagem" v-model="lojaInfo.img_url" dense>
+                            <template v-slot:prepend>
+                                <q-icon name="image" color="teal"/>
+                            </template>
+                        </q-input>
+                    </div>
                     <div class="text-body1">
                         <strong>CNPJ: </strong>
                         <template v-if="!editando">{{ lojaInfo.cnpj }}</template>
-                        <q-input maxlength="18" color="teal" v-else v-model="lojaInfo.cnpj" dense />
+                        <q-input maxlength="18" color="teal" v-else v-model="lojaInfo.cnpj" dense >
+                            <template v-slot:prepend>
+                                <q-icon name="business" color="teal"/>
+                            </template>
+                        </q-input>
                     </div>
                     <div class="text-body1">
-                        <strong>Redes Sociais: </strong>
+                        <strong>Descrição: </strong>
                         <template v-if="!editando">{{ lojaInfo.site }}</template>
-                        <q-input color="teal" v-else v-model="lojaInfo.site" placeholder="Use este campo para adicionar suas redes sociais e informações adicionais" dense type="textarea" />
+                        <q-input color="teal" v-else v-model="lojaInfo.site"
+                            placeholder="Use este campo para adicionar suas redes sociais e informações adicionais"
+                            dense type="textarea" >
+                            <template v-slot:prepend>
+                                <q-icon name="description" color="teal"/>
+                            </template>
+                        </q-input>
                     </div>
-                    <div class="text-body1" v-if="editando"> 
+                    <div class="text-body1" v-if="editando">
                         <strong>Email: </strong>
-                        <q-input color="teal"  v-model="lojaInfo.email" dense />
+                        <q-input color="teal" v-model="lojaInfo.email" dense>
+                            <template v-slot:prepend>
+                                <q-icon name="email" color="teal"/>
+                            </template>
+                        </q-input>
                     </div>
 
                     <div class="text-body1">
@@ -199,12 +227,19 @@ onMounted(async () => {
                         <template v-if="!editando">{{ 'chatcar.me/' + lojaInfo.login }}</template>
                         <template v-if="!editando"><br><q-btn label="compartilhar" @click="compartilharChatUrl" dense
                                 icon-right="share" class="q-my-sm" color="blue"></q-btn></template>
-                        <q-input color="teal" v-else v-model="lojaInfo.login" dense />
+                        <q-input color="teal" v-else v-model="lojaInfo.login" dense>
+                            <template v-slot:prepend>
+                                <q-icon name="account_circle" color="teal"/>
+                            </template>
+                        </q-input>
                     </div>
                     <div v-if="editando" class="text-body1">
                         <strong>Nova Senha: </strong>
                         <q-input dense color="teal" :type="mostrarSenha ? 'text' : 'password'" v-model="senha"
                             placeholder="Digite a nova senha">
+                            <template v-slot:prepend>
+                                <q-icon name="lock" color="teal"/>
+                            </template>
                             <template v-slot:append>
                                 <q-icon :name="mostrarSenha ? 'visibility_off' : 'visibility'" class="cursor-pointer"
                                     @click="mostrarSenha = !mostrarSenha" />
@@ -216,6 +251,9 @@ onMounted(async () => {
                         <strong>Confirmar Nova Senha: </strong>
                         <q-input dense color="teal" :type="mostrarConfirmarSenha ? 'text' : 'password'"
                             v-model="confirmarSenha" placeholder="Confirme a nova senha">
+                            <template v-slot:prepend>
+                                <q-icon name="lock" color="teal"/>
+                            </template>
                             <template v-slot:append>
                                 <q-icon :name="mostrarConfirmarSenha ? 'visibility_off' : 'visibility'"
                                     class="cursor-pointer" @click="mostrarConfirmarSenha = !mostrarConfirmarSenha" />
@@ -225,18 +263,21 @@ onMounted(async () => {
                     <div class="text-body1">
                         <strong>Contato: </strong>
                         <template v-if="!editando">{{ lojaInfo.contato }}</template>
-                        <q-input color="teal" v-else v-model="lojaInfo.contato" mask="(##) #####-####"  dense />
-                    </div>
-
-                    <div class="text-body1" v-if="editando">
-                        <strong>Imagem de Perfil: </strong>
-                        <q-input color="teal" v-model="lojaInfo.img_url" dense />
+                        <q-input color="teal" v-else v-model="lojaInfo.contato" mask="(##) #####-####" dense>
+                            <template v-slot:prepend>
+                                <q-icon name="phone" color="teal"/>
+                            </template>
+                        </q-input>
                     </div>
 
                     <div class="text-body1">
                         <strong>Localização: </strong>
                         <template v-if="!editando">{{ lojaInfo.localizacao }}</template>
-                        <q-input color="teal" v-else v-model="lojaInfo.localizacao" dense />
+                        <q-input color="teal" v-else v-model="lojaInfo.localizacao" densee>
+                            <template v-slot:prepend>
+                                <q-icon name="place" color="teal"/>
+                            </template>
+                        </q-input>
                     </div>
 
                     <div class="text-body1" v-if="!editando">

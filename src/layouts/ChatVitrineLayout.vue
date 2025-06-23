@@ -7,7 +7,7 @@
                         <q-icon name="sms" size="lg" to="/" />
                     </q-avatar> -->
                     <div v-if="!loading" class="q-pl-sm animate__animated animate__fadeInLeft animate__slower">
-                        <q-avatar size="45px" class="q-mr-sm">
+                        <q-avatar size="40px" class="q-mr-sm">
                             <img :src="sobreLoja.img_url ? sobreLoja.img_url : '/logo.jpeg'" alt="Logo" />
                         </q-avatar>
                     </div>
@@ -64,7 +64,7 @@
                         <div class="text-h6 text-white q-pt-sm ">{{ sobreLoja.nome }}</div>
                         <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="contato"
                                 icon-right="contact_support" color="" @click="openInfoLoja()"
-                                style="border:2px solid #26A69A" dense flat></q-btn></div>
+                                style="border:2px solid white" dense flat></q-btn></div>
 
                     </div>
 
@@ -100,7 +100,7 @@
                                                 carro.ano }}</div>
                                     </div>
                                 </q-img>
-                                <q-btn icon-right="search" color="blue" glossy dense
+                                <q-btn icon-right="search" color="teal-14" dense
                                     class="q-mx-md rounded-borders q-mt-md absolute-top" label="Detalhes"
                                     @click="abrirDialog(carro)" style="width: 40%;z-index: 99999999999!important;" />
                             </q-carousel-slide>
@@ -475,7 +475,7 @@ onBeforeMount(async () => {
         usuario.value.nome = nome
 
         $q.dialog({
-            title: '📲 Para acessar o nosso estoque de veículos, preencha com seu telefone (ou whatsapp)',
+            title: '📲 Para acessar o nosso estoque de veículos, informe seu whatsapp:',
             message: `${usuario.value.nome}, digite seu número com DDD:`,
             prompt: {
                 model: '',
@@ -562,30 +562,8 @@ onBeforeMount(async () => {
                 nextTick(() => {
                     window.scrollTo(0, document.body.scrollHeight)
                 })
-
-                // Agora sim, abrimos o último diálogo para descrição do perfil:
-                $q.dialog({
-                    title: '🧠 Nos conte mais...',
-                    message: 'Se quiser, descreva em poucas palavras como pretende usar o carro (uso urbano, família, trabalho, viagens pra fazenda, etc). Isso nos ajuda a entender melhor seu perfil:',
-                    prompt: {
-                        model: '',
-                        type: 'textarea',
-                        color: 'secondary',
-                        placeholder: 'Ex: trabalho na cidade mas possuo uma fazenda...',
-                        isValid: val => true,
-                        outlined: true
-                    },
-                    ok: {
-                        label: 'Continuar',
-                        color: 'secondary',
-                        glossy: true
-                    },
-                    persistent: true
-                }).onOk(descricao => {
-                    usuario.value.info = descricao
-                    gerarLead()
-                })
             })
+            gerarLead()
         })
     })
 })
@@ -631,7 +609,7 @@ async function sendMessage() {
             await nextTick();
             await delay(delayCount);
             scrollToBottom();
-            delayCount += 200
+            delayCount += 600
         }
 
     } catch (error) {
@@ -697,7 +675,6 @@ async function atualizarLead() {
         // console.error('Erro ao atualizar lead:', err);
     }
 }
-
 
 watch(interacoes, async (val) => {
     if (val > 0 && val % 1 === 0) {

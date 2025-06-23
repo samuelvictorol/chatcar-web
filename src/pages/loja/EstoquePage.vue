@@ -49,7 +49,9 @@
         <q-dialog v-model="dialogDetalhes">
             <q-card style="min-width: 350px; max-width: 90vw;">
                 <q-card-section class="row items-center q-pb-md">
-                    <div class="text-h6">Detalhes do Veículo</div>
+                    <div class="text-h6">{{ veiculoSelecionado?.modelo
+                    }} - {{
+                            veiculoSelecionado?.ano }}</div>
                     <q-space />
                     <q-btn icon="close" flat round dense v-close-popup />
                 </q-card-section>
@@ -57,9 +59,6 @@
                 <q-separator />
 
                 <q-card-section>
-                    <div style="font-size: 1rem;" class="text-center  text-bold q-mb-sm">{{ veiculoSelecionado?.modelo
-                    }} - {{
-                            veiculoSelecionado?.ano }}</div>
                     <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length" swipeable animated
                         class="rounded-borders q-mb-md bg-grey-2" navigation arrows infinite>
                         <q-carousel-slide class="bg-dark" v-for="(img, index) in imagensVeiculoSelecionado" :key="index"
@@ -72,8 +71,8 @@
                     <div class="text-body2 q-mb-xs"><strong class="text-bold text-purple" v-if="veiculoSelecionado.cor">{{ veiculoSelecionado?.cor.toUpperCase() }}</strong> <strong v-if="veiculoSelecionado.km" class="text-bold text-teal-14">{{ veiculoSelecionado?.km }}km</strong> <strong class="text-bold text-orange-14" v-if="veiculoSelecionado.combustivel">{{ veiculoSelecionado?.combustivel.value.toUpperCase() }}</strong> <strong v-if="veiculoSelecionado.cambio" class="text-bold text-blue">{{ veiculoSelecionado?.cambio.value.toUpperCase() }}</strong></div>
                     <q-separator class="q-my-sm" />
                     <div class="text-body2"><strong>Descrição:</strong> {{ veiculoSelecionado?.descricao }}</div>
-                    <div class="q-pt-md text-body2 text-bold text-teal">{{ veiculoSelecionado?.categoria.label }} - {{
-                        veiculoSelecionado?.tipo.label }}</div>
+                    <div class="q-pt-md text-body2 text-bold text-teal">{{ veiculoSelecionado?.tipo.label }} - {{
+                        veiculoSelecionado?.categoria.label }}</div>
                 </q-card-section>
                 <q-separator />
                 <div class="w100 q-mt-md"></div>
@@ -460,15 +459,18 @@ onMounted(async () => {
 .estoque-line:hover {
     background-color: #f0f0f0;
     cursor: pointer;
-}
-
-.q-hoverable:hover {
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-}
-
-#card-estoque {
     transition: all 0.2s linear;
-    cursor: pointer;
+}
+#card-estoque {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+#card-estoque:hover {
+  transform: perspective(800px) rotateX(3deg) rotateY(3deg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 @media (min-width: 700px) {

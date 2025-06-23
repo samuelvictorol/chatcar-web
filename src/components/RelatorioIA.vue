@@ -33,6 +33,7 @@
         </div>
         <q-skeleton v-else type="text" width="100%" />
       </q-card-section>
+      <div class="w100 text-center text-teal q-pb-md">Cliente entrou em contato em {{ lead?.dataHora}}</div>
     </q-card>
   </div>
 </template>
