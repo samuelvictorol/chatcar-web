@@ -111,19 +111,6 @@
 </template>
 <script setup>
 import { onBeforeMount, ref } from 'vue';
-
-const chatCarCopys = [
-  'ChatCar I.A',
-  'ChatCar Inteligência Artificial',
-  'ChatCar Assistente Virtual',
-  'ChatCar Bot de Vendas',
-  'ChatCar Atendimento Inteligente',
-  'ChatCar Suporte Automatizado',
-  'ChatCar Vitrine Digital',
-  'ChatCar Leads Qualificados',
-  'ChatCar Automação de Vendas',
-  'ChatCar Assistente Comercial'
-];
 const isUserLoggedIn = ref(false);
 
 onBeforeMount(() => {
@@ -181,7 +168,7 @@ onBeforeMount(() => {
 .glass-card {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
-  border: 2px solid teal;
+  border-bottom: 2px solid teal;
   border-radius: 16px;
   max-width: 700px;
   width: 100%;

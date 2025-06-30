@@ -5,8 +5,8 @@
                 <q-card id="card-login" class="q-px-md q-py-md shadow-10 w100 q-mx-md" style="border-radius: 20px">
                     <q-card-section>
                         <div class=" text-weight-bold text-center text-teal w100 row no-wrap items-center justify-between">
-                             <div class="text-h5">{{ formType === 'login' ? 'Iniciar Sessão' : 'Criar Conta' }} </div>
-                             <q-avatar size="50px" class="q-mr-sm">
+                                <div class="text-h5">{{ formType === 'login' ? 'Iniciar Sessão' : 'Criar Conta' }} </div>
+                                <q-avatar size="50px" class="q-mr-sm">
                                 <img src="/logo.jpeg" class="" alt="Logo" />
                             </q-avatar>
                         </div>
