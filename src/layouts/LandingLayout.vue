@@ -15,7 +15,7 @@
     </q-header>
 
     <!-- HERO SECTION -->
-    <q-page-container class="q-pa-none hero-container text-white">
+    <q-page-container class="bg-dark q-pa-none hero-container text-white">
       <div class="hero-background"></div>
       <div class="q-px-md">
         <div
@@ -123,6 +123,10 @@ onBeforeMount(() => {
 
 </script>
 <style scoped>
+.bg-grad-direct{
+
+}
+
 .hero-container {
   position: relative;
   overflow: hidden;
@@ -168,7 +172,7 @@ onBeforeMount(() => {
 .glass-card {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
-  border-bottom: 2px solid teal;
+  border-bottom: 2px solid rgb(0, 117, 128);
   border-radius: 16px;
   max-width: 700px;
   width: 100%;

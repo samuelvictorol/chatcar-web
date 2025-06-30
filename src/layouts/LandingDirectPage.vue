@@ -10,8 +10,8 @@
                 </q-toolbar-title>
                 <!-- <a style="color:#00BFA5;text-decoration: none;font-size:.8rem" href="https://instagram.com/chatcar.ia"
                     target="_blank">@chatcar.ia</a> -->
-                <q-btn label="Como Funciona?" color="teal" icon-right="contact_support" class="q-ml-sm q-px-sm"
-                    dense @click="scrollToRegistrar()"></q-btn>
+                <q-btn label="Como Funciona?" color="teal" icon-right="contact_support" class="q-ml-sm q-px-sm" dense
+                    @click="scrollToRegistrar()"></q-btn>
                 <!-- <q-btn label="Saiba Mais" icon-right="contact_support" color="teal" glossy class="q-ml-sm q-px-sm" dense -->
                 <!-- @click="scrollToRegistrar()"></q-btn> -->
             </q-toolbar>
@@ -25,7 +25,8 @@
                             <q-icon name="email" color="teal" class="cursor-pointer" @click.stop />
                         </template>
                         <template v-else v-slot:append>
-                            <q-icon name="person_add" color="teal" class="cursor-pointer" @click="openPagarMeLinkUrl()" />
+                            <q-icon name="person_add" color="teal" class="cursor-pointer"
+                                @click="openPagarMeLinkUrl()" />
                         </template>
                     </q-input>
                 </q-form>
@@ -134,7 +135,7 @@
                     </section>
                 </div>
                 <div
-                    class="text-h5 q-mb-lg text-bold bg-teal rounded-borders shadow-2 q-px-sm text-right w100 row no-wrap justify-between text-grey-1">
+                    class="text-h5 q-mb-lg text-bold bg-dark rounded-borders  q-px-sm text-right w100 row no-wrap justify-between text-grey-1">
                     Como Funciona <span>❔</span></div>
                 <div class="q-mb-lg">
                     <div class="video-container rounded-borders" style="border-bottom:4px solid #00BFA5;">
@@ -191,8 +192,8 @@
                             Interaja com o nosso estoque de testes e experimente o atendimento inteligente em tempo
                             real.
                         </p>
-                        <q-btn label="Testar Atendimento I.A." to="/jatoveiculos" color="teal" glossy icon="smart_toy" class="q-mx-md"
-                            size="lg" />
+                        <q-btn label="Testar Atendimento I.A." to="/jatoveiculos" color="teal" glossy icon="smart_toy"
+                            class="q-mx-md" size="lg" />
                     </div>
                 </section>
 
@@ -371,12 +372,10 @@ function logout() {
 
 <style scoped>
 .q-page-container {
-    background: #414141;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #414141, #474747);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #2e2e2e, #343434);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #00bfa5;
+    /* fallback */
+    background: -webkit-linear-gradient(to top right, #004e64, #00bfa5, #a8f0d4);
+    background: linear-gradient(to top left, teal, #1BBAB9, #014C5A);
 }
 
 .video-container {
