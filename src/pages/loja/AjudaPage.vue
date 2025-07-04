@@ -5,9 +5,12 @@
             <q-breadcrumbs-el class="text-teal" icon="store" label="Início" to="/me" />
             <q-breadcrumbs-el icon="info" label="Ajuda" />
         </q-breadcrumbs>
-        <div class="row items-center justify-between q-mb-md">
-            <div class="text-h5 text-bold text-dark">Como Utilizar a IA para Gerar Leads e Sugestões de Abordagem
-                Personalizadas</div>
+        <div class="w100 video-container rounded-borders" style="border-bottom:4px solid #00BFA5;">
+            <iframe width="100%" src="https://www.youtube.com/embed/y2Qka6CeEVg" frameborder="0"
+                allowfullscreen></iframe>
+        </div>
+        <div class="row items-center justify-between q-my-md q-pt-md">
+            <div class="text-h6 text-bold text-dark">Como usar a ChatCar IA❓</div>
         </div>
 
         <!-- Conteúdo -->
@@ -74,7 +77,8 @@
                     </q-timeline-entry>
 
                     <q-timeline-entry title="3. Preencha os dados do carro" icon="description">
-                        Insira marca, modelo, ano, preço, cor, quilometragem e outras informações relevantes. Quanto mais
+                        Insira marca, modelo, ano, preço, cor, quilometragem e outras informações relevantes. Quanto
+                        mais
                         completo, melhor será a experiência do cliente. A IA utilizará esses dados para gerar respostas
                         personalizadas.
                     </q-timeline-entry>
@@ -114,7 +118,8 @@
                                 class="text-teal">imgur.com</a> – fácil e rápido!</li>
                         <li><strong>Facebook:</strong> poste no feed ou em álbuns e copie o link direto.</li>
                         <li><strong>Seu próprio site:</strong> se tiver, use os links das suas páginas de vendas.</li>
-                        <li><strong>Web Motors:</strong> – copie o linkd das imagens que utilou no anúncio da WebMotors.</li>
+                        <li><strong>Web Motors:</strong> – copie o linkd das imagens que utilou no anúncio da WebMotors.
+                        </li>
                     </ul>
                 </div>
             </q-card-section>
@@ -125,7 +130,8 @@
             <q-card-section>
                 <div class="text-h6 text-bold q-mb-md text-teal">Escrevendo a Descrição Perfeita</div>
                 <div class="text-body1 q-mb-md">
-                    Após preencher todos os campos ao cadastrar um veículo (pois a I.A utiliza para filtrar pros seus clientes), uma boa descrição faz toda a diferença! Quanto mais direta e completa,
+                    Após preencher todos os campos ao cadastrar um veículo (pois a I.A utiliza para filtrar pros seus
+                    clientes), uma boa descrição faz toda a diferença! Quanto mais direta e completa,
                     melhor vai ser a experiência do cliente e maior a chance de conversão.
                 </div>
                 <div class="text-body2 q-mb-md">
@@ -150,7 +156,8 @@
           </code>
                 </div>
                 <div class="text-body2">
-                    🧠 A IA vai usar essas informações para criar textos e respostas personalizadas, otimizando a interação com o cliente!
+                    🧠 A IA vai usar essas informações para criar textos e respostas personalizadas, otimizando a
+                    interação com o cliente!
                 </div>
             </q-card-section>
         </q-card>
@@ -174,7 +181,7 @@
             <q-card-section class="q-pa-lg">
                 <div class="text-body1 q-mb-md">
                     Ao utilizar a plataforma <strong>ChatCar</strong>, você, usuário, concorda em fornecer seu
-                    <strong>nome</strong> e <strong>telefone</strong> para que os lojistas possam entrar em contato
+                    <strong>nome</strong> e <strong>telefone</strong> para que os clientes possam entrar em contato
                     diretamente com você por meio da plataforma.
                 </div>
 
@@ -202,3 +209,37 @@
 <script setup>
 // Página estática, sem necessidade de lógica por enquanto
 </script>
+<style scoped>
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+    max-width: 900px;
+    /* largura máxima no desktop */
+    margin: 0 auto;
+    /* centraliza */
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media (min-width: 550px) {
+    .video-container {
+        padding-bottom: 0;
+        /* remove a altura proporcional */
+        height: 450px;
+        /* altura fixa no desktop */
+    }
+
+    .video-container iframe {
+        height: 450px;
+        /* altura fixa no desktop */
+    }
+}
+
+</style>

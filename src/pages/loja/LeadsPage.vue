@@ -182,7 +182,7 @@ const leadsFiltrados = computed(() => {
 }
 
 #lead {
-    width: 300px;
+    width: 30%;
 }
 
 @media (max-width: 800px) {

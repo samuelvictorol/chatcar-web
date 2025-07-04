@@ -56,15 +56,10 @@ function abrirWhatsapp() {
   const numero = rawNumero.replace(/\D/g, '')
 
   let sugestao = props.lead?.relatorioIA?.sugestaoAbordagem || ''
-
-  // Normaliza espaços e quebras de linha
   sugestao = sugestao.replace(/\r?\n|\r/g, '\n').trim()
 
-  // Mensagem completa
-  const mensagemTexto = `🚗 Olá! Vi que você demonstrou interesse.\n\n${sugestao}`
-
-  // Codifica corretamente com suporte a emojis e UTF-8
-  const mensagemCodificada = encodeURIComponent(unescape(encodeURIComponent(mensagemTexto)))
+  const mensagemTexto = `${sugestao}`
+  const mensagemCodificada = encodeURIComponent(mensagemTexto)  // Removido o unescape!
 
   if (numero.length < 10) {
     console.warn('Número de WhatsApp inválido:', rawNumero)
@@ -75,6 +70,7 @@ function abrirWhatsapp() {
   console.log('Abrindo WhatsApp:', link)
   window.open(link, '_blank')
 }
+
 
 
 function baixarPDF() {
