@@ -78,39 +78,30 @@
                                                 negociar, são
                                                 <strong>redirecionados automaticamente pro WhatsApp da sua
                                                     loja</strong>,
-                                                prontos pra fechar negócio. <br><br>
+                                                prontos pra fechar negócio. <br>
 
-                                                Enquanto isso, tudo fica salvo: interesses, preferências e interações,
-                                                criando
-                                                um <strong>funil de vendas automático com CRM integrado</strong> que te
-                                                dá
-                                                relatórios e <strong>dicas certeiras</strong> pra vender muito mais com
-                                                menos
-                                                esforço.
                                             </p>
                                             <ul class="text-left column q-gutter-y-sm" style="font-size: 1rem;">
+                                                <li>🚀 <strong>Sem instalação e sem mensalidade</strong> — só paga se
+                                                    for usar
+                                                </li>
+                                                <li>🔗 <strong>Chega de Curiosos: Qualificação</strong> de visitantes
+                                                    com
+                                                    redirecionamento pro WhatsApp</li>
+                                                <li>📲 <strong>ChatCar I.A.</strong> recomenda veículos com base no
+                                                    perfil do cliente</li>
+                                                <li>⚡️ <strong>Atendimento 24h com I.A.</strong> — somos seu vendedor automatizado e funcionamos até quando você vai dormir</li>
                                                 <li>📢 <strong>Funil de captação otimizado</strong> para anúncios do
                                                     Instagram e
                                                     tráfego pago</li>
-                                                <li>⚡️ <strong>Atendimento 24h com I.A.</strong> — sem depender de
-                                                    vendedores
-                                                    online</li>
                                                 <li>📈 <strong>Estoque publicado como site interativo</strong>, pronto
                                                     para
                                                     conversão</li>
-                                                <li>🔗 <strong>Qualificação automática</strong> de visitantes com
-                                                    redirecionamento pro WhatsApp</li>
-                                                <li>📲 <strong>ChatVitrine I.A.</strong> recomenda veículos com base no
-                                                    perfil
-                                                    do cliente</li>
                                                 <li>🤝 <strong>CRM integrado</strong> com histórico, interesses e dados
                                                     estratégicos</li>
                                                 <li>📝 <strong>Relatórios e dicas personalizadas</strong> para
                                                     fechamento de
                                                     vendas</li>
-                                                <li>🚀 <strong>Sem instalação e sem mensalidade</strong> — só paga se
-                                                    for usar
-                                                </li>
                                             </ul>
 
                                             <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">
