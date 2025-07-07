@@ -7,7 +7,7 @@
                         <div class=" text-weight-bold text-center text-teal w100 row no-wrap items-center justify-between">
                                 <div class="text-h5">{{ formType === 'login' ? 'Iniciar Sessão' : 'Criar Conta' }} </div>
                                 <q-avatar size="50px" class="q-mr-sm">
-                                <img src="/logo.jpeg" class="" alt="Logo" />
+                                <img src="/logo.jpeg"  @click="toggleForm()" id="img-click" class="" alt="Logo" />
                             </q-avatar>
                         </div>
                     </q-card-section>
@@ -167,7 +167,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { api } from 'src/boot/axios'
 import { useQuasar } from 'quasar'
 import { useRouter } from 'vue-router'
