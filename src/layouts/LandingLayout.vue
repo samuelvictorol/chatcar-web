@@ -7,10 +7,11 @@
           <q-avatar size="50px" class="q-mr-sm">
             <img src="/logo.jpeg" alt="Logo" />
           </q-avatar>
-          <div class="text-weight-bold animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
+          <div class=" animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
         </q-toolbar-title>
 
-        <q-btn :label="isUserLoggedIn ? 'Meu Perfil' : 'Entrar'" color="teal" glossy :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'" />
+        <q-btn :label="isUserLoggedIn ? 'Meu Perfil' : 'Entrar'" color="teal" glossy
+          :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'" />
       </q-toolbar>
     </q-header>
 
@@ -22,11 +23,14 @@
           class="shadow-4 glass-card text-center q-mx-auto animate__animated animate__fadeIn animate__slower animate__delay-3s">
 
           <div style="font-size: 2.5rem; line-height: 1.2;"
-            class="text-bold animate__animated  animate__fadeInLeft animate__slower animate__delay-3s font-orbitron q-pb-sm">
-            ChatCar
-            I.A</div>
-          <q-btn label="Iniciar Agora" color="teal-14" size="lg" icon="rocket_launch"
-            class="animate__animated animate__zoomIn animate__slower animate__delay-4s q-mt-lg" :to="isUserLoggedIn ? '/me' : '/ia'" />
+            class="text-bold animate__animated  text-dark animate__fadeInLeft animate__slower animate__delay-3s q-pb-sm row no-wrap">
+            <q-avatar size="50px" class="q-mr-sm">
+              <img src="/logo.jpeg" alt="Logo" />
+            </q-avatar>ChatCar
+          </div>
+          <q-btn label="Iniciar Agora" color="teal-14" glossy size="lg" icon="rocket_launch"
+            class="animate__animated animate__zoomIn animate__slower animate__delay-4s q-mt-lg"
+            :to="isUserLoggedIn ? '/me' : '/ia'" />
 
         </div>
       </div>
@@ -123,9 +127,7 @@ onBeforeMount(() => {
 
 </script>
 <style scoped>
-.bg-grad-direct{
-
-}
+.bg-grad-direct {}
 
 .hero-container {
   position: relative;

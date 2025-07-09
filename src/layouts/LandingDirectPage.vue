@@ -4,16 +4,23 @@
             <q-toolbar class="container">
                 <q-toolbar-title class="text-h6 row items-center no-wrap">
                     <q-avatar size="50px" class="">
-                        <img src="/logo.jpeg" alt="Logo" />
+                        <img src="/logo.jpeg" alt="Logo" @click="router.push('/')"  class="cursor-pointer"/>
                     </q-avatar>
                     <div class="animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
                 </q-toolbar-title>
                 <!-- <a style="color:#00BFA5;text-decoration: none;font-size:.8rem" href="https://instagram.com/chatcar.ia"
                     target="_blank">@chatcar.ia</a> -->
-                <q-btn label="Como Funciona?" color="teal" icon-right="contact_support" class="q-ml-sm q-px-sm" dense
+                <q-btn v-if="!isMobile" label="Como Funciona?" color="teal" icon-right="contact_support" class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-1s" dense
                     @click="scrollToRegistrar()"></q-btn>
-                <!-- <q-btn label="Saiba Mais" icon-right="contact_support" color="teal" glossy class="q-ml-sm q-px-sm" dense -->
-                <!-- @click="scrollToRegistrar()"></q-btn> -->
+                <q-btn v-if="!isMobile" label="Preço"  @click="scrollTo('preco')" color="green" glossy icon-right="paid" class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-2s" dense></q-btn>
+                <q-btn v-if="!isMobile" label="Contato" color="blue" glossy icon-right="call" class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-3s" dense
+                    @click="scrollTo('contato')"></q-btn>
+                <!-- mobile só os botoes com icones -->
+                <q-btn v-if="isMobile" icon="contact_support" color="teal" class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-1s" dense
+                    @click="scrollToRegistrar()"></q-btn>
+                <q-btn v-if="isMobile" icon="paid" @click="scrollTo('preco')" color="green" glossy class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-2s" dense></q-btn>
+                <q-btn v-if="isMobile" icon="call" color="blue" glossy class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-3s" dense
+                    @click="scrollTo('contato')"></q-btn>
             </q-toolbar>
             <q-toolbar class="w100 row justify-center items-center">
                 <q-form @submit.prevent="handleSubmit" class="shadow-2 q-py-sm "
@@ -52,8 +59,7 @@
                     </h1>
                 </div>
             </section>
-            <!-- Planos -->
-            <div id="planos" class="q-mb-xl">
+            <div class="q-mb-xl" id="preco">
                 <div class="row justify-center">
                     <section class="q-pb-xl q-pt-md text-center  q-px-sm">
                         <div class="container">
@@ -113,7 +119,7 @@
                                             </div>
                                         </q-card-section>
                                     </q-card>
-                                    <div class="text-left text-teal-2 q-my-md">
+                                    <div class="bg-dark q-pa-sm rounded-borders text-left text-teal-2 q-my-md">
                                         ✅ Acesso válido por <strong>30 dias</strong>. <br>
                                         🔒 <strong id="comofunciona">Sem assinatura, sem mensalidade e sem cobranças
                                             automáticas.</strong><br>
@@ -125,20 +131,17 @@
                         </div>
                     </section>
                 </div>
-                <div
-                    class="text-h5 q-mb-lg text-bold bg-dark rounded-borders  q-px-sm text-right w100 row no-wrap justify-between text-grey-1">
+                <div class="w100 row justify-center no-wrap">
+                    <div
+                    class="text-h4 q-mb-lg text-bold rounded-borders  q-px-sm text-right row no-wrap justify-between text-grey-1">
                     Como Funciona <span>❔</span></div>
+                </div>
                 <div class="q-mb-lg">
                     <div class="video-container rounded-borders" style="border-bottom:4px solid #00BFA5;">
                         <iframe width="100%" src="https://www.youtube.com/embed/y2Qka6CeEVg" frameborder="0"
                             allowfullscreen></iframe>
                     </div>
                 </div>
-                <div class="text-grey-2 q-mb-lg">
-                    🤖 <strong>Digite seu email</strong> e veja <strong>acima</strong> como, <strong>em menos de 1
-                        minuto</strong>, seu estoque se torna um vendedor automático.<br>
-                </div>
-
                 <section style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5;"
                     class="bg-grey-1 q-py-lg container text-center q-mt-md q-px-md rounded-borders">
                     <div class="row q-col-gutter-md">
@@ -146,9 +149,9 @@
                             <q-icon name="storefront" size="64px" color="blue" />
                             <h3 class="text-subtitle1 q-mt-sm text-blue text-bold">1. Cadastre seu Estoque</h3>
                             <p style="font-size: 1rem;">
-                                <strong>Cadastre-se</strong> em segundos e receba seu <strong>link público</strong>
+                                <strong>Cadastre-se via Email</strong> e receba seu acesso e <strong>link público</strong>
                                 exclusivo
-                                (<em>chatcar.me/sualoja</em>), pronto para exibir e vender com I.A. de forma automática.
+                                (<em>chatcar.me/sualoja</em>), pronto para exibir e vender com I.A. de forma automática - você pode alterar o login depois.
                             </p>
                         </div>
 
@@ -177,7 +180,7 @@
                 </section>
                 <section id="chatEstoqueTeste" class="q-py-xl bg-grey-3 text-center text-dark">
                     <div class="q-mx-auto" style="max-width: 700px">
-                        <h2 class="text-h5 text-bold q-mb-sm">🔍 Teste ao Vivo com Estoque de Demonstração</h2>
+                        <h2 class="text-h5 text-bold q-mb-sm q-px-xs">🔍 Teste ao Vivo com Estoque de Demonstração</h2>
                         <p class="text-subtitle2 q-px-sm q-mb-md">
                             Veja na prática como seus clientes seriam atendidos pela ChatCar I.A. <br>
                             Interaja com o nosso estoque de testes e experimente o atendimento inteligente em tempo
@@ -230,7 +233,7 @@
                 <img src="chatvitrine.png" width="50%" alt="">
                 <div class="q-py-md"></div>
             </div>
-            <section class="q-py-xl q-mb-xl bg-dark text-white">
+            <section class="q-py-xl q-mb-xl bg-dark text-white" id="contato">
                 <div class="container text-center">
                     <h2 class="text-h5 text-bold q-mb-md">Quer saber mais?</h2>
                     <p>Fale com nosso time agora mesmo</p>
@@ -261,7 +264,17 @@
                 @click="openPagarMeLinkUrl()" type="submit" :color="isFormValid() ? 'green' : 'blue-14'"
                 :icon-right="isFormValid() ? 'shopping_cart_checkout' : 'east'"
                 class="w100 q-py-xl animate__animated animate__fadeInUp animate__slower" />
-        </q-page-container>
+            <q-dialog v-model="dialog" class="animate__animated animate__fadeIn animate__slower" style="backdrop-filter: blur(12px);">
+                <q-card class="bg-dark text-white">
+                    <q-card-section class="text-center">
+                        <div class="text-h6 q-mb-md">📩 Registre-se com seu Email</div>
+                        <p class="q-px-md">Cadastre-se informando seu <strong class="text-teal-14">e-mail</strong> e clicando em <strong class="text-teal-14">"Finalizar Cadastro e Pagar"</strong> para ser redirecionado ao ambiente seguro de pagamento.</p>
+                        <p>Após a compra, você receberá um e-mail com as <strong class="text-orange-4">instruções de uso e acesso da plataforma</strong>.</p>
+                        <q-btn label="Continuar" glossy color="teal" @click="dialog = false" />
+                    </q-card-section>
+                </q-card>
+            </q-dialog>
+            </q-page-container>
     </q-layout>
 </template>
 
@@ -269,7 +282,11 @@
 import { useQuasar } from 'quasar';
 import { api } from 'src/boot/axios';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
+// inicializa se for mobile ou nao
+const isMobile = window.innerWidth <= 550;
 const slideAtivoDetalhes = ref(0); // índice do slide ativo
 const selectedPlan = ref(null);
 const $q = useQuasar();
@@ -290,6 +307,14 @@ const depoimentos = ref([
     },
 ]);
 
+const dialog = ref(false);
+openDialog();
+function openDialog() {
+    setTimeout(() => {
+        dialog.value = true;
+    }, 3100);
+}
+
 function handleSubmit() {
     console.log('Form enviado:', form.value);
 }
@@ -306,27 +331,18 @@ function isFormValid() {
     return true;
 }
 
-function scrollToPlanos() {
-    if (form.value.email.toLowerCase().includes('@') && form.value.email.length >= 5 && form.value.email.includes('.')) {
-        const el = document.getElementById('planos');
-        if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
-        }
-        $q.notify({
-            color: 'teal',
-            icon: 'paid',
-            message: 'Para continuar, clique em Finalizar Cadastro e Pagar 🛒',
-            position: 'top'
-        });
+function scrollTo(id) {
+    const el = document.getElementById(id);
+    if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
     }
-    return
 }
 
 function scrollToRegistrar() {
     $q.notify({
-        color: 'blue',
+        color: 'teal',
         icon: 'email',
-        message: 'Digite seu email para receber as instruções de uso e acesso da plataforma 🚀',
+        message: 'Digite seu email para ir para o ambiente seguro de pagamento e receber as instruções de uso e acesso da plataforma 🚀',
         position: 'top'
     });
 
