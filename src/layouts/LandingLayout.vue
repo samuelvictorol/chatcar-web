@@ -23,7 +23,7 @@
           class="shadow-4 glass-card text-center q-mx-auto animate__animated animate__fadeIn animate__slower animate__delay-3s">
 
           <div style="font-size: 2.5rem; line-height: 1.2;"
-            class="text-bold animate__animated  text-dark animate__fadeInLeft animate__slower animate__delay-3s q-pb-sm row no-wrap">
+            class="text-bold animate__animated  text-white animate__fadeInLeft animate__slower animate__delay-3s q-pb-sm row no-wrap">
             <q-avatar size="50px" class="q-mr-sm">
               <img src="/logo.jpeg" alt="Logo" />
             </q-avatar>ChatCar
