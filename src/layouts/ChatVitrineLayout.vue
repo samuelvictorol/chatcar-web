@@ -33,9 +33,6 @@
                 </template>
             </q-input>
             <q-separator />
-            <div class="q-pb-md w100 text-right q-px-sm text-grey-7">
-                @chatcar.ia - <a href="chatcar.me" target="_blank" class="text-teal">chatcar.me</a>
-            </div>
             <q-list>
                 <q-item id="item-estoque" v-for="(carro, i) in estoqueFiltrado" :key="i">
                     <q-item-section style="border-bottom: 1px solid #26A69A ;" class="q-pb-sm">
@@ -45,12 +42,15 @@
                                 <q-item-label caption>{{ carro.categoria.label }}</q-item-label>
                             </div>
                             <q-btn icon="visibility" color="secondary" glossy dense class="q-ml-md"
-                                @click="() => selecionarCarro(carro)" />
-
+                            @click="() => selecionarCarro(carro)" />
+                            
                         </div>
                     </q-item-section>
                 </q-item>
             </q-list>
+            <div class="q-pb-md w100 text-right q-px-sm text-grey-7">
+                @chatcar.ia - <a href="chatcar.me" target="_blank" class="text-teal">chatcar.me</a>
+            </div>
 
         </q-drawer>
 
@@ -100,7 +100,7 @@
                                                 carro.ano }}</div>
                                     </div>
                                 </q-img>
-                                <q-btn icon-right="search" color="teal-14" dense
+                                <q-btn icon-right="search" color="blue" glossy dense
                                     class="q-mx-md rounded-borders q-mt-md absolute-top" label="Detalhes"
                                     @click="abrirDialog(carro)" style="width: 40%;z-index: 99999999999!important;" />
                             </q-carousel-slide>
