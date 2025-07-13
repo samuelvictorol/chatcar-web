@@ -9,9 +9,17 @@
           </q-avatar>
           <div class=" animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
         </q-toolbar-title>
-
-        <q-btn :label="isUserLoggedIn ? 'Meu Perfil' : 'Entrar'" color="teal" glossy
+        
+        <q-btn v-if="!isMobile" label="Experimente" color="purple" class="q-mr-sm" glossy
+          icon-right="chat" to="/jatoveiculos" />
+        <q-btn v-if="!isMobile" label="Saiba Mais" color="blue" class="q-mr-sm" glossy
+          icon-right="help" to="/ia" />
+        <q-btn v-if="!isMobile" :label="isUserLoggedIn ? 'Meu Perfil' : 'Entrar'" color="teal" glossy
           :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'" />
+        <q-btn v-if="isMobile" color="purple" glossy icon="chat" to="/jatoveiculos" class="q-ml-sm" />
+        <q-btn v-if="isMobile" color="blue" glossy icon="help" to="/ia" class="q-ml-sm" />
+        <q-btn v-if="isMobile" color="teal" glossy
+          :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'" class="q-ml-sm" />
       </q-toolbar>
     </q-header>
 
@@ -116,7 +124,7 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
 const isUserLoggedIn = ref(false);
-
+const isMobile = window.innerWidth <= 768;
 onBeforeMount(() => {
   // Check if user is logged in
   const user = localStorage.getItem('user');

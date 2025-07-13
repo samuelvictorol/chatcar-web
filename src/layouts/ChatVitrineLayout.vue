@@ -319,7 +319,7 @@ async function gerarLead() {
     else if (ref.includes("google.com")) origem = "Google";
     else if (ref.includes("tiktok.com")) origem = "TikTok";
     else if (ref === "") origem = "Acesso direto";
-    else origem = "Outro";
+    else origem = "ChatCar";
 
     await api.post('/gerar-lead', {
         login_loja: route.params.login,

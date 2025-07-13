@@ -6,7 +6,7 @@
       </div>
       <q-card-section class="bg-grey-2">
         <div style="font-size: 1.2rem;" class=" text-teal text-uppercase text-bold">{{ lead?.name }}</div>
-        <div class="text-subtitle2 text-grey-7">🛫{{ lead?.status }}<br>🛬 ChatCar IA</div>
+        <div class="text-subtitle2 text-grey-7">🛫 {{ lead?.status }}<br>🛬 ChatCar IA</div>
       </q-card-section>
 
       <!-- BOTÕES -->
@@ -37,17 +37,17 @@
         <q-skeleton v-else type="text" width="100%" />
       </q-card-section>
       <div class="w100 text-center text-teal q-pb-md">Cliente entrou em contato em {{ lead?.dataHora }}</div>
+      <q-card-section v-if="lead?.respostasCliente?.length">
+        <div class="text-subtitle1 q-mb-sm text-bold">
+          Mensagens do Cliente:
+        </div>
+        <ul class="text-body1 text-grey-8 q-pl-md">
+          <li v-for="(msg, index) in lead.respostasCliente" :key="index">
+            💬 {{ msg }}
+          </li>
+        </ul>
+      </q-card-section>
     </q-card>
-    <q-card-section v-if="lead?.respostasCliente?.length">
-      <div class="text-subtitle1 q-mb-sm text-bold">
-        Mensagens do Cliente:
-      </div>
-      <ul class="text-body1 text-grey-8 q-pl-md">
-        <li v-for="(msg, index) in lead.respostasCliente" :key="index">
-          💬 {{ msg }}
-        </li>
-      </ul>
-    </q-card-section>
   </div>
 </template>
 

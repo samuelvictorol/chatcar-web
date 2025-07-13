@@ -4,22 +4,31 @@
             <q-toolbar class="container">
                 <q-toolbar-title class="text-h6 row items-center no-wrap">
                     <q-avatar size="50px" class="">
-                        <img src="/logo.jpeg" alt="Logo" @click="router.push('/')"  class="cursor-pointer"/>
+                        <img src="/logo.jpeg" alt="Logo" @click="router.push('/')" class="cursor-pointer" />
                     </q-avatar>
                     <div class="animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
                 </q-toolbar-title>
                 <!-- <a style="color:#00BFA5;text-decoration: none;font-size:.8rem" href="https://instagram.com/chatcar.ia"
                     target="_blank">@chatcar.ia</a> -->
-                <q-btn v-if="!isMobile" label="Como Funciona?" color="teal" icon-right="contact_support" class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-1s" dense
+                <q-btn v-if="!isMobile" label="Como Funciona?" color="teal" icon-right="contact_support"
+                    class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-1s" dense
                     @click="scrollToRegistrar()"></q-btn>
-                <q-btn v-if="!isMobile" label="Preço"  @click="scrollTo('preco')" color="green" glossy icon-right="paid" class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-2s" dense></q-btn>
-                <q-btn v-if="!isMobile" label="Contato" color="blue" glossy icon-right="call" class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-3s" dense
+                <q-btn v-if="!isMobile" label="Investimento" @click="scrollTo('preco')" color="green" glossy
+                    icon-right="paid"
+                    class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-2s"
+                    dense></q-btn>
+                <q-btn v-if="!isMobile" label="Contato" color="blue" glossy icon-right="call"
+                    class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-3s" dense
                     @click="scrollTo('contato')"></q-btn>
                 <!-- mobile só os botoes com icones -->
-                <q-btn v-if="isMobile" icon="contact_support" color="teal" class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-1s" dense
+                <q-btn v-if="isMobile" icon="contact_support" color="teal"
+                    class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-1s" dense
                     @click="scrollToRegistrar()"></q-btn>
-                <q-btn v-if="isMobile" icon="paid" @click="scrollTo('preco')" color="green" glossy class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-2s" dense></q-btn>
-                <q-btn v-if="isMobile" icon="call" color="blue" glossy class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-3s" dense
+                <q-btn v-if="isMobile" icon="paid" @click="scrollTo('preco')" color="green" glossy
+                    class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-2s"
+                    dense></q-btn>
+                <q-btn v-if="isMobile" icon="call" color="blue" glossy
+                    class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-3s" dense
                     @click="scrollTo('contato')"></q-btn>
             </q-toolbar>
             <q-toolbar class="w100 row justify-center items-center">
@@ -62,79 +71,78 @@
             <div class="q-mb-xl" id="preco">
                 <div class="row justify-center">
                     <section class="q-pb-xl q-pt-md text-center  q-px-sm">
-                        <div class="container">
-                            <div class="row q-col-gutter-md justify-center">
-                                <div class="w50" id="card-plano">
-                                    <q-card class="q-pa-xs shadow-4 bg-grey-1"
-                                        style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5">
-                                        <q-card-section>
-                                            <div class="text-h5 text-bold text-teal q-px-xs">🤖 Por que usar a I.A. da
-                                                ChatCar?
-                                            </div>
+                        <div class="row q-col-gutter-md justify-center">
+                            <div class="w50" id="card-plano">
+                                <q-card class="q-pa-xs shadow-4 bg-grey-1"
+                                    style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5">
+                                    <q-card-section>
+                                        <div class="text-h5 text-bold text-teal q-px-xs">🤖 Por que usar a I.A. da
+                                            ChatCar?
+                                        </div>
 
-                                            <p style="font-size: 1rem;"
-                                                class="text-grey-3 text-center bg-teal-7 rounded-borders q-px-xs q-py-md q-mt-md">
-                                                A ChatCar transforma seu <strong>estoque em um site interativo</strong>
-                                                e um
-                                                <strong>vendedor virtual</strong> que atende, qualifica e conversa com
-                                                todos os
-                                                visitantes — <strong>24h por dia</strong>, sem pausa. <br><br>
+                                        <p style="font-size: 1rem;"
+                                            class="text-grey-3 text-center bg-teal-7 rounded-borders q-px-sm q-py-md q-mt-md">
+                                            A <strong>ChatCar</strong> é sua vitrine digital com I.A. que
+                                            <strong>atende,
+                                                qualifica e envia pro WhatsApp</strong> só quem quer comprar. Com
+                                            <strong>resumo
+                                                da conversa, sugestão de abordagem</strong> e <strong>rastreio da origem
+                                                do
+                                                lead</strong> — tudo sem app e sem mensalidade.
+                                        </p>
 
-                                                Só os <strong>leads realmente interessados</strong>, que querem
-                                                negociar, são
-                                                <strong>redirecionados automaticamente pro WhatsApp da sua
-                                                    loja</strong>,
-                                                prontos pra fechar negócio. <br>
+                                        <ul class="text-left column q-gutter-y-sm" style="font-size: 1rem;">
+                                            <li>🚀 <strong>Sem instalação e sem mensalidade</strong> — só paga se
+                                                for usar
+                                            </li>
+                                            <li>🔗 <strong>Chega de Curiosos: Qualificação</strong> de visitantes
+                                                com
+                                                redirecionamento pro WhatsApp</li>
+                                            <li>📲 <strong>ChatCar I.A.</strong> recomenda veículos com base no
+                                                perfil do cliente</li>
+                                            <li>⚡️ <strong>Atendimento 24h com I.A.</strong> — somos seu vendedor
+                                                automatizado e
+                                                funcionamos até quando você vai dormir</li>
+                                            <li>📢 <strong>Funil de captação otimizado</strong> para anúncios com
+                                                tráfego pago
+                                            </li>
+                                            <li>🛰️ <strong>Rastreabilidade dos leads</strong> - veja se o cliente veio
+                                                do
+                                                instagram, facebook, tiktok etc.</li>
+                                            <li>📈 <strong>Estoque publicado como site interativo</strong>, pronto
+                                                para
+                                                conversão</li>
+                                            <li>🤝 <strong>CRM integrado</strong> com histórico, interesses e dados
+                                                estratégicos</li>
+                                            <li>📝 <strong>Relatórios e dicas personalizadas</strong> para
+                                                fechamento de
+                                                vendas</li>
+                                        </ul>
 
-                                            </p>
-                                            <ul class="text-left column q-gutter-y-sm" style="font-size: 1rem;">
-                                                <li>🚀 <strong>Sem instalação e sem mensalidade</strong> — só paga se
-                                                    for usar
-                                                </li>
-                                                <li>🔗 <strong>Chega de Curiosos: Qualificação</strong> de visitantes
-                                                    com
-                                                    redirecionamento pro WhatsApp</li>
-                                                <li>📲 <strong>ChatCar I.A.</strong> recomenda veículos com base no
-                                                    perfil do cliente</li>
-                                                <li>⚡️ <strong>Atendimento 24h com I.A.</strong> — somos seu vendedor automatizado e funcionamos até quando você vai dormir</li>
-                                                <li>📢 <strong>Funil de captação otimizado</strong> para anúncios do
-                                                    Instagram e
-                                                    tráfego pago</li>
-                                                <li>📈 <strong>Estoque publicado como site interativo</strong>, pronto
-                                                    para
-                                                    conversão</li>
-                                                <li>🤝 <strong>CRM integrado</strong> com histórico, interesses e dados
-                                                    estratégicos</li>
-                                                <li>📝 <strong>Relatórios e dicas personalizadas</strong> para
-                                                    fechamento de
-                                                    vendas</li>
-                                            </ul>
-
-                                            <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">
-                                                ⌛ De R$ 99,90
-                                                por</div>
-                                            <div style="font-size:2.4rem" class=" q-mb-md q-mt-sm text-teal  text-bold">
-                                                R$
-                                                49,90
-                                            </div>
-                                        </q-card-section>
-                                    </q-card>
-                                    <div class="bg-dark q-pa-sm rounded-borders text-left text-teal-2 q-my-md">
-                                        ✅ Acesso válido por <strong>30 dias</strong>. <br>
-                                        🔒 <strong id="comofunciona">Sem assinatura, sem mensalidade e sem cobranças
-                                            automáticas.</strong><br>
-                                        💰 Você só paga se quiser usar — simples assim!
-                                    </div>
-
+                                        <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">
+                                            ⌛ De R$ 99,90
+                                            por</div>
+                                        <div style="font-size:2.4rem" class=" q-mb-md q-mt-sm text-teal  text-bold">
+                                            R$
+                                            49,90
+                                        </div>
+                                    </q-card-section>
+                                </q-card>
+                                <div class="bg-dark q-pa-sm rounded-borders text-left text-teal-2 q-my-md">
+                                    ✅ Acesso válido por <strong>30 dias</strong>. <br>
+                                    🔒 <strong id="comofunciona">Sem assinatura, sem mensalidade e sem cobranças
+                                        automáticas.</strong><br>
+                                    💰 Você só paga se quiser usar — simples assim!
                                 </div>
+
                             </div>
                         </div>
                     </section>
                 </div>
                 <div class="w100 row justify-center no-wrap">
                     <div
-                    class="text-h4 q-mb-lg text-bold rounded-borders  q-px-sm text-right row no-wrap justify-between text-grey-1">
-                    Como Funciona <span>❔</span></div>
+                        class="text-h4 q-mb-lg text-bold rounded-borders  q-px-sm text-right row no-wrap justify-between text-grey-1">
+                        Como Funciona <span>❔</span></div>
                 </div>
                 <div class="q-mb-lg">
                     <div class="video-container rounded-borders" style="border-bottom:4px solid #00BFA5;">
@@ -149,9 +157,12 @@
                             <q-icon name="storefront" size="64px" color="blue" />
                             <h3 class="text-subtitle1 q-mt-sm text-blue text-bold">1. Cadastre seu Estoque</h3>
                             <p style="font-size: 1rem;">
-                                <strong>Cadastre-se via Email</strong> e receba seu acesso e <strong>link público</strong>
+                                <strong>Cadastre-se via Email</strong> e receba seu acesso e <strong>link
+                                    público</strong>
                                 exclusivo
-                                (<em>chatcar.me/sualoja</em>), pronto para exibir e vender com I.A. de forma automática - você pode alterar o login depois.
+                                (<em>chatcar.me/sualoja</em>), pronto para exibir e vender com I.A. de forma automática
+                                - você
+                                pode alterar o login depois.
                             </p>
                         </div>
 
@@ -172,7 +183,7 @@
                             <p style="font-size: 1rem;">
                                 Cada conversa gera um <strong>relatório com resumo do cliente</strong> e uma
                                 <strong>mensagem
-                                    pronta</strong> para você abordar no WhatsApp com muito mais chance de fechar.
+                                    pronta</strong> para você abordar no WhatsApp com muito mais chance de fechar. Além de rastrear de onde o lead veio (Instagram, Facebook, TikTok etc.).
                             </p>
                         </div>
 
@@ -194,7 +205,7 @@
                 <div class="q-pt-sm ">
                     <div class="text-h4 text-center text-grey-2 text-bold q-py-md q-mb-md">Depoimentos e Feedback</div>
                     <q-carousel v-model="slideAtivoDetalhes" v-if="depoimentos.length > 0" swipeable animated
-                        style="border-bottom:4px solid #00BFA5;" class="rounded-borders q-mb-sm bg-dark" navigation
+                        style="border-bottom:4px solid #00BFA5;" class="rounded-borders q-mb-sm bg-teal" navigation
                         arrows infinite autoplay interval="2000">
                         <q-carousel-slide v-for="(dep, index) in depoimentos" :key="index" :name="index">
                             <div class="q-pa-md text-center">
@@ -216,7 +227,7 @@
                 <div id="registrar" class="q-py-md w50 absolute" style="z-index: -9999!important;top:-60px"></div>
             </div> -->
             <p style="font-size: 1rem;"
-                class="text text-teal-1 w100 q-px-md text-center bg-dark q-pa-sm rounded-borders">
+                class="text text-teal-1 w100 q-px-md text-center bg-teal q-pa-sm rounded-borders">
                 🚀 Seja você <strong>vendedor</strong>, <strong>profissional de marketing</strong> ou <strong>dono da
                     loja</strong>: transforme a <strong>curiosidade em conversa</strong> — e conversa em
                 <strong>venda</strong>.<br><br>
@@ -233,18 +244,19 @@
                 <img src="chatvitrine.png" width="50%" alt="">
                 <div class="q-py-md"></div>
             </div>
-            <section class="q-py-xl q-mb-xl bg-dark text-white" id="contato">
+            <section class="q-py-xl q-mb-xl bg-teal text-white" id="contato">
                 <div class="container text-center">
                     <h2 class="text-h5 text-bold q-mb-md">Quer saber mais?</h2>
                     <p>Fale com nosso time agora mesmo</p>
-                    <div class="w100 text-center text-teal-2 q-pt-lg text-bold">
+                    <div class="w100 text-center text-teal-1 q-pt-lg text-bold">
                         chatcar.suporte@gmail.com
                     </div>
-                    <div class="w100 text-center text-teal-2 q-pt-sm text-bold">
+                    <div class="w100 text-center text-teal-1 q-pt-sm text-bold">
                         Instagram e TikTok: @chatcar.ia
                     </div>
-                    <div class="w100 text-center text-teal-2 q-pt-md text-bold">
+                    <div class="w100 text-center q-gutter-xs q-px-md q-pt-lg text-bold">
                         <q-btn label="Chatcar.me" glossy color="teal" icon="directions_car" to="/"></q-btn>
+                        <q-btn label="Iniciar Sessão" glossy color="green" icon="login" to="/login"></q-btn>
                     </div>
                 </div>
             </section>
@@ -264,17 +276,24 @@
                 @click="openPagarMeLinkUrl()" type="submit" :color="isFormValid() ? 'green' : 'blue-14'"
                 :icon-right="isFormValid() ? 'shopping_cart_checkout' : 'east'"
                 class="w100 q-py-xl animate__animated animate__fadeInUp animate__slower" />
-            <q-dialog v-model="dialog" class="animate__animated animate__fadeIn animate__slower" style="backdrop-filter: blur(12px);">
+            <q-dialog v-model="dialog" class="animate__animated animate__fadeIn animate__slower"
+                style="backdrop-filter: blur(12px);">
                 <q-card class="bg-dark text-white">
                     <q-card-section class="text-center">
                         <div class="text-h6 q-mb-md">📩 Registre-se com seu Email</div>
-                        <p class="q-px-md">Cadastre-se informando seu <strong class="text-teal-14">e-mail</strong> e clicando em <strong class="text-teal-14">"Finalizar Cadastro e Pagar"</strong> para ser redirecionado ao ambiente seguro de pagamento.</p>
-                        <p>Após a compra, você receberá um e-mail com as <strong class="text-orange-4">instruções de uso e acesso da plataforma</strong>.</p>
+                        <p class="q-px-md">Cadastre-se informando seu <strong class="text-teal-14">e-mail</strong> e
+                            clicando em
+                            <strong class="text-teal-14">"Finalizar Cadastro e Pagar"</strong> para ser redirecionado ao
+                            ambiente seguro de pagamento.
+                        </p>
+                        <p>Após a compra, você receberá um e-mail com as <strong class="text-orange-4">instruções de uso
+                                e
+                                acesso da plataforma</strong>.</p>
                         <q-btn label="Continuar" glossy color="teal" @click="dialog = false" />
                     </q-card-section>
                 </q-card>
             </q-dialog>
-            </q-page-container>
+        </q-page-container>
     </q-layout>
 </template>
 
@@ -424,6 +443,10 @@ function logout() {
     .video-container iframe {
         height: 450px;
         /* altura fixa no desktop */
+    }
+
+    #card-plano {
+        width: 80%;
     }
 }
 
