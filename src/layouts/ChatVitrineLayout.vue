@@ -87,7 +87,7 @@
 
                             <q-carousel-slide v-for="(carro, i) in carrossel" :name="i" :key="i"
                                 class="relative-position">
-                                <q-img :src="carro.img_url" :alt="carro.modelo" class="fit relative rounded-borders"
+                                <q-img  @click="abrirDialog(carro)" :src="carro.img_url" :alt="carro.modelo" class="fit relative rounded-borders"
                                     style="object-fit: cover;">
                                     <div class="absolute-bottom text-white shadow-2">
                                         <div style="background: #070707a2; backdrop-filter: blur(4px);"
