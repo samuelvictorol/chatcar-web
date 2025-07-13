@@ -42,8 +42,8 @@
                                 <q-item-label caption>{{ carro.categoria.label }}</q-item-label>
                             </div>
                             <q-btn icon="visibility" color="secondary" glossy dense class="q-ml-md"
-                            @click="() => selecionarCarro(carro)" />
-                            
+                                @click="() => selecionarCarro(carro)" />
+
                         </div>
                     </q-item-section>
                 </q-item>
@@ -112,7 +112,7 @@
                         <q-card class="q-pa-md" style="min-width: 350px; max-width: 90vw">
                             <q-card-section class="row items-center q-pb-none">
                                 <div class="row justify-between no-wrap w100">
-                                    <div class="text-h6">Sobre a {{ sobreLoja?.nome}}</div><br>
+                                    <div class="text-h6">Sobre a {{ sobreLoja?.nome }}</div><br>
                                     <q-img :src="sobreLoja.img_url" alt="Logo da loja" class="rounded-borders"
                                         width="100px" height="100px" />
                                 </div>
@@ -158,7 +158,8 @@
                     <q-dialog v-model="dialogAberto">
                         <q-card class="q-pa-md" style="width: 100%; max-width: 500px;">
                             <q-card-section class="relative">
-                                <div style="font-size:1.2rem" class="text-center w100 text-black rounded-borders q-mb-sm text-bold">
+                                <div style="font-size:1.2rem"
+                                    class="text-center w100 text-black rounded-borders q-mb-sm text-bold">
                                     {{ carroSelecionado.modelo }}
                                 </div>
                                 <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length"
@@ -171,8 +172,13 @@
                                             @click="abrirZoom(img)" />
                                     </q-carousel-slide>
                                 </q-carousel>
-                                <div class="text-caption q-mb-sm"><strong class="text-orange-14">{{ carroSelecionado?.ano }}</strong> - <strong class="text-purple-14">{{
-                                    carroSelecionado.categoria?.label }}</strong> - <strong class="text-teal">{{ carroSelecionado?.cor.toUpperCase() }}</strong> - <strong class="text-blue-14">{{ carroSelecionado?.km }}km</strong></div>
+                                <div class="text-caption q-mb-sm"><strong class="text-orange-14">{{
+                                        carroSelecionado?.ano
+                                        }}</strong> - <strong class="text-purple-14">{{
+                                            carroSelecionado.categoria?.label }}</strong> - <strong class="text-teal">{{
+                                        carroSelecionado?.cor.toUpperCase() }}</strong> - <strong
+                                        class="text-blue-14">{{
+                                        carroSelecionado?.km }}km</strong></div>
                                 <div v-if="carroSelecionado.preco" class="text-body2 text-bold"
                                     style="font-size: 1rem;">
                                     R$ {{ carroSelecionado?.preco }}
@@ -201,7 +207,7 @@
                             class="absolute-left" style="top: 60%; background: rgba(0,0,0,0.4);" />
 
                         <!-- Botão para avançar -->
-                        <q-btn icon="chevron_right" color="teal"  glossy dense @click="proximaImagemZoom"
+                        <q-btn icon="chevron_right" color="teal" glossy dense @click="proximaImagemZoom"
                             class="absolute-right" style="top: 60%; background: rgba(0,0,0,0.4);" />
 
                         <q-btn label="Fechar" color="teal" flat @click="fecharZoom"
@@ -304,21 +310,33 @@ function fecharDetalhes() {
     slideAtivoDetalhes.value = 0
 }
 async function gerarLead() {
+    // Detectar a origem do tráfego
+    const ref = document.referrer;
+    let origem = "Aguardando contato";
+
+    if (ref.includes("instagram.com")) origem = "Instagram";
+    else if (ref.includes("facebook.com")) origem = "Facebook";
+    else if (ref.includes("google.com")) origem = "Google";
+    else if (ref.includes("tiktok.com")) origem = "TikTok";
+    else if (ref === "") origem = "Acesso direto";
+    else origem = "Outro";
+
     await api.post('/gerar-lead', {
         login_loja: route.params.login,
         cliente: usuario.value,
-        respostasCliente: []
+        respostasCliente: [],
+        origem: origem // 👈 envia origem pro backend
     }).then(response => {
-        leadId.value = response.data.leadId
-        // console.log('LEAD: ' + JSON.stringify(lead.value))
+        leadId.value = response.data.leadId;
         $q.notify({
             color: 'teal',
             position: 'top',
             icon: 'directions_car',
-            message: 'Seja bem vindo(a)!'
+            message: 'Seja bem-vindo(a)!'
         });
-    })
+    });
 }
+
 const imagensVeiculoSelecionado = computed(() => {
     if (!carroSelecionado.value) return []
     const lista = []

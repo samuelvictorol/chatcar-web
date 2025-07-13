@@ -190,7 +190,7 @@ function exportarPagamentosPDF() {
                     glossy @click="get_pagamentos()" />
                 <q-btn color="blue" icon="sms" icon-right="directions_car" label="Meu Chat" v-if="!editando" glossy
                     :to="'/' + lojaInfo.login" />
-                <q-btn color="green" icon="currency_exchange" label="Planos" glossy to="/me/planos" v-if="!editando" />
+                <q-btn color="green" icon="currency_exchange" label="Renovar" glossy to="/me/planos" v-if="!editando" />
                 <q-btn v-if="!editando" color="orange-14" glossy icon="edit" label="Editar Perfil"
                     @click="editando = true" />
                 <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" class="q-py-lg"

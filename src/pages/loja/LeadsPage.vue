@@ -36,7 +36,7 @@
             <q-icon name="account_circle" class="q-mr-sm" size="md"></q-icon>
             {{ lead.name }}
           </div>
-          <div class="text-caption text-grey-8">Recebido em {{ lead.dataHora }}</div>
+          <div class="text-caption text-grey-8"><strong class="text-teal">{{ lead?.status }}</strong> - {{ lead.dataHora }}</div>
         </q-card-section>
 
         <q-separator />

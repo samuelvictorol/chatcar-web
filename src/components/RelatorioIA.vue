@@ -1,13 +1,16 @@
 <template>
   <div class="q-pa-md q-gutter-md">
     <q-card ref="pdfRef" flat bordered class="bg-white text-dark shadow-2">
+      <div class="w100 text-h6 text-teal q-pa-md text-center">
+        Relatório ChatCar IA
+      </div>
       <q-card-section class="bg-grey-2">
-        <div class="text-h6 text-teal text-bold">Relatório Inteligente do Cliente</div>
-        <div class="text-subtitle2 text-grey-7">Otimizado pela I.A. do ChatCar</div>
+        <div style="font-size: 1.2rem;" class=" text-teal text-uppercase text-bold">{{ lead?.name }}</div>
+        <div class="text-subtitle2 text-grey-7">🛫{{ lead?.status }}<br>🛬 ChatCar IA</div>
       </q-card-section>
 
       <!-- BOTÕES -->
-      <div align="right" class="w100 row q-gutter-x-sm q-my-md q-ml-sm no-print">
+      <div align="right" class="w100 row q-my-md q-ml-sm no-print">
         <q-btn label="WhatsApp" class="q-mr-sm" color="green" icon="chat" glossy @click="abrirWhatsapp"
           :disable="!lead?.contato || !lead?.relatorioIA?.sugestaoAbordagem" />
         <q-btn label="Baixar PDF" color="blue" icon="download" glossy @click="baixarPDF"
@@ -33,8 +36,18 @@
         </div>
         <q-skeleton v-else type="text" width="100%" />
       </q-card-section>
-      <div class="w100 text-center text-teal q-pb-md">Cliente entrou em contato em {{ lead?.dataHora}}</div>
+      <div class="w100 text-center text-teal q-pb-md">Cliente entrou em contato em {{ lead?.dataHora }}</div>
     </q-card>
+    <q-card-section v-if="lead?.respostasCliente?.length">
+      <div class="text-subtitle1 q-mb-sm text-bold">
+        Mensagens do Cliente:
+      </div>
+      <ul class="text-body1 text-grey-8 q-pl-md">
+        <li v-for="(msg, index) in lead.respostasCliente" :key="index">
+          💬 {{ msg }}
+        </li>
+      </ul>
+    </q-card-section>
   </div>
 </template>
 
@@ -71,7 +84,17 @@ function abrirWhatsapp() {
   window.open(link, '_blank')
 }
 
+function gerarNomeArquivo(nomeCompleto) {
+  if (!nomeCompleto) return 'cliente';
 
+  // Remove acentos e caracteres especiais
+  const semAcento = nomeCompleto.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+  // Pega os dois primeiros nomes
+  const nomes = semAcento.trim().split(/\s+/).slice(0, 2).join('');
+
+  return nomes || 'cliente';
+}
 
 function baixarPDF() {
   if (!pdfRef.value) return
@@ -83,7 +106,7 @@ function baixarPDF() {
     .from(pdfRef.value.$el)
     .set({
       margin: 10,
-      filename: `Relatorio-ChatCar-${props.lead?.nome || 'cliente'}.pdf`,
+      filename: `Relatorio-${gerarNomeArquivo(props.lead?.name)}-ChatCar.pdf`,
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     })
