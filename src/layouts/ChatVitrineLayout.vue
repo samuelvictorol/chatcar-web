@@ -312,11 +312,15 @@ function fecharDetalhes() {
 async function gerarLead() {
     // Detectar a origem do tráfego
     const ref = document.referrer;
-    let origem = "Aguardando contato";
+    let origem = '';
 
     if (ref.includes("instagram.com")) origem = "Instagram";
     else if (ref.includes("facebook.com")) origem = "Facebook";
     else if (ref.includes("google.com")) origem = "Google";
+    else if (ref.includes("whatsapp.com")) origem = "WhatsApp";
+    else if (ref.includes("youtube.com")) origem = "YouTube";
+    else if (ref.includes("t.me") || ref.includes("telegram.org")) origem = "Telegram";
+    else if (ref.includes("linkedin.com")) origem = "LinkedIn";
     else if (ref.includes("tiktok.com")) origem = "TikTok";
     else if (ref === "") origem = "Acesso direto";
     else origem = "ChatCar";

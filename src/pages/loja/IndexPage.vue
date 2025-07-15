@@ -186,7 +186,7 @@ function exportarPagamentosPDF() {
             <!-- Botões -->
             <strong class="text-teal">{{ editando ? 'Editando Perfil' : userRole }}</strong><br />
             <div class="row q-gutter-sm q-mb-md" style="position: relative">
-                <q-btn color="teal" icon-right="payments" icon="admin_panel_settings" label="Pagamentos" v-if="!editando && lojaInfo.login.toLowerCase() === 'jatoveiculos'"
+                <q-btn color="teal" icon="admin_panel_settings" v-if="!editando && lojaInfo.login.toLowerCase() === 'jatoveiculos'"
                     glossy @click="get_pagamentos()" />
                 <q-btn color="blue" icon="sms" icon-right="directions_car" label="Meu Chat" v-if="!editando" glossy
                     :to="'/' + lojaInfo.login" />
