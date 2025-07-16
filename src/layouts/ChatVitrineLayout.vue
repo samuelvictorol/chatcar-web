@@ -14,7 +14,7 @@
                 </q-toolbar-title>
                 <q-btn class="q-mr-sm" color="grey-2" to="/" flat icon="logout" />
                 <!-- <q-btn class="q-mr-sm" glossy color="blue-14" icon="psychology" @click="showDialog = !showDialog" /> -->
-                <q-btn glossy color="teal" label="estoque" icon="store" @click="toggleEstoqueDrawer" />
+                <q-btn color="teal" label="estoque" icon="store" @click="toggleEstoqueDrawer" />
             </q-toolbar>
         </q-header>
 
@@ -87,8 +87,8 @@
 
                             <q-carousel-slide v-for="(carro, i) in carrossel" :name="i" :key="i"
                                 class="relative-position">
-                                <q-img  @click="abrirDialog(carro)" :src="carro.img_url" :alt="carro.modelo" class="fit relative rounded-borders"
-                                    style="object-fit: cover;">
+                                <q-img @click="abrirDialog(carro)" :src="carro.img_url" :alt="carro.modelo"
+                                    class="fit relative rounded-borders" style="object-fit: cover;">
                                     <div class="absolute-bottom text-white shadow-2">
                                         <div style="background: #070707a2; backdrop-filter: blur(4px);"
                                             class=" text-center text-subtitle1 text-weight-bold">{{
@@ -156,45 +156,60 @@
                     </q-dialog>
                     <!-- Dialog de detalhes -->
                     <q-dialog v-model="dialogAberto">
-                        <q-card class="q-pa-md" style="width: 100%; max-width: 500px;">
-                            <q-card-section class="relative">
-                                <div style="font-size:1.2rem"
-                                    class="text-center w100 text-black rounded-borders q-mb-sm text-bold">
-                                    {{ carroSelecionado.modelo }}
-                                </div>
-                                <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length"
-                                    swipeable animated class="rounded-borders q-mb-md bg-grey-2" navigation arrows
-                                    infinite>
-                                    <q-carousel-slide class="bg-dark" v-for="(img, index) in imagensVeiculoSelecionado"
-                                        :key="index" :name="index">
-                                        <q-img :src="img" fit="contain" class="rounded-borders w100 cursor-pointer"
-                                            style="border-bottom: 4px solid teal; border-top: 4px solid teal; height: 100%;"
-                                            @click="abrirZoom(img)" />
-                                    </q-carousel-slide>
-                                </q-carousel>
-                                <div class="text-caption q-mb-sm"><strong class="text-orange-14">{{
-                                        carroSelecionado?.ano
-                                        }}</strong> - <strong class="text-purple-14">{{
-                                            carroSelecionado.categoria?.label }}</strong> - <strong class="text-teal">{{
-                                        carroSelecionado?.cor.toUpperCase() }}</strong> - <strong
-                                        class="text-blue-14">{{
-                                        carroSelecionado?.km }}km</strong></div>
-                                <div v-if="carroSelecionado.preco" class="text-body2 text-bold"
+                        <q-card class="q-pa-none" style="width: 100%; max-width: 500px;">
+
+                            <!-- Conteúdo com scroll -->
+                            <div style="max-height: 95vh; overflow-y: auto;" class="">
+                                <q-card-section class="relative">
+                                    <div class="text-center text-white bg-teal rounded-borders shadow-1 q-mb-sm text-bold"
+                                        style="font-size:1.2rem">
+                                        {{ carroSelecionado.modelo }}
+                                    </div>
+
+                                    <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length"
+                                        swipeable animated class="rounded-borders q-mb-md bg-grey-2" navigation arrows
+                                        infinite>
+                                        <q-carousel-slide class="bg-dark"
+                                            v-for="(img, index) in imagensVeiculoSelecionado" :key="index"
+                                            :name="index">
+                                            <q-img :src="img" fit="contain" class="rounded-borders w100 cursor-pointer"
+                                                style="border-bottom: 4px solid teal; border-top: 4px solid teal; height: 100%;"
+                                                @click="abrirZoom(img)" />
+                                        </q-carousel-slide>
+                                    </q-carousel>
+
+                                    <div class="text-caption q-mb-sm">
+                                        <strong class="text-orange-14">{{ carroSelecionado?.ano }}</strong> -
+                                        <strong class="text-purple-14">{{ carroSelecionado.categoria?.label }}</strong>
+                                        -
+                                        <strong class="text-teal">{{ carroSelecionado?.cor.toUpperCase() }}</strong> -
+                                        <strong class="text-blue-14">{{ carroSelecionado?.km }}km</strong>
+                                    </div>
+
+                                    <q-separator class="q-my-xs" />
+
+                                    <div v-if="carroSelecionado.descricao" class="text-body2">
+                                        {{ carroSelecionado?.descricao }}
+                                    </div>
+                                </q-card-section>
+                            </div>
+
+                            <!-- Ações fixas -->
+                            <q-card-actions align="right" class="q-pa-sm bg-grey-2"
+                                style="position: sticky; bottom: 0; z-index: 1;">
+                                <div v-if="carroSelecionado.preco" class="text-body2 text-bold q-pr-xl text-teal"
                                     style="font-size: 1rem;">
                                     R$ {{ carroSelecionado?.preco }}
                                 </div>
-                                <q-separator class="q-my-xs" />
-                                <div v-if="carroSelecionado.descricao" class="text-body2">
-                                    {{ carroSelecionado?.descricao }}
-                                </div>
-                            </q-card-section>
-                            <q-card-actions align="right">
-                                <q-btn flat label="Fechar" color="secondary" @click="fecharDetalhes()" />
                                 <q-btn label="Contato" glossy icon-right="sms"
-                                    @click="sendWppMessage(carroSelecionado.modelo)" color="secondary" v-close-popup />
+                                    @click="sendWppMessage(carroSelecionado.modelo)" color="blue" v-close-popup />
                             </q-card-actions>
                         </q-card>
+                        <div class="w100 text-center">
+                            <q-btn label="fechar" @click="dialogAberto = !dialogAberto" flat></q-btn>
+                        </div>
                     </q-dialog>
+
 
                 </div>
                 <q-dialog v-model="dialogZoom" persistent>
@@ -433,10 +448,14 @@ function sendWppMessage(modelo) {
 }
 
 function selecionarCarro(carro) {
-    // Atualiza carrossel com apenas o carro selecionado
-    carrossel.value = [carro]
+
+    const indexExistente = carrossel.value.findIndex(c => c.id === carro.id)
+    if (indexExistente !== -1) {
+        carrossel.value.splice(indexExistente, 1) // remove se já existe
+    }
+    carrossel.value.splice(0, 0, carro) // insere na posição 1
+
     carrosselIndex.value = 0
-    // usuario.value.preferencias.push(carro.modelo)
     messages.value.push({
         from: 'bot',
         text: '🚗 Aqui está ' + carro.modelo + ', para saber mais clique em 🔍Ver Detalhes.'
@@ -497,7 +516,7 @@ onBeforeMount(async () => {
         usuario.value.nome = nome
 
         $q.dialog({
-            title: '📲 Para acessar o nosso estoque de veículos, informe seu whatsapp:',
+            title: '📲 Para ver nosso estoque de veículos, informe seu whatsapp:',
             message: `${usuario.value.nome}, digite seu número com DDD:`,
             prompt: {
                 model: '',

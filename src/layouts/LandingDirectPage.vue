@@ -183,7 +183,9 @@
                             <p style="font-size: 1rem;">
                                 Cada conversa gera um <strong>relatório com resumo do cliente</strong> e uma
                                 <strong>mensagem
-                                    pronta</strong> para você abordar no WhatsApp com muito mais chance de fechar. Além de rastrear de onde o lead veio (Instagram, Facebook, TikTok etc.).
+                                    pronta</strong> para você abordar no WhatsApp com muito mais chance de fechar. Além
+                                de
+                                rastrear de onde o lead veio (Instagram, Facebook, TikTok etc.).
                             </p>
                         </div>
 
@@ -234,7 +236,25 @@
                 A I.A. da ChatCar atende, qualifica e converte <strong>24h por dia</strong>, até quando você está
                 offline.
             </p>
-
+            <!-- DEVELOPER SECTION -->
+            <section class="q-py-xl bg-dark text-white text-center">
+                <div class="q-mx-auto" style="max-width: 600px">
+                    <h2 class="text-h5 text-bold q-mb-md">Sobre o Desenvolvedor</h2>
+                    <q-avatar size="120px" class="q-mb-sm">
+                        <img src="/dev.jpeg" alt="Avatar do Desenvolvedor" />
+                    </q-avatar>
+                    <p class="text-subtitle2 q-px-sm q-my-md">
+                        Arquitetura, Engenharia e Desenvolvimento de Software, Modelagem de dados, Criação de
+                        Serviços/Automações na
+                        Nuvem e integração com OpenAI por <a style="text-decoration: none;" target="_blank"
+                            href="https://samuelvictorol.github.io/portfolio" class="text-teal-14">S.V</a><br><br><span
+                            class="text-blue-4 q-px-sm">Acesse o portfólio profissional para conhecer mais projetos e
+                            soluções.</span>
+                    </p>
+                    <q-btn label="SV Software" type="a" target="_blank"
+                        href="https://samuelvictorol.github.io/portfolio/" icon="open_in_new" color="teal-14" flat />
+                </div>
+            </section>
             <div class="w100 row no-wrap justify-between">
                 <img src="porque.png" width="50%" alt="">
                 <img src="cowboy.png" width="50%" alt="">
@@ -257,6 +277,10 @@
                     <div class="w100 text-center q-gutter-xs q-px-md q-pt-lg text-bold">
                         <q-btn label="Chatcar.me" glossy color="teal" icon="directions_car" to="/"></q-btn>
                         <q-btn label="Iniciar Sessão" glossy color="green" icon="login" to="/login"></q-btn>
+                        <q-btn label="Atendimento 24h" glossy color="blue" icon="live_help" type="a"
+                            href="https://aistudio.instagram.com/ai/9859811457475171/?utm_source=mshare"
+                            target="_blank" />
+
                     </div>
                 </div>
             </section>
@@ -268,7 +292,8 @@
                 📩 As instruções de como acessar e utilizar a plataforma serão enviadas para o seu e-mail
             </div>
             <q-footer class="bg-dark text-grey-4 text-center q-pa-sm">
-                chatcar.me ® - 59.905.708/0001-34
+                chatcar.me ® - <a href="https://samuelvictorol.github.io/portfolio/" class="text-teal-14"
+                    target="_blank">59.905.708/0001-34</a>
             </q-footer>
             <div class="w100 q-py-xl"></div>
             <q-btn style="position:fixed;left:0px; bottom:0px;z-index: 9999!important" v-if="isFormValid()"

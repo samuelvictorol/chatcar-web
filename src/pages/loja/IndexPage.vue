@@ -42,6 +42,7 @@ function exportarPagamentosPDF() {
         try {
             const response = await api.get('/pagar/get_pagamentos')
             pagamentos.value = response.data
+            pagamentos.value.sort((a, b) => new Date(b.criado_em) - new Date(a.criado_em))
             dialogPagamentos.value = true
         } catch (error) {
             console.error('Erro ao buscar pagamentos:', error)
@@ -245,7 +246,7 @@ function exportarPagamentosPDF() {
                             <strong>Descrição: </strong>
                             <template v-if="!editando">{{ lojaInfo.site }}</template>
                             <q-input color="teal" v-else v-model="lojaInfo.site"
-                                placeholder="Use este campo para adicionar suas redes sociais e informações adicionais"
+                                placeholder="Use este campo para adicionar suas redes sociais e informações adicionais como formas de pagamentos, contatos, condições, etc."
                                 dense type="textarea">
                                 <template v-slot:prepend>
                                     <q-icon name="description" color="teal" />

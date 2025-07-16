@@ -9,17 +9,16 @@
           </q-avatar>
           <div class=" animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
         </q-toolbar-title>
-        
-        <q-btn v-if="!isMobile" label="Experimente" color="purple" class="q-mr-sm" glossy
-          icon-right="chat" to="/jatoveiculos" />
-        <q-btn v-if="!isMobile" label="Saiba Mais" color="blue" class="q-mr-sm" glossy
-          icon-right="help" to="/ia" />
+
+        <q-btn v-if="!isMobile" label="Experimente" color="grey-14" class="q-mr-sm" glossy icon-right="chat"
+          to="/jatoveiculos" />
+        <q-btn v-if="!isMobile" label="Saiba Mais" color="blue" class="q-mr-sm" glossy icon-right="help" to="/ia" />
         <q-btn v-if="!isMobile" :label="isUserLoggedIn ? 'Meu Perfil' : 'Entrar'" color="teal" glossy
           :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'" />
-        <q-btn v-if="isMobile" color="purple" glossy icon="chat" to="/jatoveiculos" class="q-ml-sm" />
+        <q-btn v-if="isMobile" color="grey-14" glossy icon="chat" to="/jatoveiculos" class="q-ml-sm" />
         <q-btn v-if="isMobile" color="blue" glossy icon="help" to="/ia" class="q-ml-sm" />
-        <q-btn v-if="isMobile" color="teal" glossy
-          :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'" class="q-ml-sm" />
+        <q-btn v-if="isMobile" color="teal" glossy :icon-right="isUserLoggedIn ? 'account_box' : 'login'"
+          :to="isUserLoggedIn ? '/me' : '/login'" class="q-ml-sm" />
       </q-toolbar>
     </q-header>
 
@@ -117,7 +116,9 @@
     </div>
     <!-- FOOTER -->
     <q-footer class="bg-dark text-grey-4 text-center q-pa-sm">
-      chatcar.me ® - 59.905.708/0001-34
+      chatcar.me ® - <a href="https://samuelvictorol.github.io/portfolio/" class="text-teal-14"
+        target="_blank">59.905.708/0001-34</a>
+
     </q-footer>
   </q-layout>
 </template>

@@ -19,6 +19,7 @@ const CategoriaVeiculoEnum = {
   SEDAN: "Sedan",
   ELETRICO: "Elétrico",
   MOTO: "Motocicleta",
+  Camionete: "Camionete/pickup",
   HIBRIDO: "Hibrído",
   HATCH: "Hatch",
   SUPER: "Superesportivo",

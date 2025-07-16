@@ -10,52 +10,8 @@
                 allowfullscreen></iframe>
         </div>
         <div class="row items-center justify-between q-my-md q-pt-md">
-            <div class="text-h6 text-bold text-dark">Como usar a ChatCar IA❓</div>
+            <div class="text-h6 text-bold text-teal">MANUAL CHATCAT IA</div>
         </div>
-
-        <!-- Conteúdo -->
-        <q-card flat bordered>
-            <q-card-section class="q-pa-lg">
-                <div class="text-body1 q-mb-md">
-                    A funcionalidade de <strong>Relatório IA</strong> permite que você visualize uma análise inteligente
-                    de cada lead captado pela sua equipe. Siga o passo a passo abaixo para gerar o relatório com
-                    inteligência artificial:
-                </div>
-
-                <!-- Etapas -->
-                <div class="q-gutter-y-md">
-                    <q-timeline color="secondary" layout="dense">
-
-                        <q-timeline-entry title="1. Acesse a lista de Leads" icon="groups">
-                            Vá até o menu <q-icon name="groups" class="q-mx-xs" /> <strong>Leads</strong> no seu painel
-                            de controle.
-                        </q-timeline-entry>
-
-                        <q-timeline-entry title="2. Localize o lead desejado" icon="search">
-                            Use a tabela para encontrar o lead que você deseja analisar. Você pode utilizar filtros ou
-                            rolar a tabela.
-                        </q-timeline-entry>
-
-                        <q-timeline-entry title="3. Clique no botão de IA" icon="assignment">
-                            Ao lado do lead, clique no botão <q-icon name="assignment" class="q-mx-xs" /> para abrir o
-                            relatório gerado por inteligência artificial.
-                        </q-timeline-entry>
-
-                        <q-timeline-entry title="4. Visualize o Relatório" icon="description">
-                            Um relatório detalhado será exibido com base nos dados captados do lead, fornecendo insights
-                            úteis para sua abordagem.
-                        </q-timeline-entry>
-
-                        <q-timeline-entry title="5. Feche o relatório" icon="close">
-                            Após a leitura, clique em <q-icon name="close" class="q-mx-xs" /> <strong>Fechar</strong>
-                            para retornar à lista de leads.
-                        </q-timeline-entry>
-
-                    </q-timeline>
-                </div>
-            </q-card-section>
-        </q-card>
-
         <!-- Cadastro de Veículo no Estoque -->
         <q-card flat bordered class="q-mt-lg">
             <q-card-section class="q-pa-lg">
@@ -99,9 +55,48 @@
                 </q-timeline>
             </q-card-section>
         </q-card>
-        <!-- Título -->
-        <div class="text-h4 text-bold text-dark q-mb-md q-pt-md">🚀 Como Utilizar o ChatCar IA da Melhor Forma</div>
+        <!-- Conteúdo -->
+        <q-card flat bordered>
+            <q-card-section class="q-pa-lg">
+                <div class="text-body1 q-mb-md">
+                    A funcionalidade de <strong>Relatório IA</strong> permite que você visualize uma análise inteligente
+                    de cada lead captado pelo seu link. Siga o passo a passo abaixo para gerar o relatório com
+                    inteligência artificial:
+                </div>
 
+                <!-- Etapas -->
+                <div class="q-gutter-y-md">
+                    <q-timeline color="secondary" layout="dense">
+
+                        <q-timeline-entry title="1. Acesse a lista de Leads" icon="groups">
+                            Vá até o menu <q-icon name="groups" class="q-mx-xs" /> <strong>Leads</strong> no seu painel
+                            de controle.
+                        </q-timeline-entry>
+
+                        <q-timeline-entry title="2. Localize o lead desejado" icon="search">
+                            Use a tabela para encontrar o lead que você deseja analisar. Você pode utilizar filtros ou
+                            rolar a tabela.
+                        </q-timeline-entry>
+
+                        <q-timeline-entry title="3. Clique no botão de IA" icon="assignment">
+                            Ao lado do lead, clique no botão <q-icon name="assignment" class="q-mx-xs" /> para abrir o
+                            relatório gerado por inteligência artificial.
+                        </q-timeline-entry>
+
+                        <q-timeline-entry title="4. Visualize o Relatório" icon="description">
+                            Um relatório detalhado será exibido com base nos dados captados do lead, fornecendo insights
+                            úteis para sua abordagem.
+                        </q-timeline-entry>
+
+                        <q-timeline-entry title="5. Feche o relatório" icon="close">
+                            Após a leitura, clique em <q-icon name="close" class="q-mx-xs" /> <strong>Fechar</strong>
+                            para retornar à lista de leads.
+                        </q-timeline-entry>
+
+                    </q-timeline>
+                </div>
+            </q-card-section>
+        </q-card>
         <!-- Seção de Como Adicionar Imagens -->
         <q-card flat bordered>
             <q-card-section>
@@ -168,7 +163,9 @@
                 <div class="text-body2">
                     Se você tiver dúvidas ou dificuldades com o uso da IA, entre em contato com nosso time de suporte no
                     instagram:
-                    <strong>@chatcar.ia</strong> ou email <strong>chatcar.suporte@gmail.com</strong> .
+                    <strong>@chatcar.ia</strong> ou email <strong>chatcar.suporte@gmail.com</strong> .<br>
+                    <q-btn label="Atendimento 24h" glossy color="blue" icon="live_help" type="a" class="q-mt-sm"
+                        href="https://aistudio.instagram.com/ai/9859811457475171/?utm_source=mshare" target="_blank" />
                 </div>
             </q-card-section>
         </q-card>
@@ -241,5 +238,4 @@
         /* altura fixa no desktop */
     }
 }
-
 </style>
