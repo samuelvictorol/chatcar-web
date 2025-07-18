@@ -10,15 +10,28 @@
           <div class=" animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
         </q-toolbar-title>
 
-        <q-btn v-if="!isMobile" label="Experimente" color="grey-14" class="q-mr-sm" glossy icon-right="chat"
-          to="/jatoveiculos" />
-        <q-btn v-if="!isMobile" label="Saiba Mais" color="blue" class="q-mr-sm" glossy icon-right="help" to="/ia" />
+        <q-btn v-if="!isMobile" label="Saiba Mais" color="blue" class="q-mr-sm" glossy icon-right="help" to="/ia">
+          <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
+            <strong>Saiba Mais</strong>
+          </q-tooltip>
+        </q-btn>
         <q-btn v-if="!isMobile" :label="isUserLoggedIn ? 'Meu Perfil' : 'Entrar'" color="teal" glossy
-          :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'" />
-        <q-btn v-if="isMobile" color="grey-14" glossy icon="chat" to="/jatoveiculos" class="q-ml-sm" />
-        <q-btn v-if="isMobile" color="blue" glossy icon="help" to="/ia" class="q-ml-sm" />
+          :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'">
+          <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
+            <strong>{{ isUserLoggedIn ? 'Meu Perfil' : 'Entrar' }}</strong>
+          </q-tooltip>
+        </q-btn>
+        <q-btn v-if="isMobile" color="blue" glossy icon="help" to="/ia" class="q-ml-sm">
+          <q-tooltip>
+            Saiba Mais
+          </q-tooltip>
+        </q-btn>
         <q-btn v-if="isMobile" color="teal" glossy :icon-right="isUserLoggedIn ? 'account_box' : 'login'"
-          :to="isUserLoggedIn ? '/me' : '/login'" class="q-ml-sm" />
+          :to="isUserLoggedIn ? '/me' : '/login'" class="q-ml-sm">
+          <q-tooltip>
+            {{ isUserLoggedIn ? 'Meu Perfil' : 'Entrar' }}
+          </q-tooltip>
+        </q-btn>
       </q-toolbar>
     </q-header>
 
@@ -182,9 +195,9 @@ onBeforeMount(() => {
 
 .glass-card {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(18px);
   border-bottom: 2px solid rgb(0, 117, 128);
-  border-radius: 16px;
+  border-radius: 16px;  
   max-width: 700px;
   width: 100%;
   z-index: 1;

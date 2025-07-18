@@ -41,8 +41,7 @@ function exportarPagamentosPDF() {
     async function get_pagamentos(params) {
         try {
             const response = await api.get('/pagar/get_pagamentos')
-            pagamentos.value = response.data
-            pagamentos.value.sort((a, b) => new Date(b.criado_em) - new Date(a.criado_em))
+            pagamentos.value = response.data.reverse()
             dialogPagamentos.value = true
         } catch (error) {
             console.error('Erro ao buscar pagamentos:', error)
@@ -191,7 +190,7 @@ function exportarPagamentosPDF() {
                     glossy @click="get_pagamentos()" />
                 <q-btn color="blue" icon="sms" icon-right="directions_car" label="Meu Chat" v-if="!editando" glossy
                     :to="'/' + lojaInfo.login" />
-                <q-btn color="green" icon="currency_exchange" label="Renovar" glossy to="/me/planos" v-if="!editando" />
+                <q-btn color="teal-14" icon="currency_exchange" label="Renovar" glossy to="/me/planos" v-if="!editando" />
                 <q-btn v-if="!editando" color="orange-14" glossy icon="edit" label="Editar Perfil"
                     @click="editando = true" />
                 <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" class="q-py-lg"

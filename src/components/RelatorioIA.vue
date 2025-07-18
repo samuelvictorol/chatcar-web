@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md q-gutter-md">
+  <div ref="pdfRef" class="q-pa-md q-gutter-md">
     <q-card ref="pdfRef" flat bordered class="bg-white text-dark shadow-2">
       <div class="w100 text-h6 text-teal q-pa-md text-center">
         Relatório ChatCar IA
@@ -52,7 +52,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import html2pdf from 'html2pdf.js'
 
 const props = defineProps({
@@ -97,25 +97,29 @@ function gerarNomeArquivo(nomeCompleto) {
 }
 
 function baixarPDF() {
-  if (!pdfRef.value) return
+  nextTick(() => {
+    const element = pdfRef.value
+    if (!element) return
 
-  const noPrintEls = pdfRef.value.$el.querySelectorAll('.no-print')
-  noPrintEls.forEach(el => el.style.display = 'none')
+    // Oculta os elementos com a classe no-print
+    const noPrintEls = element.querySelectorAll('.no-print')
+    noPrintEls.forEach(el => el.style.display = 'none')
 
-  html2pdf()
-    .from(pdfRef.value.$el)
-    .set({
-      margin: 10,
-      filename: `Relatorio-${gerarNomeArquivo(props.lead?.name)}-ChatCar.pdf`,
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    })
-    .save()
-    .finally(() => {
-      noPrintEls.forEach(el => el.style.display = '')
-    })
+    html2pdf()
+      .from(element)
+      .set({
+        margin: 10,
+        filename: `Relatorio-${gerarNomeArquivo(props.lead?.name)}-ChatCar.pdf`,
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      })
+      .save()
+      .finally(() => {
+        // Reexibe os elementos no-print
+        noPrintEls.forEach(el => el.style.display = '')
+      })
+  })
 }
-
 </script>
 
 <style scoped>
@@ -123,5 +127,10 @@ function baixarPDF() {
   font-weight: 600;
 }
 
-.no-print {}
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
 </style>

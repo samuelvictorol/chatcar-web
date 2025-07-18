@@ -12,24 +12,48 @@
                     target="_blank">@chatcar.ia</a> -->
                 <q-btn v-if="!isMobile" label="Como Funciona?" color="teal" icon-right="contact_support"
                     class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-1s" dense
-                    @click="scrollToRegistrar()"></q-btn>
+                    @click="scrollToRegistrar()">
+                    <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
+                        <strong>Como Funciona?</strong>
+                    </q-tooltip>
+                </q-btn>
                 <q-btn v-if="!isMobile" label="Investimento" @click="scrollTo('preco')" color="green" glossy
                     icon-right="paid"
                     class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-2s"
-                    dense></q-btn>
+                    dense>
+                    <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
+                        <strong>Investimento</strong>
+                    </q-tooltip>
+                </q-btn>
                 <q-btn v-if="!isMobile" label="Contato" color="blue" glossy icon-right="call"
                     class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-3s" dense
-                    @click="scrollTo('contato')"></q-btn>
+                    @click="scrollTo('contato')">
+                    <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
+                        <strong>Contato</strong>
+                    </q-tooltip>
+                </q-btn>
                 <!-- mobile só os botoes com icones -->
                 <q-btn v-if="isMobile" icon="contact_support" color="teal"
                     class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-1s" dense
-                    @click="scrollToRegistrar()"></q-btn>
+                    @click="scrollToRegistrar()">
+                    <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
+                        <strong>Como Funciona?</strong>
+                    </q-tooltip>
+                </q-btn>
                 <q-btn v-if="isMobile" icon="paid" @click="scrollTo('preco')" color="green" glossy
                     class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-2s"
-                    dense></q-btn>
+                    dense>
+                    <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
+                        <strong>Investimento</strong>
+                    </q-tooltip>
+                </q-btn>
                 <q-btn v-if="isMobile" icon="call" color="blue" glossy
                     class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-3s" dense
-                    @click="scrollTo('contato')"></q-btn>
+                    @click="scrollTo('contato')">
+                    <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
+                        <strong>Contato</strong>
+                    </q-tooltip>
+                </q-btn>
             </q-toolbar>
             <q-toolbar class="w100 row justify-center items-center">
                 <q-form @submit.prevent="handleSubmit" class="shadow-2 q-py-sm "
@@ -193,7 +217,7 @@
                 </section>
                 <section id="chatEstoqueTeste" class="q-py-xl bg-grey-3 text-center text-dark">
                     <div class="q-mx-auto" style="max-width: 700px">
-                        <h2 class="text-h5 text-bold q-mb-sm q-px-xs">🔍 Teste ao Vivo com Estoque de Demonstração</h2>
+                        <h2 class="text-h6 text-bold q-mb-md q-px-xs">🔍 Teste ao Vivo com Estoque de Demonstração</h2>
                         <p class="text-subtitle2 q-px-sm q-mb-md">
                             Veja na prática como seus clientes seriam atendidos pela ChatCar I.A. <br>
                             Interaja com o nosso estoque de testes e experimente o atendimento inteligente em tempo

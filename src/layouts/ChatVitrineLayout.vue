@@ -49,7 +49,7 @@
                 </q-item>
             </q-list>
             <div class="q-pb-md w100 text-right q-px-sm text-grey-7">
-                @chatcar.ia - <a href="chatcar.me" target="_blank" class="text-teal">chatcar.me</a>
+                Powered by: <a href="chatcar.me" target="_blank" class="text-teal">chatcar.me</a>
             </div>
 
         </q-drawer>

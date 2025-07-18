@@ -12,7 +12,7 @@
                     </div>
                 </q-toolbar-title>
                 <div class="row no-wrap items-center">
-                    <q-btn color="white" glossy class="text-black " icon="menu" label="menu"
+                    <q-btn color="teal"  class="text-white " icon="menu" label="menu"
                         @click="rightDrawerOpen = !rightDrawerOpen" />
                 </div>
             </q-toolbar>
@@ -37,8 +37,8 @@
             <q-separator />
             <div class="w100 column q-mt-md">
                 <div class="w50">
-                    <q-btn to="/me/planos" color="green" glossy class="q-px-sm text-white q-mb-sm q-ml-md "
-                    icon-right="currency_exchange" label="Planos" />
+                    <q-btn to="/me/planos" color="teal-14" glossy class="q-px-sm text-white q-mb-sm q-ml-md "
+                    icon-right="currency_exchange" label="Renovar" />
                     <q-btn to="/me/ajuda" color="blue-14" glossy class="q-ml-md  q-mb-md q-px-sm text-white"
                     icon-right="contact_support" label="Ajuda" />
                 </div>
