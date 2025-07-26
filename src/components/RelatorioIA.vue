@@ -13,8 +13,8 @@
       <div align="right" class="w100 row q-my-md q-ml-sm no-print">
         <q-btn label="WhatsApp" class="q-mr-sm" color="green" icon="chat" glossy @click="abrirWhatsapp"
           :disable="!lead?.contato || !lead?.relatorioIA?.sugestaoAbordagem" />
-        <q-btn label="Baixar PDF" color="blue" icon="download" glossy @click="baixarPDF"
-          :disable="!lead?.relatorioIA" />
+        <!-- <q-btn label="Baixar PDF" color="blue" icon="download" glossy @click="baixarPDF"
+          :disable="!lead?.relatorioIA" /> -->
       </div>
 
       <q-separator />
