@@ -464,12 +464,9 @@ onMounted(async () => {
 #card-estoque {
   transition: all 0.3s ease;
   cursor: pointer;
-  transform-style: preserve-3d;
-  will-change: transform;
 }
 
 #card-estoque:hover {
-  transform: perspective(800px) rotateX(3deg) rotateY(3deg);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 

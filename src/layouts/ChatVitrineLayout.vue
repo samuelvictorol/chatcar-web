@@ -244,8 +244,8 @@
                 <!-- Input fixo no final -->
                 <div class="q-pa-md bg-white row items-center"
                     style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
-                    <q-input filled v-model="input" maxlength="100" color="secondary" class="col"
-                        placeholder="Digite sua mensagem" @keyup.enter="sendMessage" />
+                    <q-input filled v-model="input" label="Digite sua mensagem" maxlength="100" color="secondary" class="col"
+                        placeholder="Ex: 'SUV até R$ 350.000', 'Qual o motor desse veículo?'" @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
                     <q-btn v-if="!loadingIA" icon="send" color="teal" flat round class="q-pl-sm" @click="sendMessage" />
@@ -458,7 +458,7 @@ function selecionarCarro(carro) {
     carrosselIndex.value = 0
     messages.value.push({
         from: 'bot',
-        text: '🚗 Aqui está ' + carro.modelo + ', para saber mais clique em 🔍Ver Detalhes.'
+        text: '🚗 Aqui está ' + carro.modelo + ', para mais informações clique 🔍Ver Detalhes. Ou me pergunte o que quiser sobre este veículo 😃.'
     })
 
     nextTick(() => {
@@ -475,11 +475,6 @@ onBeforeMount(async () => {
     setTimeout(() => {
         loading.value = false
     }, 2000)
-
-    messages.value.push({
-        from: 'bot',
-        text: '✨ Seja bem-vindo(a) ao chat inteligente do nosso estoque!'
-    })
 
     $q.dialog({
         html: true,
@@ -590,14 +585,14 @@ onBeforeMount(async () => {
                 carrossel.value = [...lista].sort(() => 0.5 - Math.random()).slice(0, quantidade)
                 carrosselIndex.value = 0
 
-                messages.value.push({
-                    from: 'bot',
-                    text: `${usuario.value.nome}, somos a ${sobreLoja.value.nome}! Aqui estão algumas opções do nosso estoque⬆`
-                })
 
                 messages.value.push({
                     from: 'bot',
-                    text: `Clique no Botão "estoque" para ver todas as opções disponíveis.`
+                    text: `Para ver todas as opções disponíveis, clique no Botão "estoque" na lateral superior direita.`
+                })
+                messages.value.push({
+                    from: 'bot',
+                    text: `${usuario.value.nome}, Aqui estão algumas opções do nosso estoque, qual o tipo de veículo você procura?`
                 })
 
                 nextTick(() => {
