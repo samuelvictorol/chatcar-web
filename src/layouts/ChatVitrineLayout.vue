@@ -12,7 +12,7 @@
                         </q-avatar>
                     </div>
                 </q-toolbar-title>
-                <q-btn class="q-mr-sm" color="grey-2" to="/" flat icon="logout" />
+                <q-btn class="q-mr-sm" color="grey-2" @click="confirmExit()" flat icon="logout" />
                 <!-- <q-btn class="q-mr-sm" glossy color="blue-14" icon="psychology" @click="showDialog = !showDialog" /> -->
                 <q-btn color="teal" label="estoque" icon="store" @click="toggleEstoqueDrawer" />
             </q-toolbar>
@@ -337,7 +337,7 @@ async function gerarLead() {
     else if (ref.includes("t.me") || ref.includes("telegram.org")) origem = "Telegram";
     else if (ref.includes("linkedin.com")) origem = "LinkedIn";
     else if (ref.includes("tiktok.com")) origem = "TikTok";
-    else if (ref === "") origem = "Acesso direto";
+    else if (ref === "") origem = "ChatCar";
     else origem = "ChatCar";
 
     await api.post('/gerar-lead', {
@@ -659,6 +659,23 @@ async function sendMessage() {
     } finally {
         loadingIA.value = false;
     }
+}
+
+function confirmExit() {
+    $q.dialog({
+        title: 'Sair do chat',
+        message: 'Você tem certeza que deseja sair do chat?',
+        cancel: true,
+        persistent: true,
+        ok: {
+            label: 'Sair',
+            color: 'negative'
+        }
+    }).onOk(() => {
+        router.push('/')
+    }).onCancel(() => {
+        // Do nothing, user cancelled
+    });
 }
 
 // Função utilitária para delay

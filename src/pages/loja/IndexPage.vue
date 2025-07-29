@@ -215,6 +215,18 @@ function exportarPagamentosPDF() {
                             contato.<br>
                         </div>
                         <q-separator v-if="!editando" class="q-my-sm" />
+                        
+                        <div class="text-body1 bg-teal-1 q-pa-xs rounded-borders">
+                            <strong class="text-teal">{{ !editando ? 'Meu Link: ' : 'Login: ' }} </strong><br>
+                            <template v-if="!editando">{{ 'chatcar.me/' + lojaInfo.login }}</template>
+                            <template v-if="!editando"><q-btn @click="compartilharChatUrl" dense
+                                    icon-right="share" class="q-ml-sm q-my-sm" color="blue"></q-btn></template>
+                            <q-input color="teal" v-else placeholder="chatcar.me/seulogin" v-model="lojaInfo.login" dense>
+                                <template v-slot:prepend>
+                                    <q-icon name="account_circle" color="teal" />
+                                </template>
+                            </q-input>
+                        </div>
                         <div class="text-body1">
                             <strong>Nome: </strong>
                             <template v-if="!editando">{{ lojaInfo.nome }}</template>
@@ -257,18 +269,6 @@ function exportarPagamentosPDF() {
                             <q-input color="teal" v-model="lojaInfo.email" dense>
                                 <template v-slot:prepend>
                                     <q-icon name="email" color="teal" />
-                                </template>
-                            </q-input>
-                        </div>
-
-                        <div class="text-body1">
-                            <strong>{{ !editando ? 'ChatUrl: ' : 'Login: ' }} </strong>
-                            <template v-if="!editando">{{ 'chatcar.me/' + lojaInfo.login }}</template>
-                            <template v-if="!editando"><br><q-btn label="compartilhar" @click="compartilharChatUrl" dense
-                                    icon-right="share" class="q-my-sm" color="blue"></q-btn></template>
-                            <q-input color="teal" v-else placeholder="chatcar.me/seulogin" v-model="lojaInfo.login" dense>
-                                <template v-slot:prepend>
-                                    <q-icon name="account_circle" color="teal" />
                                 </template>
                             </q-input>
                         </div>

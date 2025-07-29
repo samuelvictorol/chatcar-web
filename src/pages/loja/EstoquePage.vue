@@ -27,7 +27,7 @@
                 <q-row class="row w100 justify-center items-center" v-if="estoque.length">
                     <q-card v-for="item in veiculosFiltrados" :key="item.id" id="card-estoque" bordered flat
                         class="w100 q-hoverable q-ma-sm">
-                        <q-img :src="item.img_url" class="rounded-borders w100" height="250px"
+                        <q-img @click="abrirDetalhes(item)" :src="item.img_url" class="rounded-borders w100" height="250px"
                             style="object-fit: cover;" />
                         <q-card-section>
                             <div class="text-subtitle1 text-bold">{{ item.modelo }}</div>

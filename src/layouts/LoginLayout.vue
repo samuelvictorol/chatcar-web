@@ -77,7 +77,7 @@
                             <q-btn v-if="!loading" :label="formType === 'login' ? 'Entrar' : 'Registrar'"
                                 type="submit" color="teal" glossy class="w100 q-mt-md q-pa-md" no-caps />
                             <q-btn v-if="!loading" flat dense no-caps color="teal" class="w100 q-mt-sm text-bold"
-                                to="/ia">
+                                @click="formType = 'register'">
                                 {{ formType === 'login' ? 'Ainda não tem conta? Cadastre-se' : 'Já tem conta? Entrar' }}
                             </q-btn>
                             <!-- <q-btn v-if="!loading" flat dense no-caps color="teal" class="w100 q-mt-sm text-bold"
