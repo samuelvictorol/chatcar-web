@@ -70,7 +70,7 @@
 
                     <div style="border-radius: 12px">
                         <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length"
-                            v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-sm" autoplay
+                            v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-sm" autoplay swipeable
                             interval="9000">
                             <template v-slot:control>
                                 <div class="absolute-left q-pa-xs" style="top:45%">
