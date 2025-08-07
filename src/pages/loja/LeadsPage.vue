@@ -13,13 +13,23 @@
 
     <!-- Filtro + Gráfico -->
     <div class="q-mb-md">
-      <q-input v-model="filtro" label="Buscar leads" filled dense debounce="300" color="teal" class="w100" clearable
+      <q-input v-model="filtro" label="Buscar leads" filled dense debounce="300" color="teal" class="w100"
         placeholder="Buscar por nome, telefone ou origem">
         <template v-slot:append>
           <q-icon name="search" />
         </template>
       </q-input>
-
+      <div v-if="filtro || statusFilter" class="q-mt-sm row items-center">
+        <span class="text-caption text-grey-6">Filtros ativos:</span>
+        <q-chip v-if="filtro" class="q-ml-xs" removable removable-icon="close" @remove="filtro = ''" dense outline
+          color="teal" text-color="white">
+          {{ filtro }}
+        </q-chip>
+        <q-chip v-if="statusFilter" class="q-ml-xs" removable removable-icon="close" @remove="statusFilter = ''" dense
+          outline color="green" text-color="white">
+          {{ statusFilter }}
+        </q-chip>
+      </div>
       <div style="position: relative; width: 100%; height: 300px;" class="q-mt-md">
         <canvas ref="statusChart"></canvas>
       </div>
@@ -179,7 +189,7 @@ function createChart() {
       datasets: [{
         data: statusData.value.counts,
         backgroundColor: [
-          '#9966FF','#FF6384' , '#FFCE56', '#4BC0C0', '#36A2EB','#FF9F40', ,'#FFCE56', '#4BC0C0', '#9966FF','#00A0A0', '#FF9F40',
+          '#9966FF', '#FF6384', '#FFCE56', '#4BC0C0', '#36A2EB', '#FF9F40', , '#FFCE56', '#4BC0C0', '#9966FF', '#00A0A0', '#FF9F40',
         ].slice(0, statusData.value.labels.length)
       }]
     },
