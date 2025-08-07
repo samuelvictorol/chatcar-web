@@ -14,8 +14,8 @@
                 </q-toolbar-title>
                 <q-btn class="q-mr-sm" color="grey-2" @click="confirmExit()" flat icon="logout" />
                 <!-- <q-btn class="q-mr-sm" glossy color="blue-14" icon="psychology" @click="showDialog = !showDialog" /> -->
-                <q-btn color="teal" glossy class="animate__animated animate__fadeInRight animate__slower" label="estoque"
-                    v-if="estoqueBtn" icon="store" @click="toggleEstoqueDrawer" />
+                <q-btn color="teal" glossy class="animate__animated animate__fadeInRight animate__slower"
+                    label="estoque" v-if="estoqueBtn" icon="store" @click="toggleEstoqueDrawer" />
             </q-toolbar>
         </q-header>
 
@@ -101,9 +101,9 @@
                                                 carro.ano }}</div>
                                     </div>
                                 </q-img>
-                                <q-btn icon-right="search" color="blue"  dense
-                                    class="q-mx-md q-mt-md absolute-top" label="Detalhes"
-                                    @click="abrirDialog(carro)" style="width: 40%;z-index: 99999999999!important;" />
+                                <q-btn icon-right="search" color="blue" dense class="q-mx-md q-mt-md absolute-top"
+                                    label="Detalhes" @click="abrirDialog(carro)"
+                                    style="width: 40%;z-index: 99999999999!important;" />
                             </q-carousel-slide>
                         </q-carousel>
 
@@ -247,7 +247,8 @@
                         class="bg-grey-5 rounded-borders col" @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
-                    <q-btn v-if="!loadingIA" icon="send" color="teal-14"   class="q-ml-sm shadow-2" @click="sendMessage" />
+                    <q-btn v-if="!loadingIA" icon="send" color="teal-14" class="q-ml-sm shadow-2"
+                        @click="sendMessage" />
                     <q-spinner-comment v-else color="teal" class="q-pl-sm" size="2em" />
                 </div>
             </q-page>
@@ -310,24 +311,24 @@ popSound.volume = 0.5 // ajuste de volume se quiser
 
 // 2. Função de toque
 function playNotification() {
-  notificationSound.currentTime = 0   // garante play do início
-  notificationSound.play().catch(() => {
-    // safari/autoplay pode bloquear sem interação do usuário
-  })
+    notificationSound.currentTime = 0   // garante play do início
+    notificationSound.play().catch(() => {
+        // safari/autoplay pode bloquear sem interação do usuário
+    })
 }
 
 function playMagicalSound() {
-  magicalSound.currentTime = 0   // garante play do início
-  magicalSound.play().catch(() => {
-    // safari/autoplay pode bloquear sem interação do usuário
-  })
+    magicalSound.currentTime = 0   // garante play do início
+    magicalSound.play().catch(() => {
+        // safari/autoplay pode bloquear sem interação do usuário
+    })
 }
 
 function playPopSound() {
-  popSound.currentTime = 0   // garante play do início
-  popSound.play().catch(() => {
-    // safari/autoplay pode bloquear sem interação do usuário
-  })
+    popSound.currentTime = 0   // garante play do início
+    popSound.play().catch(() => {
+        // safari/autoplay pode bloquear sem interação do usuário
+    })
 }
 
 // Métodos
@@ -512,12 +513,12 @@ onBeforeMount(async () => {
         <span>${sobreLoja.value.nome}:</span>
       </div>
     `,
-        message: `Bem-vindo(a)! Pra iniciar, poderia nos informar o seu nome?`,
+        message: `Bem-vindo(a)!`,
         prompt: {
             model: '',
             type: 'text',
             color: 'secondary',
-            placeholder: 'Digite seu nome...',
+            placeholder: 'Qual é o seu nome?',
             outlined: true,
             isValid: val => val && val.trim().length >= 3,
             validateInput: true
@@ -539,7 +540,7 @@ onBeforeMount(async () => {
         usuario.value.nome = nome
 
         $q.dialog({
-            title: '📲 Para ver nosso estoque de veículos, informe seu whatsapp:',
+            title: '📲 Para ver nossos veículos, informe seu whatsapp:',
             message: `${usuario.value.nome}, digite seu número com DDD:`,
             prompt: {
                 model: '',
@@ -630,7 +631,9 @@ onBeforeMount(async () => {
                         playMagicalSound()
                     }
                     loadingIA.value = false
-                    await nextTick()
+                    await nextTick(() => {
+                        window.scrollTo(0, document.body.scrollHeight)
+                    })
                     scrollToBottom()
                     loadingIA.value = true;
                     await delay(delayCount)
@@ -714,7 +717,7 @@ function confirmExit() {
         persistent: true,
         ok: {
             label: 'Sair',
-            color: 'negative'
+            color: 'teal'
         }
     }).onOk(() => {
         router.push('/')
