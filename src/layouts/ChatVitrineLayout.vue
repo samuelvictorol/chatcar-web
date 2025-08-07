@@ -14,7 +14,8 @@
                 </q-toolbar-title>
                 <q-btn class="q-mr-sm" color="grey-2" @click="confirmExit()" flat icon="logout" />
                 <!-- <q-btn class="q-mr-sm" glossy color="blue-14" icon="psychology" @click="showDialog = !showDialog" /> -->
-                <q-btn color="teal" class="animate__animated animate__fadeInRight animate__slower" label="estoque" v-if="estoqueBtn" icon="store" @click="toggleEstoqueDrawer" />
+                <q-btn color="teal" glossy class="animate__animated animate__fadeInRight animate__slower" label="estoque"
+                    v-if="estoqueBtn" icon="store" @click="toggleEstoqueDrawer" />
             </q-toolbar>
         </q-header>
 
@@ -100,8 +101,8 @@
                                                 carro.ano }}</div>
                                     </div>
                                 </q-img>
-                                <q-btn icon-right="search" color="blue" glossy dense
-                                    class="q-mx-md rounded-borders q-mt-md absolute-top" label="Detalhes"
+                                <q-btn icon-right="search" color="blue"  dense
+                                    class="q-mx-md q-mt-md absolute-top" label="Detalhes"
                                     @click="abrirDialog(carro)" style="width: 40%;z-index: 99999999999!important;" />
                             </q-carousel-slide>
                         </q-carousel>
@@ -242,14 +243,13 @@
                 </div>
                 <div class="w100" style="height:10px"></div>
                 <!-- Input fixo no final -->
-                <div class="q-pa-md bg-white row items-center"
+                <div class="q-pa-md bg-dark row items-center"
                     style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
-                    <q-input filled v-model="input" label="Digite sua mensagem" maxlength="100" color="secondary"
-                        class="col"
-                        @keyup.enter="sendMessage" />
+                    <q-input filled v-model="input" label="Digite sua mensagem" maxlength="100" color="black"
+                        class="bg-grey-5 rounded-borders col" @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
-                    <q-btn v-if="!loadingIA" icon="send" color="teal" flat round class="q-pl-sm" @click="sendMessage" />
+                    <q-btn v-if="!loadingIA" icon="send" color="teal-14" flat round class="q-pl-sm" @click="sendMessage" />
                     <q-spinner-comment v-else color="teal" class="q-pl-sm" size="2em" />
                 </div>
             </q-page>
@@ -302,6 +302,35 @@ const lead = ref(null)
 const dialogZoom = ref(false)
 const slideAtivoDetalhes = ref(0)
 const zoomImagemUrl = ref(null)
+// 1. Cria instância de áudio
+const notificationSound = new Audio('/notification.wav')
+notificationSound.volume = 0.5 // ajuste de volume se quiser
+const magicalSound = new Audio('/magic.wav')
+magicalSound.volume = 0.5 // ajuste de volume se quiser
+const popSound = new Audio('/pop.wav')
+popSound.volume = 0.5 // ajuste de volume se quiser
+
+// 2. Função de toque
+function playNotification() {
+  notificationSound.currentTime = 0   // garante play do início
+  notificationSound.play().catch(() => {
+    // safari/autoplay pode bloquear sem interação do usuário
+  })
+}
+
+function playMagicalSound() {
+  magicalSound.currentTime = 0   // garante play do início
+  magicalSound.play().catch(() => {
+    // safari/autoplay pode bloquear sem interação do usuário
+  })
+}
+
+function playPopSound() {
+  popSound.currentTime = 0   // garante play do início
+  popSound.play().catch(() => {
+    // safari/autoplay pode bloquear sem interação do usuário
+  })
+}
 
 // Métodos
 const abrirZoom = (imgUrl) => {
@@ -461,7 +490,7 @@ function selecionarCarro(carro) {
         from: 'bot',
         text: '🚗 Aqui está ' + carro.modelo + ', para mais informações clique 🔍Ver Detalhes. Ou me pergunte o que quiser sobre este veículo 😃.'
     })
-
+    playNotification()
     nextTick(() => {
         window.scrollTo(0, document.body.scrollHeight)
     })
@@ -595,10 +624,12 @@ onBeforeMount(async () => {
                 let delayCount = 2000
                 for (let i = 0; i < mensagensIniciais.length; i++) {
                     messages.value.push({ from: 'bot', text: mensagensIniciais[i] })
+                    playNotification()
                     // Ativar toggle após a 2ª e 3ª mensagens
-                    if (i === 1 || i === 2) {
+                    if (i === 1) {
                         await delay(2100)
                         estoqueBtn.value = true
+                        playMagicalSound()
                     }
                     loadingIA.value = false
                     await nextTick()
@@ -625,9 +656,9 @@ function toggleEstoqueDrawer() {
 async function sendMessage() {
     const texto = input.value.trim();
     if (!texto) return;
-
     // Adiciona mensagem do usuário
     messages.value.push({ from: 'user', text: texto });
+    playPopSound()
     interacoes.value++;
     input.value = '';
 
@@ -656,6 +687,7 @@ async function sendMessage() {
         let delayCount = 200
         for (const msg of chatvitrine.mensagens) {
             messages.value.push({ from: 'bot', text: msg });
+            playNotification()
             await nextTick();
             await delay(delayCount);
             scrollToBottom();
@@ -668,6 +700,7 @@ async function sendMessage() {
             from: 'bot',
             text: '⚠️ Algo deu errado ao buscar os veículos. Tente novamente mais tarde.'
         });
+        playNotification()
         await nextTick();
         scrollToBottom();
     } finally {
