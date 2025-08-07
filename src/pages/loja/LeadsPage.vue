@@ -179,7 +179,7 @@ function createChart() {
       datasets: [{
         data: statusData.value.counts,
         backgroundColor: [
-          '#3D84A8','#FF6384' , '#08B7B7', '#FF6384', '#36A2EB','#008080', ,'#FFCE56', '#4BC0C0', '#9966FF','#00A0A0', '#FF9F40',
+          '#9966FF','#FF6384' , '#FFCE56', '#4BC0C0', '#36A2EB','#FF9F40', ,'#FFCE56', '#4BC0C0', '#9966FF','#00A0A0', '#FF9F40',
         ].slice(0, statusData.value.labels.length)
       }]
     },

@@ -129,7 +129,7 @@
     </div>
     <!-- FOOTER -->
     <q-footer class="bg-dark text-grey-4 text-center q-pa-sm">
-      chatcar.me ® - <a href="https://samuelvictorol.github.io/portfolio/" class="text-teal-14"
+      chatcar.me - <a href="https://samuelvictorol.github.io/portfolio/" class="text-teal-14"
         target="_blank">59.905.708/0001-34</a>
 
     </q-footer>

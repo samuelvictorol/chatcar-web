@@ -316,7 +316,7 @@
                 📩 As instruções de como acessar e utilizar a plataforma serão enviadas para o seu e-mail
             </div>
             <q-footer class="bg-dark text-grey-4 text-center q-pa-sm">
-                chatcar.me ® - <a href="https://samuelvictorol.github.io/portfolio/" class="text-teal-14"
+                chatcar.me - <a href="https://samuelvictorol.github.io/portfolio/" class="text-teal-14"
                     target="_blank">59.905.708/0001-34</a>
             </q-footer>
             <div class="w100 q-py-xl"></div>

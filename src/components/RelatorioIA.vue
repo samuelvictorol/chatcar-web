@@ -6,7 +6,7 @@
       </div>
       <q-card-section class="bg-grey-2">
         <div style="font-size: 1.2rem;" class=" text-teal text-uppercase text-bold">{{ lead?.name }}</div>
-        <div class="text-subtitle2 text-grey-7">🛫 {{ lead?.status }}<br>🛬 ChatCar IA</div>
+        <div class="text-subtitle2 text-grey-7">🛬 {{ lead?.status }}</div>
       </q-card-section>
 
       <!-- BOTÕES -->
