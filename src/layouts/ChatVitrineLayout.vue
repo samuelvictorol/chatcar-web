@@ -14,7 +14,7 @@
                 </q-toolbar-title>
                 <q-btn class="q-mr-sm" color="grey-2" @click="confirmExit()" flat icon="logout" />
                 <!-- <q-btn class="q-mr-sm" glossy color="blue-14" icon="psychology" @click="showDialog = !showDialog" /> -->
-                <q-btn color="teal" label="estoque" icon="store" @click="toggleEstoqueDrawer" />
+                <q-btn color="teal" class="animate__animated animate__fadeInRight animate__slower" label="estoque" v-if="estoqueBtn" icon="store" @click="toggleEstoqueDrawer" />
             </q-toolbar>
         </q-header>
 
@@ -70,8 +70,8 @@
 
                     <div style="border-radius: 12px">
                         <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length"
-                            v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-sm" autoplay swipeable
-                            interval="9000">
+                            v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-sm" autoplay
+                            swipeable interval="9000">
                             <template v-slot:control>
                                 <div class="absolute-left q-pa-xs" style="top:45%">
                                     <q-btn icon="chevron_left" color="white" unelevated round dense size="lg"
@@ -244,8 +244,9 @@
                 <!-- Input fixo no final -->
                 <div class="q-pa-md bg-white row items-center"
                     style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
-                    <q-input filled v-model="input" label="Digite sua mensagem" maxlength="100" color="secondary" class="col"
-                        placeholder="Ex: 'SUV até R$ 350.000', 'Qual o motor desse veículo?'" @keyup.enter="sendMessage" />
+                    <q-input filled v-model="input" label="Digite sua mensagem" maxlength="100" color="secondary"
+                        class="col"
+                        @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
                     <q-btn v-if="!loadingIA" icon="send" color="teal" flat round class="q-pl-sm" @click="sendMessage" />
@@ -271,7 +272,7 @@ import { api } from 'src/boot/axios';
 
 const showDialog = ref(false)
 const router = useRouter()
-
+const estoqueBtn = ref(false)
 const sobreLoja = ref(null)
 const loading = ref(true)
 const loadingIA = ref(false)
@@ -479,11 +480,11 @@ onBeforeMount(async () => {
     $q.dialog({
         html: true,
         title: `
-    <div style="display: flex; align-items: center; gap: 0.5rem;">
-      <img src="${sobreLoja.value.img_url}" alt="Logo" style="width: 32px; height: 32px; border-radius: 50%;" />
-      <span>${sobreLoja.value.nome}:</span>
-    </div>
-  `,
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <img src="${sobreLoja.value.img_url}" alt="Logo" style="width: 32px; height: 32px; border-radius: 50%;" />
+        <span>${sobreLoja.value.nome}:</span>
+      </div>
+    `,
         message: `Bem-vindo(a)! Pra iniciar, poderia nos informar o seu nome?`,
         prompt: {
             model: '',
@@ -572,7 +573,7 @@ onBeforeMount(async () => {
                     glossy: true
                 },
                 persistent: true
-            }).onOk(preferencias => {
+            }).onOk(async preferencias => {
                 usuario.value.preferencias = preferencias
 
                 const carrosFiltrados = estoque.value.filter(carro =>
@@ -585,21 +586,31 @@ onBeforeMount(async () => {
                 carrossel.value = [...lista].sort(() => 0.5 - Math.random()).slice(0, quantidade)
                 carrosselIndex.value = 0
 
+                const mensagensIniciais = [
+                    `Olá ${usuario.value.nome}, sou a assistente virtual da ${sobreLoja.value.nome}. Estou aqui para ajudar você a encontrar o veículo ideal! 🚗`,
+                    `Clique em ESTOQUE para ver todos os veículos disponíveis.`,
+                    `Para começar, você pode me dizer o que está procurando. Por exemplo: "Quero um SUV até R$ 350.000" ou "Qual a autonomia e potência da bmw x1?"`,
+                    `Você pode me perguntar sobre qualquer veículo, ou filtrar por categoria, ano, preço, cor, etc.`
+                ]
+                let delayCount = 2500
+                for (let i = 0; i < mensagensIniciais.length; i++) {
+                    // Ativar toggle após a 2ª e 3ª mensagens
+                    if (i === 1 || i === 2) {
+                        estoqueBtn.value = true
+                    }
+                    messages.value.push({ from: 'bot', text: mensagensIniciais[i] })
+                    await nextTick()
+                    scrollToBottom()
+                    await delay(delayCount)
+                    delayCount += 600
+                }
 
-                messages.value.push({
-                    from: 'bot',
-                    text: `Para ver todas as opções disponíveis, clique no Botão "estoque" na lateral superior direita.`
-                })
-                messages.value.push({
-                    from: 'bot',
-                    text: `${usuario.value.nome}, Aqui estão algumas opções do nosso estoque, qual o tipo de veículo você procura?`
-                })
-
-                nextTick(() => {
+                await nextTick(() => {
                     window.scrollTo(0, document.body.scrollHeight)
                 })
+
+                gerarLead()
             })
-            gerarLead()
         })
     })
 })
