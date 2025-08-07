@@ -186,8 +186,6 @@ function exportarPagamentosPDF() {
             <!-- Botões -->
             <strong class="text-teal">{{ editando ? 'Editando Perfil' : userRole }}</strong><br />
             <div class="row q-gutter-sm q-mb-md" style="position: relative">
-                <q-btn color="teal" icon="admin_panel_settings" v-if="!editando && lojaInfo.login.toLowerCase() === 'jatoveiculos'"
-                    glossy @click="get_pagamentos()" />
                 <q-btn color="blue" icon="sms" icon-right="directions_car" label="Meu Chat" v-if="!editando" glossy
                     :to="'/' + lojaInfo.login" />
                 <q-btn color="teal-14" icon="currency_exchange" label="Renovar" glossy to="/me/planos" v-if="!editando" />
@@ -202,8 +200,17 @@ function exportarPagamentosPDF() {
             <!-- Cards -->
             <q-layout-grid class="q-gutter-md" cols="12" sm-cols="6" md-cols="4" lg-cols="3">
 
-                <!-- Card Perfil -->
-                <q-card class="q-pa-sm full-height" flat bordered>
+                <!-- Card Leads Recentes -->
+                <q-card v-if="!editando" class="q-pa-sm full-height" flat bordered>
+                    <q-card-section>
+                        <div class="text-h6 text-bold text-secondary text-center"><q-btn color="teal" glossy label="Clientes Recentes" to="/me/leads" icon="groups"></q-btn></div>
+                        <q-separator class="q-my-sm" />
+                        <div v-for="lead in leadsRecentes" :key="lead.id" class="q-mb-xs text-body1">
+                            ✨ {{ lead.nome }} - {{ lead.data }}
+                        </div>
+                    </q-card-section>
+                </q-card>
+                 <q-card class="q-pa-sm full-height" flat bordered>
                     <q-card-section>
                         <div class="text-h6 text-bold text-secondary row w100 no-wrap justify-between text-center">
                             {{ editando ? 'Editando Perfil' : 'Meu Perfil' }}
@@ -327,17 +334,9 @@ function exportarPagamentosPDF() {
 
                     </q-card-section>
                 </q-card>
-                <!-- Card Leads Recentes -->
-                <q-card v-if="!editando" class="q-pa-sm full-height" flat bordered>
-                    <q-card-section>
-                        <div class="text-h6 text-bold text-secondary text-center">Clientes Recentes</div>
-                        <q-separator class="q-my-sm" />
-                        <div v-for="lead in leadsRecentes" :key="lead.id" class="q-mb-xs text-body1">
-                            ✨ {{ lead.nome }} - {{ lead.data }}
-                        </div>
-                    </q-card-section>
-                </q-card>
             </q-layout-grid>
+            <q-btn class="q-mt-xl" color="teal" icon="admin_panel_settings" v-if="!editando && lojaInfo.login.toLowerCase() === 'jatoveiculos'"
+                    glossy @click="get_pagamentos()" />
 <q-dialog v-model="dialogPagamentos" persistent full-width max-width="800px">
   <q-card class="bg-white text-black" style="max-height: 90vh; display: flex; flex-direction: column;">
     
