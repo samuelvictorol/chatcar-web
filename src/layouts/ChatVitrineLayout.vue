@@ -202,13 +202,11 @@
                                     style="font-size: 1rem;">
                                     R$ {{ carroSelecionado?.preco }}
                                 </div>
+                                <q-btn label="fechar" @click="dialogAberto = !dialogAberto" flat></q-btn>
                                 <q-btn label="Contato" glossy icon-right="sms"
                                     @click="sendWppMessage(carroSelecionado.modelo)" color="blue" v-close-popup />
                             </q-card-actions>
                         </q-card>
-                        <div class="w100 text-center">
-                            <q-btn label="fechar" @click="dialogAberto = !dialogAberto" flat></q-btn>
-                        </div>
                     </q-dialog>
 
 
@@ -249,7 +247,7 @@
                         class="bg-grey-5 rounded-borders col" @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
-                    <q-btn v-if="!loadingIA" icon="send" color="teal-14" flat round class="q-pl-sm" @click="sendMessage" />
+                    <q-btn v-if="!loadingIA" icon="send" color="teal-14"   class="q-ml-sm shadow-2" @click="sendMessage" />
                     <q-spinner-comment v-else color="teal" class="q-pl-sm" size="2em" />
                 </div>
             </q-page>

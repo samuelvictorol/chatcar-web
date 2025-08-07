@@ -186,7 +186,7 @@ function exportarPagamentosPDF() {
             <!-- Botões -->
             <strong class="text-teal">{{ editando ? 'Editando Perfil' : userRole }}</strong><br />
             <div class="row q-gutter-sm q-mb-md" style="position: relative">
-                <q-btn color="blue" icon="sms" icon-right="directions_car" label="Meu Chat" v-if="!editando" glossy
+                <q-btn color="blue" icon="sms" icon-right="directions_car" label="Meu ChatVitrine" v-if="!editando"
                     :to="'/' + lojaInfo.login" />
                 <q-btn color="teal-14" icon="currency_exchange" label="Renovar" glossy to="/me/planos" v-if="!editando" />
                 <q-btn v-if="!editando" color="orange-14" glossy icon="edit" label="Editar Perfil"
@@ -223,7 +223,7 @@ function exportarPagamentosPDF() {
                         </div>
                         <q-separator v-if="!editando" class="q-my-sm" />
                         
-                        <div class="text-body1 bg-teal-1 q-pa-xs rounded-borders">
+                        <div class="text-body1 shadow-1 bg-grey-2 q-mb-sm q-pa-xs rounded-borders" style="border-bottom: 2px solid teal;">
                             <strong class="text-teal">{{ !editando ? 'Meu Link: ' : 'Login: ' }} </strong><br>
                             <template v-if="!editando">{{ 'chatcar.me/' + lojaInfo.login }}</template>
                             <template v-if="!editando"><q-btn @click="compartilharChatUrl" dense
