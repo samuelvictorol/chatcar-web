@@ -587,24 +587,27 @@ onBeforeMount(async () => {
                 carrosselIndex.value = 0
 
                 const mensagensIniciais = [
-                    `Olá ${usuario.value.nome}, sou a assistente virtual da ${sobreLoja.value.nome}. Estou aqui para ajudar você a encontrar o veículo ideal! 🚗`,
-                    `Clique em ESTOQUE para ver todos os veículos disponíveis.`,
-                    `Para começar, você pode me dizer o que está procurando. Por exemplo: "Quero um SUV até R$ 350.000" ou "Qual a autonomia e potência da bmw x1?"`,
-                    `Você pode me perguntar sobre qualquer veículo, ou filtrar por categoria, ano, preço, cor, etc.`
+                    `👩🏻‍💻 Olá ${usuario.value.nome}, serei sua Assistente Virtual e estou aqui para te ajudar a encontrar o veículo ideal! 🚗🏍️🛥️`,
+                    `👆🏻 Lá em cima, em ESTOQUE, você consegue ver todos os nossos veículos disponíveis, não apareceu? tcharammm 🎇✨😂.`,
+                    `🧐 Mas me diga, o que cê tá procurando? Exemplo: "Quero ver os SUV até R$ 350.000", "Qual a autonomia e potência da bmw x1?", "Gostaria de ver carros na cor azul", "Qual endereço e contato para agendar um visita?"`,
+                    `😉 Ahh,e se quiser mais detalhes de um veículo, basta tocar em cima da imagem dele ou em DETALHES🔍. E qualquer dúvida é só falar comigo, viu?`
                 ]
-                let delayCount = 2500
+                let delayCount = 2000
                 for (let i = 0; i < mensagensIniciais.length; i++) {
+                    messages.value.push({ from: 'bot', text: mensagensIniciais[i] })
                     // Ativar toggle após a 2ª e 3ª mensagens
                     if (i === 1 || i === 2) {
+                        await delay(2100)
                         estoqueBtn.value = true
                     }
-                    messages.value.push({ from: 'bot', text: mensagensIniciais[i] })
+                    loadingIA.value = false
                     await nextTick()
                     scrollToBottom()
+                    loadingIA.value = true;
                     await delay(delayCount)
-                    delayCount += 600
+                    delayCount += 200
                 }
-
+                loadingIA.value = false
                 await nextTick(() => {
                     window.scrollTo(0, document.body.scrollHeight)
                 })
