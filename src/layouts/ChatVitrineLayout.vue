@@ -469,8 +469,9 @@ function abrirDialog(carro) {
 
 function sendWppMessage(modelo) {
     // Extrai apenas os números do telefone
-    const numeroFormatado = sobreLoja.value.contato.replace(/\D/g, '');
-    const text = `Olá! Gostaria de saber mais sobre ${modelo}.`;
+    const numero = carroSelecionado.value.directLink ? carroSelecionado.value.directLink :  sobreLoja.value.contato
+    const numeroFormatado = numero.replace(/\D/g, '');
+    const text = `Olá! Meu nome é ${usuario.value.nome}!. Vi pela ChatCar IA que você tem esse veículo disponível:  ${modelo}. Poderia me passar mais informações?`;
     const mensagem = encodeURIComponent(text);
     const link = `https://wa.me/${numeroFormatado}?text=${mensagem}`;
     window.open(link, '_blank');

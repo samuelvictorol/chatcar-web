@@ -70,7 +70,7 @@
                     <div class="text-body2 text-bold text-green q-mb-xs">R$ {{ veiculoSelecionado?.preco }}</div>
                     <div class="text-body2 q-mb-xs"><strong class="text-bold text-purple" v-if="veiculoSelecionado.cor">{{ veiculoSelecionado?.cor.toUpperCase() }}</strong> <strong v-if="veiculoSelecionado.km" class="text-bold text-teal-14">{{ veiculoSelecionado?.km }}km</strong> <strong class="text-bold text-orange-14" v-if="veiculoSelecionado.combustivel">{{ veiculoSelecionado?.combustivel.value.toUpperCase() }}</strong> <strong v-if="veiculoSelecionado.cambio" class="text-bold text-blue">{{ veiculoSelecionado?.cambio.value.toUpperCase() }}</strong></div>
                     <q-separator class="q-my-sm" />
-                    <div class="text-body2"><strong>Descrição:</strong> {{ veiculoSelecionado?.descricao }}</div>
+                    <div class="text-body2"><strong>Descrição:</strong> {{ veiculoSelecionado?.descricao }} - {{ veiculoSelecionado?.directContact}}</div>
                     <div class="q-pt-md text-body2 text-bold text-teal">{{ veiculoSelecionado?.tipo.label }} - {{
                         veiculoSelecionado?.categoria.label }}</div>
                 </q-card-section>
@@ -104,9 +104,16 @@
                     </q-input>
                     <q-input color="teal" v-model="formVeiculo.descricao"
                         placeholder="Descreva o máximo de informações relevantes sobre o veículo.   "
-                        label="Descrição" maxlength="200" type="textarea" dense outlined class="q-mb-sm">
+                        label="Descrição" maxlength="400" type="textarea" dense outlined class="q-mb-sm">
                         <template v-slot:append>
                             <q-icon name="description" class="cursor-pointer" color="teal" />
+                        </template>
+                    </q-input>
+                    <q-input color="teal" v-model="formVeiculo.directContact"
+                        placeholder="O telefone dono do veículo."
+                        label="Contato" maxlength="200" type="text" mask="(##) #####-####" dense outlined class="q-mb-sm">
+                        <template v-slot:append>
+                            <q-icon name="phone" class="cursor-pointer" color="teal" />
                         </template>
                     </q-input>
                     <q-select color="teal" v-model="formVeiculo.tipo" :options="tipoVeiculoOptions" label="Tipo" dense
@@ -142,13 +149,6 @@
                             <q-icon name="sports_motorsports" class="cursor-pointer" color="teal" />
                         </template>
                     </q-select>
-
-                    <!-- <q-select color="teal" v-model="formVeiculo.status" :options="statusVeiculoOptions" label="Status"
-                        dense outlined class="q-mb-sm">
-                        <template v-slot:append>
-                            <q-icon name="mode_standby" class="cursor-pointer" color="teal" />
-                        </template>
-                    </q-select> -->
                     <div class="w100 row no-wrap justify-between">
                         <div class="w50">
                             <q-input color="teal" v-model.number="formVeiculo.km" label="Km"
@@ -323,6 +323,7 @@ const formVeiculo = ref({
     descricao: '',
     km: '',
     cor: '',
+    directContact: '',
     combustivel: '',
     cambio: '',
     ano: null,
