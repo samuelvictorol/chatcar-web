@@ -1,37 +1,48 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <!-- NAVBAR -->
-    <q-header elevated class="bg-dark q-py-xs text-white">
-      <q-toolbar class="container">
+    <q-header elevated class="q-py-xs text-white header">
+      <q-toolbar class="container row justify-between items-center">
         <q-toolbar-title class="text-h6 row items-center no-wrap">
-          <q-avatar size="50px" class="q-mr-sm">
+          <q-avatar size="48px" class="q-mr-sm">
             <img src="/logo.jpeg" alt="Logo" />
           </q-avatar>
           <div class=" animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
         </q-toolbar-title>
-
-        <q-btn v-if="!isMobile" label="Saiba Mais" color="blue" class="q-mr-sm" glossy icon-right="help" to="/ia">
-          <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
-            <strong>Saiba Mais</strong>
-          </q-tooltip>
-        </q-btn>
-        <q-btn v-if="!isMobile" :label="isUserLoggedIn ? 'Meu Perfil' : 'Entrar'" color="teal" glossy
-          :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'">
-          <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
-            <strong>{{ isUserLoggedIn ? 'Meu Perfil' : 'Entrar' }}</strong>
-          </q-tooltip>
-        </q-btn>
-        <q-btn v-if="isMobile" color="blue" glossy icon="help" to="/ia" class="q-ml-sm">
-          <q-tooltip>
-            Saiba Mais
-          </q-tooltip>
-        </q-btn>
-        <q-btn v-if="isMobile" color="teal" glossy :icon-right="isUserLoggedIn ? 'account_box' : 'login'"
-          :to="isUserLoggedIn ? '/me' : '/login'" class="q-ml-sm">
-          <q-tooltip>
-            {{ isUserLoggedIn ? 'Meu Perfil' : 'Entrar' }}
-          </q-tooltip>
-        </q-btn>
+        <div>
+          <q-btn v-if="!isMobile" label="Saiba Mais" class="q-mr-xs" flat icon="help" to="/ia">
+            <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
+              <strong>Saiba Mais</strong>
+            </q-tooltip>
+          </q-btn>
+          <q-btn v-if="!isMobile" :label="isUserLoggedIn ? 'Meu Perfil' : 'Entrar'" flat
+            :icon="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'">
+            <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
+              <strong>{{ isUserLoggedIn ? 'Meu Perfil' : 'Entrar' }}</strong>
+            </q-tooltip>
+          </q-btn>
+          <q-btn v-if="isMobile" flat icon="help" to="/ia">
+            <q-tooltip>
+              Saiba Mais
+            </q-tooltip>
+          </q-btn>
+          <q-btn v-if="isMobile" flat :icon-right="isUserLoggedIn ? 'account_box' : 'login'"
+            :to="isUserLoggedIn ? '/me' : '/login'">
+            <q-tooltip>
+              {{ isUserLoggedIn ? 'Meu Perfil' : 'Entrar' }}
+            </q-tooltip>
+          </q-btn>
+        </div>
+        <div>
+          <q-btn v-if="!isMobile" color="teal" style="border-radius: 20px;" flat icon="rocket_launch"
+            label="Começar Agora" class="q-ml-sm bg-white text-bold" :to="isUserLoggedIn ? '/me' : '/ia'" />
+          <q-btn v-if="isMobile" color="teal-14" glossy icon-right="rocket_launch" :to="isUserLoggedIn ? '/me' : '/ia'"
+            class="q-ml-sm">
+            <q-tooltip>
+              Começar Agora
+            </q-tooltip>
+          </q-btn>
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -41,22 +52,25 @@
       <div class="q-px-md">
         <div
           class="shadow-4 glass-card text-center q-mx-auto animate__animated animate__fadeIn animate__slower animate__delay-3s">
-
-          <div style="font-size: 2.5rem; line-height: 1.2;"
-            class="text-bold animate__animated  text-white animate__fadeInLeft animate__slower animate__delay-3s q-pb-sm row no-wrap">
-            <q-avatar size="50px" class="q-mr-sm">
-              <img src="/logo.jpeg" alt="Logo" />
-            </q-avatar>ChatCar
-          </div>
-          <q-btn label="Iniciar Agora" color="teal-14" glossy size="lg" icon="rocket_launch"
-            class="animate__animated animate__zoomIn animate__slower animate__delay-4s q-mt-lg"
-            :to="isUserLoggedIn ? '/me' : '/ia'" />
-
+          <div class="dm-font" style="font-size: 1.9rem">Automatize o atendimento ao cliente e feche mais negócios com
+            <strong>ChatCar</strong>.</div>
+          <p class="text-subtitle1 q-mt-md" style="text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
+            Sem instalação, sem complicação. Coloque sua concessionária online em minutos e qualifique leads 24/7.
+          </p>
         </div>
       </div>
     </q-page-container>
 
+    <section class="w100 row q-py-md justify-center q-px-xl" style="background: #091619">
+      <q-btn icon-right="rocket_launch" label="Começar Agora"
+        class="q-mt-md q-mb-md bg-teal w100 text-white text-bold q-pa-xl" :to="isUserLoggedIn ? '/me' : '/ia'"
+        color="teal-14" glossy>
+        <q-tooltip>
+          Ative sua vitrine e comece a captar leads com I.A.
+        </q-tooltip>
 
+      </q-btn>
+    </section>
     <!-- BENEFITS SECTION -->
     <section class="q-pa-xl text-white bg-dark text-center">
       <div class="q-gutter-lg row justify-center">
@@ -151,6 +165,11 @@ onBeforeMount(() => {
 <style scoped>
 .bg-grad-direct {}
 
+.header {
+  background-color: #1ed2dc96;
+  backdrop-filter: blur(10px);
+}
+
 .hero-container {
   position: relative;
   overflow: hidden;
@@ -168,14 +187,28 @@ onBeforeMount(() => {
   height: 100%;
   background-image: url('/home-desk.png');
   background-size: cover;
+  filter: blur(0px);
+  /* começa sem blur */
+  animation: blurFadeIn 2s ease forwards;
+  animation-delay: 3s;
+  /* só começa depois de 3 segundos */
   background-position: center;
   z-index: 0;
-  animation: zoomInOut 20s ease-in-out infinite;
 }
 
 @media (max-width: 768px) {
   .hero-background {
     background-image: url('/home-mobile.png');
+  }
+}
+
+@keyframes blurFadeIn {
+  from {
+    filter: blur(0px);
+  }
+
+  to {
+    filter: blur(50px);
   }
 }
 
@@ -194,10 +227,10 @@ onBeforeMount(() => {
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.061);
   backdrop-filter: blur(18px);
-  border-bottom: 2px solid rgb(0, 117, 128);
-  border-radius: 16px;  
+  border-bottom: 2px solid rgb(9, 97, 105);
+  border-radius: 16px;
   max-width: 700px;
   width: 100%;
   z-index: 1;
