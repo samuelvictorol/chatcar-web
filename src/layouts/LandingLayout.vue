@@ -10,7 +10,7 @@
           <div class=" animate__animated animate__fadeInLeft animate__slower">ChatCar</div>
         </q-toolbar-title>
         <div>
-          <q-btn v-if="!isMobile" label="Saiba Mais" class="q-mr-xs" flat icon="help" to="/ia">
+          <q-btn v-if="!isMobile" label="Saiba Mais"  flat icon="help" to="/ia">
             <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
               <strong>Saiba Mais</strong>
             </q-tooltip>
@@ -54,21 +54,17 @@
           class="shadow-4 glass-card text-center q-mx-auto animate__animated animate__fadeIn animate__slower animate__delay-3s">
           <div class="dm-font" style="font-size: 1.9rem">Automatize o atendimento ao cliente e feche mais negócios com
             <strong>ChatCar</strong>.</div>
-          <p class="text-subtitle1 q-mt-md" style="text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
-            Sem instalação, sem complicação. Coloque sua concessionária online em minutos e qualifique leads 24/7.
-          </p>
         </div>
       </div>
     </q-page-container>
 
-    <section class="w100 row q-py-md justify-center q-px-xl" style="background: #091619">
+    <section class="w100 row justify-center" style="background: #096169">
       <q-btn icon-right="rocket_launch" label="Começar Agora"
-        class="q-mt-md q-mb-md bg-teal w100 text-white text-bold q-pa-xl" :to="isUserLoggedIn ? '/me' : '/ia'"
+        class="bg-teal w100 text-white text-bold q-pa-xl" :to="isUserLoggedIn ? '/me' : '/ia'"
         color="teal-14" glossy>
         <q-tooltip>
           Ative sua vitrine e comece a captar leads com I.A.
         </q-tooltip>
-
       </q-btn>
     </section>
     <!-- BENEFITS SECTION -->
@@ -95,13 +91,13 @@
 
     <!-- VALUE PROPOSITION -->
     <section class="q-py-xl text-center bg-grey-2">
-      <div class="glass-card q-pa-xl q-mx-auto">
+      <div class="q-pa-xl q-mx-auto">
         <p class="text-subtitle1 text-dark">
           Muito além de um ChatBot: é seu <strong>estoque online, funil de vendas e vitrine para tráfego pago</strong>,
           tudo em um só lugar — com leads qualificados chegando direto no seu WhatsApp.
         </p>
 
-        <div class="text-h6 q-mt-md bg-dark text-grey-2 q-pa-xs rounded-borders">Acesso por 30 dias — <strong
+        <div class="text-h6 q-mt-md bg-dark text-grey-2 q-pa-sm rounded-borders">Acesso por 30 dias — <strong
             class="text-green">sem assinatura</strong>, <strong>sem cobranças automáticas</strong>.</div>
         <div class="text-caption q-mt-md">Investimento único de <strong>R$49,90</strong>, somente se for utilizar.</div>
       </div>
@@ -109,8 +105,8 @@
     <!-- CTA FINAL -->
     <section class="q-py-xl bg-teal-7 text-white text-center">
       <h2 class="text-h5 text-bold q-mb-md">Pronto para Começar?</h2>
-      <p class="q-mb-md">Ative sua vitrine agora mesmo e comece a captar leads com I.A.</p>
-      <q-btn label="Ativar Agora" to="/ia" color="green" size="lg" icon="play_circle" glossy />
+      <p class="q-mb-md">Ative sua vitrine vigital agora mesmo e comece a captar leads com I.A.</p>
+      <q-btn label="Como Funciona?" to="/ia" color="blue" size="lg" icon="play_circle" glossy />
     </section>
     <!-- SUPPORT SECTION -->
     <section class="q-py-xl bg-teal-8 text-white text-center">
@@ -227,9 +223,9 @@ onBeforeMount(() => {
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.061);
+  background: #09616971;
   backdrop-filter: blur(18px);
-  border-bottom: 2px solid rgb(9, 97, 105);
+  border-bottom: 2px solid #096169;
   border-radius: 16px;
   max-width: 700px;
   width: 100%;

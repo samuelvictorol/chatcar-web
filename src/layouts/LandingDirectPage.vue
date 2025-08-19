@@ -241,7 +241,7 @@
                                 <div class="text-subtitle1 q-mb-xs text-grey-2">
                                     <q-icon name="format_quote" /> {{ dep.mensagem }}
                                 </div>
-                                <div class="text-caption text-teal text-bold">- {{ dep.nome }}</div>
+                                <div class="text-caption text-grey-4 text-bold">- {{ dep.nome }}</div>
                             </div>
                         </q-carousel-slide>
                     </q-carousel>
