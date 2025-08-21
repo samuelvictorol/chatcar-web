@@ -31,7 +31,7 @@
                             style="object-fit: cover;" />
                         <q-card-section>
                             <div class="text-subtitle1 text-bold">{{ item.modelo }}</div>
-                            <div class="text-subtitle1">{{ item?.ano }} - {{ item?.km }}</div>
+                            <div class="text-subtitle1">{{ item?.ano }} - {{ item?.km }}km</div>
                             <div class="text-body2 text-grey-8">R$ {{ item?.preco }}</div>
                         </q-card-section>
                         <q-card-actions align="right" class="bg-dark">
