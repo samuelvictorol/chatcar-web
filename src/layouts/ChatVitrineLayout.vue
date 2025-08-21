@@ -624,7 +624,7 @@ onBeforeMount(async () => {
                 let delayCount = 2000
                 for (let i = 0; i < mensagensIniciais.length; i++) {
                     messages.value.push({ from: 'bot', text: mensagensIniciais[i] })
-                    playNotification()
+                    playPopSound()
                     // Ativar toggle após a 2ª e 3ª mensagens
                     if (i === 1) {
                         await delay(2100)
@@ -689,7 +689,7 @@ async function sendMessage() {
         let delayCount = 200
         for (const msg of chatvitrine.mensagens) {
             messages.value.push({ from: 'bot', text: msg });
-            playNotification()
+            playPopSound()
             await nextTick();
             await delay(delayCount);
             scrollToBottom();
