@@ -2,7 +2,7 @@
     <q-layout view="lHh Lpr lFf">
         <q-page-container>
             <q-page class="flex flex-center" style="min-height: 100vh">
-                <q-card id="card-login" class="q-px-md q-py-md shadow-10 w100 q-mx-md" style="border-radius: 20px">
+                <q-card id="card-login" class="q-px-md q-py-md shadow-10 w100 q-mx-md animate__animated animate__fadeIn animate__slower animate__delay-3s" style="border-radius: 20px">
                     <q-card-section>
                         <div class=" text-weight-bold text-center text-teal w100 row no-wrap items-center justify-between">
                                 <div class="text-h5">{{ formType === 'login' ? 'Iniciar Sessão' : 'Criar Conta' }} </div>
@@ -332,7 +332,7 @@ async function handleSubmit() {
 
 <style scoped>
 .q-page {
-    background-image: url('/login.png');
+    background-image: url('/home-desk.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

@@ -8,7 +8,7 @@
                     </q-avatar> -->
                     <div v-if="!loading" class="q-pl-sm animate__animated animate__fadeInLeft animate__slower">
                         <q-avatar size="40px" class="q-mr-sm">
-                            <img :src="sobreLoja.img_url ? sobreLoja.img_url : '/logo.jpeg'" alt="Logo" />
+                            <img :src="sobreLoja.img_url ? sobreLoja.img_url : '/logo.jpeg'" alt="Logo" @click="openInfoLoja()" />
                         </q-avatar>
                     </div>
                 </q-toolbar-title>
@@ -25,7 +25,13 @@
                 <q-toolbar-title>Estoque</q-toolbar-title>
                 <q-btn flat round icon="close" @click="showEstoqueDrawer = false" />
             </q-toolbar>
+                                <div class="bg-dark w100 column q-pb-md items-center justify-between q-px-md">
+                        <div class="text-h6 text-white q-pt-sm ">{{ sobreLoja.nome }}</div>
+                        <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="contato"
+                                icon-right="contact_support" color="" @click="openInfoLoja()"
+                                style="border:2px solid white" dense flat></q-btn></div>
 
+                    </div>
             <q-input v-model="filtroEstoque" color="secondary" @update:model-value="filtrarMenuEstoque()" outlined
                 label="Filtrar estoque..." dense debounce="300" class="q-pa-sm relative">
                 <template v-slot:append>
@@ -61,14 +67,6 @@
                 <!-- Vitrine fixa -->
                 <div class="bg-dark sticky-top"
                     style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
-                    <div class="w100 row no-wrap items-center justify-between q-px-md">
-                        <div class="text-h6 text-white q-pt-sm ">{{ sobreLoja.nome }}</div>
-                        <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="contato"
-                                icon-right="contact_support" color="" @click="openInfoLoja()"
-                                style="border:2px solid white" dense flat></q-btn></div>
-
-                    </div>
-
                     <div style="border-radius: 12px">
                         <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length"
                             v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-sm" autoplay
@@ -178,13 +176,16 @@
                                                 @click="abrirZoom(img)" />
                                         </q-carousel-slide>
                                     </q-carousel>
-
+                                <div v-if="carroSelecionado.preco" class="text-body2 text-bold text-teal"
+                                    style="font-size: 1.2rem;">
+                                    R$ {{ carroSelecionado?.preco }}
+                                </div>
                                     <div class="text-caption q-mb-sm">
                                         <strong class="text-orange-14">{{ carroSelecionado?.ano }}</strong> -
-                                        <strong class="text-purple-14">{{ carroSelecionado.categoria?.label }}</strong>
+                                        <strong class="text-red-14">{{ carroSelecionado.categoria?.label.toUpperCase() }}</strong>
                                         -
-                                        <strong class="text-teal">{{ carroSelecionado?.cor.toUpperCase() }}</strong> -
-                                        <strong class="text-blue-14">{{ carroSelecionado?.km }}km</strong>
+                                        <strong class="text-dark">{{ carroSelecionado?.cor.toUpperCase() }}</strong> -
+                                        <strong class="text-blue-14">{{ carroSelecionado?.km }} km</strong>
                                     </div>
 
                                     <q-separator class="q-my-xs" />
@@ -196,15 +197,11 @@
                             </div>
 
                             <!-- Ações fixas -->
-                            <q-card-actions align="right" class="q-pa-sm bg-grey-2"
+                            <q-card-actions align="right" class="q-pa-sm bg-grey-2 row no-wrap"
                                 style="position: sticky; bottom: 0; z-index: 1;">
-                                <div v-if="carroSelecionado.preco" class="text-body2 text-bold q-pr-xl text-teal"
-                                    style="font-size: 1rem;">
-                                    R$ {{ carroSelecionado?.preco }}
-                                </div>
-                                <q-btn label="fechar" @click="dialogAberto = !dialogAberto" flat></q-btn>
+                                <q-btn label="voltar" @click="dialogAberto = !dialogAberto" flat></q-btn>
                                 <q-btn label="Contato" glossy icon-right="sms"
-                                    @click="sendWppMessage(carroSelecionado.modelo)" color="blue" v-close-popup />
+                                    @click="sendWppMessage(carroSelecionado.modelo)" color="teal-14" v-close-popup />
                             </q-card-actions>
                         </q-card>
                     </q-dialog>
@@ -244,7 +241,7 @@
                 <div class="q-pa-md bg-dark row items-center"
                     style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
                     <q-input filled v-model="input" label="Digite sua mensagem" maxlength="100" color="black"
-                        class="bg-grey-5 rounded-borders col" @keyup.enter="sendMessage" />
+                        class="bg-grey-3 rounded-borders col" @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
                     <q-btn v-if="!loadingIA" icon="send" color="teal-14" class="q-ml-sm shadow-2"

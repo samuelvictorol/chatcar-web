@@ -51,22 +51,18 @@
       <div class="hero-background"></div>
       <div class="q-px-md">
         <div
-          class="shadow-4 glass-card text-center q-mx-auto animate__animated animate__fadeIn animate__slower animate__delay-3s">
-          <div class="dm-font" style="font-size: 1.9rem">Automatize o atendimento ao cliente e feche mais negócios com
-            <strong>ChatCar</strong>.</div>
+          class=" text-center q-mx-auto animate__animated animate__fadeIn animate__slower animate__delay-3s">
+          <div class="dm-font" style="font-size: 2rem">Automatize o atendimento ao cliente e feche mais negócios com
+            <strong>ChatCar</strong>.
+          </div>
+          <div class="w100 row no-wrap q-pt-lg">
+            <q-btn class="w50 q-pa-lg q-mr-md" label="Entrar" icon-right="login" :to="isUserLoggedIn ? '/me' : '/login'"></q-btn>
+            <q-btn class="w50 q-pa-lg" label="Sobre" color="teal-14" icon-right="contact_support" to="/ia" ></q-btn>
+          </div>
         </div>
       </div>
     </q-page-container>
 
-    <section class="w100 row justify-center" style="background: #096169">
-      <q-btn icon-right="rocket_launch" label="Começar Agora"
-        class="bg-teal w100 text-white text-bold q-pa-xl" :to="isUserLoggedIn ? '/me' : '/ia'"
-        color="teal-14" glossy>
-        <q-tooltip>
-          Ative sua vitrine e comece a captar leads com I.A.
-        </q-tooltip>
-      </q-btn>
-    </section>
     <!-- BENEFITS SECTION -->
     <section class="q-pa-xl text-white bg-dark text-center">
       <div class="q-gutter-lg row justify-center">
@@ -106,7 +102,7 @@
     <section class="q-py-xl bg-teal-7 text-white text-center">
       <h2 class="text-h5 text-bold q-mb-md">Pronto para Começar?</h2>
       <p class="q-mb-md">Ative sua vitrine vigital agora mesmo e comece a captar leads com I.A.</p>
-      <q-btn label="Como Funciona?" to="/ia" color="blue" size="lg" icon="play_circle" glossy />
+      <q-btn label="SAIBA MAIS" to="/ia" color="teal-14" size="lg" icon-right="play_circle" glossy />
     </section>
     <!-- SUPPORT SECTION -->
     <section class="q-py-xl bg-teal-8 text-white text-center">
@@ -185,8 +181,7 @@ onBeforeMount(() => {
   background-size: cover;
   filter: blur(0px);
   /* começa sem blur */
-  animation: blurFadeIn 2s ease forwards;
-  animation-delay: 3s;
+  animation: blurFadeIn 3s ease forwards;
   /* só começa depois de 3 segundos */
   background-position: center;
   z-index: 0;
@@ -204,7 +199,7 @@ onBeforeMount(() => {
   }
 
   to {
-    filter: blur(50px);
+    filter: blur(80px);
   }
 }
 
