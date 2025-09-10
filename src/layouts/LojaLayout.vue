@@ -1,18 +1,17 @@
 <template>
     <q-layout view="hHh lpR fFf">
 
-        <q-header class="bg-dark text-white">
+        <q-header class="header text-white">
             <q-toolbar>
                 <q-toolbar-title class="text-h6 row items-center no-wrap">
-                    <q-avatar size="50px" class="q-mr-sm">
-                        <img src="/logo.jpeg" alt="Logo" />
+                    <q-avatar size="38px" class="cursor-pointer text-black animate__animated animate__zoomIn animate__slower animate__delay-1s">
+                        <img src="/logo.jpeg" alt="Logo" @click="router.push('/ia')"/>
                     </q-avatar>
-                    <div class="animate__animated animate__fadeInLeft animate__slower">
-                        ChatCar
-                    </div>
                 </q-toolbar-title>
                 <div class="row no-wrap items-center">
-                    <q-btn color="teal"  class="text-white " icon="menu" label="menu"
+                    <q-btn color="grey-4" @click="logout()" dense class="text-white q-mr-sm" flat
+                    icon-right="login" label="Sair" />
+                    <q-btn color="teal"  class="text-white" icon="menu" glossy label="menu"
                         @click="rightDrawerOpen = !rightDrawerOpen" />
                 </div>
             </q-toolbar>
@@ -21,7 +20,7 @@
         <q-drawer show-if-above v-model="rightDrawerOpen" side="right" bordered class="relative bg-grey-1">
             <div class="w100 text-h6 row no-wrap justify-between q-px-sm q-py-md">
                 <div>MENU</div>
-                <q-btn icon="close" glossy dense @click="rightDrawerOpen = !rightDrawerOpen"></q-btn>
+                <q-btn icon="close" dense @click="rightDrawerOpen = !rightDrawerOpen"></q-btn>
             </div>
             <q-separator />
             <q-list class="q-py-sm q-px-sm">
@@ -37,9 +36,9 @@
             <q-separator />
             <div class="w100 column q-mt-md">
                 <div class="w50">
-                    <q-btn to="/me/planos" color="teal-14" glossy class="q-px-sm text-white q-mb-sm q-ml-md "
+                    <q-btn to="/me/planos" color="teal" glossy class="q-px-sm text-white q-mb-sm q-ml-md "
                     icon-right="currency_exchange" label="Renovar" />
-                    <q-btn to="/me/ajuda" color="blue-14" glossy class="q-ml-md  q-mb-md q-px-sm text-white"
+                    <q-btn to="/me/ajuda" color="teal" glossy class="q-ml-md  q-mb-md q-px-sm text-white"
                     icon-right="contact_support" label="Ajuda" />
                 </div>
             </div>
@@ -50,13 +49,9 @@
             <!-- <div class="w100 text-right q-px-sm q-pt-md text-grey-7">
                 @chatcar.ia
             </div> -->
-            <div class="w100 text-right q-px-sm q-pt-xl q-mt-xl text-grey-7">
-                <q-btn color="red-14" @click="logout()" dense class="q-px-sm text-white q-mr-xs" flat
-                    icon-right="logout" label="Encerrar Sessão" />
-            </div>
         </q-drawer>
 
-        <q-page-container class="bg-grey-3">
+        <q-page-container class="bg-grey-4">
             <router-view />
             <footer class="w100 text-center q-py-md bg-dark text-white">
                 ChatCar IA ®<br>

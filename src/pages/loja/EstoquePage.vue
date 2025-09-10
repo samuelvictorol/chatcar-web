@@ -8,11 +8,11 @@
 
         <div class="row justify-between items-center q-mb-md">
             <div class="text-h5 text-bold text-dark">Estoque</div>
-            <q-btn color="teal" glossy label="Adicionar" @click="abrirModalAdicionar" icon-right="add_circle" />
+            <q-btn color="teal"  label="Adicionar" @click="abrirModalAdicionar" icon-right="add_circle" />
         </div>
 
-        <q-input outlined dense debounce="300" color="dark" v-model="buscar" @update:model-value="filtrarVeiculos()"
-            label="Buscar" class="q-mb-lg" clearable placeholder="Digite o nome do veículo">
+        <q-input filled dense debounce="300" color="teal" v-model="buscar" @update:model-value="filtrarVeiculos()"
+            label="Buscar" class="q-mb-lg bg-grey-1" clearable placeholder="Digite o nome do veículo">
             <template v-slot:append>
                 <q-icon name="search" class="cursor-pointer" color="dark" />
             </template>
@@ -35,9 +35,9 @@
                             <div class="text-body2 text-grey-8">R$ {{ item?.preco }}</div>
                         </q-card-section>
                         <q-card-actions align="right" class="bg-dark">
-                            <q-btn flat color="red-4" icon="delete" @click="confirmarRemocao(item)" />
-                            <q-btn color="orange" glossy icon="edit" @click="abrirModalEdicao(item)" />
-                            <q-btn color="teal-14" glossy icon="visibility" @click="abrirDetalhes(item)" />
+                            <q-btn flat color="grey-2" icon="delete" @click="confirmarRemocao(item)" />
+                            <q-btn color="grey-7"  icon="edit" @click="abrirModalEdicao(item)" />
+                            <q-btn color="teal"  icon="visibility" @click="abrirDetalhes(item)" />
                         </q-card-actions>
                     </q-card>
                 </q-row>
@@ -68,7 +68,7 @@
                         </q-carousel-slide>
                     </q-carousel>
                     <div class="text-body2 text-bold text-green q-mb-xs">R$ {{ veiculoSelecionado?.preco }}</div>
-                    <div class="text-body2 q-mb-xs"><strong class="text-bold text-purple" v-if="veiculoSelecionado.cor">{{ veiculoSelecionado?.cor.toUpperCase() }}</strong> <strong v-if="veiculoSelecionado.km" class="text-bold text-teal-14">{{ veiculoSelecionado?.km }}km</strong> <strong class="text-bold text-orange-14" v-if="veiculoSelecionado.combustivel">{{ veiculoSelecionado?.combustivel.value.toUpperCase() }}</strong> <strong v-if="veiculoSelecionado.cambio" class="text-bold text-blue">{{ veiculoSelecionado?.cambio.value.toUpperCase() }}</strong></div>
+                    <div class="text-body2 q-mb-xs"><strong class="text-bold text-purple" v-if="veiculoSelecionado.cor">{{ veiculoSelecionado?.cor.toUpperCase() }}</strong> <strong v-if="veiculoSelecionado.km" class="text-bold text-teal">{{ veiculoSelecionado?.km }}km</strong> <strong class="text-bold text-orange-14" v-if="veiculoSelecionado.combustivel">{{ veiculoSelecionado?.combustivel.value.toUpperCase() }}</strong> <strong v-if="veiculoSelecionado.cambio" class="text-bold text-blue">{{ veiculoSelecionado?.cambio.value.toUpperCase() }}</strong></div>
                     <q-separator class="q-my-sm" />
                     <div class="text-body2"><strong>Descrição:</strong> {{ veiculoSelecionado?.descricao }} - {{ veiculoSelecionado?.directContact}}</div>
                     <div class="q-pt-md text-body2 text-bold text-teal">{{ veiculoSelecionado?.tipo.label }} - {{
@@ -204,7 +204,7 @@
                         </q-input>
                         <q-btn flat dense icon="delete" color="negative" @click="removerMensagem(index)" />
                     </div>
-                    <q-btn glossy dense icon="image" v-if="formVeiculo.mensagens.length <= 3" icon-right="add"
+                    <q-btn dense icon="image" v-if="formVeiculo.mensagens.length <= 3" icon-right="add"
                         label="Adicionar imagem" color="primary" @click="adicionarMensagem" />
                 </q-card-section>
 
@@ -212,7 +212,11 @@
 
                 <q-card-actions align="right">
                     <q-btn flat label="Cancelar" v-close-popup />
-                    <q-btn color="teal" glossy label="Salvar" @click="salvarVeiculo" />
+                    <q-btn color="teal" glossy label="Salvar" @click="salvarVeiculo">
+                        <template>
+                            
+                        </template>
+                    </q-btn>
                 </q-card-actions>
             </q-card>
         </q-dialog>

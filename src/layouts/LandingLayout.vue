@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <!-- NAVBAR -->
-    <q-header elevated class="q-py-xs text-white header">
+    <q-header class="q-py-xs text-white header">
       <q-toolbar class="container row justify-between items-center">
         <q-toolbar-title class="text-h6 row items-center no-wrap">
           <q-avatar size="48px" class="q-mr-sm">
@@ -36,8 +36,8 @@
         <div>
           <q-btn v-if="!isMobile" color="teal" style="border-radius: 20px;" flat icon="rocket_launch"
             label="Começar Agora" class="q-ml-sm bg-white text-bold" :to="isUserLoggedIn ? '/me' : '/ia'" />
-          <q-btn v-if="isMobile" color="teal-14" glossy icon-right="rocket_launch" :to="isUserLoggedIn ? '/me' : '/ia'"
-            class="q-ml-sm">
+          <q-btn v-if="isMobile" color="white" glossy icon-right="rocket_launch" :to="isUserLoggedIn ? '/me' : '/ia'"
+            class="q-ml-sm text-teal">
             <q-tooltip>
               Começar Agora
             </q-tooltip>
@@ -51,13 +51,13 @@
       <div class="hero-background"></div>
       <div class="q-px-md">
         <div
-          class=" text-center q-mx-auto animate__animated animate__fadeIn animate__slower animate__delay-3s">
+          class=" text-center q-mx-auto animate__animated animate__fadeIn animate__slower animate__delay-5s">
           <div class="dm-font" style="font-size: 2rem">Automatize o atendimento ao cliente e feche mais negócios com
             <strong>ChatCar</strong>.
           </div>
           <div class="w100 row no-wrap q-pt-lg">
             <q-btn class="w50 q-pa-lg q-mr-md" label="Entrar" icon-right="login" :to="isUserLoggedIn ? '/me' : '/login'"></q-btn>
-            <q-btn class="w50 q-pa-lg" label="Sobre" color="teal-14" icon-right="contact_support" to="/ia" ></q-btn>
+            <q-btn class="w50 q-pa-lg" label="Sobre" color="teal" glossy icon-right="contact_support" to="/ia" ></q-btn>
           </div>
         </div>
       </div>
@@ -157,10 +157,6 @@ onBeforeMount(() => {
 <style scoped>
 .bg-grad-direct {}
 
-.header {
-  background-color: #1ed2dc96;
-  backdrop-filter: blur(10px);
-}
 
 .hero-container {
   position: relative;
@@ -181,7 +177,8 @@ onBeforeMount(() => {
   background-size: cover;
   filter: blur(0px);
   /* começa sem blur */
-  animation: blurFadeIn 3s ease forwards;
+  animation: blurFadeIn 2s ease forwards;
+  animation-delay: 2s;
   /* só começa depois de 3 segundos */
   background-position: center;
   z-index: 0;
@@ -199,7 +196,7 @@ onBeforeMount(() => {
   }
 
   to {
-    filter: blur(80px);
+    filter: blur(98px);
   }
 }
 

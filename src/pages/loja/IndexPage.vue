@@ -176,7 +176,7 @@ function exportarPagamentosPDF() {
 
 
     <template>
-        <q-page class="q-pa-md column items-stretch full-height">
+        <q-page class="q-pa-md bg-grey-4 column items-stretch full-height">
 
             <!-- Breadcrumb -->
             <q-breadcrumbs class="text-grey-8 rounded-borders q-mb-md" separator-icon="chevron_right">
@@ -184,17 +184,17 @@ function exportarPagamentosPDF() {
             </q-breadcrumbs>
 
             <!-- Botões -->
-            <strong class="text-teal">{{ editando ? 'Editando Perfil' : userRole }}</strong><br />
+            <strong class="text-teal">{{ editando ? '' : userRole }}</strong><br />
             <div class="row q-gutter-sm q-mb-md" style="position: relative">
-                <q-btn color="blue" icon="sms" icon-right="directions_car" label="Meu ChatVitrine" v-if="!editando"
+                <q-btn color="teal" icon="sms" label="Meu ChatVitrine" v-if="!editando"
                     :to="'/' + lojaInfo.login" />
-                <q-btn color="teal-14" icon="currency_exchange" label="Renovar" glossy to="/me/planos" v-if="!editando" />
-                <q-btn v-if="!editando" color="orange-14" glossy icon="edit" label="Editar Perfil"
+                <q-btn color="teal" icon="currency_exchange" label="Renovar" to="/me/planos" v-if="!editando" />
+                <q-btn v-if="!editando" color="grey-7"  icon="edit" label="Editar Perfil"
                     @click="editando = true" />
                 <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" class="q-py-lg"
                     style="position: fixed; bottom:0px;left:-8px;z-index: 999; width: 100vw" />
-                <q-btn v-if="editando" color="orange-14" glossy icon="cancel" label="Cancelar" @click="editando = false"
-                    style="position: fixed; top:42px;left:-8px;z-index: 999; width: 100vw" />
+                <q-btn v-if="editando" color="grey-7" icon="cancel" label="Cancelar" @click="editando = false"
+                    style="position: fixed; top:42px;left:-8px;z-index: 999; width: 100vw; border-radius: 0px;" />
             </div>
 
             <!-- Cards -->
@@ -218,8 +218,8 @@ function exportarPagamentosPDF() {
                                 class="rounded-borders shadow-1" />
                         </div>
                         <div v-if="editando" class="w100 q-py-md text-center">
-                            Para receber leads automatizados direto no WhatsApp, é necessário preencher o campo de
-                            contato.<br>
+                            Os seus dados <strong>não sensíveis</strong> serão utilizados pela I.A durante a interação com seu cliente.<br>Preencha os campos abaixo com informações atualizadas:
+                            <br>
                         </div>
                         <q-separator v-if="!editando" class="q-my-sm" />
                         
@@ -227,7 +227,7 @@ function exportarPagamentosPDF() {
                             <strong class="text-teal">{{ !editando ? 'Meu Link: ' : 'Login: ' }} </strong><br>
                             <template v-if="!editando">{{ 'chatcar.me/' + lojaInfo.login }}</template>
                             <template v-if="!editando"><q-btn @click="compartilharChatUrl" dense
-                                    icon-right="share" class="q-ml-sm q-my-sm" color="blue"></q-btn></template>
+                                    icon-right="share" class="q-ml-sm q-my-sm" color="teal"></q-btn></template>
                             <q-input color="teal" v-else placeholder="chatcar.me/seulogin" v-model="lojaInfo.login" dense>
                                 <template v-slot:prepend>
                                     <q-icon name="account_circle" color="teal" />

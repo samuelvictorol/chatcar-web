@@ -1,21 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Rowdies:wght@300;400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Rowdies:wght@300;400;700&display=swap');
+
 /* Cor de fundo do scrollbar */
 ::-webkit-scrollbar {
-  width: 12px; /* Largura do scrollbar */
-  height: 8px; /* Altura do scrollbar (scroll horizontal) */
+  width: 12px;
+  /* Largura do scrollbar */
+  height: 8px;
+  /* Altura do scrollbar (scroll horizontal) */
 }
 
 /* Cor da "trilha" do scrollbar */
 ::-webkit-scrollbar-track {
-  background: #4b4b4b; /* Cor de fundo da trilha */
-  border-radius: 10px; /* Cantos arredondados */
+  background: #4b4b4b;
+  /* Cor de fundo da trilha */
+  border-radius: 10px;
+  /* Cantos arredondados */
 }
 
 /* Cor do "polegar" do scrollbar (a parte que se move) */
 ::-webkit-scrollbar-thumb {
-  background: #008e76; /* Cor do polegar */
-  border-radius: 10px; /* Cantos arredondados */
+  background: #008e76;
+  /* Cor do polegar */
+  border-radius: 10px;
+  /* Cantos arredondados */
 }
 
 /* Cor do polegar ao passar o mouse */
@@ -23,6 +30,7 @@
   background: #008e76;
   cursor: grab;
 }
+
 .font-orbitron {
   font-family: 'Orbitron', sans-serif;
   letter-spacing: 1px;
@@ -30,38 +38,50 @@
 }
 
 
-*{
-    font-family: 'Montserrat', sans-serif;
+* {
+  font-family: 'Montserrat', sans-serif;
 }
+
 // app global css in SCSS form
 .w100 {
-    width: 100%;
+  width: 100%;
 }
 
 .w50 {
-    width: 50%;
+  width: 50%;
 }
 
 .w60 {
-    width: 60%;
+  width: 60%;
 }
 
-.dm-font{
-    font-family: "DM Sans", sans-serif;
+.dm-font {
+  font-family: "DM Sans", sans-serif;
 }
 
-.q-dialog__backdrop{
-    animation: fadeIn;
-    animation-duration: 1s;
-    background-color: rgba(0, 0, 0, 0.687);
-    backdrop-filter: blur(8px);
+.q-dialog__backdrop {
+  animation: fadeIn;
+  animation-duration: 1s;
+  background-color: rgba(0, 0, 0, 0.687);
+  backdrop-filter: blur(8px);
 }
 
 .q-page {
-    animation: fadeIn;
-    animation-duration: 1s;
+  animation: fadeIn;
+  animation-duration: 1s;
 }
 
 .q-item.q-router-link--active {
-    color: #26A69A;
+  color: #26A69A;
+}
+
+.header {
+  background:#05393B;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #05393B, #10A29C);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #05393bcc, #10a29dd7);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  backdrop-filter: blur(8px);
 }
