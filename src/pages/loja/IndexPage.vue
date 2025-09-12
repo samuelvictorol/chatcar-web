@@ -191,7 +191,7 @@ function exportarPagamentosPDF() {
                 <q-btn color="teal" icon="currency_exchange" label="Renovar" to="/me/planos" v-if="!editando" />
                 <q-btn v-if="!editando" color="grey-7"  icon="edit" label="Editar Perfil"
                     @click="editando = true" />
-                <q-btn v-else color="green" glossy icon="save" label="Salvar Alterações" @click="editarLoja" class="q-py-lg"
+                <q-btn v-else color="teal" glossy icon="save" label="Salvar Alterações" @click="editarLoja" class="q-py-lg"
                     style="position: fixed; bottom:0px;left:-8px;z-index: 999; width: 100vw" />
                 <q-btn v-if="editando" color="grey-7" icon="cancel" label="Cancelar" @click="editando = false"
                     style="position: fixed; top:42px;left:-8px;z-index: 999; width: 100vw; border-radius: 0px;" />

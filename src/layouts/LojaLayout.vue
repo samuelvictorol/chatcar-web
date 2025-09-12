@@ -5,7 +5,7 @@
             <q-toolbar>
                 <q-toolbar-title class="text-h6 row items-center no-wrap">
                     <q-avatar size="38px" class="cursor-pointer text-black animate__animated animate__zoomIn animate__slower animate__delay-1s">
-                        <img src="/logo.jpeg" alt="Logo" @click="router.push('/ia')"/>
+                        <img :src="user.img_url ? user.img_url : '/logo.jpeg'" alt="Logo" @click="router.push('/')"/>
                     </q-avatar>
                 </q-toolbar-title>
                 <div class="row no-wrap items-center">
