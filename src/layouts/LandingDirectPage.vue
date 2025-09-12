@@ -18,7 +18,7 @@
                     </q-tooltip>
                 </q-btn>
                 <q-btn v-if="!isMobile" label="Como Funciona?" color="teal" icon-right="contact_support"
-                    class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-1s" dense
+                    class="q-ml-sm q-px-sm animate__animated animate__fadeInUp animate__slower animate__delay-1s " dense
                     @click="scrollToRegistrar()">
                     <q-tooltip anchor="center left" self="center right" :offset="[10, 10]">
                         <strong>Como Funciona?</strong>
@@ -92,48 +92,46 @@
             </section>
             <div class="q-mb-xl" id="preco">
                 <div class="row justify-center">
-                    <section class="q-pb-xl q-pt-md text-center bg-grey-3 rounded-borders ">
+                    <section class="q-pb-xl q-pt-md text-center bg-grey-4 rounded-borders ">
                         <div class="row q-col-gutter-md justify-center">
                             <div class="w50" id="card-plano">
                                 <!-- <q-card class="q-pa-xs shadow-4 bg-grey-1"
                                     style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5"> -->
                                     <q-card-section>
                                         <p style="font-size: 1.4em;"
-                                        class="text-grey-3 text-center bg-teal text-shadow rounded-borders q-px-sm q-py-md q-mt-md">
-                                        A <strong>ChatCar</strong> é uma ferramenta utilizada como <strong>vitrine digital inteligente</strong> pro setor de <strong>vendas automotivas</strong>, que
-                                        <strong>atende, aquece</strong> e <strong>qualifica</strong> os clientes 24 horas. <br>A plataforma gera
-                                        <strong>resumo, sugestão de abordagem</strong> e <strong>rastreio de leads</strong> com base na <strong>interação com seu chat vitrine</strong>.
+                                        class="text-grey-3 text-left bg-teal text-shadow rounded-borders q-px-sm q-py-md q-mt-md">
+                                        💡 A <strong>ChatCar</strong> é sua <strong>vitrine digital inteligente</strong> pro setor de <strong>vendas automotivas</strong>, que
+                                        <strong>atende, aquece</strong> e <strong>qualifica</strong> os clientes 24 horas.<br>📚 A I.A também gera
+                                        <strong>sugestão de abordagem</strong>, <strong>resumo</strong> e <strong>rastreio de leads</strong> com base na <strong>interação</strong> com <strong>seu estoque</strong>.
                                     </p>
-                                    <div class="w100 q-pt-xs bg-teal rounded-borders q-my-xl"></div>
-                                    <div class="w100 text-teal text-shadow text-bold" style="font-size: 3rem;"> Vantagens</div>
-                                        <ul class="text-left column q-gutter-y-sm q-py-lg" style="font-size: 1.1em;">
-                                            <li>⚡️ <strong>Atendimento 24h com I.A.</strong> — somos seu vendedor
+                                    <div class="w100 text-white rounded-borders header text-bold" style="font-size: 3rem;">Vantagens</div>
+                                        <div class="q-px-sm text-left column q-gutter-y-sm q-py-lg" style="font-size: 1.1em;list-style-type: none;">
+                                            <li  class="bg-grey-2 q-pa-sm rounded-borders shadow-1">⚡️ <strong>Atendimento 24h com I.A.</strong> — somos seu vendedor
                                                 automotivo que atende seus clientes até quando você vai dormir</li>
                                             <li>📲 <strong>Sem instalação, acesse de qualquer lugar!</strong> — Basta acessar ou compartilhar seu link da ChatCar IA de qualquer navegador.
                                             </li>
-                                            <li>👀 <strong>Chega de Curiosos:</strong> Qualificação de visitantes
+                                            <li class="bg-grey-2 q-pa-sm rounded-borders shadow-1">👀 <strong>Chega de Curiosos:</strong> Qualificação de visitantes
                                                 com
                                                 redirecionamento pro WhatsApp.</li>
-                                            <li>🚀 <strong>ChatCar IA</strong> recomenda veículos com base no
+                                            <li >🚀 <strong>ChatCar IA</strong> recomenda veículos com base no
                                                 perfil, tira dúvidas técnicas.</li>
-                                            <li>🔗 <strong>Funil de captação otimizado</strong> para anúncios com
+                                            <li class="bg-grey-2 q-pa-sm rounded-borders shadow-1">🔗 <strong>Funil de captação otimizado</strong> para anúncios com
                                                 tráfego pago integrado com <strong> CRM da ChatCar</strong>.
                                             </li>
-                                            <li>📢 <strong>Rastreabilidade dos leads</strong> - veja se o cliente veio
+                                            <li >📢 <strong>Rastreabilidade dos leads</strong> - veja se o cliente veio
                                                 do
                                                 instagram, facebook, tiktok etc.</li>
-                                            <li>📈 <strong>Estoque publicado como site interativo</strong>, pronto
+                                            <li class="bg-grey-2 q-pa-sm rounded-borders shadow-1">📈 <strong>Estoque publicado como site interativo</strong>, pronto
                                                 para
                                                 conversão.</li>
-                                            <li>📝 <strong>Relatórios e abordagens personalizadas</strong> para
+                                            <li >📝 <strong>Relatórios e abordagens personalizadas</strong> para
                                                 fechamento de
                                                 vendas.</li>
-                                        </ul>
-                                        <div class="w100 q-pt-xs bg-teal rounded-borders q-my-xl"></div>
-                                        <div class="text-subtitle2 q-mt-sm" style="text-decoration: line-through;">
-                                            ⌛ De R$ 99,90
+                                        </div>
+                                        <div class=" q-mt-sm" style="font-size: 1rem;text-decoration: line-through;">
+                                            ⌛ De <strong class="text-teal-7">R$ 99,90</strong>
                                             por</div>
-                                        <div style="font-size:5rem" class="text-shadow q-mb-md q-px-sm q-mt-sm text-teal  text-bold">
+                                        <div style="text-decoration: underline;font-size:4.4rem" class="text-shadow q-mb-md q-px-sm q-mt-sm text-teal text-bold">
                                             R$49,90
                                         </div>
                                     </q-card-section>
@@ -146,33 +144,33 @@
                         </div>
                     </section>
                 </div>
-                <div class="w100 header row justify-center no-wrap">
+                <div class="w100 header rounded-borders row justify-center no-wrap">
                     <div
-                        class="text-h4 q-my-lg text-bold rounded-borders  text-right row no-wrap justify-between text-white ">
+                        class="text-h4 q-my-lg  text-bold rounded-borders  text-right row no-wrap justify-between text-white ">
                         Como Funciona </div>
                 </div>
-                <div class="q-mb-lg bg-grey-3 rounded-borders">
-                    <div class="video-container rounded-borders" style="border-bottom:4px solid #00BFA5;">
+                <div class=" q-py-lg header">
+                    <div class="video-container rounded-borders" >
                         <iframe width="100%" src="https://www.youtube.com/embed/y2Qka6CeEVg" frameborder="0"
                             allowfullscreen></iframe>
                     </div>
                 </div>
-                <section style="border-bottom:4px solid #00BFA5;border-top:4px solid #00BFA5;"
-                    class="bg-grey-1 q-py-lg container text-center q-mt-md q-px-md rounded-borders">
+                <section
+                    class="bg-teal q-py-lg container text-center  q-px-md rounded-borders">
                     <div class="row q-col-gutter-md">
                         <div class="col-12 col-md-4">
-                            <q-icon name="storefront" size="64px" color="teal" />
-                            <h3 class="text-subtitle1 q-mt-sm text-teal text-bold">1. Cadastre seu Estoque</h3>
-                            <p style="font-size: 1rem;">
+                            <q-icon name="storefront" size="64px" color="white" />
+                            <h3 class="text-subtitle1 q-mt-sm text-white text-bold">1. Cadastre seu Estoque</h3>
+                            <p style="font-size: 1rem;" class="text-white text-shadow">
                                 <strong>Cadastre-se</strong> e adicione seu estoque, a I.A utiliza os dados informados para  <strong>interagir com seu cliente</strong>
                                 (<em>chatcar.me/sualoja</em>). Depois disso basta <strong>compartilhar</strong> o link com seus clientes!
                             </p>
                         </div>
 
                         <div class="col-12 col-md-4">
-                            <q-icon name="smart_toy" size="64px" color="teal" />
-                            <h3 class="text-subtitle1 q-mt-sm text-bold text-teal">2. Estoque com I.A. 24h</h3>
-                            <p style="font-size: 1rem;">
+                            <q-icon name="smart_toy" size="64px" color="white" />
+                            <h3 class="text-subtitle1 q-mt-sm text-bold text-white">2. Estoque com I.A. 24h</h3>
+                            <p style="font-size: 1rem;" class="text-white text-shadow">
                                 A I.A. conversa <strong>24h</strong>, mostra os veículos e tira dúvidas técnicas em <strong>tempo
                                     real</strong> e
                                 só envia para o <strong>WhatsApp</strong> quem realmente quer negociar.
@@ -180,10 +178,10 @@
                         </div>
 
                         <div class="col-12 col-md-4">
-                            <q-icon name="list_alt" size="64px" color="teal" />
-                            <h3 class="text-subtitle1 q-mt-sm text-bold text-teal">3. Receba Leads e Abordagem Pronta
+                            <q-icon name="list_alt" size="64px" color="white" />
+                            <h3 class="text-subtitle1 q-mt-sm text-bold text-white">3. Receba Leads e Abordagem Pronta
                             </h3>
-                            <p style="font-size: 1rem;">
+                            <p style="font-size: 1rem;" class="text-white text-shadow"> 
                                 Receba <strong>relatórios com resumo do cliente</strong> e uma
                                 <strong>abordagem personalizada</strong> para iniciar uma conversa mais chance de fechar. Ahh! E tem toda a <strong>rastreabilidade dos leads</strong> (Instagram, Facebook, TikTok etc.).
                             </p>
@@ -191,7 +189,21 @@
 
                     </div>
                 </section>
-                <section id="chatEstoqueTeste" class="q-py-xl bg-grey-3 text-center text-dark">
+                <section class="q-py-xl q-mt-xl header text-white rounded-borders"
+                   id="chatEstoque">
+                    <div class="container text-center">
+                        <h2 class="text-h5 text-bold q-mb-md">Veja como funciona na prática</h2>
+                        <p class="text-subtitle2 q-px-sm q-mb-md">
+                            A I.A. da ChatCar conversa com seus clientes, recomenda veículos, tira dúvidas técnicas e
+                            qualifica os leads 24h por dia.
+                        </p>
+                        <div class="video-container rounded-borders" style="border-bottom:4px solid #00BFA5;">
+                            <iframe width="100%" src="https://www.youtube.com/embed/8eH3jv1Y7mA" frameborder="0"
+                                allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </section>
+                <section class="q-py-xl header text-center text-white ">
                     <div class="q-mx-auto" style="max-width: 700px">
                         <h2 class="text-h6 text-bold q-mb-md q-px-xs">🔍 Teste ao Vivo com Estoque de Demonstração</h2>
                         <p class="text-subtitle2 q-px-sm q-mb-md">
@@ -203,16 +215,8 @@
                             class="q-mx-md" size="lg" />
                     </div>
                 </section>
-            <p style="font-size: 1rem;"
-                class="text text-teal-1 w100 q-pa-md text-shadow text-center header q-pa-sm rounded-borders">
-                🚀 Seja você <strong>vendedor</strong>, <strong>profissional de marketing</strong> ou <strong>dono de
-                    concessionária</strong>: transforme a <strong>curiosidade em conversa</strong> — e conversa em
-                <strong>venda</strong>.<br><br>
-                A I.A. da ChatCar atende, qualifica e converte <strong>24h por dia</strong>, até quando você está
-                offline.
-            </p>
-                <div class="q-pt-sm ">
-                    <div class="text-h4 text-center text-teal  text-bold q-py-md q-mb-md">Depoimentos e Feedback</div>
+                <div class="rounded-borders">
+                    <div class="text-h4 rounded-borders text-center text-white header q-mt-xl text-bold q-py-md ">Depoimentos e Feedback</div>
                     <q-carousel v-model="slideAtivoDetalhes" v-if="depoimentos.length > 0" swipeable animated
                         style="border-bottom:4px solid #00BFA5;" class="rounded-borders q-mb-sm header" navigation
                         arrows infinite autoplay interval="2000">
@@ -269,21 +273,21 @@
                         href="https://samuelvictorol.github.io/portfolio/" icon="open_in_new" color="teal-14" flat />
                 </div>
             </section>
-            <div class="w100 q-px-md text-teal-2 header q-py-md rounded-borders q-mt-lg q-mb-lg"
+            <!-- <div class="w100 q-px-md text-teal-2 header q-py-md rounded-borders q-mt-lg q-mb-lg"
                 style="border-bottom:4px solid #00BFA5;">
                 <div class="w100 text-grey-3 q-mb-md text-center"><strong>✨ Preencha o campo acima com seu email
                         e clique em "Finalizar Cadastro e Pagar" para ser redirecionado ao ambiente seguro de
                         pagamento.</strong></div>
                 📩 As instruções de como acessar e utilizar a plataforma serão enviadas para o seu e-mail
-            </div>
+            </div> -->
             <q-footer class="bg-dark text-grey-4 text-center q-pa-sm">
                 chatcar.me - <a href="https://samuelvictorol.github.io/portfolio/" class="text-teal-14"
                     target="_blank">59.905.708/0001-34</a>
             </q-footer>
             <div class="w100 q-py-xl"></div>
-            <q-btn style="position:fixed;left:0px; bottom:0px;z-index: 9999!important" v-if="isFormValid()"
+            <q-btn style="position:fixed;left:0px; bottom:0px;z-index: 9999!important" v-if="isFormValid()" glossy
                 :label="isFormValid() ? 'Finalizar Cadastro e Pagar' : 'Informe seu email para continuar'"
-                @click="openPagarMeLinkUrl()" type="submit" :color="isFormValid() ? 'green' : 'blue-14'"
+                @click="openPagarMeLinkUrl()" type="submit" :color="isFormValid() ? 'teal' : 'blue-14'"
                 :icon-right="isFormValid() ? 'shopping_cart_checkout' : 'east'"
                 class="w100 q-py-xl animate__animated animate__fadeInUp animate__slower" />
             <q-dialog v-model="dialog" class="animate__animated animate__fadeIn animate__slower" persistent
