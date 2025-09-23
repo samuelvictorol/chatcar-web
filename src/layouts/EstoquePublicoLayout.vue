@@ -1,17 +1,37 @@
 <template>
-    <q-layout view="hhh lpR fFf">
+    <q-layout view="hHh lpR fFf">
+        <q-header v-if="!loading" elevated class="bg-dark text-white">
+            <q-toolbar>
+                <q-toolbar-title class="row no-wrap w100 items-center">
+                    <!-- <q-avatar>
+                        <q-icon name="sms" size="lg" to="/" />
+                    </q-avatar> -->
+                    <div v-if="!loading" class="q-pl-sm animate__animated animate__fadeInLeft animate__slower">
+                        <q-avatar size="40px" class="q-mr-sm">
+                            <img :src="sobreLoja.img_url ? sobreLoja.img_url : '/logo.jpeg'" alt="Logo" @click="openInfoLoja()" />
+                        </q-avatar>
+                    </div>
+                </q-toolbar-title>
+                <q-btn class="q-mr-sm" color="grey-2" @click="confirmExit()" flat icon="logout" />
+                <!-- <q-btn class="q-mr-sm" glossy color="blue-14" icon="psychology" @click="showDialog = !showDialog" /> -->
+                <q-btn color="teal" glossy class="animate__animated animate__fadeInRight animate__slower"
+                    label="estoque" v-if="estoqueBtn" icon="store" @click="toggleEstoqueDrawer" />
+            </q-toolbar>
+        </q-header>
+
+        <!-- Menu lateral com estoque completo -->
         <q-drawer v-model="showEstoqueDrawer" side="right" bordered>
-            <q-toolbar class="header text-white">
+            <q-toolbar class="bg-dark text-white">
                 <q-toolbar-title>Estoque</q-toolbar-title>
                 <q-btn flat round icon="close" @click="showEstoqueDrawer = false" />
             </q-toolbar>
-            <div class="header w100 column q-pb-md items-center justify-between q-px-md">
-                <div class="text-h6 text-white q-pt-sm ">{{ sobreLoja?.nome }}</div>
-                <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="contato"
-                        icon-right="contact_support" color="" @click="openInfoLoja()" style="border:2px solid white"
-                        dense flat></q-btn></div>
+                                <div class="bg-dark w100 column q-pb-md items-center justify-between q-px-md">
+                        <div class="text-h6 text-white q-pt-sm ">{{ sobreLoja.nome }}</div>
+                        <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="contato"
+                                icon-right="contact_support" color="" @click="openInfoLoja()"
+                                style="border:2px solid white" dense flat></q-btn></div>
 
-            </div>
+                    </div>
             <q-input v-model="filtroEstoque" color="secondary" @update:model-value="filtrarMenuEstoque()" outlined
                 label="Filtrar estoque..." dense debounce="300" class="q-pa-sm relative">
                 <template v-slot:append>
@@ -25,8 +45,8 @@
                     <q-item-section style="border-bottom: 1px solid #26A69A ;" class="q-pb-sm">
                         <div class="row w100 no-wrap items-center">
                             <div class="column text-bold">
-                                <q-item-label>{{ carro?.modelo }} - {{ carro?.ano }}</q-item-label>
-                                <q-item-label caption>{{ carro.categoria?.label }}</q-item-label>
+                                <q-item-label>{{ carro.modelo }} - {{ carro.ano }}</q-item-label>
+                                <q-item-label caption>{{ carro.categoria.label }}</q-item-label>
                             </div>
                             <q-btn icon="visibility" color="secondary" glossy dense class="q-ml-md"
                                 @click="() => selecionarCarro(carro)" />
@@ -42,13 +62,14 @@
         </q-drawer>
 
         <!-- Página principal do chat -->
-        <q-page-container class="header-2" v-if="!loading">
+        <q-page-container class="bg-dark" v-if="!loading">
             <q-page class="q-pa-none bg-grey-4 column full-height relative">
                 <!-- Vitrine fixa -->
-                <div class="header-2 sticky-top" style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
+                <div class="bg-dark sticky-top"
+                    style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
                     <div style="border-radius: 12px">
                         <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length"
-                            v-model="carrosselIndex" height="360px" class="header-2 sticky text-white" autoplay
+                            v-model="carrosselIndex" height="300px" class="bg-dark sticky text-white q-pb-sm" autoplay
                             swipeable interval="9000">
                             <template v-slot:control>
                                 <div class="absolute-left q-pa-xs" style="top:45%">
@@ -78,10 +99,7 @@
                                                 carro.ano }}</div>
                                     </div>
                                 </q-img>
-                                <q-btn icon-right="store" color="white" dense
-                                    class="text-teal q-mx-md q-mt-md absolute-top" label="estoque"
-                                    @click="toggleEstoqueDrawer()" style="width: 40%;z-index: 99999999999!important;" />
-                                <q-btn icon-right="search" color="teal-14" glossy dense class="q-mx-md q-mt-md absolute-top-right"
+                                <q-btn icon-right="search" color="blue" dense class="q-mx-md q-mt-md absolute-top"
                                     label="Detalhes" @click="abrirDialog(carro)"
                                     style="width: 40%;z-index: 99999999999!important;" />
                             </q-carousel-slide>
@@ -158,14 +176,13 @@
                                                 @click="abrirZoom(img)" />
                                         </q-carousel-slide>
                                     </q-carousel>
-                                    <div v-if="carroSelecionado.preco" class="text-body2 text-bold text-teal"
-                                        style="font-size: 1.2rem;">
-                                        R$ {{ carroSelecionado?.preco }}
-                                    </div>
+                                <div v-if="carroSelecionado.preco" class="text-body2 text-bold text-teal"
+                                    style="font-size: 1.2rem;">
+                                    R$ {{ carroSelecionado?.preco }}
+                                </div>
                                     <div class="text-caption q-mb-sm">
                                         <strong class="text-orange-14">{{ carroSelecionado?.ano }}</strong> -
-                                        <strong class="text-red-14">{{ carroSelecionado.categoria?.label.toUpperCase()
-                                        }}</strong>
+                                        <strong class="text-red-14">{{ carroSelecionado.categoria?.label.toUpperCase() }}</strong>
                                         -
                                         <strong class="text-dark">{{ carroSelecionado?.cor.toUpperCase() }}</strong> -
                                         <strong class="text-blue-14">{{ carroSelecionado?.km }} km</strong>
@@ -183,8 +200,8 @@
                             <q-card-actions align="right" class="q-pa-sm bg-grey-2 row no-wrap"
                                 style="position: sticky; bottom: 0; z-index: 1;">
                                 <q-btn label="voltar" @click="dialogAberto = !dialogAberto" flat></q-btn>
-                                <q-btn label="Contato" icon-right="sms" @click="sendWppMessage(carroSelecionado.modelo)"
-                                    color="teal" />
+                                <q-btn label="Contato" glossy icon-right="sms"
+                                    @click="sendWppMessage(carroSelecionado.modelo)" color="teal-14" v-close-popup />
                             </q-card-actions>
                         </q-card>
                     </q-dialog>
@@ -194,15 +211,15 @@
                 <q-dialog v-model="dialogZoom" persistent>
                     <div style="height:100vh" class="column w100 relative">
                         <q-img :src="zoomImagemUrl" fit="contain" class="rounded-borders"
-                            style="height: 100%; width: 100%; border-bottom: 2px solid teal" />
+                            style="max-height: 100vh; max-width: 100%; object-fit: contain; border-bottom: 4px solid teal" />
 
                         <!-- Botão para voltar -->
-                        <q-btn icon="chevron_left" dense @click="imagemAnteriorZoom"
-                            class="text-teal-14 absolute-left" style="top: 0%; background: rgba(0,0,0,0.4);" />
+                        <q-btn icon="chevron_left" color="teal" glossy dense @click="imagemAnteriorZoom"
+                            class="absolute-left" style="top: 60%; background: rgba(0,0,0,0.4);" />
 
                         <!-- Botão para avançar -->
-                        <q-btn icon="chevron_right" dense @click="proximaImagemZoom"
-                            class="text-teal-14 absolute-right" style="top: 0%; background: rgba(0,0,0,0.4);" />
+                        <q-btn icon="chevron_right" color="teal" glossy dense @click="proximaImagemZoom"
+                            class="absolute-right" style="top: 60%; background: rgba(0,0,0,0.4);" />
 
                         <q-btn label="Fechar" color="teal" flat @click="fecharZoom"
                             class="absolute-bottom q-mx-sm q-mb-md" />
@@ -213,30 +230,21 @@
                 <!-- Container de mensagens -->
                 <div class="col column no-wrap" style="overflow: hidden;">
                     <div ref="mensagensContainer" class="col scroll q-pa-md q-gutter-sm" style="overflow-y: auto;">
-                        <q-chat-message v-for="(msg, index) in messages" :key="index" :sent="msg.from === 'user'"
-                            class="animate__animated animate__zoomIn" :text="[msg.text]"
+                        <q-chat-message style="font-size:.9rem" v-for="(msg, index) in messages" :key="index"
+                            :sent="msg.from === 'user'" class="animate__animated animate__zoomIn" :text="[msg.text]"
                             :name="msg.from === 'user' ? 'Você' : sobreLoja.login"
-                            :bg-color="msg.from === 'user' ? 'green-11' : 'grey-3'" style="font-size:.9rem">
-                            <!-- Só mostra avatar se NÃO for o usuário -->
-                            <template v-if="msg.from !== 'user'" v-slot:avatar>
-                                <q-avatar size="40px" class="q-mr-sm">
-                                    <img :src="sobreLoja.img_url ? sobreLoja.img_url : '/logo.jpeg'" alt="Logo"
-                                        @click="openInfoLoja()" />
-                                </q-avatar>
-                            </template>
-                        </q-chat-message>
+                            :bg-color="msg.from === 'user' ? 'green-11' : 'grey-3'" />
                     </div>
-
                 </div>
                 <div class="w100" style="height:10px"></div>
                 <!-- Input fixo no final -->
-                <div class="q-pa-sm header-2 row items-center"
+                <div class="q-pa-md bg-dark row items-center"
                     style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
-                    <q-input filled v-model="input" label="Digite sua mensagem" maxlength="100" color="grey-8"
-                        class="bg-grey-4 rounded-borders col" @keyup.enter="sendMessage" />
+                    <q-input filled v-model="input" label="Digite sua mensagem" maxlength="100" color="black"
+                        class="bg-grey-3 rounded-borders col" @keyup.enter="sendMessage" />
                     <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
                         @click="iaDialogVisible = true" /> -->
-                    <q-btn v-if="!loadingIA" icon="send" color="teal-14" glossy class="q-ml-sm shadow-2"
+                    <q-btn v-if="!loadingIA" icon="send" color="teal-14" class="q-ml-sm shadow-2"
                         @click="sendMessage" />
                     <q-spinner-comment v-else color="teal" class="q-pl-sm" size="2em" />
                 </div>
@@ -259,6 +267,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { api } from 'src/boot/axios';
 
 const showDialog = ref(false)
+const 
 const router = useRouter()
 const estoqueBtn = ref(false)
 const sobreLoja = ref(null)
@@ -342,7 +351,37 @@ function fecharDetalhes() {
     dialogAberto.value = false
     slideAtivoDetalhes.value = 0
 }
+async function gerarLead() {
+    // Detectar a origem do tráfego
+    const ref = document.referrer;
+    let origem = '';
 
+    if (ref.includes("instagram.com")) origem = "Instagram";
+    else if (ref.includes("facebook.com")) origem = "Facebook";
+    else if (ref.includes("google.com")) origem = "Google";
+    else if (ref.includes("whatsapp.com")) origem = "WhatsApp";
+    else if (ref.includes("youtube.com")) origem = "YouTube";
+    else if (ref.includes("t.me") || ref.includes("telegram.org")) origem = "Telegram";
+    else if (ref.includes("linkedin.com")) origem = "LinkedIn";
+    else if (ref.includes("tiktok.com")) origem = "TikTok";
+    else if (ref === "") origem = "ChatCar";
+    else origem = "ChatCar";
+
+    await api.post('/gerar-lead', {
+        login_loja: route.params.login,
+        cliente: usuario.value,
+        respostasCliente: [],
+        origem: origem // 👈 envia origem pro backend
+    }).then(response => {
+        leadId.value = response.data.leadId;
+        $q.notify({
+            color: 'teal',
+            position: 'top',
+            icon: 'directions_car',
+            message: 'Seja bem-vindo(a)!'
+        });
+    });
+}
 
 const imagensVeiculoSelecionado = computed(() => {
     if (!carroSelecionado.value) return []
@@ -428,7 +467,7 @@ function abrirDialog(carro) {
 
 function sendWppMessage(modelo) {
     // Extrai apenas os números do telefone
-    const numero = carroSelecionado.value.directLink ? carroSelecionado.value.directLink : sobreLoja.value.contato
+    const numero = carroSelecionado.value.directLink ? carroSelecionado.value.directLink :  sobreLoja.value.contato
     const numeroFormatado = numero.replace(/\D/g, '');
     const text = `Olá! Meu nome é ${usuario.value.nome}!. Vi pela ChatCar IA que você tem esse veículo disponível:  ${modelo}. Poderia me passar mais informações?`;
     const mensagem = encodeURIComponent(text);
@@ -447,7 +486,7 @@ function selecionarCarro(carro) {
     carrosselIndex.value = 0
     messages.value.push({
         from: 'bot',
-        text: 'Aqui está: ' + carro.modelo + (carro.preco ? ' - R$ ' + carro.preco : '.')
+        text: '🚗 Aqui está ' + carro.modelo + ', para mais informações clique 🔍Ver Detalhes. Ou me pergunte o que quiser sobre este veículo 😃.'
     })
     playNotification()
     nextTick(() => {
@@ -455,91 +494,166 @@ function selecionarCarro(carro) {
     })
 
     showEstoqueDrawer.value = false
-    selecionarCarro(carro)
 }
 
 const estoque = ref([])
-const origem = ref('')
+
 onBeforeMount(async () => {
-    await carregarEstoque().then(() => {
+    await carregarEstoque()
+    setTimeout(() => {
         loading.value = false
-    })
-    const ref = document.referrer;
+    }, 2000)
 
-    if (ref.includes("instagram.com")) origem.value = "Instagram";
-    else if (ref.includes("facebook.com")) origem.value = "Facebook";
-    else if (ref.includes("google.com")) origem.value = "Google";
-    else if (ref.includes("whatsapp.com")) origem.value = "WhatsApp";
-    else if (ref.includes("youtube.com")) origem.value = "YouTube";
-    else if (ref.includes("t.me") || ref.includes("telegram.org")) origem.value = "Telegram";
-    else if (ref.includes("linkedin.com")) origem.value = "LinkedIn";
-    else if (ref.includes("tiktok.com")) origem.value = "TikTok";
-    else if (ref === "") origem.value = "ChatCar";
-    else origem.value = "ChatCar";
-
-    const quantidade = estoque.value.length >= 5 ? 5 : estoque.value.length;
-
-    carrossel.value = [...estoque.value]
-        .sort(() => 0.5 - Math.random())
-        .slice(0, quantidade);
-
-    carrosselIndex.value = 0;
-
-    function getSaudacao() {
-        const hora = new Date().getHours();
-
-        if (hora >= 5 && hora < 12) return 'bom dia';
-        if (hora >= 12 && hora < 18) return 'boa tarde';
-        if (hora >= 18 && hora < 24) return 'boa noite';
-        return 'boa madrugada';
-    }
-
-    const mensagensIniciais = [
-        `👋 Olá, ${getSaudacao()}! Estou aqui para te ajudar a encontrar o veículo ideal!`,
-        `Aqui estão algumas de nossas opções! Clique no botão "ESTOQUE" para ver todos os veículos ou em "DETALHES" para mais fotos.`,
-        `Qual veículo você está buscando? SUV, Sedan, Camionetes? Ou tem algum modelo específico em mente?`,
-    ];
-
-
-    let delayCount = 1500;
-
-    for (let i = 0; i < mensagensIniciais.length; i++) {
-        messages.value.push({ from: 'bot', text: mensagensIniciais[i] });
-        playPopSound();
-
-        // Ativar toggle após a 2ª mensagem
-        if (i === 1) {
-            estoqueBtn.value = true;
-            playMagicalSound();
+    $q.dialog({
+        html: true,
+        title: `
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <img src="${sobreLoja.value.img_url}" alt="Logo" style="width: 32px; height: 32px; border-radius: 50%;" />
+        <span>${sobreLoja.value.nome}:</span>
+      </div>
+    `,
+        message: `Bem-vindo(a)!`,
+        prompt: {
+            model: '',
+            type: 'text',
+            color: 'secondary',
+            placeholder: 'Qual é o seu nome?',
+            outlined: true,
+            isValid: val => val && val.trim().length >= 3,
+            validateInput: true
+        },
+        persistent: true,
+        ok: {
+            label: 'Continuar',
+            color: 'secondary',
+            glossy: true
+        },
+        cancel: {
+            label: 'Voltar',
+            color: 'dark',
+            flat: true
         }
+    }).onCancel(() => {
+        router.push('/')
+    }).onOk(nome => {
+        usuario.value.nome = nome
 
-        loadingIA.value = false;
+        $q.dialog({
+            title: '📲 Para ver nossos veículos, informe seu whatsapp:',
+            message: `${usuario.value.nome}, digite seu número com DDD:`,
+            prompt: {
+                model: '',
+                type: 'tel',
+                mask: '(##) #####-####',
+                color: 'secondary',
+                placeholder: '(12) 34567-8910',
+                outlined: true,
+                isValid: val => val && val.trim().length === 15,
+                validateInput: true
+            },
+            ok: {
+                label: 'Continuar',
+                color: 'secondary',
+                glossy: true
+            },
+            persistent: true
+        }).onOk(telefone => {
+            if (!telefone.trim()) {
+                $q.notify({
+                    color: 'orange-14',
+                    position: 'top',
+                    message: '⚠️ O telefone é obrigatório!'
+                })
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000)
+                return
+            }
 
-        await nextTick(() => {
-            window.scrollTo(0, document.body.scrollHeight);
-        });
+            usuario.value.telefone = telefone
 
-        scrollToBottom();
+            const categoriasUnicas = Array.from(
+                new Set(
+                    estoque.value
+                        .map(carro => carro.categoria?.label)
+                        .filter(Boolean)
+                )
+            )
 
-        loadingIA.value = true;
-        if(i == mensagensIniciais.length -1) break; // não espera após a última mensagem
-        delayCount += 1000;
-        await delay(delayCount);
-    }
+            const categoriaOptions = categoriasUnicas.map(cat => ({
+                label: String(cat).charAt(0).toUpperCase() + String(cat).slice(1),
+                value: cat
+            }))
 
-    loadingIA.value = false;
+            $q.dialog({
+                title: '⚙️ Preferências',
+                message: 'Quais tipos de veículo você mais se interessa?',
+                options: {
+                    type: 'checkbox',
+                    model: [],
+                    color: 'secondary',
+                    items: categoriaOptions
+                },
+                ok: {
+                    label: 'Avançar',
+                    color: 'secondary',
+                    glossy: true
+                },
+                persistent: true
+            }).onOk(async preferencias => {
+                usuario.value.preferencias = preferencias
 
-    await nextTick(() => {
-        window.scrollTo(0, document.body.scrollHeight);
-    });
-});
+                const carrosFiltrados = estoque.value.filter(carro =>
+                    preferencias.includes(carro.categoria.label)
+                )
+
+                const lista = carrosFiltrados.length ? carrosFiltrados : estoque.value
+                const quantidade = lista.length >= 5 ? 5 : lista.length
+
+                carrossel.value = [...lista].sort(() => 0.5 - Math.random()).slice(0, quantidade)
+                carrosselIndex.value = 0
+
+                const mensagensIniciais = [
+                    `👩🏻‍💻 Olá ${usuario.value.nome}, serei sua Assistente Virtual e estou aqui para te ajudar a encontrar o veículo ideal! 🚗🏍️🛥️`,
+                    `👆🏻 Lá em cima, em ESTOQUE, você consegue ver todos os nossos veículos disponíveis, não apareceu? tcharammm 🎇✨😂.`,
+                    `🧐 Mas me diga, o que cê tá procurando? Exemplo: "Quero ver os SUV até R$ 350.000", "Qual a autonomia e potência da bmw x1?", "Gostaria de ver carros na cor azul", "Qual endereço e contato para agendar um visita?"`,
+                    `😉 Ahh,e se quiser mais detalhes de um veículo, basta tocar em cima da imagem dele ou em DETALHES🔍. E qualquer dúvida é só falar comigo, viu?`
+                ]
+                let delayCount = 2000
+                for (let i = 0; i < mensagensIniciais.length; i++) {
+                    messages.value.push({ from: 'bot', text: mensagensIniciais[i] })
+                    playPopSound()
+                    // Ativar toggle após a 2ª e 3ª mensagens
+                    if (i === 1) {
+                        await delay(2100)
+                        estoqueBtn.value = true
+                        playMagicalSound()
+                    }
+                    loadingIA.value = false
+                    await nextTick(() => {
+                        window.scrollTo(0, document.body.scrollHeight)
+                    })
+                    scrollToBottom()
+                    loadingIA.value = true;
+                    await delay(delayCount)
+                    delayCount += 200
+                }
+                loadingIA.value = false
+                await nextTick(() => {
+                    window.scrollTo(0, document.body.scrollHeight)
+                })
+
+                gerarLead()
+            })
+        })
+    })
+})
 
 
 function toggleEstoqueDrawer() {
     showEstoqueDrawer.value = !showEstoqueDrawer.value
 }
 async function sendMessage() {
-    
     const texto = input.value.trim();
     if (!texto) return;
     // Adiciona mensagem do usuário
@@ -559,13 +673,11 @@ async function sendMessage() {
         const response = await api.post('/chatvitrine', {
             login: sobreLoja.value.login,
             lead: leadId.value,
-            origem: origem.value,
-            mensagens: texto,
-            chat: messages.value.slice(3),
+            mensagem: texto,
             vitrineAtual: vitrineAtualIds
         });
         const { chatvitrine } = response.data;
-        leadId.value = response?.data.leadId; 
+
         const sugeridos = estoque.value.filter(veiculo =>
             chatvitrine.estoque.includes(veiculo.id)
         );
@@ -586,7 +698,7 @@ async function sendMessage() {
         console.error('Erro no chat vitrine:', error);
         messages.value.push({
             from: 'bot',
-            text: 'Não entendi muito bem, poderia tentar novamente em alguns minutos?'
+            text: '⚠️ Algo deu errado ao buscar os veículos. Tente novamente mais tarde.'
         });
         playNotification()
         await nextTick();
@@ -652,16 +764,10 @@ async function atualizarLead() {
         const respostasCliente = messages.value
             .filter(msg => msg.from === 'user') // pega apenas quem é 'user'
             .map(msg => msg.text);
-        const respostasIA = messages.value
-            .filter(msg => msg.from === 'bot') // pega apenas quem é 'bot'
-            .map(msg => msg.text);
-        
+
         await api.put(`/atualizar-lead/${leadId.value}`, {
             cliente: usuario.value,
-            respostasCliente: {
-                respostas: respostasCliente,
-                respostasIA: respostasIA
-            }
+            respostasCliente: respostasCliente
         });
 
         // console.log('Lead atualizado com sucesso após interação!');
@@ -671,35 +777,8 @@ async function atualizarLead() {
 }
 
 watch(interacoes, async (val) => {
-    if (val == 10) {
-            $q.dialog({
-                title: 'Fale Conosco!',
-                message: 'Você interagiu bastante com nosso estoque! Que tal falar diretamente com um de nossos consultores?',
-                ok: {
-                    label: 'Falar com consultor',
-                    color: 'teal'
-                },
-                cancel: {
-                    label: 'Continuar no chat',
-                    color: 'grey-8'
-                },
-                persistent: true
-            }).onOk(() => {
-                sendWppMessage('Olá! Vi seu estoque de veículos e gostaria de mais informações.')
-            })
-    } else if (val > 30) {
-               $q.dialog({
-                title: 'Fale Conosco!',
-                message: 'Você interagiu bastante com nosso estoque! Que tal falar diretamente com um de nossos consultores?',
-                ok: {
-                    label: 'Falar com consultor',
-                    color: 'teal'
-                },
-                persistent: true
-            }).onOk(() => {
-                sendWppMessage('Olá! Vi seu estoque de veículos e gostaria de mais informações.')
-
-            })
+    if (val > 0 && val % 1 === 0) {
+        await atualizarLead();
     }
 });
 
@@ -709,7 +788,7 @@ watch(interacoes, async (val) => {
 
 .sticky-top {
     position: sticky;
-    top: 0px;
+    top: 50px;
     z-index: 10;
 }
 

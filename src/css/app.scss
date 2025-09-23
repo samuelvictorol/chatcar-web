@@ -84,6 +84,16 @@
 
   backdrop-filter: blur(8px);
 }
+.header-2 {
+  background:#05393B;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #095e61, #10A29C);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #095e61, #10a29dd7);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  backdrop-filter: blur(8px);
+}
 
 .text-shadow{
     text-shadow: 2px 2px 4px rgba(0, 59, 47, 0.404);
