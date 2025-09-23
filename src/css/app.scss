@@ -29,6 +29,9 @@
   background: #008e76;
   cursor: grab;
 }
+* {
+  scroll-behavior: smooth;
+}
 
 .font-orbitron {
   font-family: 'Orbitron', sans-serif;
@@ -75,7 +78,7 @@
 }
 
 .header {
-  background:#05393B;
+  background: #05393B;
   /* fallback for old browsers */
   background: -webkit-linear-gradient(to left, #05393B, #10A29C);
   /* Chrome 10-25, Safari 5.1-6 */
@@ -84,8 +87,9 @@
 
   backdrop-filter: blur(8px);
 }
+
 .header-2 {
-  background:#05393B;
+  background: #05393B;
   /* fallback for old browsers */
   background: -webkit-linear-gradient(to top, #095e61, #10a29dd7);
   /* Chrome 10-25, Safari 5.1-6 */
@@ -95,6 +99,13 @@
   backdrop-filter: blur(8px);
 }
 
-.text-shadow{
-    text-shadow: 2px 2px 4px rgba(0, 59, 47, 0.404);
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 59, 47, 0.404);
+}
+
+.bg-blue-grad {
+  background: #05393B;
+  background: -webkit-linear-gradient(to top, #0b0e13, #121821);
+  background: linear-gradient(to top, #0b0e13, #121821);
+  backdrop-filter: blur(8px);
 }

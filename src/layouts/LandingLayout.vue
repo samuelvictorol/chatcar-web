@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <!-- NAVBAR -->
-    <q-header class="q-py-xs text-white header">
+    <q-header class="q-py-xs text-white bg-blue-grad">
       <q-toolbar class="container row justify-between items-center">
         <q-toolbar-title class="text-h6 row items-center no-wrap">
           <q-avatar size="48px" class="q-mr-sm">
@@ -36,7 +36,7 @@
         <div>
           <q-btn v-if="!isMobile" color="teal" style="border-radius: 20px;" flat icon="rocket_launch"
             label="Começar Agora" class="q-ml-sm bg-white text-bold" :to="isUserLoggedIn ? '/me' : '/ia'" />
-          <q-btn v-if="isMobile" color="white" glossy icon-right="rocket_launch" :to="isUserLoggedIn ? '/me' : '/ia'"
+          <q-btn v-if="isMobile" color="white" icon-right="rocket_launch" :to="isUserLoggedIn ? '/me' : '/ia'"
             class="q-ml-sm text-teal">
             <q-tooltip>
               Começar Agora
@@ -56,35 +56,35 @@
             <strong>ChatCar</strong>.
           </div>
           <div class="w100 row no-wrap q-pt-lg">
-            <q-btn class="w50 q-pa-lg q-mr-md" color="dark"  :label="isUserLoggedIn ? 'Meu Perfil' : 'Entrar'" :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'"></q-btn>
-            <q-btn class="w50 q-pa-lg" label="Como Funciona" color="teal" glossy icon-right="contact_support" to="/ia" ></q-btn>
+            <q-btn class="w50 q-pa-lg q-mr-md header-2"  :label="isUserLoggedIn ? 'Meu Perfil' : 'Entrar'" :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'"></q-btn>
+            <q-btn class="w50 q-pa-lg bg-blue-grad" label="Como Funciona"  icon-right="contact_support" to="/ia" ></q-btn>
           </div>
         </div>
       </div>
     </q-page-container>
 
     <!-- BENEFITS SECTION -->
-    <section class="q-pa-xl text-white bg-dark text-center">
+    <section class="q-pa-xl text-white header text-center">
       <div class="q-gutter-lg row justify-center">
         <div class="col-xs-12 col-sm-6 col-md-3">
-          <q-icon name="chat" size="48px" color="teal-14" />
-          <p class="q-mt-sm">Atendimento e Qualificação 24h + Redirecionamento WhatsApp</p>
+          <q-icon name="chat" size="48px" color="white" />
+          <p class=" q-mt-sm">Atendimento e Qualificação 24h + Redirecionamento WhatsApp</p>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">
-          <q-icon name="bolt" size="48px" color="teal-14" />
-          <p class="q-mt-sm">Configuração Fácil e Rápida</p>
+          <q-icon name="bolt" size="48px" color="white" />
+          <p class=" q-mt-sm">Configuração Fácil e Rápida</p>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">
-          <q-icon name="insights" size="48px" color="teal-14" />
-          <p class="q-mt-sm">Captação, Aquecimento e Resumo dos Leads</p>
+          <q-icon name="insights" size="48px" color="white" />
+          <p class=" q-mt-sm">Captação, Aquecimento e Resumo dos Leads</p>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">
-          <q-icon name="search" size="48px" color="teal-14" />
-          <p class="q-mt-sm">Rastreamento de Clientes e Abordagem Personalizada</p>
+          <q-icon name="search" size="48px" color="white" />
+          <p class=" q-mt-sm">Rastreamento de Clientes e Abordagem Personalizada</p>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3">
-          <q-icon name="attach_money" size="48px" color="teal-14" />
-          <p class="q-mt-sm">CRM + I.A + Pré-venda Automatizada</p>
+          <q-icon name="attach_money" size="48px" color="white" />
+          <p class=" q-mt-sm">CRM + I.A + Pré-venda Automatizada</p>
         </div>
       </div>
     </section>
@@ -103,10 +103,10 @@
       </div>
     </section> -->
     <!-- CTA FINAL -->
-    <section class="q-py-xl bg-teal-7 text-white text-center">
+    <section class="q-py-xl bg-blue-grad text-white text-center">
       <h2 class="text-h5 text-bold q-mb-md">Pronto para Começar?</h2>
       <p class="q-mb-md">Ative sua vitrine vigital agora mesmo e comece a captar leads com I.A.</p>
-      <q-btn label="Ativar Agora" to="/ia" color="teal-14" size="lg" icon-right="play_circle" glossy />
+      <q-btn label="Ativar Agora" to="/ia" color="teal" size="lg" icon-right="play_circle" glossy />
     </section>
     <!-- SUPPORT SECTION -->
     <!-- <section class="q-py-xl bg-teal-8 text-white text-center">
@@ -135,8 +135,6 @@
           icon="open_in_new" color="teal-14" flat />
       </div>
     </section> -->
-    <div class="w100 q-py-md bg-teal-7">
-    </div>
     <!-- FOOTER -->
     <!-- <q-footer class="bg-dark text-grey-4 text-center q-pa-sm">
       chatcar.me - <a href="https://samuelvictorol.github.io/portfolio/" class="text-teal-14"

@@ -6,27 +6,28 @@
             <q-toolbar class="container" dense>
                 <div class="row items-center no-wrap full-width">
                     <div class="col-auto row items-center">
-                        <img :src="content.brand.logo" alt="logo" height="28" class="cursor-pointer"
-                            @click="goHome" />
-                        <q-toolbar-title class="text-weight-bold">{{ content.brand.name }}</q-toolbar-title>
+                        <img :src="content.brand.logo" alt="logo" height="28" class="cursor-pointer" @click="goHome" />
+                        <q-toolbar-title
+                            class="text-weight-bold  animate__animated animate__fadeInLeft animate__slower">{{
+                                content.brand.name }}</q-toolbar-title>
                     </div>
                     <div class="col row justify-end items-center nav-actions">
                         <q-btn flat dense class="q-ml-sm" v-for="item in content.nav" :key="item.to" :label="item.label"
                             @click="scrollTo(item.to)" />
-                        <q-btn color="teal" class="q-ml-md" label="Quero me Cadastrar" @click="focusEmail" />
+                        <q-btn class="q-ml-md header-2" label="Quero me Cadastrar" @click="focusEmail" />
                     </div>
                 </div>
             </q-toolbar>
             <!-- barra de captura inline (desktop) -->
             <q-toolbar class="container q-pt-none q-pb-sm" v-if="!isMobile">
                 <q-form @submit.prevent="onSubmitEmail" class="row items-center full-width">
-                    <q-input v-model="form.email" type="email" outlined dense color="primary"
-                        class="col-12 col-md-5 bg-grey-2 text-dark rounded-borders" label="Seu melhor e‑mail*"
-                        placeholder="nome@empresa.com" ref="emailInputRef">
+                    <q-input v-model="form.email" type="email" outlined dense color="teal"
+                        class="col-12 col-md-5 bg-grey-2 text-dark rounded-borders relative" label="Seu melhor e‑mail*"
+                        placeholder="nome@email.com" ref="emailInputRef">
                         <template v-slot:append>
-                            <q-btn unelevated color="teal" icon-right="email"
-                                class="text-white q-ml-sm q-mt-sm q-mt-none-md" :disable="!emailValid" label="enviar"
-                                @click="onSubmitEmail" />
+                            <q-btn unelevated icon-right="email"
+                                class="text-white header-2 q-mt-sm q-mt-none-md absolute-right" :disable="!emailValid"
+                                label="enviar" @click="onSubmitEmail" />
                         </template>
                     </q-input>
 
@@ -35,17 +36,25 @@
         </q-header>
 
         <q-page-container>
-            <q-page>
+            <q-page class="q-pt-md">
                 <!-- HERO -->
-                <section id="hero" class="container q-py-xl">
+                <section id="hero" class="container q-py-lg">
                     <div class="row items-center q-col-gutter-xl">
+                        <div class="col-12 col-md-6">
+                            <div class="hero-media card-3d">
+                                <iframe width="100%" class="video"
+                                    src="https://www.youtube.com/embed/RPsD5myzNn4?si=m40WFYyPUgDjbtu9" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
                         <div class="col-12 col-md-6">
                             <div class="eyebrow">{{ content.hero.eyebrow }}</div>
                             <h1 class="display">{{ content.hero.title }}</h1>
                             <p class="lead q-mt-sm">{{ content.hero.subtitle }}</p>
                             <div class="row q-gutter-sm q-mt-md">
-                                <q-btn unelevated color="teal" size="lg" :label="content.cta.primary"
-                                    @click="focusEmail" />
+                                <q-btn unelevated size="lg" label="Apenas R$ 49,90" icon-right="shopping_cart_checkout"
+                                    class="header-2" @click="focusEmail" />
                                 <q-btn flat size="lg" :label="content.cta.secondary" icon="play_arrow"
                                     @click="showDemo = true" />
                             </div>
@@ -60,18 +69,10 @@
                                 <q-form @submit.prevent="onSubmitEmail">
                                     <q-input v-model="form.email" type="email" outlined dense color="primary"
                                         class="bg-grey-2 text-dark rounded-borders" label="Seu melhor e‑mail*"
-                                        placeholder="nome@empresa.com" />
+                                        placeholder="nome@email.com" />
                                     <q-btn unelevated color="teal" class="q-mt-sm full-width" :disable="!emailValid"
                                         :label="content.cta.primary" @click="onSubmitEmail" />
                                 </q-form>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="hero-media card-3d">
-                                <iframe width="100%" class="video" src="https://www.youtube.com/embed/RPsD5myzNn4?si=m40WFYyPUgDjbtu9"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
@@ -118,16 +119,17 @@
                                             col.copy
                                         }}</p>
                                     <q-input v-if="col.cta" v-model="form.email" type="email" outlined dense
-                                        color="primary" class="col-12 col-md-5 bg-grey-2 text-dark rounded-borders"
-                                        label="Seu melhor e‑mail*" placeholder="nome@empresa.com" ref="emailInputRef">
+                                        color="teal" class="col-12 col-md-5 bg-grey-2 text-dark rounded-borders"
+                                        label="Seu melhor e‑mail*" placeholder="nome@email.com" ref="emailInputRef">
                                         <template v-slot:append>
                                             <q-icon :name="emailValid ? 'person_add' : 'email'"
                                                 :color="emailValid ? 'teal' : 'teal'" class="cursor-pointer"
                                                 @click="emailValid ? onSubmitEmail() : null" />
                                         </template>
                                     </q-input>
-                                    <q-btn v-if="col.cta" color="teal" class="q-mt-md full-width"
-                                        :label="content.cta.primary" @click="focusEmail" />
+                                    <q-btn v-if="col.cta" class="q-mt-md full-width header-2 text-white"
+                                        :label="content.cta.primary" @click="focusEmail"
+                                        icon-right="shopping_cart_checkout" />
                                 </q-card-section>
                             </q-card>
                         </div>
@@ -160,7 +162,7 @@
                     <q-carousel v-model="slide" swipeable animated navigation control-type="flat"
                         class="testimonial-carousel">
                         <q-carousel-slide v-for="(t, i) in content.testimonials.items" :name="i" :key="i">
-                            <q-card flat bordered class="q-pa-md header-2">
+                            <q-card flat bordered class="q-pa-md header">
                                 <q-card-section class="row items-center q-col-gutter-md">
                                     <q-avatar size="90px" class="q-mr-md"><img :src="t.avatar"
                                             style="object-fit: cover;" /></q-avatar>
@@ -203,15 +205,15 @@
                                 <q-card-actions align="center" class="q-pa-md">
                                     <q-input v-model="form.email" type="email" outlined dense color="teal"
                                         class="col-12 col-md-5 bg-grey-2 q-mb-md text-dark rounded-borders"
-                                        label="Seu melhor e‑mail*" placeholder="nome@empresa.com" ref="emailInputRef">
+                                        label="Seu melhor e‑mail*" placeholder="nome@email.com" ref="emailInputRef">
                                         <template v-slot:append>
                                             <q-icon :name="emailValid ? 'person_add' : 'email'"
                                                 :color="emailValid ? 'teal' : 'teal'" class="cursor-pointer"
                                                 @click="emailValid ? onSubmitEmail() : null" />
                                         </template>
                                     </q-input>
-                                    <q-btn color="teal" unelevated class="full-width" :label="content.cta.primary"
-                                        @click="focusEmail" />
+                                    <q-btn unelevated class="header-2 text-white full-width"
+                                        :label="content.cta.primary" @click="focusEmail" />
                                 </q-card-actions>
                             </q-card>
                             <div class="q-mt-sm text-caption opacity-70 text-center">Pagamento único. Sem renovação
@@ -243,7 +245,7 @@
                             <p class="q-mt-none opacity-80">{{ content.finalCta.subtitle }}</p>
                         </div>
                         <div class="col-12 col-md-auto q-mt-md q-mt-none-md">
-                            <q-btn color="teal" unelevated size="lg" label="Ativar Agora" icon-right="play_circle"
+                            <q-btn unelevated size="lg" label="Ativar Agora" class="header-2" icon-right="play_circle"
                                 @click="focusEmail" />
                         </div>
                     </div>
@@ -251,26 +253,24 @@
 
                 <!-- DEMO MODAL -->
                 <q-dialog v-model="showDemo" persistent>
-                    <q-card style="max-width: 920px; width: 100%">
-                        <q-bar>
-                            <div class="text-subtitle2">Demo</div>
-                            <q-space />
-                            <q-btn dense flat icon="close" v-close-popup />
-                        </q-bar>
-                        <div class="w100">
-                            <div class="text-center text-caption opacity-70 q-pa-sm">Veja o passo a passo de como
-                                funciona a
-                                ChatCar IA em apenas <strong>3 etapas</strong>.
+                    <div class="column">
+                        <q-card class=" rounded-borders">
+                            <q-bar class="text-white bg-dark-800 rounded-borders">
+                                <div class="text-subtitle2">Demonstração</div>
+                                <q-space />
+                                <q-btn dense flat icon="close" v-close-popup />
+                            </q-bar>
+                            <div class="w100">
+                                <div class="text-center text-caption opacity-70 q-pa-sm">Veja como funciona a
+                                    ChatCar IA em apenas <strong>3 etapas</strong>.
+                                </div>
                             </div>
-                        </div>
-                        <q-card-section>
-                            <iframe width="100%" height="100%"
-                                src="https://www.youtube.com/embed/y2Qka6CeEVg?si=lPPEuU7iZsQrit-P"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </q-card-section>
-                    </q-card>
+                        </q-card>
+                        <iframe src="https://www.youtube.com/embed/y2Qka6CeEVg?si=lPPEuU7iZsQrit-P" class="animate__animated animate__fadeIn animate__slower"
+                            title="Chatcar IA - Vendedor Automotivo 24H" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
                 </q-dialog>
 
                 <!-- Snackbar/Toast success -->
@@ -291,15 +291,20 @@
         <!-- Footer -->
         <q-footer class="bg-dark-800">
             <div class="container row items-center justify-center">
-                <div class="text-caption opacity-60 q-py-xs">© {{ new Date().getFullYear() }} {{ content.brand.name }} IA - Desenvolvedor: <a style="text-decoration: none;" target="_blank"
-                            href="https://samuelvictorol.github.io/portfolio" class="text-teal-14">Samuel V.</a>
+                <div class="text-caption opacity-70 q-py-xs">© {{ new Date().getFullYear() }} {{ content.brand.name }}
+                    IA -
+                    <a style="text-decoration: none;" href="#faq" class="text-teal-14">
+                        Development and Support
+                    </a>
                 </div>
             </div>
         </q-footer>
 
         <!-- Botão fixo (mobile) -->
-        <q-btn v-if="isMobile && emailValid" class="fixed-bottom-btn q-py-md" color="primary" unelevated
-            :label="content.cta.primary" @click="onSubmitEmail" icon-right="shopping_cart_checkout" />
+        <q-btn v-if="isMobile && emailValid"
+            class="fixed-bottom-btn q-py-xl text-white header-2 animate__animated animate__fadeInUp animate__slower"
+            unelevated style="z-index: 9999!important;" :label="content.cta.primary" @click="onSubmitEmail"
+            icon-right="shopping_cart_checkout" />
     </q-layout>
 </template>
 
@@ -352,7 +357,7 @@ async function onSubmitEmail() {
     if (!emailValid.value) {
         return $q.notify({ type: 'negative', message: 'Informe um e‑mail válido.' })
     }
-    $q.notify({ color: 'primary', icon: 'paid', message: 'Gerando link de pagamento…', position: 'top' })
+    $q.notify({ color: 'teal', icon: 'paid', message: 'Gerando link de pagamento…', position: 'top' })
 
     // Preferência: função passada via prop
     if (typeof props.createPaymentLink === 'function') {
@@ -609,7 +614,7 @@ const pasCols = [
 }
 
 .pricing-card.featured {
-    background: linear-gradient(180deg, rgba(20, 185, 155, .25), rgba(10, 80, 70, .25));
+    background: linear-gradient(180deg, rgba(8, 197, 194, 0.25), rgba(3, 96, 99, 0.25));
     border-color: rgba(38, 226, 192, 0.4);
 }
 
