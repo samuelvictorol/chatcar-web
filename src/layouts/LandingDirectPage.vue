@@ -6,7 +6,7 @@
             <q-toolbar class="container" dense>
                 <div class="row items-center no-wrap full-width">
                     <div class="col-auto row items-center">
-                        <img :src="content.brand.logo" alt="logo" height="28" class="q-mr-sm cursor-pointer"
+                        <img :src="content.brand.logo" alt="logo" height="28" class="cursor-pointer"
                             @click="goHome" />
                         <q-toolbar-title class="text-weight-bold">{{ content.brand.name }}</q-toolbar-title>
                     </div>
@@ -68,11 +68,10 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="hero-media card-3d">
-                                <iframe width="100%" class="video" src="https://www.youtube.com/embed/px4S7qbkVSw"
+                                <iframe width="100%" class="video" src="https://www.youtube.com/embed/RPsD5myzNn4?si=m40WFYyPUgDjbtu9"
                                     frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen></iframe>
-
                             </div>
                         </div>
                     </div>
@@ -101,12 +100,12 @@
                 </section>
 
                 <!-- PROBLEM → SOLUTION (PAS) -->
-                <section id="pas" class="container q-py-xl">
+                <section id="pas" class="container  rounded-borders q-py-xl">
                     <div class="row items-stretch q-col-gutter-lg">
                         <div class="col-12 col-md-4" v-for="(col, idx) in pasCols" :key="idx">
                             <q-card flat bordered class="pas-card" :class="col.variant">
                                 <q-card-section>
-                                    <div class="eyebrow bg-teal rounded-borders text-white q-px-sm text-shadow"
+                                    <div class="eyebrow header-2 rounded-borders text-white q-px-sm text-shadow"
                                         :class="col.variant === 'bg-primary text-dark' ? 'text-dark' : ''">{{ col.label
                                         }}</div>
                                     <div class="text-h6 q-mt-xs"
@@ -114,7 +113,7 @@
                                         }}
                                     </div>
                                     <p class="q-mt-sm"
-                                        :class="col.variant === 'bg-primary text-dark' ? 'text-white text-shadow' : 'opacity-80'">
+                                        :class="col.variant === 'bg-primary text-dark' ? 'text-white text-shadow' : ''">
                                         {{
                                             col.copy
                                         }}</p>
@@ -123,11 +122,11 @@
                                         label="Seu melhor e‑mail*" placeholder="nome@empresa.com" ref="emailInputRef">
                                         <template v-slot:append>
                                             <q-icon :name="emailValid ? 'person_add' : 'email'"
-                                                :color="emailValid ? 'teal' : 'grey'" class="cursor-pointer"
+                                                :color="emailValid ? 'teal' : 'teal'" class="cursor-pointer"
                                                 @click="emailValid ? onSubmitEmail() : null" />
                                         </template>
                                     </q-input>
-                                    <q-btn v-if="col.cta" color="teal" glossy class="q-mt-md full-width"
+                                    <q-btn v-if="col.cta" color="teal" class="q-mt-md full-width"
                                         :label="content.cta.primary" @click="focusEmail" />
                                 </q-card-section>
                             </q-card>
@@ -161,7 +160,7 @@
                     <q-carousel v-model="slide" swipeable animated navigation control-type="flat"
                         class="testimonial-carousel">
                         <q-carousel-slide v-for="(t, i) in content.testimonials.items" :name="i" :key="i">
-                            <q-card flat bordered class="q-pa-md bg-dark">
+                            <q-card flat bordered class="q-pa-md header-2">
                                 <q-card-section class="row items-center q-col-gutter-md">
                                     <q-avatar size="90px" class="q-mr-md"><img :src="t.avatar"
                                             style="object-fit: cover;" /></q-avatar>
@@ -202,12 +201,12 @@
                                     </q-item>
                                 </q-list>
                                 <q-card-actions align="center" class="q-pa-md">
-                                    <q-input v-model="form.email" type="email" outlined dense color="primary"
+                                    <q-input v-model="form.email" type="email" outlined dense color="teal"
                                         class="col-12 col-md-5 bg-grey-2 q-mb-md text-dark rounded-borders"
                                         label="Seu melhor e‑mail*" placeholder="nome@empresa.com" ref="emailInputRef">
                                         <template v-slot:append>
                                             <q-icon :name="emailValid ? 'person_add' : 'email'"
-                                                :color="emailValid ? 'teal' : 'grey'" class="cursor-pointer"
+                                                :color="emailValid ? 'teal' : 'teal'" class="cursor-pointer"
                                                 @click="emailValid ? onSubmitEmail() : null" />
                                         </template>
                                     </q-input>
@@ -469,7 +468,9 @@ const content = props.contentProp || {
             { q: 'Precisa de cartão? Tem renovação automática?', a: 'Não. Basta informar o seu e‑mail e gerar o link de pagamento seguro que pode ser pago via PIX ou cartão de crédito no valor de R$ 49,90. O pagamento é único por 30 dias de acesso.' },
             { q: 'Posso usar um período de testes?', a: 'Sim! Cadastrando-se em chatcar.me/login você ganha 2 dias grátis para testar.' },
             { q: 'Funciona sem instalar nada?', a: 'Sim. É web. Você compartilha o link da sua vitrine interativa.' },
-            { q: 'Dá pra ver de onde o cliente veio?', a: 'Sim. Rastreio de origem do cliente incluído (tiktok, instagram, facebook etc) para você otimizar seus anúncios e trafego pago.' }
+            { q: 'Dá pra ver de onde o cliente veio?', a: 'Sim. Rastreio de origem do cliente incluído (tiktok, instagram, facebook etc) para você otimizar seus anúncios e trafego pago.' },
+            { q: 'Qual o contato para suporte e dúvidas?', a: 'Você pode entrar em conosco via email - chatcar.suporte@gmail.com - ou em nosso Instagram - @chatcar.ia - e em breve um de nossos consultores irá te atender para um atendimento personalizado. Caso queira falar com nossa Atendente Virtual 24h, acesse nosso perfil no instagram.' },
+            { q: 'Quem são os Desenvolvedores da ChatCar IA?', a: 'Conheça mais sobre os desenvolvedores da ChatCar, Samuel Victor (Founder e Desenvolvedor) e Igor Thiago (Co-Founder e Desenvolvedor) em: ( samuelvictorol.github.io/portfolio ) e ( linkedin.com/in/igorsantanal ), respectivamente.' }
         ]
     },
     finalCta: {
@@ -609,7 +610,7 @@ const pasCols = [
 
 .pricing-card.featured {
     background: linear-gradient(180deg, rgba(20, 185, 155, .25), rgba(10, 80, 70, .25));
-    border-color: rgba(20, 185, 155, .4);
+    border-color: rgba(38, 226, 192, 0.4);
 }
 
 .price {
@@ -645,7 +646,7 @@ const pasCols = [
 
 /* Primary color override (teal-ish) */
 :deep(.bg-primary) {
-    background: #14b89b !important;
+    background: #10a29dd7 !important;
 }
 
 :deep(.text-primary) {
