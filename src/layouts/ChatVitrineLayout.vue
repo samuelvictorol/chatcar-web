@@ -587,6 +587,7 @@ async function sendMessage() {
         }
         if(chatvitrine.actions && chatvitrine.actions.type && chatvitrine.actions.type !== 'null') {
             if(chatvitrine.actions.type === 'test_drive') {
+                await delay(1200);
                 messages.value.push({
                     from: 'bot',
                     text: 'Você será redirecionado para o WhatsApp de um dos nosso vendedores! Ele irá te ajudar a agendar o seu test-drive.'
@@ -598,6 +599,7 @@ async function sendMessage() {
                     sendWppMessageAction(chatvitrine.actions.text)
                 }, 500)
             } else if(chatvitrine.actions.type === 'simulacao') {
+                await delay(1200);
                 messages.value.push({
                     from: 'bot',
                     text: `Você será redirecionado para o WhatsApp de um dos nosso vendedores! Ele irá esclarecer suas dúvidas sobre financiamento e te ajudar com a simulação.`
@@ -609,15 +611,17 @@ async function sendMessage() {
                     sendWppMessageAction(chatvitrine.actions.text)
                 }, 500)
             } else if(chatvitrine.actions.type === 'localizacao' || chatvitrine.actions.type === 'contato') {
+                await delay(1200);
                 messages.value.push({
                     from: 'bot',
                     text: `✨ Essas são as informações do vendedor: `
                 });
-                playMagicalSound()
+                playPopSound()
                 await nextTick();
                 scrollToBottom();
                 infoLojaVisible.value = true
             } else if(chatvitrine.actions.type === 'whatsapp') {
+                await delay(1200);
                 messages.value.push({
                     from: 'bot',
                     text: 'Você será redirecionado para o WhatsApp de um dos nosso vendedores! Ele irá te ajudar com o que você precisar.'
@@ -628,7 +632,12 @@ async function sendMessage() {
                 setTimeout(() =>{
                     sendWppMessageAction(chatvitrine.actions.text)
                 }, 500)
-            }
+            }else if(chatvitrine.actions.type === 'menu_estoque') {
+                await nextTick();
+                scrollToBottom();
+                showEstoqueDrawer.value = true;
+                playPopSound()
+            }            
         }
     } catch (error) {
         console.error('Erro no chat vitrine:', error);
