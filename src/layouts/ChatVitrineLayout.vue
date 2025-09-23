@@ -49,7 +49,7 @@
                     <div style="border-radius: 12px">
                         <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length"
                             v-model="carrosselIndex" height="360px" class="header-2 sticky text-white" autoplay
-                            swipeable interval="9000">
+                            swipeable interval="12000">
                             <template v-slot:control>
                                 <div class="absolute-left q-pa-xs" style="top:45%">
                                     <q-btn icon="chevron_left" color="white" unelevated round dense size="lg"
@@ -286,7 +286,7 @@ const usuario = ref({
 })
 const leadId = ref(null)
 const lead = ref(null)
-
+const leadNome = ref('')
 const dialogZoom = ref(false)
 const slideAtivoDetalhes = ref(0)
 const zoomImagemUrl = ref(null)
@@ -430,7 +430,15 @@ function sendWppMessage(modelo) {
     // Extrai apenas os números do telefone
     const numero = carroSelecionado.value.directLink ? carroSelecionado.value.directLink : sobreLoja.value.contato
     const numeroFormatado = numero.replace(/\D/g, '');
-    const text = `Olá! Meu nome é ${usuario.value.nome}!. Vi pela ChatCar IA que você tem esse veículo disponível:  ${modelo}. Poderia me passar mais informações?`;
+    const text = `Olá! Meu nome é ${leadNome.value}! Vi que você tem esse veículo disponível:  ${modelo}. Poderia me passar mais informações?`;
+    const mensagem = encodeURIComponent(text);
+    const link = `https://wa.me/${numeroFormatado}?text=${mensagem}`;
+    window.open(link, '_blank');
+}
+function sendWppMessageAction(text) {
+    // Extrai apenas os números do telefone
+    const numero = carroSelecionado.value.directLink ? carroSelecionado.value.directLink : sobreLoja.value.contato
+    const numeroFormatado = numero.replace(/\D/g, '');
     const mensagem = encodeURIComponent(text);
     const link = `https://wa.me/${numeroFormatado}?text=${mensagem}`;
     window.open(link, '_blank');
@@ -496,22 +504,16 @@ onBeforeMount(async () => {
 
     const mensagensIniciais = [
         `👋 Olá, ${getSaudacao()}! Estou aqui para te ajudar a encontrar o veículo ideal!`,
-        `Aqui estão algumas de nossas opções! Clique no botão "ESTOQUE" para ver todos os veículos ou em "DETALHES" para mais fotos.`,
+        `Aqui estão algumas de nossas opções!✨ Clique no botão "ESTOQUE" para ver todos os veículos ou em "DETALHES" para mais imagens.`,
         `Qual veículo você está buscando? SUV, Sedan, Camionetes? Ou tem algum modelo específico em mente?`,
     ];
 
 
-    let delayCount = 1500;
+    let delayCount = 1000;
 
     for (let i = 0; i < mensagensIniciais.length; i++) {
         messages.value.push({ from: 'bot', text: mensagensIniciais[i] });
         playPopSound();
-
-        // Ativar toggle após a 2ª mensagem
-        if (i === 1) {
-            estoqueBtn.value = true;
-            playMagicalSound();
-        }
 
         loadingIA.value = false;
 
@@ -523,7 +525,7 @@ onBeforeMount(async () => {
 
         loadingIA.value = true;
         if(i == mensagensIniciais.length -1) break; // não espera após a última mensagem
-        delayCount += 1000;
+        delayCount += 600;
         await delay(delayCount);
     }
 
@@ -538,6 +540,7 @@ onBeforeMount(async () => {
 function toggleEstoqueDrawer() {
     showEstoqueDrawer.value = !showEstoqueDrawer.value
 }
+
 async function sendMessage() {
     
     const texto = input.value.trim();
@@ -565,7 +568,8 @@ async function sendMessage() {
             vitrineAtual: vitrineAtualIds
         });
         const { chatvitrine } = response.data;
-        leadId.value = response?.data.leadId; 
+        leadId.value = response?.data.leadId;
+        leadNome.value = response?.data.leadNome
         const sugeridos = estoque.value.filter(veiculo =>
             chatvitrine.estoque.includes(veiculo.id)
         );
@@ -581,7 +585,51 @@ async function sendMessage() {
             scrollToBottom();
             delayCount += 600
         }
-
+        if(chatvitrine.actions && chatvitrine.actions.type && chatvitrine.actions.type !== 'null') {
+            if(chatvitrine.actions.type === 'test_drive') {
+                messages.value.push({
+                    from: 'bot',
+                    text: 'Você será redirecionado para o WhatsApp de um dos nosso vendedores! Ele irá te ajudar a agendar o seu test-drive.'
+                });
+                playMagicalSound()
+                await nextTick();
+                scrollToBottom();
+                setTimeout(() =>{
+                    sendWppMessageAction(chatvitrine.actions.text)
+                }, 500)
+            } else if(chatvitrine.actions.type === 'simulacao') {
+                messages.value.push({
+                    from: 'bot',
+                    text: `Você será redirecionado para o WhatsApp de um dos nosso vendedores! Ele irá esclarecer suas dúvidas sobre financiamento e te ajudar com a simulação.`
+                });
+                playMagicalSound()
+                await nextTick();
+                scrollToBottom();
+                setTimeout(() =>{
+                    sendWppMessageAction(chatvitrine.actions.text)
+                }, 500)
+            } else if(chatvitrine.actions.type === 'localizacao' || chatvitrine.actions.type === 'contato') {
+                messages.value.push({
+                    from: 'bot',
+                    text: `✨ Essas são as informações do vendedor: `
+                });
+                playMagicalSound()
+                await nextTick();
+                scrollToBottom();
+                infoLojaVisible.value = true
+            } else if(chatvitrine.actions.type === 'whatsapp') {
+                messages.value.push({
+                    from: 'bot',
+                    text: 'Você será redirecionado para o WhatsApp de um dos nosso vendedores! Ele irá te ajudar com o que você precisar.'
+                });
+                playMagicalSound()
+                await nextTick();
+                scrollToBottom();
+                setTimeout(() =>{
+                    sendWppMessageAction(chatvitrine.actions.text)
+                }, 500)
+            }
+        }
     } catch (error) {
         console.error('Erro no chat vitrine:', error);
         messages.value.push({
@@ -680,8 +728,8 @@ watch(interacoes, async (val) => {
                     color: 'teal'
                 },
                 cancel: {
-                    label: 'Continuar no chat',
-                    color: 'grey-8'
+                    label: 'voltar',
+                    color: 'dark'
                 },
                 persistent: true
             }).onOk(() => {
@@ -697,8 +745,7 @@ watch(interacoes, async (val) => {
                 },
                 persistent: true
             }).onOk(() => {
-                sendWppMessage('Olá! Vi seu estoque de veículos e gostaria de mais informações.')
-
+                sendWppMessage( (leadNome.value ? leadNome.value + ": " : null) + 'Olá! Vi seu estoque de veículos e gostaria de mais informações.')
             })
     }
 });
@@ -742,4 +789,5 @@ watch(interacoes, async (val) => {
 .scroll {
     scroll-behavior: smooth;
 }
+
 </style>
