@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <!-- NAVBAR -->
-    <q-header class="q-py-xs text-white bg-blue-grad">
+    <q-header class="q-py-xs text-white bg-blue-grad-2">
       <q-toolbar class="container row justify-between items-center">
         <q-toolbar-title class="text-h6 row items-center no-wrap">
           <q-avatar size="48px" class="q-mr-sm">
@@ -34,10 +34,10 @@
           </q-btn>
         </div>
         <div>
-          <q-btn v-if="!isMobile" color="teal" style="border-radius: 20px;" flat icon="rocket_launch"
-            label="Começar Agora" class="q-ml-sm bg-white text-bold" :to="isUserLoggedIn ? '/me' : '/ia'" />
-          <q-btn v-if="isMobile" color="white" icon-right="rocket_launch" :to="isUserLoggedIn ? '/me' : '/ia'"
-            class="q-ml-sm text-teal">
+          <q-btn v-if="!isMobile"  style="border-radius: 20px;" flat icon="rocket_launch"
+            label="Começar Agora" class="q-ml-sm header-2 text-bold" :to="isUserLoggedIn ? '/me' : '/ia'" />
+          <q-btn v-if="isMobile"  icon-right="rocket_launch" :to="isUserLoggedIn ? '/me' : '/ia'"
+            class="q-ml-sm header-2 text-white">
             <q-tooltip>
               Começar Agora
             </q-tooltip>

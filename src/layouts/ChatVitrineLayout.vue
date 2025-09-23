@@ -42,13 +42,12 @@
         </q-drawer>
 
         <!-- Página principal do chat -->
-        <q-page-container class="header-2" v-if="!loading">
+        <q-page-container class="bg-blue-grad" v-if="!loading">
             <q-page class="q-pa-none bg-grey-4 column full-height relative">
                 <!-- Vitrine fixa -->
-                <div class="header-2 sticky-top" style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
-                    <div style="border-radius: 12px">
-                        <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length"
-                            v-model="carrosselIndex" height="360px" class="header-2 sticky text-white" autoplay
+                <div class="bg-blue-grad sticky-top" style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
+                        <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length" id="vitrine"
+                            v-model="carrosselIndex"  class="bg-blue-grad sticky text-white" autoplay
                             swipeable interval="12000">
                             <template v-slot:control>
                                 <div class="absolute-left q-pa-xs" style="top:45%">
@@ -78,16 +77,15 @@
                                                 carro.ano }}</div>
                                     </div>
                                 </q-img>
-                                <q-btn icon-right="store" color="white" dense
-                                    class="text-teal q-mx-md q-mt-md absolute-top" label="estoque"
+                                <q-btn icon-right="store" dense
+                                    class="text-white bg-blue-grad-2 q-mx-md q-mt-md absolute-top" label="estoque"
                                     @click="toggleEstoqueDrawer()" style="width: 40%;z-index: 99999999999!important;" />
-                                <q-btn icon-right="search" color="teal-14" glossy dense class="q-mx-md q-mt-md absolute-top-right"
+                                <q-btn icon-right="search" dense class="header-2 q-mx-md q-mt-md absolute-top-right"
                                     label="Detalhes" @click="abrirDialog(carro)"
                                     style="width: 40%;z-index: 99999999999!important;" />
                             </q-carousel-slide>
                         </q-carousel>
 
-                    </div>
                     <!-- Dialog com informações da loja -->
                     <q-dialog v-model="infoLojaVisible">
                         <q-card class="q-pa-md" style="min-width: 350px; max-width: 90vw">
@@ -230,13 +228,11 @@
                 </div>
                 <div class="w100" style="height:10px"></div>
                 <!-- Input fixo no final -->
-                <div class="q-pa-sm header-2 row items-center"
+                <div class="q-pa-sm bg-blue-grad row items-center"
                     style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
-                    <q-input filled v-model="input" label="Digite sua mensagem" maxlength="100" color="grey-8"
+                    <q-input outlined v-model="input" label="Digite sua mensagem" maxlength="100" color="teal"
                         class="bg-grey-4 rounded-borders col" @keyup.enter="sendMessage" />
-                    <!-- <q-btn v-if="interacoes >= 3" icon="rocket" color="orange-14" class="q-mx-sm" glossy round
-                        @click="iaDialogVisible = true" /> -->
-                    <q-btn v-if="!loadingIA" icon="send" color="teal-14" glossy class="q-ml-sm shadow-2"
+                    <q-btn v-if="!loadingIA" icon="send" class="q-ml-sm shadow-1 header-2 text-white"
                         @click="sendMessage" />
                     <q-spinner-comment v-else color="teal" class="q-pl-sm" size="2em" />
                 </div>
@@ -786,6 +782,9 @@ watch(interacoes, async (val) => {
 @media (min-width: 900px) {
     .q-page-container {
         padding: 0 250px 0 250px;
+    }
+    .sticky-top , #vitrine{
+        height: 60vh;
     }
 }
 

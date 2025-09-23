@@ -332,7 +332,7 @@ async function handleSubmit() {
 
 <style scoped>
 .q-page {
-    background-image: url('/home-desk.png');
+    background-image: url('/home-desk-2.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
