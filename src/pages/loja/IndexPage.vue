@@ -186,12 +186,12 @@ function exportarPagamentosPDF() {
             <!-- Botões -->
             <strong class="text-teal">{{ editando ? '' : userRole }}</strong><br />
             <div class="row q-gutter-sm q-mb-md" style="position: relative">
-                <q-btn color="teal" icon="sms" label="Meu ChatVitrine" v-if="!editando"
+                <q-btn icon="sms" class="bg-blue-grad-2 text-white" label="Meu ChatVitrine" v-if="!editando"
                     :to="'/' + lojaInfo.login" />
-                <q-btn color="teal" icon="currency_exchange" label="Renovar" to="/me/planos" v-if="!editando" />
-                <q-btn v-if="!editando" color="grey-7"  icon="edit" label="Editar Perfil"
+                <q-btn icon="currency_exchange" class="bg-blue-grad-2 text-white" label="Renovar" to="/me/planos" v-if="!editando" />
+                <q-btn v-if="!editando" class="bg-blue-grad-2 text-white" icon="edit" label="Editar Perfil"
                     @click="editando = true" />
-                <q-btn v-else color="teal" glossy icon="save" label="Salvar Alterações" @click="editarLoja" class="q-py-lg"
+                <q-btn v-else icon="save" label="Salvar Alterações" @click="editarLoja" class="header-2 text-white q-py-lg"
                     style="position: fixed; bottom:0px;left:-8px;z-index: 999; width: 100vw" />
                 <q-btn v-if="editando" color="grey-7" icon="cancel" label="Cancelar" @click="editando = false"
                     style="position: fixed; top:42px;left:-8px;z-index: 999; width: 100vw; border-radius: 0px;" />
@@ -201,9 +201,9 @@ function exportarPagamentosPDF() {
             <q-layout-grid class="q-gutter-md" cols="12" sm-cols="6" md-cols="4" lg-cols="3">
 
                 <!-- Card Leads Recentes -->
-                <q-card v-if="!editando" class="q-pa-sm full-height" flat bordered>
+                <q-card v-if="!editando" class="q-pa-sm full-height bg-blue-grad-2 text-white" flat bordered>
                     <q-card-section>
-                        <div class="text-h6 text-bold text-secondary text-center"><q-btn color="teal" glossy label="Clientes Recentes" to="/me/leads" icon="groups"></q-btn></div>
+                        <div class="text-h6 text-bold text-secondary text-center"><q-btn class="header-2 text-white shadow-2"    label="Clientes Recentes" to="/me/leads" icon="groups"></q-btn></div>
                         <q-separator class="q-my-sm" />
                         <div v-for="lead in leadsRecentes" :key="lead.id" class="q-mb-xs text-body1">
                             ✨ {{ lead.nome }} - {{ lead.data }}
@@ -335,9 +335,11 @@ function exportarPagamentosPDF() {
                     </q-card-section>
                 </q-card>
             </q-layout-grid>
-            <q-btn class="q-mt-xl" color="teal" icon="admin_panel_settings" v-if="!editando && lojaInfo.login.toLowerCase() === 'jatoveiculos'"
-                    glossy @click="get_pagamentos()" />
-<q-dialog v-model="dialogPagamentos" persistent full-width max-width="800px">
+            <div class="w100">
+                            <q-btn class="q-mt-xl" color="" icon="admin_panel_settings" v-if="!editando && lojaInfo.login.toLowerCase() === 'jatoveiculos'"
+                    glossy @click="get_pagamentos()" /> 
+            </div>
+<q-dialog v-model="dialogPagamentos"  full-width max-width="800px">
   <q-card class="bg-white text-black" style="max-height: 90vh; display: flex; flex-direction: column;">
     
     <!-- Cabeçalho fixo -->

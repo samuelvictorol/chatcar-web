@@ -14,7 +14,7 @@
                     <div class="col row justify-end items-center nav-actions">
                         <q-btn flat dense class="q-ml-sm" v-for="item in content.nav" :key="item.to" :label="item.label"
                             @click="scrollTo(item.to)" />
-                        <q-btn class="q-ml-md header-2" label="Quero me Cadastrar" @click="focusEmail" />
+                        <q-btn class="q-ml-md header-2" :label="isUserLoggedIn ? 'Meu Painel': 'Login'" :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'" />
                     </div>
                 </div>
             </q-toolbar>
@@ -204,7 +204,7 @@
                                 </q-list>
                                 <q-card-actions align="center" class="q-pa-md">
                                     <q-input v-model="form.email" type="email" outlined dense color="teal"
-                                        class="col-12 col-md-5 bg-grey-2 q-mb-md text-dark rounded-borders"
+                                        class="w100 bg-grey-2 q-mb-md text-dark rounded-borders"
                                         label="Seu melhor e‑mail*" placeholder="nome@email.com" ref="emailInputRef">
                                         <template v-slot:append>
                                             <q-icon :name="emailValid ? 'person_add' : 'email'"
@@ -309,7 +309,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeMount } from 'vue'
 import { useQuasar } from 'quasar'
 // usa seu boot de axios se existir
 // evitar async setup: carregue axios dinamicamente apenas quando precisar
@@ -320,7 +320,14 @@ async function getApi() {
     catch (e) { apiRef.value = null }
     return apiRef.value
 }
-
+const isUserLoggedIn = ref(false);
+onBeforeMount(() => {
+  // Check if user is logged in
+  const user = localStorage.getItem('user');
+  if (user) {
+    isUserLoggedIn.value = true;
+  }
+});
 const $q = useQuasar()
 const showDemo = ref(false)
 const showDialog = ref(false)
@@ -457,7 +464,7 @@ const content = props.contentProp || {
             note: 'Acesso por 30 dias • Sem renovação automática',
             features: [
                 'Atendimento IA 24h',
-                '1 usuário • 50 conversas/mês',
+                'Vitrine Inteligente + Site de Estoque',
                 'Resumo e abordagem do lead',
                 'Rastreio de origem (UTM)',
                 'Pronto para anúncios (link único)'

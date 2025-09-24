@@ -1,7 +1,7 @@
 <template>
     <q-layout view="hHh lpR fFf">
 
-        <q-header class="header text-white">
+        <q-header class="bg-blue-grad-2 text-white">
             <q-toolbar>
                 <q-toolbar-title class="text-h6 row items-center no-wrap">
                     <q-avatar size="38px" class="cursor-pointer text-black animate__animated animate__zoomIn animate__slower animate__delay-1s">
@@ -11,7 +11,7 @@
                 <div class="row no-wrap items-center">
                     <q-btn color="grey-4" @click="logout()" dense class="text-white q-mr-sm" flat
                     icon-right="login" label="Sair" />
-                    <q-btn color="teal"  class="text-white" icon="menu" glossy label="menu"
+                    <q-btn   class="text-white header-2 text-white" icon="menu" label="menu"
                         @click="rightDrawerOpen = !rightDrawerOpen" />
                 </div>
             </q-toolbar>
@@ -36,9 +36,9 @@
             <q-separator />
             <div class="w100 column q-mt-md">
                 <div class="w50">
-                    <q-btn to="/me/planos" color="teal" glossy class="q-px-sm text-white q-mb-sm q-ml-md "
+                    <q-btn to="/me/planos" class="bg-blue-grad-2 q-px-sm text-white q-mb-sm q-ml-md "
                     icon-right="currency_exchange" label="Renovar" />
-                    <q-btn to="/me/ajuda" color="teal" glossy class="q-ml-md  q-mb-md q-px-sm text-white"
+                    <q-btn to="/me/ajuda" class="bg-blue-grad-2 q-ml-md  q-mb-md q-px-sm text-white"
                     icon-right="contact_support" label="Ajuda" />
                 </div>
             </div>
@@ -53,9 +53,8 @@
 
         <q-page-container class="bg-grey-4">
             <router-view />
-            <footer class="w100 text-center q-py-md bg-dark text-white">
-                ChatCar IA ®<br>
-                Todos os direitos reservados<br>
+            <footer class="w100 text-center q-py-md bg-blue-grad text-white">
+                <a class="text-white" style="text-decoration: none;opacity: .7;" href="chatcar.me">ChatCar IA ® - Seu vendedor 24h + vitrine inteligente.</a>
             </footer>
         </q-page-container>
 

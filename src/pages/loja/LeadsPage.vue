@@ -51,14 +51,14 @@
         </q-card>
       </div>
 
-      <q-card id="lead" v-for="lead in leadsFiltrados" :key="lead.id" class="q-pa-md"
+      <q-card id="lead" v-for="lead in leadsFiltrados" :key="lead.id" class="q-pa-md bg-blue-grad text-white"
         :style="'border-bottom: 2px solid ' + (lead.relatorioIA ? '#275DF3' : '#26A69A')">
         <q-card-section>
           <div style="font-size:1.2rem" class="text-bold row items-center">
             <q-icon name="account_circle" class="q-mr-sm" size="md" />
             {{ lead.name }}
           </div>
-          <div class="text-caption text-grey-8">
+          <div class="text-caption text-grey-7">
             <strong class="text-teal">{{ lead.status }}</strong> - {{ lead.dataHora }}
           </div>
         </q-card-section>
@@ -68,7 +68,7 @@
         <q-card-section>
           <div class="q-mb-sm">
             <div class="row items-center">
-              <span class="text-body1 text-dark">
+              <span class="text-body1 text-grey-1">
                 {{ lead.mostrarContato ? lead.contato : mascararTelefone(lead.contato) }}
               </span>
               <q-btn size="sm" color="teal" flat round icon="visibility" class="q-ml-sm"

@@ -2,11 +2,11 @@
 const routes = [
   {
     path: '',
-    component: () => import('layouts/LandingLayout.vue'),
+    component: () => import('layouts/LandingDirectPage.vue'),
   },
   {
     path: '/ia',
-    component: () => import('layouts/LandingDirectPage.vue'),
+    component: () => import('layouts/LandingLayout.vue'),
   },
   {
     path: '/login',
