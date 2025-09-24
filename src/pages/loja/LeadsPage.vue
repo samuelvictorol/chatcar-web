@@ -51,7 +51,7 @@
         </q-card>
       </div>
 
-      <q-card id="lead" v-for="lead in leadsFiltrados" :key="lead.id" class="q-pa-md bg-blue-grad text-white"
+      <q-card id="lead" v-for="lead in leadsFiltrados" :key="lead.id" class="q-pa-md bg-blue-grad-2 text-white"
         :style="'border-bottom: 2px solid ' + (lead.relatorioIA ? '#275DF3' : '#26A69A')">
         <q-card-section>
           <div style="font-size:1.2rem" class="text-bold row items-center">

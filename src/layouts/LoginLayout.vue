@@ -75,7 +75,7 @@
                                 Ver Termos de Uso
                             </q-btn>
                             <q-btn v-if="!loading" :label="formType === 'login' ? 'Entrar' : 'Registrar'"
-                                type="submit" color="teal" glossy class="w100 q-mt-md q-pa-md" no-caps />
+                                type="submit" class="header-2  text-white w100 q-mt-md q-pa-md" no-caps />
                             <q-btn v-if="!loading" flat dense no-caps color="teal" class="w100 q-mt-sm text-bold"
                                 @click="formType = formType === 'login' ? 'register' : 'login'">
                                 {{ formType === 'login' ? 'Ainda não tem conta? Cadastre-se' : 'Já tem conta? Entrar' }}

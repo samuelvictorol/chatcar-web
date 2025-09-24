@@ -266,11 +266,17 @@
                                 </div>
                             </div>
                         </q-card>
-                        <iframe src="https://www.youtube.com/embed/y2Qka6CeEVg?si=lPPEuU7iZsQrit-P" class="animate__animated animate__fadeIn animate__slower"
+                        <iframe cla src="https://www.youtube.com/embed/xuDQpJHdl-c" height="300" class="animate__animated animate__fadeIn animate__slower w100"
                             title="Chatcar IA - Vendedor Automotivo 24H" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
+                        </div>
+                        <div class="w100 column ">
+                            <q-btn class="header text-white full-width q-mt-md" icon="android"
+                                label="Experimente já o nosso estoque de testes gratuitamente" to="/jatoveiculos" />
+                            <q-btn class="header text-white full-width q-mt-md" icon="public"
+                                label="Conheça a plataforma por dentro" to="/ia" />
+                        </div>
                 </q-dialog>
 
                 <!-- Snackbar/Toast success -->
