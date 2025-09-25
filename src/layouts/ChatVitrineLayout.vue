@@ -1,44 +1,64 @@
 <template>
     <q-layout view="hhh lpR fFf">
-        <q-drawer v-model="showEstoqueDrawer" side="right" bordered>
-            <q-toolbar class="bg-blue-grad-2 text-white">
-                <q-toolbar-title>Estoque</q-toolbar-title>
-                <q-btn flat round icon="close" @click="showEstoqueDrawer = false" />
+        <q-drawer v-model="showEstoqueDrawer" side="right" bordered :width="drawerWidth">
+            <q-toolbar class="bg-blue-grad-2 text-white row no-wrap justify-between w100">
+                <q-btn flat  icon="arrow_back" label="Chat" class="bg-blue-grad-2 shadow-1" @click="showEstoqueDrawer = false" />
+                <div>Estoque</div>
             </q-toolbar>
+
             <div class="bg-blue-grad-2 w100 column q-pb-md items-center justify-between q-px-md">
                 <div class="text-h6 text-white q-pt-sm ">{{ sobreLoja?.nome }}</div>
-                <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="contato"
-                        icon-right="contact_support" color="" @click="openInfoLoja()" style="border:2px solid white"
-                        dense flat></q-btn></div>
-
+                <div class="text-h6 text-white q-pt-sm ">
+                    <q-btn class="q-px-sm" label="contato" icon-right="contact_support" color="" dense flat
+                        style="border:2px solid white" @click="openInfoLoja()" />
+                </div>
             </div>
+
             <q-input v-model="filtroEstoque" color="teal" @update:model-value="filtrarMenuEstoque()" outlined
-                label="Filtrar estoque..." dense debounce="300" class="q-pa-sm relative">
+                label="Filtrar estoque..." placeholder="Ex: Gol, SUV, Hatch, Ford, 2022" dense debounce="300" class="q-pa-sm relative">
                 <template v-slot:append>
-                    <q-btn icon='search' name="search" @click="filtrarMenuEstoque()"
-                        class="cursor-pointer absolute-right" color="teal" />
+                    <q-btn icon="search" @click="filtrarMenuEstoque()" class="cursor-pointer absolute-right"
+                        color="teal" />
                 </template>
             </q-input>
+
             <q-separator />
-            <q-list>
-                <q-item id="item-estoque" v-for="(carro, i) in estoqueFiltrado" :key="i">
-                    <q-item-section style="border-bottom: 1px solid #26A69A ;" class="q-pb-sm">
-                        <div class="row w100 no-wrap items-center">
-                            <div class="column text-bold">
-                                <q-item-label>{{ carro?.modelo }} - {{ carro?.ano }}</q-item-label>
-                                <q-item-label caption>{{ carro.categoria?.label }}</q-item-label>
-                            </div>
-                            <q-btn icon="visibility" color="secondary" glossy dense class="q-ml-md"
-                                @click="() => selecionarCarro(carro)" />
 
+            <q-scroll-area :style="{ height: isMobile ? 'calc(100vh - 210px)' : 'calc(100vh - 240px)' }">
+                <div class="q-pa-sm">
+                    <div class="row q-col-gutter-xs">
+                        <div v-for="(carro, i) in estoqueFiltrado" :key="carro.id || i"
+                            class="col-6 col-sm-4 col-md-4 col-lg-3">
+                            <q-card class="car-card car-card--compact" bordered clickable
+                                @click="selecionarCarro(carro)">
+                                <div class="relative-position">
+                                    <q-img :src="carro.img_url" :ratio="16 / 9" class="car-card__img" loading="lazy"
+                                        :alt="carro.modelo" placeholder-src="" />
+                                    <q-btn icon="visibility" color="secondary" round dense flat
+                                        class="absolute-top-right q-ma-xs" @click.stop="selecionarCarro(carro)" />
+                                </div>
+
+                                <q-card-section class="q-pa-sm">
+                                    <div class="text-body2 text-weight-medium ellipsis-2-lines">
+                                        {{ carro?.modelo }}
+                                    </div><span v-if="carro?.ano" class="text-grey-7"> • {{ carro.ano
+                                        }}</span>
+                                    <div class="row items-center q-mt-xs">
+                                        <q-chip size="sm" outline color="teal" text-color="teal" class="q-pa-xs">
+                                            {{ carro?.categoria?.label || 'Sem categoria' }}
+                                        </q-chip>
+                                    </div>
+                                </q-card-section>
+                            </q-card>
                         </div>
-                    </q-item-section>
-                </q-item>
-            </q-list>
-            <div class="q-pb-md w100 text-right q-px-sm text-grey-7">
-                Powered by: <q-btn to="/" class="text-teal q-ml-sm">chatcar.me</q-btn>
-            </div>
+                    </div>
+                </div>
+            </q-scroll-area>
 
+
+            <div class="q-py-xs w100 text-right q-px-sm text-grey-7">
+                Powered by: <a href="https://chatcar.me" target="_blank" dense class="text-teal q-ml-xs">chatcar.me</a>
+            </div>
         </q-drawer>
 
         <!-- Página principal do chat -->
@@ -77,12 +97,14 @@
                                             carro.ano }}</div>
                                 </div>
                             </q-img>
-                            <q-btn icon-right="store" dense
-                                class="text-white bg-blue-grad-2 q-mx-md q-mt-md absolute-top" label="estoque"
-                                @click="toggleEstoqueDrawer()" style="width: 40%;z-index: 99999999999!important;" />
-                            <q-btn icon-right="search" dense class="header-2 q-mx-md q-mt-md absolute-top-right"
-                                label="Detalhes" @click="abrirDialog(carro)"
-                                style="width: 40%;z-index: 99999999999!important;" />
+                            <div class="absolute-top">
+                                <q-btn icon-right="search" dense class="header-2 q-mx-md q-mt-md absolute-top"
+                                    label="Detalhes" @click="abrirDialog(carro)"
+                                    style="width: 40%;z-index: 99999999999!important;" />
+                                <q-btn icon-right="arrow_forward" dense
+                                    class="text-white bg-blue-grad-2 q-mx-md q-mt-md absolute-top-right" label="estoque"
+                                    @click="toggleEstoqueDrawer()" style="width: 40%;z-index: 99999999999!important;" />
+                            </div>
                         </q-carousel-slide>
                     </q-carousel>
 
@@ -139,15 +161,15 @@
 
                             <!-- Conteúdo com scroll -->
                             <div style="max-height: 95vh; overflow-y: auto;" class="">
-                                <q-card-section class="relative">
-                                    <div class="text-center text-white bg-blue-grad-2 rounded-borders shadow-1 q-mb-sm text-bold"
-                                        style="font-size:1.2rem">
-                                        {{ carroSelecionado.modelo }}
+                                <q-card-section
+                                    class="row items-center justify-between q-pb-md bg-blue-grad-2 text-white">
+                                    <div class="text-h6">{{ carroSelecionado.modelo }}
                                     </div>
+                                </q-card-section>
+                                <q-card-section class="relative">
                                     <div v-if="carroSelecionado.preco"
-                                        class="text-body2 q-py-sm text-shadow text-bold text-teal"
-                                        style="font-size: 1.3rem;">
-                                        R$ {{ carroSelecionado?.preco }}
+                                        class="text-body2 q-py-sm text-bold text-teal-14 " style="font-size: 1.4rem;">
+                                        R$ {{ carroSelecionado?.preco ? Utils.toBRLFixedStr(carroSelecionado.preco) :  '-'}}
                                     </div>
                                     <div class="text-caption q-mb-sm">
                                         <strong class="text-teal">{{ carroSelecionado?.ano }}</strong> -
@@ -260,6 +282,7 @@ import { useQuasar } from 'quasar'
 import { nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from 'src/boot/axios';
+import { Utils } from 'src/Utils';
 
 const showDialog = ref(false)
 const router = useRouter()
@@ -281,6 +304,8 @@ const carrossel = ref([])
 const carrosselIndex = ref(0)
 const interacoes = ref(0)
 const route = useRoute()
+const drawerWidth = $q.screen.width - 40
+const isMobile = computed(() => $q.screen.lt.md)
 const usuario = ref({
     nome: '',
     telefone: '',
@@ -447,23 +472,59 @@ function sendWppMessageAction(text) {
     window.open(link, '_blank');
 }
 
-function selecionarCarro(carro) {
-    carrossel.value.splice(0, 0, carro) // insere na posição 1
+// helper opcional p/ BRL
+const fmtBRL = (v) => {
+    if (v == null || v === '') return null
+    const n = Number(v)
+    return isNaN(n) ? null : n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+}
 
+function selecionarCarro(carro) {
+    // insere o carro no início do carrossel
+    carrossel.value.splice(0, 0, carro)
     carrosselIndex.value = 0
+
+    // perguntas profissionais (curtas e diretas)
+    const perguntas = [
+        'Qual é seu orçamento aproximado para este veículo?',
+        'Pretende usar mais na cidade ou estrada? Alguma rota de terra frequentemente?',
+        'Vai precisar de espaço para família, bagagens ou pets?',
+        'Deseja avaliar seu carro atual como parte do pagamento (troca)?',
+        'Prefere câmbio automático ou manual? Alguma preferência de motorização?',
+        'Importa-se com consumo/eficiência ou prioriza desempenho?',
+        'Deseja cotar seguro e valor aproximado do IPVA para este modelo?',
+        'Prefere agendar um test drive presencial ou receber um vídeo detalhado?',
+        'Vai rodar muitas km por ano? Posso estimar custos de manutenção.',
+        'Precisa de tecnologias específicas (Piloto automático, Apple CarPlay, ADAS)?',
+        'Quer ver opções similares na mesma faixa de preço/categoria?'
+    ].filter(Boolean)
+
+    // mensagem inicial com o carro
+    const precoFmt = fmtBRL(carro.preco)
     messages.value.push({
         from: 'bot',
-        text: 'Aqui está: ' + carro.modelo + (carro.preco ? ' - R$ ' + carro.preco : '.')
+        text: `Aqui está ${carro.modelo}${precoFmt ? ' - ' + precoFmt : '.'}`
     })
+
+    // escolhe UMA pergunta aleatória e envia
+    const idx = Math.floor(Math.random() * perguntas.length)
+    messages.value.push({
+        from: 'bot',
+        text: perguntas[idx]
+    })
+
     playPopSound()
     showEstoqueDrawer.value = false
+
     setTimeout(() => {
         abrirDialog(carro)
     }, 900)
+
     nextTick(() => {
         window.scrollTo(0, document.body.scrollHeight)
     })
 }
+
 
 const estoque = ref([])
 const origem = ref('')
@@ -656,6 +717,7 @@ async function sendMessage() {
     }
 }
 
+
 function confirmExit() {
     $q.dialog({
         title: 'Sair do chat',
@@ -693,13 +755,12 @@ function filtrarMenuEstoque() {
         return;
     }
     usuario.value.preferencias.push(texto)
-    interacoes.value++;
 
     const termo = texto.toLowerCase();
     const resultado = estoque.value.filter(carro => {
         return (
             carro.modelo?.toLowerCase().includes(termo) ||
-            carro.ano?.toString().includes(termo)
+            carro.ano?.toString().includes(termo) || carro.categoria?.value.toLowerCase().includes(termo)
         )
     });
     estoqueFiltrado.value = resultado;
@@ -784,6 +845,37 @@ watch(interacoes, async (val) => {
 #item-estoque:hover {
     background-color: #26A69A !important;
     color: white !important;
+}
+
+/* no <style scoped> */
+
+.car-card {
+    border-radius: 14px;
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    border-color: rgba(38, 166, 154, .25);
+}
+
+.car-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+    border-color: rgba(38, 166, 154, .55);
+}
+
+.car-card--compact .q-card__section {
+    padding: 8px 10px;
+}
+
+.car-card__img {
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+/* duas linhas no título */
+.ellipsis-2-lines {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 @media (min-width: 900px) {
