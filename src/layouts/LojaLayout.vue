@@ -54,7 +54,7 @@
         <q-page-container class="bg-grey-4">
             <router-view />
             <footer class="w100 text-center q-py-md bg-blue-grad text-white">
-                <a class="text-white" style="text-decoration: none;opacity: .7;" href="chatcar.me">ChatCar IA ® - Seu vendedor 24h + vitrine inteligente.</a>
+                <a class="text-white" style="text-decoration: none;opacity: .7;" href="chatcar.me">ChatCar IA ® - chatcar.suporte@gmail.com</a>
             </footer>
         </q-page-container>
 

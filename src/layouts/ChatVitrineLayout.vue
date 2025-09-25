@@ -36,7 +36,7 @@
                 </q-item>
             </q-list>
             <div class="q-pb-md w100 text-right q-px-sm text-grey-7">
-                Powered by: <a href="chatcar.me" target="_blank" class="text-teal">chatcar.me</a>
+                Powered by: <q-btn to="/" class="text-teal q-ml-sm">chatcar.me</q-btn>
             </div>
 
         </q-drawer>
@@ -152,7 +152,7 @@
                                     <div class="text-caption q-mb-sm">
                                         <strong class="text-teal">{{ carroSelecionado?.ano }}</strong> -
                                         <strong class="text-teal">{{ carroSelecionado.categoria?.label.toUpperCase()
-                                            }}</strong>
+                                        }}</strong>
                                         -
                                         <strong class="text-teal">{{ carroSelecionado?.cor.toUpperCase() }}</strong> -
                                         <strong class="text-teal">{{ carroSelecionado?.km }} km</strong>
@@ -165,10 +165,10 @@
                                     </div>
 
                                     <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length"
-                                        swipeable animated navigation arrows infinite
+                                        animated navigation arrows infinite
                                         class="rounded-borders q-my-md bg-blue-grad car-hero"
                                         :height="$q.screen.lt.sm ? '50vh' : '480px'" control-type="flat"
-                                        navigation-position="bottom">
+                                        navigation-position="bottom" autoplay swipeable interval="3000">
 
                                         <q-carousel-slide v-for="(img, index) in imagensVeiculoSelecionado" :key="index"
                                             :name="index" class="flex flex-center rounded-borders">
@@ -740,7 +740,7 @@ watch(interacoes, async (val) => {
                 color: 'teal'
             },
             cancel: {
-                label: 'voltar',
+                label: 'continuar no chat',
                 color: 'dark'
             },
             persistent: true

@@ -113,7 +113,7 @@
                                 class="text-teal">imgur.com</a> – fácil e rápido!</li>
                         <li><strong>Facebook:</strong> poste no feed ou em álbuns e copie o link direto.</li>
                         <li><strong>Seu próprio site:</strong> se tiver, use os links das suas páginas de vendas.</li>
-                        <li><strong>Web Motors:</strong> – copie o linkd das imagens que utilou no anúncio da WebMotors.
+                        <li><strong>Web Motors:</strong> – copie os links das imagens que utilizou no anúncio da WebMotors.
                         </li>
                     </ul>
                 </div>

@@ -217,11 +217,6 @@ function exportarPagamentosPDF() {
                             <q-img :src="lojaInfo.img_url" alt="Imagem da Loja" height="80px" width="80px"
                                 class="rounded-borders shadow-1" />
                         </div>
-                        <div v-if="editando" class="w100 q-py-md text-center">
-                            Os seus dados <strong>não sensíveis</strong> serão utilizados pela I.A durante a interação com seu cliente.<br>Preencha os campos abaixo com informações atualizadas:
-                            <br>
-                        </div>
-                        <q-separator v-if="!editando" class="q-my-sm" />
                         
                         <div class="text-body1 shadow-1 bg-grey-2 q-mb-sm q-pa-xs rounded-borders" style="border-bottom: 2px solid teal;">
                             <strong class="text-teal">{{ !editando ? 'Meu Link: ' : 'Login: ' }} </strong><br>
@@ -331,8 +326,17 @@ function exportarPagamentosPDF() {
                             Plano ativo até
                             <strong>{{ formatarData(lojaInfo.plano_expira) }}</strong>
                         </div>
-
                     </q-card-section>
+                    <q-separator v-if="!editando" class="q-my-sm" />
+                        <div v-if="editando" class="w100 q-py-md text-center">
+                            Os seus dados <strong>não sensíveis</strong> serão utilizados pela I.A durante a interação com seu cliente.<br>Preencha os campos abaixo com informações atualizadas:
+                            <br>
+                        </div>
+                        <q-separator v-if="!editando" class="q-my-sm" />
+                        <div v-if="editando" class="w100 q-py-md text-center">
+                            Os seus dados <strong>não sensíveis</strong> serão utilizados pela I.A durante a interação com seu cliente.<br>Preencha os campos abaixo com informações atualizadas:
+                            <br>
+                        </div>
                 </q-card>
             </q-layout-grid>
             <div class="w100">
