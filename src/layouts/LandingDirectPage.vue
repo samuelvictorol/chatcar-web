@@ -154,7 +154,24 @@
                         </div>
                     </div>
                 </section>
+                <section id="hero" class="container q-py-lg">
+                    <div class="row items-center q-col-gutter-xl">
 
+                        <div class="col-12 col-md-6">
+                            <div class="eyebrow">Site de Estoque + Vendedor 24 horas</div>
+                            <h1 class="display">Compartilhe seu link único e converta mais</h1>
+                            <p class="lead q-mt-sm">Basta cadastrar seu estoque e gerar seu link (chatcar.me/seulogin) que irá atender, qualificar e encaminhar leads com abordagem pronta — integrada ao WhatsApp e pronta para tráfego pago.</p>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="hero-media card-3d">
+                                <iframe width="100%" class="video" src="https://www.youtube.com/embed/xuDQpJHdl-c"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 <!-- TESTIMONIALS -->
                 <section id="testimonials" class="container  q-py-xl">
                     <div class="section-head">
@@ -269,17 +286,17 @@
                                     </div>
                                 </div>
                             </q-card>
-                            <iframe cla src="https://www.youtube.com/embed/xuDQpJHdl-c" height="280"
+                            <iframe cla src="https://www.youtube.com/embed/y2Qka6CeEVg" height="280"
                                 class="animate__animated animate__fadeIn animate__slower w100"
                                 title="Chatcar IA - Vendedor Automotivo 24H" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
                         <div class="w100 column ">
-                            <q-btn class="header text-white full-width q-mt-md" icon="android"
-                                label="Simule como seus clientes serão atendidos" to="/jatoveiculos" />
                             <q-btn class="header text-white full-width q-mt-md" icon="public"
-                                label="Conheça a plataforma por dentro" to="/ia" />
+                            label="Conheça a plataforma por dentro" to="/ia" />
+                            <q-btn class="header text-white full-width q-mt-md" icon="android"
+                                label="Experimente o ChatVitrine Agora de Graça" to="/jatoveiculos" />
                         </div>
                     </div>
                 </q-dialog>
@@ -305,7 +322,7 @@
                 <div class="text-caption opacity-70 q-py-xs">© {{ new Date().getFullYear() }} {{ content.brand.name }}
                     IA -
                     <a style="text-decoration: none;" href="#faq" class="text-teal-14">
-                        Development and Support
+                        chatcar.suporte@gmail.com
                     </a>
                 </div>
             </div>

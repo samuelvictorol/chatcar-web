@@ -799,7 +799,7 @@ watch(interacoes, async (val) => {
 
 @media (min-width: 1600px) {
     .q-page-container {
-        padding: 0 500px 0 500px;
+        padding: 0 500px 00 500px;
     }
 }
 
