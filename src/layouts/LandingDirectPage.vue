@@ -14,7 +14,9 @@
                     <div class="col row justify-end items-center nav-actions">
                         <q-btn flat dense class="q-ml-sm" v-for="item in content.nav" :key="item.to" :label="item.label"
                             @click="scrollTo(item.to)" />
-                        <q-btn class="q-ml-md header-2" :label="isUserLoggedIn ? 'Meu Painel': 'Login'" :icon-right="isUserLoggedIn ? 'account_box' : 'login'" :to="isUserLoggedIn ? '/me' : '/login'" />
+                        <q-btn class="q-ml-md header-2" :label="isUserLoggedIn ? 'Meu Painel' : 'Login'"
+                            :icon-right="isUserLoggedIn ? 'account_box' : 'login'"
+                            :to="isUserLoggedIn ? '/me' : '/login'" />
                     </div>
                 </div>
             </q-toolbar>
@@ -254,29 +256,32 @@
                 <!-- DEMO MODAL -->
                 <q-dialog v-model="showDemo" persistent>
                     <div class="column">
-                        <q-card class=" rounded-borders">
-                            <q-bar class="text-white bg-dark-800 rounded-borders">
-                                <div class="text-subtitle2">Demonstração</div>
-                                <q-space />
-                                <q-btn dense flat icon="close" v-close-popup />
-                            </q-bar>
-                            <div class="w100">
-                                <div class="text-center text-caption opacity-70 q-pa-sm">Veja como funciona a
-                                    ChatCar IA em apenas <strong>3 etapas</strong>.
+                        <div class="column">
+                            <q-card class=" rounded-borders">
+                                <q-bar class="text-white bg-blue-grad-2 rounded-borders">
+                                    <div class="text-subtitle2">Demonstração</div>
+                                    <q-space />
+                                    <q-btn dense flat icon="close" v-close-popup />
+                                </q-bar>
+                                <div class="w100">
+                                    <div class="text-center text-caption opacity-70 q-pa-sm">Veja como funciona a
+                                        ChatCar IA em apenas <strong>3 etapas</strong>.
+                                    </div>
                                 </div>
-                            </div>
-                        </q-card>
-                        <iframe cla src="https://www.youtube.com/embed/xuDQpJHdl-c" height="300" class="animate__animated animate__fadeIn animate__slower w100"
-                            title="Chatcar IA - Vendedor Automotivo 24H" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </q-card>
+                            <iframe cla src="https://www.youtube.com/embed/xuDQpJHdl-c" height="280"
+                                class="animate__animated animate__fadeIn animate__slower w100"
+                                title="Chatcar IA - Vendedor Automotivo 24H" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
                         <div class="w100 column ">
                             <q-btn class="header text-white full-width q-mt-md" icon="android"
-                                label="Experimente já o nosso estoque de testes gratuitamente" to="/jatoveiculos" />
+                                label="Simule como seus clientes serão atendidos" to="/jatoveiculos" />
                             <q-btn class="header text-white full-width q-mt-md" icon="public"
                                 label="Conheça a plataforma por dentro" to="/ia" />
                         </div>
+                    </div>
                 </q-dialog>
 
                 <!-- Snackbar/Toast success -->
@@ -328,11 +333,11 @@ async function getApi() {
 }
 const isUserLoggedIn = ref(false);
 onBeforeMount(() => {
-  // Check if user is logged in
-  const user = localStorage.getItem('user');
-  if (user) {
-    isUserLoggedIn.value = true;
-  }
+    // Check if user is logged in
+    const user = localStorage.getItem('user');
+    if (user) {
+        isUserLoggedIn.value = true;
+    }
 });
 const $q = useQuasar()
 const showDemo = ref(false)

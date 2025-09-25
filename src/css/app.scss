@@ -116,3 +116,7 @@
   background: linear-gradient(to left, #0e131ce1, #08111ed3);
   backdrop-filter: blur(8px);
 }
+
+.w100 { width: 100%; }
+.h100 { height: 100%; }
+.of-contain { object-fit: contain; }

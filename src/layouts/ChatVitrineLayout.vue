@@ -1,22 +1,22 @@
 <template>
     <q-layout view="hhh lpR fFf">
         <q-drawer v-model="showEstoqueDrawer" side="right" bordered>
-            <q-toolbar class="header text-white">
+            <q-toolbar class="bg-blue-grad-2 text-white">
                 <q-toolbar-title>Estoque</q-toolbar-title>
                 <q-btn flat round icon="close" @click="showEstoqueDrawer = false" />
             </q-toolbar>
-            <div class="header w100 column q-pb-md items-center justify-between q-px-md">
+            <div class="bg-blue-grad-2 w100 column q-pb-md items-center justify-between q-px-md">
                 <div class="text-h6 text-white q-pt-sm ">{{ sobreLoja?.nome }}</div>
                 <div class="text-h6 text-white q-pt-sm "><q-btn class="q-px-sm" label="contato"
                         icon-right="contact_support" color="" @click="openInfoLoja()" style="border:2px solid white"
                         dense flat></q-btn></div>
 
             </div>
-            <q-input v-model="filtroEstoque" color="secondary" @update:model-value="filtrarMenuEstoque()" outlined
+            <q-input v-model="filtroEstoque" color="teal" @update:model-value="filtrarMenuEstoque()" outlined
                 label="Filtrar estoque..." dense debounce="300" class="q-pa-sm relative">
                 <template v-slot:append>
                     <q-btn icon='search' name="search" @click="filtrarMenuEstoque()"
-                        class="cursor-pointer absolute-right" color="secondary" />
+                        class="cursor-pointer absolute-right" color="teal" />
                 </template>
             </q-input>
             <q-separator />
@@ -45,46 +45,46 @@
         <q-page-container class="bg-blue-grad" v-if="!loading">
             <q-page class="q-pa-none bg-grey-4 column full-height relative">
                 <!-- Vitrine fixa -->
-                <div class="bg-blue-grad sticky-top" style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
-                        <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length" id="vitrine"
-                            v-model="carrosselIndex"  class="bg-blue-grad sticky text-white" autoplay
-                            swipeable interval="12000">
-                            <template v-slot:control>
-                                <div class="absolute-left q-pa-xs" style="top:45%">
-                                    <q-btn icon="chevron_left" color="white" unelevated round dense size="lg"
-                                        class="bg-black mid" style="opacity:.85"
-                                        @click="carrosselIndex = (carrosselIndex - 1 + carrossel.length) % carrossel.length" />
-                                </div>
-                                <div class="absolute-right q-pa-xs" style="top:45%">
-                                    <q-btn icon="chevron_right" color="white" unelevated round dense size="lg"
-                                        class="bg-black mid" style="opacity:.85"
-                                        @click="carrosselIndex = (carrosselIndex + 1) % carrossel.length" />
-                                </div>
-                            </template>
+                <div class="bg-blue-grad sticky-top"
+                    style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px">
+                    <q-carousel style="border-radius: 24px!important" navigation v-if="carrossel.length" id="vitrine"
+                        v-model="carrosselIndex" class="bg-blue-grad sticky text-white" autoplay swipeable
+                        interval="10000">
+                        <template v-slot:control>
+                            <div class="absolute-left q-pa-xs" style="top:45%">
+                                <q-btn icon="chevron_left" color="white" unelevated round dense size="lg"
+                                    class="bg-black mid" style="opacity:.85"
+                                    @click="carrosselIndex = (carrosselIndex - 1 + carrossel.length) % carrossel.length" />
+                            </div>
+                            <div class="absolute-right q-pa-xs" style="top:45%">
+                                <q-btn icon="chevron_right" color="white" unelevated round dense size="lg"
+                                    class="bg-black mid" style="opacity:.85"
+                                    @click="carrosselIndex = (carrosselIndex + 1) % carrossel.length" />
+                            </div>
+                        </template>
 
-                            <q-carousel-slide v-for="(carro, i) in carrossel" :name="i" :key="i"
-                                class="relative-position">
-                                <q-img @click="abrirDialog(carro)" :src="carro.img_url" :alt="carro.modelo"
-                                    class="fit relative rounded-borders" style="object-fit: cover;">
-                                    <div class="absolute-bottom text-white shadow-2">
-                                        <div style="background: #070707a2; backdrop-filter: blur(4px);"
-                                            class=" text-center text-subtitle1 text-weight-bold">{{
-                                                carro.modelo
-                                            }}</div>
-                                        <div style="background: #070707a2; backdrop-filter: blur(4px);"
-                                            class="text-center text-caption">{{ carro.categoria.label }}
-                                            - {{
-                                                carro.ano }}</div>
-                                    </div>
-                                </q-img>
-                                <q-btn icon-right="store" dense
-                                    class="text-white bg-blue-grad-2 q-mx-md q-mt-md absolute-top" label="estoque"
-                                    @click="toggleEstoqueDrawer()" style="width: 40%;z-index: 99999999999!important;" />
-                                <q-btn icon-right="search" dense class="header-2 q-mx-md q-mt-md absolute-top-right"
-                                    label="Detalhes" @click="abrirDialog(carro)"
-                                    style="width: 40%;z-index: 99999999999!important;" />
-                            </q-carousel-slide>
-                        </q-carousel>
+                        <q-carousel-slide v-for="(carro, i) in carrossel" :name="i" :key="i" class="relative-position">
+                            <q-img @click="abrirDialog(carro)" :src="carro.img_url" :alt="carro.modelo"
+                                class="fit relative rounded-borders" style="object-fit: cover;">
+                                <div class="absolute-bottom text-white shadow-2">
+                                    <div style="background: #070707a2; backdrop-filter: blur(4px);"
+                                        class=" text-center text-subtitle1 text-weight-bold">{{
+                                            carro.modelo
+                                        }}</div>
+                                    <div style="background: #070707a2; backdrop-filter: blur(4px);"
+                                        class="text-center text-caption">{{ carro.categoria.label }}
+                                        - {{
+                                            carro.ano }}</div>
+                                </div>
+                            </q-img>
+                            <q-btn icon-right="store" dense
+                                class="text-white bg-blue-grad-2 q-mx-md q-mt-md absolute-top" label="estoque"
+                                @click="toggleEstoqueDrawer()" style="width: 40%;z-index: 99999999999!important;" />
+                            <q-btn icon-right="search" dense class="header-2 q-mx-md q-mt-md absolute-top-right"
+                                label="Detalhes" @click="abrirDialog(carro)"
+                                style="width: 40%;z-index: 99999999999!important;" />
+                        </q-carousel-slide>
+                    </q-carousel>
 
                     <!-- Dialog com informações da loja -->
                     <q-dialog v-model="infoLojaVisible">
@@ -135,44 +135,50 @@
                     </q-dialog>
                     <!-- Dialog de detalhes -->
                     <q-dialog v-model="dialogAberto">
-                        <q-card class="q-pa-none" style="width: 100%; max-width: 500px;">
+                        <q-card class="q-pa-none " style="width: 100%; max-width: 500px;">
 
                             <!-- Conteúdo com scroll -->
                             <div style="max-height: 95vh; overflow-y: auto;" class="">
                                 <q-card-section class="relative">
-                                    <div class="text-center text-white bg-teal rounded-borders shadow-1 q-mb-sm text-bold"
+                                    <div class="text-center text-white bg-blue-grad-2 rounded-borders shadow-1 q-mb-sm text-bold"
                                         style="font-size:1.2rem">
                                         {{ carroSelecionado.modelo }}
                                     </div>
-
-                                    <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length"
-                                        swipeable animated class="rounded-borders q-mb-md bg-grey-2" navigation arrows
-                                        infinite>
-                                        <q-carousel-slide class="bg-dark"
-                                            v-for="(img, index) in imagensVeiculoSelecionado" :key="index"
-                                            :name="index">
-                                            <q-img :src="img" fit="contain" class="rounded-borders w100 cursor-pointer"
-                                                style="border-bottom: 4px solid teal; border-top: 4px solid teal; height: 100%;"
-                                                @click="abrirZoom(img)" />
-                                        </q-carousel-slide>
-                                    </q-carousel>
-                                    <div v-if="carroSelecionado.preco" class="text-body2 text-bold text-teal"
-                                        style="font-size: 1.2rem;">
+                                    <div v-if="carroSelecionado.preco"
+                                        class="text-body2 q-py-sm text-shadow text-bold text-teal"
+                                        style="font-size: 1.3rem;">
                                         R$ {{ carroSelecionado?.preco }}
                                     </div>
                                     <div class="text-caption q-mb-sm">
-                                        <strong class="text-orange-14">{{ carroSelecionado?.ano }}</strong> -
-                                        <strong class="text-red-14">{{ carroSelecionado.categoria?.label.toUpperCase()
-                                        }}</strong>
+                                        <strong class="text-teal">{{ carroSelecionado?.ano }}</strong> -
+                                        <strong class="text-teal">{{ carroSelecionado.categoria?.label.toUpperCase()
+                                            }}</strong>
                                         -
-                                        <strong class="text-dark">{{ carroSelecionado?.cor.toUpperCase() }}</strong> -
-                                        <strong class="text-blue-14">{{ carroSelecionado?.km }} km</strong>
+                                        <strong class="text-teal">{{ carroSelecionado?.cor.toUpperCase() }}</strong> -
+                                        <strong class="text-teal">{{ carroSelecionado?.km }} km</strong>
                                     </div>
 
                                     <q-separator class="q-my-xs" />
 
                                     <div v-if="carroSelecionado.descricao" class="text-body2">
                                         {{ carroSelecionado?.descricao }}
+                                    </div>
+
+                                    <q-carousel v-model="slideAtivoDetalhes" v-if="imagensVeiculoSelecionado.length"
+                                        swipeable animated navigation arrows infinite
+                                        class="rounded-borders q-my-md bg-blue-grad car-hero"
+                                        :height="$q.screen.lt.sm ? '50vh' : '480px'" control-type="flat"
+                                        navigation-position="bottom">
+
+                                        <q-carousel-slide v-for="(img, index) in imagensVeiculoSelecionado" :key="index"
+                                            :name="index" class="flex flex-center rounded-borders">
+                                            <!-- Use <img> pra controle total de tamanho -->
+                                            <img :src="img" class="car-hero-img rounded-borders" @click="abrirZoom(img)"
+                                                alt="" />
+                                        </q-carousel-slide>
+                                    </q-carousel>
+                                    <div class="w100 text-center text-shadow q-mt-sm " style="opacity: .8;">
+                                        Clique na imagem para ampliar 🔎
                                     </div>
                                 </q-card-section>
                             </div>
@@ -181,8 +187,9 @@
                             <q-card-actions align="right" class="q-pa-sm bg-grey-2 row no-wrap"
                                 style="position: sticky; bottom: 0; z-index: 1;">
                                 <q-btn label="voltar" @click="dialogAberto = !dialogAberto" flat></q-btn>
-                                <q-btn label="Contato" icon-right="sms" @click="sendWppMessage(carroSelecionado.modelo)"
-                                    color="teal" />
+                                <q-btn label="Contato WhatsApp" icon-right="sms"
+                                    @click="sendWppMessage(carroSelecionado.modelo)"
+                                    class="bg-blue-grad-2 text-white" />
                             </q-card-actions>
                         </q-card>
                     </q-dialog>
@@ -192,15 +199,15 @@
                 <q-dialog v-model="dialogZoom" persistent>
                     <div style="height:100vh" class="column w100 relative">
                         <q-img :src="zoomImagemUrl" fit="contain" class="rounded-borders"
-                            style="height: 100%; width: 100%; border-bottom: 2px solid teal" />
+                            style="height: 100%; width: 100%;" />
 
                         <!-- Botão para voltar -->
-                        <q-btn icon="chevron_left" dense @click="imagemAnteriorZoom"
-                            class="text-teal-14 absolute-left" style="top: 0%; background: rgba(0,0,0,0.4);" />
+                        <q-btn icon="chevron_left" dense @click="imagemAnteriorZoom" class="text-teal-14 absolute-left"
+                            style="top: 0%; background: rgba(0,0,0,0.4);" />
 
                         <!-- Botão para avançar -->
-                        <q-btn icon="chevron_right" dense @click="proximaImagemZoom"
-                            class="text-teal-14 absolute-right" style="top: 0%; background: rgba(0,0,0,0.4);" />
+                        <q-btn icon="chevron_right" dense @click="proximaImagemZoom" class="text-teal-14 absolute-right"
+                            style="top: 0%; background: rgba(0,0,0,0.4);" />
 
                         <q-btn label="Fechar" color="teal" flat @click="fecharZoom"
                             class="absolute-bottom q-mx-sm q-mb-md" />
@@ -213,8 +220,8 @@
                     <div ref="mensagensContainer" class="col scroll q-pa-md q-gutter-sm" style="overflow-y: auto;">
                         <q-chat-message v-for="(msg, index) in messages" :key="index" :sent="msg.from === 'user'"
                             class="animate__animated animate__zoomIn" :text="[msg.text]"
-                            :name="msg.from === 'user' ? 'Você' : sobreLoja.login"
-                            :bg-color="msg.from === 'user' ? 'green-11' : 'grey-3'" style="font-size:.9rem">
+                            :name="msg.from === 'user' ? ((leadNome == null || leadNome.trim() == '') ? 'Você' : leadNome) : sobreLoja.login"
+                            :bg-color="msg.from === 'user' ? 'teal-2' : 'grey-3'" style="font-size:.9rem">
                             <!-- Só mostra avatar se NÃO for o usuário -->
                             <template v-if="msg.from !== 'user'" v-slot:avatar>
                                 <q-avatar size="40px" class="q-mr-sm">
@@ -230,7 +237,7 @@
                 <!-- Input fixo no final -->
                 <div class="q-pa-sm bg-blue-grad row items-center"
                     style="flex-shrink: 0; z-index: 9; position: sticky; bottom: 0; left: 0; width: 100%;">
-                    <q-input outlined v-model="input" label="Digite sua mensagem" maxlength="100" color="teal"
+                    <q-input outlined v-model="input" label="Digite sua mensagem" maxlength="100" color="grey-8"
                         class="bg-grey-4 rounded-borders col" @keyup.enter="sendMessage" />
                     <q-btn v-if="!loadingIA" icon="send" class="q-ml-sm shadow-1 header-2 text-white"
                         @click="sendMessage" />
@@ -370,9 +377,9 @@ async function carregarEstoque() {
     try {
         if (route.params.login === 'jatoveiculos') {
             $q.notify({
-                color: 'teal',
                 icon: 'directions_car',
                 position: 'top',
+                class: 'bg-blue-grad-2 text-white',
                 message: 'Esse é o nosso estoque de testes! É assim que seus clientes serão atendidos 24 horas!'
             });
         }
@@ -426,7 +433,7 @@ function sendWppMessage(modelo) {
     // Extrai apenas os números do telefone
     const numero = carroSelecionado.value.directLink ? carroSelecionado.value.directLink : sobreLoja.value.contato
     const numeroFormatado = numero.replace(/\D/g, '');
-    const text = `Olá! Meu nome é ${leadNome.value}! Vi que você tem esse veículo disponível:  ${modelo}. Poderia me passar mais informações?`;
+    const text = `Olá! ` + ((leadNome.value == null || leadNome.value == '') ? '' : `Meu nome é ${leadNome.value}!`) + ` Vi que você tem esse veículo disponível:  ${modelo}. Poderia me passar mais informações?`;
     const mensagem = encodeURIComponent(text);
     const link = `https://wa.me/${numeroFormatado}?text=${mensagem}`;
     window.open(link, '_blank');
@@ -441,11 +448,6 @@ function sendWppMessageAction(text) {
 }
 
 function selecionarCarro(carro) {
-
-    const indexExistente = carrossel.value.findIndex(c => c.id === carro.id)
-    if (indexExistente !== -1) {
-        carrossel.value.splice(indexExistente, 1) // remove se já existe
-    }
     carrossel.value.splice(0, 0, carro) // insere na posição 1
 
     carrosselIndex.value = 0
@@ -453,13 +455,14 @@ function selecionarCarro(carro) {
         from: 'bot',
         text: 'Aqui está: ' + carro.modelo + (carro.preco ? ' - R$ ' + carro.preco : '.')
     })
-    playNotification()
+    playPopSound()
+    showEstoqueDrawer.value = false
+    setTimeout(() => {
+        abrirDialog(carro)
+    }, 900)
     nextTick(() => {
         window.scrollTo(0, document.body.scrollHeight)
     })
-
-    showEstoqueDrawer.value = false
-    selecionarCarro(carro)
 }
 
 const estoque = ref([])
@@ -499,8 +502,7 @@ onBeforeMount(async () => {
     }
 
     const mensagensIniciais = [
-        `👋 Olá, ${getSaudacao()}! Estou aqui para te ajudar a encontrar o veículo ideal!`,
-        `Aqui estão algumas de nossas opções!✨ Clique no botão "ESTOQUE" para ver todos os veículos ou em "DETALHES" para mais imagens.`,
+        `Olá, ${getSaudacao()} 👋 ! Estou aqui para te ajudar a encontrar o veículo ideal! Acima estão algumas sugestões no nosso estoque.`,
         `Qual veículo você está buscando? SUV, Sedan, Camionetes? Ou tem algum modelo específico em mente?`,
     ];
 
@@ -520,7 +522,7 @@ onBeforeMount(async () => {
         scrollToBottom();
 
         loadingIA.value = true;
-        if(i == mensagensIniciais.length -1) break; // não espera após a última mensagem
+        if (i == mensagensIniciais.length - 1) break; // não espera após a última mensagem
         delayCount += 600;
         await delay(delayCount);
     }
@@ -538,7 +540,7 @@ function toggleEstoqueDrawer() {
 }
 
 async function sendMessage() {
-    
+
     const texto = input.value.trim();
     if (!texto) return;
     // Adiciona mensagem do usuário
@@ -581,32 +583,32 @@ async function sendMessage() {
             scrollToBottom();
             delayCount += 600
         }
-        if(chatvitrine.actions && chatvitrine.actions.type && chatvitrine.actions.type !== 'null') {
-            if(chatvitrine.actions.type === 'test_drive') {
+        if (chatvitrine.actions && chatvitrine.actions.type && chatvitrine.actions.type !== 'null') {
+            if (chatvitrine.actions.type === 'test_drive') {
                 await delay(1200);
                 messages.value.push({
                     from: 'bot',
-                    text: 'Você será redirecionado para o WhatsApp de um dos nosso vendedores! Ele irá te ajudar a agendar o seu test-drive.'
+                    text: 'Você será redirecionado(a) para o WhatsApp de um dos nosso vendedores! Ele irá te ajudar a agendar o seu test-drive.'
                 });
                 playMagicalSound()
                 await nextTick();
                 scrollToBottom();
-                setTimeout(() =>{
+                setTimeout(() => {
                     sendWppMessageAction(chatvitrine.actions.text)
                 }, 500)
-            } else if(chatvitrine.actions.type === 'simulacao') {
+            } else if (chatvitrine.actions.type === 'simulacao') {
                 await delay(1200);
                 messages.value.push({
                     from: 'bot',
-                    text: `Você será redirecionado para o WhatsApp de um dos nosso vendedores! Ele irá esclarecer suas dúvidas sobre financiamento e te ajudar com a simulação.`
+                    text: `Você será redirecionado(a) para o WhatsApp de um dos nosso vendedores! Ele irá esclarecer suas dúvidas sobre financiamento e te ajudar com a simulação.`
                 });
                 playMagicalSound()
                 await nextTick();
                 scrollToBottom();
-                setTimeout(() =>{
+                setTimeout(() => {
                     sendWppMessageAction(chatvitrine.actions.text)
                 }, 500)
-            } else if(chatvitrine.actions.type === 'localizacao' || chatvitrine.actions.type === 'contato') {
+            } else if (chatvitrine.actions.type === 'localizacao' || chatvitrine.actions.type === 'contato') {
                 await delay(1200);
                 messages.value.push({
                     from: 'bot',
@@ -616,7 +618,7 @@ async function sendMessage() {
                 await nextTick();
                 scrollToBottom();
                 infoLojaVisible.value = true
-            } else if(chatvitrine.actions.type === 'whatsapp') {
+            } else if (chatvitrine.actions.type === 'whatsapp') {
                 await delay(1200);
                 messages.value.push({
                     from: 'bot',
@@ -625,15 +627,20 @@ async function sendMessage() {
                 playMagicalSound()
                 await nextTick();
                 scrollToBottom();
-                setTimeout(() =>{
+                setTimeout(() => {
                     sendWppMessageAction(chatvitrine.actions.text)
                 }, 500)
-            }else if(chatvitrine.actions.type === 'menu_estoque') {
+            } else if (chatvitrine.actions.type === 'menu_estoque') {
+                messages.value.push({
+                    from: 'bot',
+                    text: chatvitrine.actions.text
+                });
                 await nextTick();
                 scrollToBottom();
-                showEstoqueDrawer.value = true;
                 playPopSound()
-            }            
+                await delay(1500);
+                showEstoqueDrawer.value = true;
+            }
         }
     } catch (error) {
         console.error('Erro no chat vitrine:', error);
@@ -708,7 +715,7 @@ async function atualizarLead() {
         const respostasIA = messages.value
             .filter(msg => msg.from === 'bot') // pega apenas quem é 'bot'
             .map(msg => msg.text);
-        
+
         await api.put(`/atualizar-lead/${leadId.value}`, {
             cliente: usuario.value,
             respostasCliente: {
@@ -725,33 +732,33 @@ async function atualizarLead() {
 
 watch(interacoes, async (val) => {
     if (val == 10) {
-            $q.dialog({
-                title: 'Fale Conosco!',
-                message: 'Você interagiu bastante com nosso estoque! Que tal falar diretamente com um de nossos consultores?',
-                ok: {
-                    label: 'Falar com consultor',
-                    color: 'teal'
-                },
-                cancel: {
-                    label: 'voltar',
-                    color: 'dark'
-                },
-                persistent: true
-            }).onOk(() => {
-                sendWppMessage('Olá! Vi seu estoque de veículos e gostaria de mais informações.')
-            })
-    } else if (val > 30) {
-               $q.dialog({
-                title: 'Fale Conosco!',
-                message: 'Você interagiu bastante com nosso estoque! Que tal falar diretamente com um de nossos consultores?',
-                ok: {
-                    label: 'Falar com consultor',
-                    color: 'teal'
-                },
-                persistent: true
-            }).onOk(() => {
-                sendWppMessage( (leadNome.value ? leadNome.value + ": " : null) + 'Olá! Vi seu estoque de veículos e gostaria de mais informações.')
-            })
+        $q.dialog({
+            title: 'Fale Conosco!',
+            message: 'Você interagiu bastante com nosso estoque! Que tal falar diretamente com um de nossos consultores?',
+            ok: {
+                label: 'Falar com consultor',
+                color: 'teal'
+            },
+            cancel: {
+                label: 'voltar',
+                color: 'dark'
+            },
+            persistent: true
+        }).onOk(() => {
+            sendWppMessage((leadNome.value ? leadNome.value + ": " : null) + 'Olá! Vi seu estoque de veículos e gostaria de mais informações.')
+        })
+    } else if (val > 20) {
+        $q.dialog({
+            title: 'Fale Conosco!',
+            message: 'Você interagiu bastante com nosso estoque! Que tal falar diretamente com um de nossos consultores?',
+            ok: {
+                label: 'Falar com consultor',
+                color: 'teal'
+            },
+            persistent: true
+        }).onOk(() => {
+            sendWppMessage((leadNome.value ? leadNome.value + ": " : null) + 'Olá! Vi seu estoque de veículos e gostaria de mais informações.')
+        })
     }
 });
 
@@ -783,7 +790,9 @@ watch(interacoes, async (val) => {
     .q-page-container {
         padding: 0 250px 0 250px;
     }
-    .sticky-top , #vitrine{
+
+    .sticky-top,
+    #vitrine {
         height: 60vh;
     }
 }
@@ -798,4 +807,17 @@ watch(interacoes, async (val) => {
     scroll-behavior: smooth;
 }
 
+.car-hero {
+    /* container do carousel */
+    max-height: 560px;
+    /* limite opcional pra desktop */
+}
+
+.car-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* não corta a foto */
+    display: block;
+}
 </style>
